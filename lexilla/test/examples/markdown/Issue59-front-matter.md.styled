@@ -1,0 +1,17 @@
+{22}---
+{24}title{23}: My Article Title
+{24}date{23}: 2024-01-15
+{24}author{23}: John Doe
+{24}tags{23}: [markdown, tutorial, web]
+{22}---
+{1}
+{6}#{0} My Document{1}
+
+{0}This is an example of {2}**bold text**{0} and {4}*italic text*{0}.{1}
+
+{7}##{0} Markdown List Example{1}
+
+{8}###{0} Shopping List{1}
+{13}-{0} Apple{1}
+{13}-{0} Banana{1}
+{13}-{0} Orange{1}

@@ -1,0 +1,204 @@
+ 2 400 401 + # Enumerate all valid styles: 0-7 10-15 17-18 20-31 40-44 54-55 57 61-62 64-66 
+ 0 401 400 | # Holes at 8-9,16,19,32-39,45-53,56,58-60,63
+ 1 400 400   
+ 2 400 401 + # 2=SCE_PL_COMMENTLINE comment
+ 0 401 400 | # comment=2
+ 1 400 400   
+ 2 400 401 + # 0=SCE_PL_DEFAULT white space
+ 0 401 400 | 	# w
+ 1 400 400   
+ 0 400 400   # 1=SCE_PL_ERROR error
+ 0 400 400   019
+ 0 400 400   # Bad digit in octal number
+ 1 400 400   
+ 0 400 400   # 3=SCE_PL_POD pod: = at beginning of line
+ 2 400 401 + =pod start
+ 0 401 400 | =cut
+ 1 400 400   
+ 0 400 400   # 4=SCE_PL_NUMBER number
+ 0 400 400   67.89
+ 1 400 400   
+ 0 400 400   # 5=SCE_PL_WORD keyword
+ 0 400 400   wait
+ 1 400 400   
+ 0 400 400   # 6=SCE_PL_STRING double quoted string
+ 0 400 400   "String double quoted"
+ 1 400 400   
+ 0 400 400   # 7=SCE_PL_CHARACTER single quoted string
+ 0 400 400   'String single quoted'
+ 1 400 400   
+ 2 400 401 + # 8=SCE_PL_PUNCTUATION symbols / punctuation. currently not used
+ 0 401 400 | # Not present
+ 1 400 400   
+ 2 400 401 + # 9=SCE_PL_PREPROCESSOR preprocessor. currently not used
+ 0 401 400 | # Not present
+ 1 400 400   
+ 0 400 400   # 10=SCE_PL_OPERATOR operators
+ 0 400 400   a = 1
+ 0 400 400   + 4;
+ 1 400 400   
+ 0 400 400   # 11=SCE_PL_IDENTIFIER identifiers (functions, etc.)
+ 0 400 400   identifier
+ 1 400 400   
+ 0 400 400   # 12=SCE_PL_SCALAR scalars: $var
+ 0 400 400   $scalar
+ 1 400 400   
+ 0 400 400   # 13=SCE_PL_ARRAY array: @var
+ 0 400 400   @array;
+ 1 400 400   
+ 0 400 400   # 14=SCE_PL_HASH hash: %var
+ 0 400 400   %hash;
+ 1 400 400   
+ 0 400 400   # 15=SCE_PL_SYMBOLTABLE symbol table: *var
+ 0 400 400   *symboltable
+ 1 400 400   
+ 0 400 400   # 16=SCE_PL_VARIABLE_INDEXER sce_pl_variable_indexer allocated but unused
+ 1 400 400   
+ 0 400 400   # 17=SCE_PL_REGEX regex: /re/ or m{re}
+ 0 400 400   m{re}
+ 1 400 400   
+ 0 400 400   # 18=SCE_PL_REGSUBST substitution: s/re/ore/
+ 0 400 400   s/re/ore/
+ 1 400 400   
+ 0 400 400   # 19=SCE_PL_LONGQUOTE obsolete: replaced by qq, qx, qr, qw
+ 1 400 400   
+ 0 400 400   # 20=SCE_PL_BACKTICKS back ticks
+ 0 400 400   `interpolated string`
+ 1 400 400   
+ 0 400 400   # 21 is at file end as __DATA__ affects everything after
+ 1 400 400   
+ 0 400 400   # 22=SCE_PL_HERE_DELIM here-doc (delimiter)
+ 0 400 400   <<
+ 1 400 400   
+ 0 400 400   # 23=SCE_PL_HERE_Q here-doc (single quoted, q)
+ 2 400 401 + <<'EOF'
+ 0 401 401 | a
+ 0 401 400 | EOF
+ 1 400 400   
+ 0 400 400   # 24=SCE_PL_HERE_QQ here-doc (double quoted, qq)
+ 2 400 401 + <<"EOF"
+ 0 401 401 | a
+ 0 401 400 | EOF
+ 1 400 400   
+ 0 400 400   # 25=SCE_PL_HERE_QX here-doc (back ticks, qx)
+ 2 400 401 + <<`EOF`
+ 0 401 401 | a
+ 0 401 400 | EOF
+ 1 400 400   
+ 0 400 400   # 26=SCE_PL_STRING_Q single quoted string, generic
+ 0 400 400   q(a)
+ 1 400 400   
+ 0 400 400   # 27=SCE_PL_STRING_QQ qq = double quoted string
+ 0 400 400   qq(abc)
+ 1 400 400   
+ 0 400 400   # 28=SCE_PL_STRING_QX qx = back ticks
+ 0 400 400   qx(abc)
+ 1 400 400   
+ 0 400 400   # 29=SCE_PL_STRING_QR qr = regex
+ 0 400 400   qr(a)
+ 1 400 400   
+ 0 400 400   # 30=SCE_PL_STRING_QW qw = array
+ 0 400 400   qw(a b c)
+ 1 400 400   
+ 0 400 400   # 31=SCE_PL_POD_VERB pod: verbatim paragraphs
+ 2 400 401 + =pod
+ 1 401 401 | 
+ 0 401 401 |   Verbatim
+ 0 401 401 |   explanation of verbatims.
+ 1 401 401 | 
+ 0 401 400 | =cut
+ 1 400 400   
+ 2 400 401 + # 32 predefined
+ 0 401 401 | # 33 predefined
+ 0 401 401 | # 34 predefined
+ 0 401 401 | # 35 predefined
+ 0 401 401 | # 36 predefined
+ 0 401 401 | # 37 predefined
+ 0 401 401 | # 38 predefined
+ 0 401 400 | # 39 predefined
+ 1 400 400   
+ 0 400 400   # 40=SCE_PL_SUB_PROTOTYPE subroutine prototype
+ 0 400 400   sub f($)
+ 0 400 400   { 1; }
+ 1 400 400   
+ 0 400 400   # 41=SCE_PL_FORMAT_IDENT format identifier
+ 0 400 400   format IDENT =
+ 0 400 400   .
+ 1 400 400   
+ 0 400 400   # 42=SCE_PL_FORMAT format body
+ 0 400 400   format DATA = 
+ 0 400 400   @<<<<<<<<<<<<<<<@<<<<<<<<<<<<<<<@<<<<<<<<<<<<<<<@<<<<<<<<<<<<<<<
+ 0 400 400   $First_Name[$k] $Last_Name[$k]  $ID[$k]         $Phone_Number[$k]
+ 1 400 400    
+ 0 400 400   .
+ 1 400 400   
+ 0 400 400   # 43=SCE_PL_STRING_VAR double quoted string (interpolated variable)
+ 0 400 400   "
+ 0 400 400   $var
+ 0 400 400   "
+ 1 400 400   
+ 0 400 400   # 44=SCE_PL_XLAT translation: tr{}{} y{}{}
+ 0 400 400   tr{}{}
+ 1 400 400   
+ 2 400 401 + # 45 unused
+ 0 401 401 | # 46 unused
+ 0 401 401 | # 47 unused
+ 0 401 401 | # 48 unused
+ 0 401 401 | # 49 unused
+ 0 401 401 | # 50 unused
+ 0 401 401 | # 51 unused
+ 0 401 401 | # 52 unused
+ 0 401 400 | # 53 unused
+ 1 400 400   
+ 0 400 400   # 54=SCE_PL_REGEX_VAR regex: /re/ or m{re} (interpolated variable)
+ 0 400 400   m{re
+ 0 400 400   $var
+ 0 400 400   }
+ 1 400 400   
+ 0 400 400   # 55=SCE_PL_REGSUBST_VAR substitution: s/re/ore/ (interpolated variable)
+ 0 400 400   s/re/
+ 0 400 400   $var
+ 0 400 400   /
+ 1 400 400   
+ 0 400 400   # 56 unused
+ 1 400 400   
+ 0 400 400   # 57=SCE_PL_BACKTICKS_VAR back ticks (interpolated variable)
+ 0 400 400   `
+ 0 400 400   $var
+ 0 400 400   `
+ 1 400 400   
+ 2 400 401 + # 58 unused
+ 0 401 401 | # 59 unused
+ 0 401 400 | # 60 unused
+ 1 400 400   
+ 0 400 400   # 61=SCE_PL_HERE_QQ_VAR here-doc (double quoted, qq) (interpolated variable)
+ 2 400 401 + a = <<"EOF"
+ 0 401 401 | $var
+ 0 401 400 | EOF
+ 1 400 400   
+ 0 400 400   # 62=SCE_PL_HERE_QX_VAR here-doc (back ticks, qx) (interpolated variable)
+ 2 400 401 + <<`EOF`
+ 0 401 401 | $var
+ 0 401 400 | EOF
+ 1 400 400   
+ 0 400 400   # 63 unused
+ 1 400 400   
+ 0 400 400   # 64=SCE_PL_STRING_QQ_VAR qq = double quoted string (interpolated variable)
+ 0 400 400   qq(
+ 0 400 400   $var
+ 0 400 400   )
+ 1 400 400   
+ 0 400 400   # 65=SCE_PL_STRING_QX_VAR qx = back ticks (interpolated variable)
+ 0 400 400   qx(
+ 0 400 400   $var
+ 0 400 400   )
+ 1 400 400   
+ 0 400 400   # 66=SCE_PL_STRING_QR_VAR qr = regex (interpolated variable)
+ 0 400 400   qr(
+ 0 400 400   $var
+ 0 400 400   )
+ 1 400 400   
+ 0 400 400   # 21=SCE_PL_DATASECTION data section: __data__ or __end__ at beginning of line
+ 0 400 400   __DATA__
+ 0 400 400   Data Section
+ 0 400   0   

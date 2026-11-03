@@ -111,7 +111,7 @@ static int classifyWordCmake(Sci_PositionU start, Sci_PositionU end, WordList *k
     WordList &Parameters = *keywordLists[1];
     WordList &UserDefined = *keywordLists[2];
 
-    for (Sci_PositionU i = 0; i < end - start + 1 && i < 99; i++) {
+    for (Sci_PositionU i = 0; start + i <= end && i < 99; i++) {
         word[i] = static_cast<char>( styler[ start + i ] );
         lowercaseWord[i] = static_cast<char>(tolower(word[i]));
     }
@@ -150,7 +150,7 @@ static int classifyWordCmake(Sci_PositionU start, Sci_PositionU end, WordList *k
     // To check for numbers
     if ( isCmakeNumber( word[0] ) ) {
         bool bHasSimpleCmakeNumber = true;
-        for (unsigned int j = 1; j < end - start + 1 && j < 99; j++) {
+        for (unsigned int j = 1; start + j <= end && j < 99; j++) {
             if ( !isCmakeNumber( word[j] ) ) {
                 bHasSimpleCmakeNumber = false;
                 break;

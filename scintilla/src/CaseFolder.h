@@ -24,7 +24,8 @@ public:
 
 class CaseFolderTable : public CaseFolder {
 protected:
-	char mapping[256];
+	static constexpr size_t byteValues = 0x100;
+	char mapping[byteValues]{};
 public:
 	CaseFolderTable() noexcept;
 	size_t Fold(char *folded, size_t sizeFolded, const char *mixed, size_t lenMixed) override;

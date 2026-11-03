@@ -13,7 +13,7 @@ TEMPLATE = lib
 CONFIG += lib_bundle
 CONFIG += c++1z
 
-VERSION = 5.6.7
+VERSION = 5.6.8
 
 SOURCES += \
     PlatQt.cpp \

@@ -56,21 +56,21 @@ size_t MeasureLength(const char *s) noexcept {
 }
 
 unsigned int ValueOfHex(const char ch) noexcept {
+	constexpr unsigned int decimal = 10;
 	if (ch >= '0' && ch <= '9')
 		return ch - '0';
-	else if (ch >= 'A' && ch <= 'F')
-		return ch - 'A' + 10;
-	else if (ch >= 'a' && ch <= 'f')
-		return ch - 'a' + 10;
-	else
-		return 0;
+	if (ch >= 'A' && ch <= 'F')
+		return ch - 'A' + decimal;
+	if (ch >= 'a' && ch <= 'f')
+		return ch - 'a' + decimal;
+	return 0;
 }
 
 ColourRGBA ColourFromHex(const char *val) noexcept {
-	const unsigned int r = ValueOfHex(val[0]) * 16 + ValueOfHex(val[1]);
-	const unsigned int g = ValueOfHex(val[2]) * 16 + ValueOfHex(val[3]);
-	const unsigned int b = ValueOfHex(val[4]) * 16 + ValueOfHex(val[5]);
-	return ColourRGBA(r, g, b);
+	const unsigned int r = ValueOfHex((val[0]) * 16) + ValueOfHex(val[1]);
+	const unsigned int g = ValueOfHex((val[2]) * 16) + ValueOfHex(val[3]);
+	const unsigned int b = ValueOfHex((val[4]) * 16) + ValueOfHex(val[5]);
+	return {r, g, b};
 }
 
 }
@@ -98,7 +98,8 @@ XPM::XPM(const char *const *linesForm) {
 void XPM::Init(const char *textForm) {
 	// Test done is two parts to avoid possibility of overstepping the memory
 	// if memcmp implemented strangely. Must be 4 bytes at least at destination.
-	if ((0 == memcmp(textForm, "/* X", 4)) && (0 == memcmp(textForm, "/* XPM */", 9))) {
+	constexpr size_t lengthXPMMarker = 9;
+	if ((0 == memcmp(textForm, "/* X", 4)) && (0 == memcmp(textForm, "/* XPM */", lengthXPMMarker))) {
 		// Build the lines form out of the text form
 		std::vector<const char *> linesForm = LinesFormFromTextForm(textForm);
 		if (!linesForm.empty()) {
@@ -150,7 +151,7 @@ void XPM::Init(const char *const *linesForm) {
 		const char *lform = linesForm[y+nColours+1];
 		const size_t len = MeasureLength(lform);
 		for (size_t x = 0; x<len; x++)
-			pixels[y * width + x] = lform[x];
+			pixels[(y * width) + x] = lform[x];
 	}
 }
 
@@ -159,13 +160,13 @@ void XPM::Draw(Surface *surface, const PRectangle &rc) {
 		return;
 	}
 	// Centre the pixmap
-	const int startY = static_cast<int>(rc.top + (rc.Height() - height) / 2);
-	const int startX = static_cast<int>(rc.left + (rc.Width() - width) / 2);
+	const int startY = static_cast<int>(rc.top + ((rc.Height() - height) / 2));
+	const int startX = static_cast<int>(rc.left + ((rc.Width() - width) / 2));
 	for (int y=0; y<height; y++) {
 		int prevCode = 0;
 		int xStartRun = 0;
 		for (int x=0; x<width; x++) {
-			const int code = pixels[y * width + x];
+			const int code = pixels[(y * width) + x];
 			if (code != prevCode) {
 				FillRun(surface, prevCode, startX + xStartRun, startY + y, startX + x);
 				xStartRun = x;
@@ -179,9 +180,9 @@ void XPM::Draw(Surface *surface, const PRectangle &rc) {
 ColourRGBA XPM::PixelAt(int x, int y) const noexcept {
 	if (pixels.empty() || (x < 0) || (x >= width) || (y < 0) || (y >= height)) {
 		// Out of bounds -> transparent black
-		return ColourRGBA(0, 0, 0, 0);
+		return {0, 0, 0, 0};
 	}
-	const int code = pixels[y * width + x];
+	const int code = pixels[(y * width) + x];
 	return ColourFromCode(code);
 }
 
@@ -258,7 +259,7 @@ const unsigned char *RGBAImage::Pixels() const noexcept {
 }
 
 void RGBAImage::SetPixel(int x, int y, ColourRGBA colour) noexcept {
-	unsigned char *pixel = pixelBytes.data() + (y * width + x) * 4;
+	unsigned char *pixel = pixelBytes.data() + (((y * width) + x) * 4);
 	// RGBA
 	pixel[0] = colour.GetRed();
 	pixel[1] = colour.GetGreen();
@@ -269,7 +270,8 @@ void RGBAImage::SetPixel(int x, int y, ColourRGBA colour) noexcept {
 namespace {
 
 constexpr unsigned char AlphaMultiplied(unsigned char value, unsigned char alpha) noexcept {
-	return (value * alpha / UCHAR_MAX) & 0xffU;
+	constexpr unsigned int maskUChar = UCHAR_MAX;
+	return (value * alpha / UCHAR_MAX) & maskUChar;
 }
 
 }
@@ -289,8 +291,7 @@ void RGBAImage::BGRAFromRGBA(unsigned char *pixelsBGRA, const unsigned char *pix
 	}
 }
 
-RGBAImageSet::RGBAImageSet() : height(-1), width(-1) {
-}
+RGBAImageSet::RGBAImageSet() = default;
 
 /// Remove all images.
 void RGBAImageSet::Clear() noexcept {
@@ -319,9 +320,7 @@ RGBAImage *RGBAImageSet::Get(int ident) {
 int RGBAImageSet::GetHeight() const noexcept {
 	if (height < 0) {
 		for (const std::pair<const int, std::unique_ptr<RGBAImage>> &image : images) {
-			if (height < image.second->GetHeight()) {
-				height = image.second->GetHeight();
-			}
+			height = std::max(height, image.second->GetHeight());
 		}
 	}
 	return (height > 0) ? height : 0;
@@ -331,9 +330,7 @@ int RGBAImageSet::GetHeight() const noexcept {
 int RGBAImageSet::GetWidth() const noexcept {
 	if (width < 0) {
 		for (const std::pair<const int, std::unique_ptr<RGBAImage>> &image : images) {
-			if (width < image.second->GetWidth()) {
-				width = image.second->GetWidth();
-			}
+			width = std::max(width, image.second->GetWidth());
 		}
 	}
 	return (width > 0) ? width : 0;

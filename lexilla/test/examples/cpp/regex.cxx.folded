@@ -16,6 +16,13 @@
  0 400 400   // Empty -> Line comment
  0 400 400   //
  1 400 400   
+ 2 400 401 + function t1() {return 1
+ 0 401 400 | /2/3;}
+ 2 400 401 + function t2() {return Math.PI
+ 0 401 400 | /2/3;}
+ 2 400 401 + function t3() {return
+ 0 401 400 | /a/;}
+ 1 400 400   
  0 400 400   // Line end before terminating / so operator not regex.
  0 400 400   x = /a
  0 400 400   /

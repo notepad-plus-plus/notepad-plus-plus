@@ -939,6 +939,7 @@ protected:
 	}
 	void setRLexer() {
 		setLexer(L_R, LIST_0 | LIST_1 | LIST_2);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.r.escape.sequence"), reinterpret_cast<LPARAM>("1"));
 	}
 
 	void setCoffeeScriptLexer() {

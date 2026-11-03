@@ -49,6 +49,7 @@
 #include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
+#include "SmoothScrolling.h"
 #include "Sorters.h"
 #include "UserDefineDialog.h"
 #include "Window.h"
@@ -575,6 +576,10 @@ LRESULT CALLBACK ScintillaEditView::ScintillaProc(
 			if (hwndOnMouse != hWnd)
 				return ::SendMessage(hwndOnMouse, uMsg, wParam, lParam);
 
+			// "Smooth scrolling": horizontal wheel and Shift + wheel by pixels
+			if (SmoothScrolling::onHorizontalWheel(hWnd, uMsg, wParam))
+				return (uMsg == WM_MOUSEHWHEEL) ? TRUE : 0; // TRUE like Scintilla (for some mice)
+
 			if (uMsg == WM_MOUSEHWHEEL)
 				break;
 
@@ -593,6 +598,10 @@ LRESULT CALLBACK ScintillaEditView::ScintillaProc(
 				}
 				return 0;
 			}
+
+			// "Smooth scrolling": vertical wheel by pixels (Ctrl + wheel, the zoom, stays native)
+			if (SmoothScrolling::onMouseWheel(hWnd, wParam))
+				return 0;
 			break;
 		}
 

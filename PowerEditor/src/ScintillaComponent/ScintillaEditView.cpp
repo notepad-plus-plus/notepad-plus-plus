@@ -3380,6 +3380,18 @@ void ScintillaEditView::performGlobalStyles()
 	setNpcAndCcUniEOL(npcCustomColor);
 }
 
+void ScintillaEditView::setWhitespaceSize() const
+{
+	if (isShownSpaceAndTab())
+	{
+		const auto zoom = static_cast<int>(execute(SCI_GETZOOM)) / 2;
+		const auto zoomSize = std::max<int>(3, DPIManagerV2::scale(2, _hParent) + zoom);
+		const auto whitespaceSize = std::max<int>(2, (zoomSize + 1) / 2);
+
+		execute(SCI_SETWHITESPACESIZE, whitespaceSize, 0);
+	}
+}
+
 void ScintillaEditView::showNpc(bool willBeShown, bool isSearchResult)
 {
 	const auto& svp = NppParameters::getInstance().getSVP();

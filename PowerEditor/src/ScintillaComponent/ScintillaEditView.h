@@ -408,26 +408,28 @@ public:
 		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
 	}
 
-	void setWrapMode(lineWrapMethod meth) {
+	void setWrapMode(lineWrapMethod meth) const {
 		int mode = (meth == LINEWRAP_ALIGNED)?SC_WRAPINDENT_SAME:\
 				(meth == LINEWRAP_INDENT)?SC_WRAPINDENT_INDENT:SC_WRAPINDENT_FIXED;
 		execute(SCI_SETWRAPINDENTMODE, mode);
 	}
 
-	void showWSAndTab(bool willBeShowed = true) {
-		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
-		execute(SCI_SETWHITESPACESIZE, 2, 0);
+	void setWhitespaceSize() const;
+
+	void showWSAndTab(bool willBeShowed = true) const {
+		execute(SCI_SETVIEWWS, willBeShowed ? SCWS_VISIBLEALWAYS : SCWS_INVISIBLE);
+		setWhitespaceSize();
 	}
 
-	bool isShownSpaceAndTab() {
+	bool isShownSpaceAndTab() const {
 		return (execute(SCI_GETVIEWWS) != 0);
 	}
 
-	void showEOL(bool willBeShowed = true) {
+	void showEOL(bool willBeShowed = true) const {
 		execute(SCI_SETVIEWEOL, willBeShowed);
 	}
 
-	bool isShownEol() {
+	bool isShownEol() const {
 		return (execute(SCI_GETVIEWEOL) != 0);
 	}
 

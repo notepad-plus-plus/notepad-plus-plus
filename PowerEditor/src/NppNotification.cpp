@@ -505,6 +505,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			if (!notifyView) return FALSE;
 
+			notifyView->setWhitespaceSize();
+
 			ScintillaEditView* unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
 			_smartHighlighter.highlightView(notifyView, unfocusView);
 

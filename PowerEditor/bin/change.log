@@ -6,7 +6,7 @@ Notepad++ v8.9.8.1 vulnerability fixes, regression fix, bug-fixes & new enhancem
  4. Vulnerability: Fix incomplete UNC detection allowing NTLM leak bypass.
  5. Vulnerability: Fix crash of NPPM_* API when invalid value passed as argument.
  6. Regression: Fix failure to open files via Notepad++ symlink paths.
- 7. Fix a crash after cancelling UAC saving operation.
+ 7. Fix a crash after canceling UAC saving operation.
  8. Fix Network Path Warning dialog usability problem.
  9. Fix symlinks setting for Folder as Workspace not remembered across sessions.
 10. Fix continuous validation of the same server when loading network path files.

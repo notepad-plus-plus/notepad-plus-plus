@@ -15,32 +15,42 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
 #include "VerticalFileSwitcher.h"
-#include "menuCmdID.h"
-#include "Parameters.h"
-#include "resource.h"
-#include "localization.h"
+
+#include <windows.h>
 
 #include <commctrl.h>
+#include <windowsx.h>
 
+#include <string>
+
+#include "Buffer.h"
+#include "DockingDlgInterface.h"
+#include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "TaskListDlg.h"
+#include "VerticalFileSwitcherListView.h"
+#include "dockingResource.h"
+#include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
+#include <dpiManagerV2.h>
 
-using namespace std;
-
-#define GET_X_LPARAM(lp) static_cast<short>(LOWORD(lp))
-#define GET_Y_LPARAM(lp) static_cast<short>(HIWORD(lp))
-
-#define CLMNEXT_ID     1
-#define CLMNPATH_ID    2
-#define SEP_POS        3
-#define LVGROUPS_ID    4
+enum VFSLstMenuItemId
+{
+	CLMNEXT_ID = 1,
+	CLMNPATH_ID,
+	SEP_POS,
+	LVGROUPS_ID
+};
 
 COLORREF VerticalFileSwitcher::_bgColor = 0xFFFFFF;
 
-int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
+static int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
-	sortCompareData* sortData = (sortCompareData*)lParamSort;
+	const sortCompareData* sortData = reinterpret_cast<sortCompareData*>(lParamSort);
 	wchar_t str1[MAX_PATH] = { '\0' };
 	wchar_t str2[MAX_PATH] = { '\0' };
 
@@ -61,7 +71,7 @@ LRESULT CALLBACK VerticalFileSwitcher::ListViewParentNotifyProc(
 	WPARAM wParam,
 	LPARAM lParam,
 	UINT_PTR uIdSubclass,
-	[[maybe_unused]] DWORD_PTR /*dwRefData*/
+	[[maybe_unused]] DWORD_PTR dwRefData
 )
 {
 	switch (uMsg)
@@ -89,7 +99,7 @@ void VerticalFileSwitcher::startColumnSort()
 {
 	// reset sorting if exts column was just disabled
 	HWND colHeader = reinterpret_cast<HWND>(SendMessage(_fileListView.getHSelf(), LVM_GETHEADER, 0, 0));
-	int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
+	const auto columnCount = static_cast<int>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
 	if (_lastSortingColumn >= columnCount)
 	{
 		_lastSortingColumn = 0;
@@ -118,57 +128,25 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 				RECT rcHeader{};
 				ListView_GetGroupRect(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVGGR_HEADER, &rcHeader);
 
-				HBRUSH hBrush = ::CreateSolidBrush(VerticalFileSwitcher::_bgColor);
-				::FillRect(lplvcd->nmcd.hdc, &rcHeader, hBrush);
-				::DeleteObject(hBrush);
-				hBrush = nullptr;
+				const auto oldClr = ::SetDCBrushColor(lplvcd->nmcd.hdc, VerticalFileSwitcher::_bgColor);
+				::FillRect(lplvcd->nmcd.hdc, &rcHeader, static_cast<HBRUSH>(::GetStockObject(DC_BRUSH)));
+				::SetDCBrushColor(lplvcd->nmcd.hdc, oldClr);
 			}
 			return CDRF_NOTIFYITEMDRAW;
 		}
 
 		case CDDS_ITEMPREPAINT:
 		{
+			const HWND hList = lplvcd->nmcd.hdr.hwndFrom;
 			const RECT& rcRow = lplvcd->nmcd.rc;
 
 			const bool isThemeDark = NppDarkMode::isThemeDark();
-
-			const auto hHeader = ListView_GetHeader(lplvcd->nmcd.hdr.hwndFrom);
-			const auto colCount = Header_GetItemCount(hHeader);
-
-			const LONG paddingLeft = isThemeDark ? 1 : 0;
-			const LONG paddingRight = isThemeDark ? 2 : 1;
-
-			RECT rcSubItem{ rcRow };
-			RECT rcSubItem2{};
-			RECT rcSubItem3{};
-
-			rcSubItem.right -= paddingRight;
-
-			auto setRectForSubItem = [hHeader, paddingLeft, paddingRight](RECT& first, RECT& second, int idxSecond) -> void {
-				Header_GetItemRect(hHeader, idxSecond, &second);
-				first.right = second.left - paddingRight;
-
-				second.left -= paddingLeft;
-				second.right -= paddingRight;
-				second.top = first.top;
-				second.bottom = first.bottom;
-			};
-
-			if (colCount >= 2)
-			{
-				setRectForSubItem(rcSubItem, rcSubItem2, 1);
-			}
-
-			if (colCount == 3)
-			{
-				setRectForSubItem(rcSubItem2, rcSubItem3, 2);
-			}
-
-			const auto isSelected = ListView_GetItemState(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
+			const bool isSelected = ListView_GetItemState(hList, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
 			const bool isHot = (lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT;
+
 			const int colorID = reinterpret_cast<TaskLstFnStatus*>(lplvcd->nmcd.lItemlParam)->_docColor;
 
-			COLORREF bgColor{0xFFFFFF};
+			COLORREF bgColor = 0xFFFFFF;
 			bool applyColor = false;
 
 			if (colorID != -1)
@@ -176,18 +154,10 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 				bgColor = NppParameters::getInstance().getIndividualTabColor(colorID, isThemeDark, false);
 				applyColor = true;
 			}
-			else if (isThemeDark)
+			else if (isThemeDark && (isSelected || isHot))
 			{
-				if (isSelected)
-				{
-					bgColor = NppDarkMode::getCtrlBackgroundColor();
-					applyColor = true;
-				}
-				else if (isHot)
-				{
-					bgColor = NppDarkMode::getHotBackgroundColor();
-					applyColor = true;
-				}
+				bgColor = isSelected ? NppDarkMode::getCtrlBackgroundColor() : NppDarkMode::getHotBackgroundColor();
+				applyColor = true;
 			}
 
 			if (applyColor)
@@ -199,33 +169,45 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 
 				lplvcd->clrTextBk = bgColor;
 
-				HBRUSH hBrush = ::CreateSolidBrush(bgColor);
+				const auto oldClr = ::SetDCBrushColor(lplvcd->nmcd.hdc, bgColor);
+				const auto hBrush = static_cast<HBRUSH>(::GetStockObject(DC_BRUSH));
 
-				::FillRect(lplvcd->nmcd.hdc, &rcSubItem, hBrush);
-				if (colCount >= 2)
+				const HWND hHeader = ListView_GetHeader(hList);
+				const int nCol = Header_GetItemCount(hHeader);
+
+				const LONG paddingLeft = isThemeDark ? 1 : 0;
+				const LONG paddingRight = isThemeDark ? 2 : 1;
+
+				const auto lvii = LVITEMINDEX{ .iItem = static_cast<int>(lplvcd->nmcd.dwItemSpec), .iGroup = -1 };
+				RECT rcSubitem{
+					rcRow.left
+					, rcRow.top
+					, rcRow.left + ListView_GetColumnWidth(hList, 0) - paddingRight
+					, rcRow.bottom
+				};
+				::FillRect(lplvcd->nmcd.hdc, &rcSubitem, hBrush);
+
+				for (int i = 1; i < nCol; ++i)
 				{
-					::FillRect(lplvcd->nmcd.hdc, &rcSubItem2, hBrush);
+					ListView_GetItemIndexRect(hList, &lvii, i, LVIR_BOUNDS, &rcSubitem);
+					rcSubitem.left -= paddingLeft;
+					rcSubitem.right -= paddingRight;
+					::FillRect(lplvcd->nmcd.hdc, &rcSubitem, hBrush);
 				}
 
-				if (colCount == 3)
-				{
-					::FillRect(lplvcd->nmcd.hdc, &rcSubItem3, hBrush);
-				}
-
-				::DeleteObject(hBrush);
-				hBrush = nullptr;
+				::SetDCBrushColor(lplvcd->nmcd.hdc, oldClr);
 			}
 
 			if (isSelected)
 			{
 				::DrawFocusRect(lplvcd->nmcd.hdc, &rcRow);
-			} 
+			}
 			else if (isHot)
 			{
 				::FrameRect(lplvcd->nmcd.hdc, &rcRow, isThemeDark ? NppDarkMode::getHotEdgeBrush() : ::GetSysColorBrush(COLOR_WINDOWTEXT));
 			}
 
-			return CDRF_NEWFONT;
+			return CDRF_DODEFAULT;
 		}
 
 		default:
@@ -240,9 +222,11 @@ LRESULT CALLBACK VerticalFileSwitcher::FileSwitcherNotifySubclass(
 	WPARAM wParam,
 	LPARAM lParam,
 	UINT_PTR uIdSubclass,
-	DWORD_PTR /*dwRefData*/
+	DWORD_PTR dwRefData
 )
 {
+	auto vfs = reinterpret_cast<VerticalFileSwitcher*>(dwRefData);
+
 	switch (uMsg)
 	{
 		case WM_NCDESTROY:
@@ -258,11 +242,7 @@ LRESULT CALLBACK VerticalFileSwitcher::FileSwitcherNotifySubclass(
 			{
 				case NM_CUSTOMDRAW:
 				{
-					constexpr size_t classNameLen = 16;
-					wchar_t className[classNameLen]{};
-					GetClassName(nmhdr->hwndFrom, className, classNameLen);
-
-					if (wcscmp(className, WC_LISTVIEW) == 0)
+					if (nmhdr->hwndFrom == vfs->_fileListView.getHSelf())
 					{
 						return VerticalFileSwitcher::listViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam);
 					}
@@ -288,7 +268,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 			_fileListView.display();
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-			::SetWindowSubclass(_hSelf, VerticalFileSwitcher::FileSwitcherNotifySubclass, static_cast<UINT_PTR>(SubclassID::first), 0);
+			::SetWindowSubclass(_hSelf, VerticalFileSwitcher::FileSwitcherNotifySubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 			::SetWindowSubclass(_fileListView.getHSelf(), VerticalFileSwitcher::ListViewParentNotifyProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 
 			return TRUE;
@@ -350,7 +330,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 
 				case NM_DBLCLK:
 				{
-					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					const auto lpnmitem = reinterpret_cast<LPNMITEMACTIVATE>(lParam);
 					int i = lpnmitem->iItem;
 					if (i == -1)
 					{
@@ -361,10 +341,10 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 
 				case NM_CLICK:
 				{
-					if ((0x80 & GetKeyState(VK_CONTROL)) || (0x80 & GetKeyState(VK_SHIFT)))
+					if (::GetKeyState(VK_CONTROL) < 0 || ::GetKeyState(VK_SHIFT) < 0)
 						return TRUE;
 
-					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					const auto lpnmitem = reinterpret_cast<LPNMITEMACTIVATE>(lParam);
 					int nbItem = ListView_GetItemCount(_fileListView.getHSelf());
 					int i = lpnmitem->iItem;
 					if (i == -1 || i >= nbItem)
@@ -373,8 +353,8 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					LVITEM item{};
 					item.mask = LVIF_PARAM;
 					item.iItem = i;
-					ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
-					TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+					ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
+					auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
 
 					activateDoc(tlfs);
 					return TRUE;
@@ -383,7 +363,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 				case NM_RCLICK :
 				{
 					// Switch to the right document
-					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					const auto lpnmitem = reinterpret_cast<LPNMITEMACTIVATE>(lParam);
 
 					if (lpnmitem->hdr.hwndFrom != _fileListView.getHSelf())
 					{
@@ -402,8 +382,8 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 						LVITEM item{};
 						item.mask = LVIF_PARAM;
 						item.iItem = i;
-						ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
-						TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+						ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
+						auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
 
 						activateDoc(tlfs);
 					}
@@ -426,14 +406,14 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					int i = pGetInfoTip->iItem;
 					if (i == -1)
 						return TRUE;
-					wstring fn = getFullFilePath((size_t)i);
+					std::wstring fn = getFullFilePath(static_cast<size_t>(i));
 					lstrcpyn(pGetInfoTip->pszText, fn.c_str(), pGetInfoTip->cchTextMax);
 					return TRUE;
 				}
 
 				case LVN_COLUMNCLICK:
 				{
-					LPNMLISTVIEW pnmLV = (LPNMLISTVIEW)lParam;
+					const auto pnmLV = reinterpret_cast<LPNMLISTVIEW>(lParam);
 					_lastSortingDirection = setHeaderOrder(pnmLV->iSubItem);
 					_lastSortingColumn = pnmLV->iSubItem;
 					if (_lastSortingDirection != SORT_DIRECTION_NONE)
@@ -453,7 +433,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					NppParameters& nppParams = NppParameters::getInstance();
 					NativeLangSpeaker* pNativeSpeaker = nppParams.getNativeLangSpeaker();
 					
-					LPNMHEADER test = (LPNMHEADER)lParam;
+					const auto test = reinterpret_cast<LPNMHEADERW>(lParam);
 					HWND hwndHD = ListView_GetHeader(_fileListView.getHSelf());
 					wchar_t HDtext[MAX_PATH] = { '\0' };
 					HDITEM hdi = {};
@@ -464,15 +444,15 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 
 					// storing column width data
 					if (hdi.pszText == pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT))
-						nppParams.getNppGUI()._fileSwitcherExtWidth = hdi.cxy;
+						nppParams.getNppGUI()._fileSwitcherExtWidth = _dpiManager.unscale(hdi.cxy);
 					else if (hdi.pszText == pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH))
-						nppParams.getNppGUI()._fileSwitcherPathWidth = hdi.cxy;
+						nppParams.getNppGUI()._fileSwitcherPathWidth = _dpiManager.unscale(hdi.cxy);
 
 					return TRUE;
 				}
 				case LVN_KEYDOWN:
 				{
-					switch (((LPNMLVKEYDOWN)lParam)->wVKey)
+					switch (reinterpret_cast<LPNMLVKEYDOWN>(lParam)->wVKey)
 					{
 						case VK_RETURN:
 						{
@@ -483,8 +463,8 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 							LVITEM item{};
 							item.mask = LVIF_PARAM;
 							item.iItem = i;	
-							ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
-							TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+							ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
+							auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
 							activateDoc(tlfs);
 							return TRUE;
 						}
@@ -545,9 +525,9 @@ void VerticalFileSwitcher::initPopupMenus()
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
-	wstring extStr = pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT);
-	wstring pathStr = pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH);
-	wstring groupStr = pNativeSpeaker->getAttrNameStr(L"Group by View", FS_ROOTNODE, FS_LVGROUPS);
+	std::wstring extStr = pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT);
+	std::wstring pathStr = pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH);
+	std::wstring groupStr = pNativeSpeaker->getAttrNameStr(L"Group by View", FS_ROOTNODE, FS_LVGROUPS);
 
 	_hGlobalMenu = ::CreatePopupMenu();
 	::InsertMenu(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | MF_STRING, CLMNEXT_ID, extStr.c_str());
@@ -611,7 +591,7 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 	if (bufferID == currentBufID && view == currentView)
 		return;
 	
-	int docPosInfo = static_cast<int32_t>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, reinterpret_cast<WPARAM>(bufferID), view));
+	const auto docPosInfo = static_cast<int>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, reinterpret_cast<WPARAM>(bufferID), view));
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2;
 
@@ -623,7 +603,7 @@ void VerticalFileSwitcher::closeDoc(TaskLstFnStatus *tlfs) const
 	int view = tlfs->_iView;
 	BufferID bufferID = static_cast<BufferID>(tlfs->_bufID);
 		
-	int docPosInfo = static_cast<int32_t>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, reinterpret_cast<WPARAM>(bufferID), view));
+	const auto docPosInfo = static_cast<int>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, reinterpret_cast<WPARAM>(bufferID), view));
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2;
 
@@ -640,7 +620,7 @@ int VerticalFileSwitcher::setHeaderOrder(int columnIndex)
 	if (_lastSortingColumn != columnIndex && _lastSortingDirection != SORT_DIRECTION_NONE)
 	{
 		HWND colHeader = reinterpret_cast<HWND>(SendMessage(hListView, LVM_GETHEADER, 0, 0));
-		int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
+		const auto columnCount = static_cast<int>(::SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
 		if (_lastSortingColumn < columnCount)
 		{
 			// Get current fmt

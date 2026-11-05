@@ -17,7 +17,17 @@
 
 #pragma once
 
+#include <windows.h>
+
+#include <shlwapi.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "Buffer.h"
 #include "DockingDlgInterface.h"
+#include "TaskListDlg.h"
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 
@@ -104,12 +114,12 @@ public:
 		auto g = GetGValue(bgColour);
 		auto b = GetBValue(bgColour);
 
-		constexpr int luminenceIncrementBy = 333; // 33.3 %
+		static constexpr int luminenceIncrementBy = 333; // 33.3 %
 
 		// main color is blue
 		// but difference must be high
 		// can have similar blue color as header
-		constexpr int difference = 12;
+		static constexpr int difference = 12;
 		const auto bAdjusted = static_cast<BYTE>(std::max<int>(0, static_cast<int>(b) - difference));
 		if (bAdjusted > r && bAdjusted > g)
 		{
@@ -131,7 +141,7 @@ public:
 		_fileListView.setForegroundColor(fgColour);
 	}
 protected:
-	HMENU _hGlobalMenu = NULL;
+	HMENU _hGlobalMenu = nullptr;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void initPopupMenus();
 	void popupMenuCmd(int cmdID);
@@ -142,6 +152,8 @@ private:
 	int _lastSortingDirection = SORT_DIRECTION_NONE;
 	VerticalFileSwitcherListView _fileListView;
 	HIMAGELIST _hImaLst = nullptr;
+
+	using DockingDlgInterface::init;
 
 	static COLORREF _bgColor;
 	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

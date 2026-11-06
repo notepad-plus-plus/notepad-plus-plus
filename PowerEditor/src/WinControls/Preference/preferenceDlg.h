@@ -83,10 +83,12 @@ friend class PreferenceDlg;
 public:
 	TabbarSubDlg() = default;
 	void setTabbarAlternateIcons(bool enable = false);
+	void showVerticalTabListWidth() const;
 
 private:
 	HWND _tabCompactLabelLenTip = nullptr;
 
+	void updateHorizontalTitlesGUI() const;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 

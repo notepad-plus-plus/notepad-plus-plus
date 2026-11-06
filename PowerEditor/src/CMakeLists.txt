@@ -182,6 +182,7 @@ SET(src_files
 			./Utf8_16.cpp
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.cpp
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcherListView.cpp
+			./WinControls/TabBar/VerticalTabs.cpp
 			./MISC/Exception/Win32Exception.cpp
 			./WinControls/WindowsDlg/WindowsDlg.cpp
 			./winmain.cpp
@@ -341,6 +342,7 @@ SET(include_files
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.h
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher_rc.h
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcherListView.h
+			./WinControls/TabBar/VerticalTabs.h
 			./MISC/Exception/Win32Exception.h
 			./WinControls/Window.h
 			./WinControls/WindowsDlg/WindowsDlg.h

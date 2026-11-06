@@ -1021,6 +1021,8 @@ Translation note:
 					<Item id="6125" name="Behavior"/>
 					<Item id="6126" name="Look &amp;&amp; feel"/>
 					<Item id="6136" name="Max. tab label length:"/>
+					<Item id="6139" name="Horizontal titles, width:"/>
+					<Item id="6141" name="px"/>
 				</Tabbar>
 
 				<Scintillas title="Editing 1">

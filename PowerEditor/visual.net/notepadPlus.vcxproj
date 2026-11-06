@@ -181,6 +181,7 @@
     <ClCompile Include="..\src\Utf8_16.cpp" />
     <ClCompile Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.cpp" />
     <ClCompile Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcherListView.cpp" />
+    <ClCompile Include="..\src\WinControls\TabBar\VerticalTabs.cpp" />
     <ClCompile Include="..\src\MISC\Exception\Win32Exception.cpp" />
     <ClCompile Include="..\src\WinControls\WindowsDlg\WindowsDlg.cpp" />
     <ClCompile Include="..\src\winmain.cpp" />
@@ -348,6 +349,7 @@
     <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.h" />
     <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher_rc.h" />
     <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcherListView.h" />
+    <ClInclude Include="..\src\WinControls\TabBar\VerticalTabs.h" />
     <ClInclude Include="..\src\MISC\Exception\Win32Exception.h" />
     <ClInclude Include="..\src\WinControls\Window.h" />
     <ClInclude Include="..\src\WinControls\WindowsDlg\WindowsDlg.h" />

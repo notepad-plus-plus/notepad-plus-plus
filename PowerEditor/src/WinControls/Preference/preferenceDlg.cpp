@@ -680,6 +680,19 @@ void TabbarSubDlg::setTabbarAlternateIcons(bool enable)
 	}
 }
 
+void TabbarSubDlg::showVerticalTabListWidth() const
+{
+	::SetDlgItemInt(_hSelf, IDC_EDIT_TAB_VERTICALWIDTH, NppParameters::getInstance().getNppGUI()._verticalTabListWidth, FALSE);
+}
+
+void TabbarSubDlg::updateHorizontalTitlesGUI() const
+{
+	const bool isVertical = isCheckedOrNot(IDC_CHECK_TAB_VERTICAL) && !isCheckedOrNot(IDC_CHECK_TAB_HIDE);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_HORIZONTALTITLES), isVertical);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TAB_VERTICALWIDTH), isVertical && isCheckedOrNot(IDC_CHECK_TAB_HORIZONTALTITLES));
+	redrawDlgItem(IDC_TAB_VERTICALWIDTH_STATIC);
+}
+
 UINT ToolbarSubDlg::getToolbarIconSetMsg(int* iconSetID)
 {
 
@@ -1424,12 +1437,16 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DBCLICK2CLOSE, BM_SETCHECK, tabBarStatus & TAB_DBCLK2CLOSE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_VERTICAL, BM_SETCHECK, tabBarStatus & TAB_VERTICAL, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_MULTILINE, BM_SETCHECK, tabBarStatus & TAB_MULTILINE, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_HORIZONTALTITLES, BM_SETCHECK, nppGUI._isVerticalTabListMode, 0);
+			showVerticalTabListWidth();
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_LAST_EXIT, BM_SETCHECK, tabBarStatus & TAB_QUITONEMPTY, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, tabBarStatus & TAB_ALTICONS, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_HIDE, BM_SETCHECK, tabBarStatus & TAB_HIDE, 0);
 			if (hideTabbar)
 				::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
+
+			updateHorizontalTitlesGUI();
 
 			::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, nppParam.getNbTabCompactLabelLen(), FALSE);
 
@@ -1440,6 +1457,9 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			HWND hEdit = ::GetDlgItem(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN);
 			subclassEditToAcceptEnterKey(hEdit, WM_COMMAND, MAKEWPARAM(IDC_EDIT_TABCOMPACTLABELLEN, EN_KILLFOCUS), reinterpret_cast<LPARAM>(hEdit));
+
+			HWND hWidthEdit = ::GetDlgItem(_hSelf, IDC_EDIT_TAB_VERTICALWIDTH);
+			subclassEditToAcceptEnterKey(hWidthEdit, WM_COMMAND, MAKEWPARAM(IDC_EDIT_TAB_VERTICALWIDTH, EN_KILLFOCUS), reinterpret_cast<LPARAM>(hWidthEdit));
 
 			return TRUE;
 		}
@@ -1461,6 +1481,12 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			if (dlgCtrlID == IDC_TABCOMPACTLABELLEN_TIP_STATIC)
 			{
 				return NppDarkMode::onCtlColorDlgLinkText(hdc, true);
+			}
+
+			if (dlgCtrlID == IDC_TAB_VERTICALWIDTH_STATIC)
+			{
+				const bool isTextEnabled = ::IsWindowEnabled(::GetDlgItem(_hSelf, IDC_EDIT_TAB_VERTICALWIDTH)) == TRUE;
+				return NppDarkMode::onCtlColorDlgStaticText(hdc, isTextEnabled);
 			}
 
 			return NppDarkMode::onCtlColorDlg(hdc);
@@ -1556,6 +1582,24 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					return FALSE;
 				}
 
+				case IDC_EDIT_TAB_VERTICALWIDTH:
+				{
+					if (HIWORD(wParam) != EN_KILLFOCUS)
+						return FALSE;
+
+					BOOL isNumber = FALSE;
+					const int value = static_cast<int>(::GetDlgItemInt(_hSelf, IDC_EDIT_TAB_VERTICALWIDTH, &isNumber, TRUE));
+					const int width = isNumber ? std::clamp(value, VERTICAL_TAB_LIST_WIDTH_MIN, VERTICAL_TAB_LIST_WIDTH_MAX) : nppGUI._verticalTabListWidth;
+					::SetDlgItemInt(_hSelf, IDC_EDIT_TAB_VERTICALWIDTH, width, FALSE);
+
+					if (width != nppGUI._verticalTabListWidth)
+					{
+						nppGUI._verticalTabListWidth = width;
+						::SendMessage(::GetParent(_hParent), WM_SIZE, 0, 0);
+					}
+					return TRUE;
+				}
+
 				default:
 					break;
 			}
@@ -1583,6 +1627,7 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DBCLICK2CLOSE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_LAST_EXIT), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_ALTICONS), !toBeHidden);
+					updateHorizontalTitlesGUI();
 
 					::SendMessage(::GetParent(_hParent), WM_SIZE, 0, 0);
 
@@ -1603,6 +1648,15 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					else
 						nppGUI._tabStatus &= ~TAB_VERTICAL;
 
+					updateHorizontalTitlesGUI();
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VERTICALTABBAR, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_TAB_HORIZONTALTITLES:
+				{
+					nppGUI._isVerticalTabListMode = isCheckedOrNot(IDC_CHECK_TAB_HORIZONTALTITLES);
+					updateHorizontalTitlesGUI();
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VERTICALTABBAR, 0, 0);
 					return TRUE;
 				}

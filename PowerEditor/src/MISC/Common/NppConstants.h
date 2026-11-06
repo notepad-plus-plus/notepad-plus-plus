@@ -344,6 +344,11 @@ inline constexpr int NB_MAX_LRF_CUSTOMLENGTH = MAX_PATH - 1;
 
 inline constexpr int NB_MAX_TAB_COMPACT_LABEL_LEN = MAX_PATH - 3; // -3 for the possible ending ellipsis (...)
 
+// width of the vertical tab bar with horizontal titles, in pixels at 96 DPI
+inline constexpr int VERTICAL_TAB_LIST_WIDTH_MIN = 80;
+inline constexpr int VERTICAL_TAB_LIST_WIDTH_DEFAULT = 200;
+inline constexpr int VERTICAL_TAB_LIST_WIDTH_MAX = 800;
+
 inline constexpr int MAX_EXTERNAL_LEXER_NAME_LEN = 128;
 
 inline constexpr int RECENTFILES_SHOWFULLPATH = -1;

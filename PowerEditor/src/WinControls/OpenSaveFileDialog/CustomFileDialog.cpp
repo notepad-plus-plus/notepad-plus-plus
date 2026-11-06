@@ -82,14 +82,28 @@ namespace // anonymous
 		return {};
 	}
 
+	// Returns the position of the extension's dot, or npos if the name has no extension.
+	// A dot only counts if it is located after the last path separator.
+	size_t findExtPos(const wstring& name)
+	{
+		const size_t lastDot = name.find_last_of(L'.');
+		if (lastDot == wstring::npos)
+			return wstring::npos;
+		const size_t lastSlash = name.find_last_of(L"\\/");
+		if (lastSlash != wstring::npos && lastDot < lastSlash)
+			return wstring::npos;
+		return lastDot;
+	}
+
 	bool replaceExt(wstring& name, const wstring& ext)
 	{
 		if (!name.empty() && !ext.empty())
 		{
 			// Remove an existing extension from the name.
-			size_t posNameExt = name.find_last_of('.');
-			if (posNameExt != wstring::npos)
-				name.erase(posNameExt);
+			const size_t lastDot = findExtPos(name);
+			if (lastDot != wstring::npos)
+				name.erase(lastDot);
+
 			// Append a new extension.
 			name += ext;
 			return true;
@@ -99,7 +113,8 @@ namespace // anonymous
 
 	bool hasExt(const wstring& name)
 	{
-		return name.find_last_of('.') != wstring::npos;
+		// Ensure that hasExt only checks for a dot after the last path separator (\ or /)
+		return findExtPos(name) != wstring::npos;
 	}
 
 

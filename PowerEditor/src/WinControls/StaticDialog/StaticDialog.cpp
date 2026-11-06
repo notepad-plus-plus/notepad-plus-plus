@@ -238,7 +238,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	if (!hDlgTemplate)
 		return false;
 
-	const auto pDlgTemplate = static_cast<DLGTEMPLATE*>(::LockResource(hDlgTemplate));
+	const DLGTEMPLATE* pDlgTemplate = static_cast<DLGTEMPLATE*>(::LockResource(hDlgTemplate));
 	if (!pDlgTemplate)
 		return false;
 
@@ -287,7 +287,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	}
 	else // string or no element, same as skipSz
 	{
-		const auto str = reinterpret_cast<WCHAR*>(ptrElement);
+		const wchar_t* str = reinterpret_cast<WCHAR*>(ptrElement);
 		ptrElement += (std::wcslen(str) + 1);
 	}
 
@@ -299,7 +299,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	return (offset + 3U) & ~static_cast<size_t>(3U);
 }
 
-[[nodiscard]] static std::wstring getDefaultGUIFontFaceName()
+[[nodiscard]] std::wstring StaticDialog::getSystemFontFaceName()
 {
 	NONCLIENTMETRICS ncm{};
 	ncm.cbSize = sizeof(NONCLIENTMETRICS);
@@ -357,7 +357,7 @@ static int CALLBACK EnumFontProc(
 	const std::wstring& newFontFace = newTypeface;
 
 	auto pData = dlgTemplateData.data();
-	const auto typeface = reinterpret_cast<WCHAR*>(pTypefaceData);
+	const wchar_t* typeface = reinterpret_cast<WCHAR*>(pTypefaceData);
 
 	// Everything before typeface
 	const size_t offset = pTypefaceData - pData;
@@ -485,21 +485,18 @@ static int CALLBACK EnumFontProc(
 
 std::wstring StaticDialog::getDlgTypeface()
 {
-	static const std::wstring dlgFontName = isFontValid(NppParameters::getInstance().getDlgFontName()) ? NppParameters::getInstance().getDlgFontName() : getDefaultGUIFontFaceName();
+	static const std::wstring dlgFontName = isFontValid(NppParameters::getInstance().getDlgFontName()) ? NppParameters::getInstance().getDlgFontName() : getSystemFontFaceName();
 	return dlgFontName;
 }
 
-HWND StaticDialog::myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fontSize, DLGPROC myDlgProc)
+HWND StaticDialog::myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fontSize, const std::wstring& fontFace, DLGPROC myDlgProc)
 {
 	std::vector<std::byte> dlgTemplateData;
 
-	WORD dlgFontSize = fontSize;
-	if (fontSize == 0)
-	{
-		dlgFontSize = NppParameters::getInstance().getDlgFontSize();
-	}
+	const WORD dlgFontSize = (fontSize == 0) ? NppParameters::getInstance().getDlgFontSize() : fontSize;
+	const std::wstring dlgFontFace = fontFace.empty() ? getDlgTypeface() : fontFace;
 
-	if (!modifyResource(_hInst, dialogID, dlgTemplateData, isRTL, dlgFontSize, getDlgTypeface()))
+	if (!modifyResource(_hInst, dialogID, dlgTemplateData, isRTL, dlgFontSize, dlgFontFace))
 		return ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent, myDlgProc, reinterpret_cast<LPARAM>(this));
 
 	return ::CreateDialogIndirectParam(_hInst, reinterpret_cast<DLGTEMPLATE*>(dlgTemplateData.data()), _hParent, myDlgProc, reinterpret_cast<LPARAM>(this));
@@ -521,9 +518,9 @@ INT_PTR StaticDialog::myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, W
 	return ::DialogBoxIndirectParam(_hInst, reinterpret_cast<DLGTEMPLATE*>(dlgTemplateData.data()), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 }
 
-void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent, WORD fontSize)
+void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent, WORD fontSize, const std::wstring& fontFace)
 {
-	_hSelf = StaticDialog::myCreateDialogIndirectParam(dialogID, isRTL, fontSize);
+	_hSelf = StaticDialog::myCreateDialogIndirectParam(dialogID, isRTL, fontSize, fontFace);
 
 	if (!_hSelf)
 	{

@@ -319,6 +319,7 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 			_hwndNextCbViewer = ::SetClipboardViewer(_hSelf);
 
 			_listView.init(_hInst, _hSelf);
+			setFontForChild(_listView.getHSelf());
 			_listView.display();
 
 			return TRUE;

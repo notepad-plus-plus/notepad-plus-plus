@@ -1595,6 +1595,9 @@ void Notepad_plus::command(int id)
 				_incrementFindDlg.setSearchText(str.c_str(), _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			_incrementFindDlg.display();
+
+			if (str.empty()) // otherwise the selected text has just been searched and highlighted
+				_incrementFindDlg.refreshHighlightAll();
 		}
 		break;
 

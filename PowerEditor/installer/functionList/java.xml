@@ -17,6 +17,12 @@
 		<parser
 			displayName="Java"
 			id         ="java_syntax"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?s:\x2F\x2A.*?\x2A\x2F)                        # Multi Line Comment
+						|	(?m-s:\x2F{2}.*$)                               # Single Line Comment
+						|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)             # String Literal - Double Quoted
+						|	(?s:\x27(?:[^\x27\x5C]|\x5C.)*\x27)             # String Literal - Single Quoted
+						"
 		>
 			<classRange
 				mainExpr    ="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)

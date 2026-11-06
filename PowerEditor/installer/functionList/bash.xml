@@ -19,12 +19,12 @@
 						|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)             # String Literal - Double Quoted
 						|	(?s:\x27[^\x27]*\x27)                           # String Literal - Single Quoted
 						|	(?s:                                            # Here Document (Type 1) and Here String
-								\x3C{2,3}\h*(?'HD1ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\b)[^\r\n]*\R
+								\x3C{2,3}\h*[\x22\x27\x5C]?(?'HD1ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\b)[^\r\n]*\R
 								(?s:.*?)
 								\R\k'HD1ID'                                 # close with exactly the same identifier, in the first column
 							)
 						|	(?s:                                            # Here Document (Type 2)
-								\x3C{2}-\h*(?'HD2ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\b)[^\r\n]*\R
+								\x3C{2}-\h*[\x22\x27\x5C]?(?'HD2ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\b)[^\r\n]*\R
 								(?s:.*?)
 								\R\h*\k'HD2ID'                              # close with exactly the same identifier
 							)

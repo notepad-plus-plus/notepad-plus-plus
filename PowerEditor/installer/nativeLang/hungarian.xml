@@ -1233,8 +1233,6 @@
 				<Searching title="Keresés">
 					<Item id="6902" name="&amp;Állandó szélességű betűtípus használata a „Keresés” panelben (Notepad++-újraindítást igényel)"/>
 					<Item id="6903" name="A „K&amp;eresés” panel megnyitva tartása a „Keresés eredményei” ablakba adott találatok esetén"/>
-					<Item id="6904" name="&amp;Megerősítés kérése a „Csere a megnyitott dokumentumokban” művelet végrehajtása előtt"/>
-					<Item id="6905" name="„&amp;Csere”: a következő előforduláshoz ugrás nélkül"/>
 					<Item id="6906" name="„Ke&amp;resés eredményei” ablak: talált soronként csak egy bejegyzés mutatása (kompakt megjelenítés)"/>
 					<Item id="6907" name="A „Keresés” párbeszédpanel meghívásakor"/>
 					<Item id="6908" name="A „&amp;Keresendő” mező kitöltése a kijelölt szöveggel"/>
@@ -1775,6 +1773,8 @@ Csak akkor folytassa, ha tisztában van a kockázatokkal."/>
 			<default-open-save-select-folder value="Alapértelmezett mappa kiválasztása"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Shift + Enter billentyűkombinációval az ellenkező irányban kereshet"/>
 			<two-find-buttons-tip value="Kétgombos keresés"/>
+			<confirm-replace-in-all-open-docs-tip value="Megerősítés kérése a „Csere a megnyitott dokumentumokban” művelet végrehajtása előtt"/>
+			<replace-and-stop-tip value="Bekapcsolva a csere után a Notepad++ nem ugrik a következő előfordulásra"/>
 			<find-in-files-filter-tip value="Keresés a cpp-, cxx-, h-, hxx- és hpp-fájlokban:
 *.cpp *.cxx *.h *.hxx *.hpp
 

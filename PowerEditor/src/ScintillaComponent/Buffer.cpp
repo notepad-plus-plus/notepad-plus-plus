@@ -36,6 +36,12 @@
 #include <string>
 #include <vector>
 
+#include <sddl.h>
+#include <aclapi.h>
+#pragma comment(lib, "advapi32.lib")
+#include <objbase.h>
+#pragma comment(lib, "ole32.lib")
+
 #include <ILexer.h>
 #include <Lexilla.h>
 #include <Scintilla.h>
@@ -1505,6 +1511,104 @@ static std::string encodeForUacSave(const char* buf, size_t len, UniMode mode, i
 	return out;
 }
 
+static std::wstring CreateGuidString()
+{
+	GUID guid{};
+	if (FAILED(::CoCreateGuid(&guid)))
+		return L"";
+
+	wchar_t guidString[40]{};
+	if (!::StringFromGUID2(guid, guidString, ARRAYSIZE(guidString)))
+		return L"";
+
+	return guidString;
+}
+
+static bool CreateMappingSecurityAttributes(SECURITY_ATTRIBUTES& sa, PSECURITY_DESCRIPTOR& pSD)
+{
+	HANDLE hToken = nullptr;
+	if (!::OpenProcessToken(::GetCurrentProcess(), TOKEN_QUERY, &hToken))
+		return false;
+
+	DWORD cb = 0;
+	::GetTokenInformation(hToken, TokenUser, nullptr, 0, &cb);
+	if (::GetLastError() != ERROR_INSUFFICIENT_BUFFER)
+	{
+		::CloseHandle(hToken);
+		return false;
+	}
+
+	std::vector<BYTE> buffer(cb);
+	if (!::GetTokenInformation(hToken, TokenUser, buffer.data(), cb, &cb))
+	{
+		::CloseHandle(hToken);
+		return false;
+	}
+
+	::CloseHandle(hToken);
+	hToken = nullptr;
+
+	auto* pUser = reinterpret_cast<TOKEN_USER*>(buffer.data());
+	wchar_t* sidString = nullptr;
+	if (!::ConvertSidToStringSidW(pUser->User.Sid, &sidString))
+		return false;
+
+	// SID for the built-in Windows Administrators group is S-1-5-32-544 (BA in SDDL notation)
+	// Original user: read + write (0x0006)
+	// Built-in Administrators: read only (0x0004)
+	std::wstring sddl =
+		L"D:P"
+		L"(A;;0x0006;;;" + std::wstring(sidString) + L")"
+		L"(A;;0x0004;;;BA)";
+
+	::LocalFree(sidString);
+	sidString = nullptr;
+
+	if (!::ConvertStringSecurityDescriptorToSecurityDescriptorW(
+		sddl.c_str(), SDDL_REVISION_1, &pSD, nullptr))
+		return false;
+
+	sa.nLength = sizeof(sa);
+	sa.lpSecurityDescriptor = pSD;
+	sa.bInheritHandle = FALSE;
+
+	return true;
+}
+
+// If returns ERROR_SUCCESS (zero), both the owner and Administrators can no longer obtain a write access.
+static DWORD ResetMappingToReadOnly4All(HANDLE hMapping)
+{
+	// OW ... OWNER RIGHTS
+	// BA ... BUILTIN\Administrators
+	// 0x0004 ... SECTION_MAP_READ
+	LPCWSTR sddl =
+		L"D:P"
+		L"(A;;0x0004;;;OW)"
+		L"(A;;0x0004;;;BA)";
+	PSECURITY_DESCRIPTOR pSD = nullptr;
+	if (!::ConvertStringSecurityDescriptorToSecurityDescriptorW(sddl, SDDL_REVISION_1, &pSD, nullptr))
+		return ::GetLastError();
+
+	DWORD dwResult = NO_ERROR;
+
+	BOOL bDaclPresent = FALSE;
+	BOOL bDaclDefaulted = FALSE;
+	PACL pDacl = nullptr;
+	if (!::GetSecurityDescriptorDacl(pSD, &bDaclPresent, &pDacl, &bDaclDefaulted))
+	{
+		dwResult = ::GetLastError();
+	}
+	else
+	{
+		dwResult = ::SetSecurityInfo(hMapping, SE_KERNEL_OBJECT, DACL_SECURITY_INFORMATION | PROTECTED_DACL_SECURITY_INFORMATION,
+			nullptr, nullptr, pDacl, nullptr);
+	}
+
+	::LocalFree(pSD);
+
+	return dwResult;
+}
+
 std::mutex save_mutex;
 
 SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool isCopy)
@@ -1653,10 +1757,46 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	if (uacSaveMode)
 	{
+		// Default Windows UAC "runas" uses the same user account with elevated token,
+		// while the possible Administrator Protection (AP) mode uses a separate,
+		// system-managed administrator account, with a different SID and separate user profile.
+		// 
+		// With the possible AP mode active, we cannot assume that the current and elevated processes
+		// will have identical user SIDs. Thus we cannot use OpenProcess WINAPI with PROCESS_DUP_HANDLE
+		// higher access right in AP mode from within the elevated Notepad++ child instance
+		// (it cannot cross the security barrier in that mode).
+		// 
+		// Solution:
+		// - using of a uniquely named filemapping object instead of unnamed (that way we do not have to pass/duplicate HANDLEs)
+		// - using of a narrowly scoped DACL that permits read access to the Windows Authenticated Users group
+		//   (works both for the ordinary UAC elevations and the AP)
+		// - the same notepad++.exe module is still checked from the elevated child as before via OpenProcess,
+		//   since we can drop the use of the PROCESS_DUP_HANDLE now
+
+		std::wstring onetimeGuid = CreateGuidString();
+		if (onetimeGuid.empty())
+		{
+			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			return SavingStatus::SaveOpenFailed;
+		}
+		std::wstring uniqueMappingName = NPP_MAPPING_PREFIX + onetimeGuid;
+
+		SECURITY_ATTRIBUTES sa{};
+		PSECURITY_DESCRIPTOR pSD = nullptr;
+		if (!CreateMappingSecurityAttributes(sa, pSD))
+		{
+			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			return SavingStatus::SaveOpenFailed;
+		}
+
 		// set mapSize to at least 1, otherwise CreateFileMappingW will fail with ERROR_FILE_INVALID
 		const size_t mapSize = (std::max)(fileContentSaveUAC.size(), static_cast<size_t>(1));
 
-		HANDLE hMap = ::CreateFileMappingW(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, static_cast<DWORD>((uint64_t)mapSize >> 32), static_cast<DWORD>(mapSize), NULL);
+		HANDLE hMap = ::CreateFileMappingW(INVALID_HANDLE_VALUE, &sa, PAGE_READWRITE,
+			static_cast<DWORD>((uint64_t)mapSize >> 32), static_cast<DWORD>(mapSize), uniqueMappingName.c_str());
+
+		::LocalFree(pSD);
+		pSD = nullptr;
 
 		if (!hMap)
 		{
@@ -1674,6 +1814,16 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 		memcpy(p, fileContentSaveUAC.data(), fileContentSaveUAC.size());
 		::UnmapViewOfFile(p);
+		p = nullptr;
+
+		DWORD dwResetMappingResult = ResetMappingToReadOnly4All(hMap);
+		if (dwResetMappingResult != ERROR_SUCCESS)
+		{
+#ifndef NDEBUG
+			std::wstring msg = L"Failed to secure the already created filemapping object by R/O access only!\r\nErrorCode: " + std::to_wstring(dwResetMappingResult);
+			::MessageBoxW(NULL, msg.c_str(), L"Notepad++ ResetMappingToReadOnly4All", MB_OK | MB_ICONERROR | MB_APPLMODAL);
+#endif
+		}
 
 		// from here on, nobody (including a same-user attacker) can obtain write access to the section
 		HANDLE hMapRO = NULL;
@@ -1682,18 +1832,21 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 			return SavingStatus::SaveOpenFailed;
 		}
+		hMap = NULL;
 
 		// elevated saving/overwriting of the original file by the help of Memory Mapped File and UAC prompt
 		// (notepad++.exe #UAC-SAVE# dest_file_path mapHandle fileContent2SaveLength)
-		wstring strCmdLineParams = NPP_UAC_SAVE_SIGN;
+		std::wstring strCmdLineParams = NPP_UAC_SAVE_SIGN;
 		strCmdLineParams += L" \"";
 		strCmdLineParams += fullpath;
 		strCmdLineParams += L"\" ";
-		strCmdLineParams += std::to_wstring((uintptr_t)hMapRO) + L" ";
-		strCmdLineParams += std::to_wstring(fileContentSaveUAC.size());
+		strCmdLineParams += std::to_wstring(fileContentSaveUAC.size()) + L" ";
+		strCmdLineParams += onetimeGuid;
 
 		DWORD dwNppUacOpError = invokeNppUacOp(strCmdLineParams);
-		::CloseHandle(hMapRO);
+
+		::CloseHandle(hMapRO); // last closed handle released the mapped object memory
+		hMapRO = NULL;
 
 		if (dwNppUacOpError != NO_ERROR)
 		{

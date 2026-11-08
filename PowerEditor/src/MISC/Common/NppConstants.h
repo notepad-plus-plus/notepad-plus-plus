@@ -52,6 +52,8 @@ inline constexpr int NPP_CP_BIG5 = 950;
 #define NPP_UAC_MOVEFILE_SIGN L"#UAC-MOVEFILE#"
 #define NPP_UAC_CREATEEMPTYFILE_SIGN L"#UAC-CREATEEMPTYFILE#"
 
+#define NPP_MAPPING_PREFIX L"Local\\NotepadPlusPlus_Mapping_"
+
 enum class SubclassID : unsigned int
 {
 	darkMode = 42,

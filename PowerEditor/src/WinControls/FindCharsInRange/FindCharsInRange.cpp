@@ -16,9 +16,19 @@
 
 
 #include "FindCharsInRange.h"
-#include "findCharsInRange_rc.h"
+
+#include <windows.h>
+
+#include <cstdint>
+
+#include <Scintilla.h>
+
+#include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "Parameters.h"
+#include "findCharsInRange_rc.h"
 #include "localization.h"
+#include "resource.h"
 
 intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {

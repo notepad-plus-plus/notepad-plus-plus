@@ -483,7 +483,7 @@ DWORD nppUacSave(const wchar_t* protectedFilePath2Save, size_t size, const wchar
 		}
 	}
 
-	dwRetCode = writeFileContent(protectedFilePath2Save, content.data(), content.size());
+	dwRetCode = writeFileContentEx(protectedFilePath2Save, content.data(), content.size());
 
 	// set back the possible original file attributes
 	if (isOutputReadOnly || isOutputHidden || isOutputSystem)

@@ -176,12 +176,14 @@ void writeFileContent(const wchar_t *file2write, const char *content2write)
 		file.writeStr(content2write);
 }
 
-void writeFileContent(const wchar_t *file2write, const char *content2write, size_t length)
+DWORD writeFileContentEx(const wchar_t* file2write, const char* content2write, size_t length)
 {
 	Win32_IO_File file(file2write);
 
 	if (file.isOpened())
 		file.writeStr(content2write, length);
+
+	return file.getLastErrorCode();
 }
 
 

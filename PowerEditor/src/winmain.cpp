@@ -428,22 +428,22 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 }
 
 
-DWORD nppUacSave(const wchar_t* protectedFilePath2Save, HANDLE hParent, HANDLE remote, size_t size)
+DWORD nppUacSave(const wchar_t* protectedFilePath2Save, size_t size, const wchar_t* wszOnetimeGuid)
 {
-	if (lstrlenW(protectedFilePath2Save) == 0) // safe check (lstrlen returns 0 for possible nullptr)
+	if ( (lstrlenW(protectedFilePath2Save) == 0) || (lstrlenW(wszOnetimeGuid) == 0)) // safe check (lstrlen returns 0 for possible nullptr)
 		return ERROR_INVALID_PARAMETER;
 
-	// remote = handle VALUE in the parent process: get our own read-only, non-inheritable handle on that section
-	HANDLE hLocal = NULL;
-	const BOOL isDup = ::DuplicateHandle(hParent, remote, ::GetCurrentProcess(), &hLocal, FILE_MAP_READ, FALSE, 0);
-	DWORD dwRetCode = isDup ? NO_ERROR : ::GetLastError();
+	std::wstring uniqueMappingName = NPP_MAPPING_PREFIX;
+	uniqueMappingName += wszOnetimeGuid;
+	HANDLE hMapping = ::OpenFileMappingW(FILE_MAP_READ, FALSE, uniqueMappingName.c_str());
+	if (!hMapping)
+		return ::GetLastError();
 
-	if (!isDup)
-		return dwRetCode;
+	DWORD dwRetCode = NO_ERROR;
 
 	// copy the content out of the section, then release it
 	std::string content;
-	void* p = ::MapViewOfFile(hLocal, FILE_MAP_READ, 0, 0, size);
+	void* p = ::MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, size);
 	if (!p)
 	{
 		dwRetCode = ::GetLastError();
@@ -455,8 +455,10 @@ DWORD nppUacSave(const wchar_t* protectedFilePath2Save, HANDLE hParent, HANDLE r
 		}
 		catch (const std::exception&) { dwRetCode = ERROR_NOT_ENOUGH_MEMORY; }
 		::UnmapViewOfFile(p);
+		p = nullptr;
 	}
-	::CloseHandle(hLocal);
+	::CloseHandle(hMapping);
+	hMapping = NULL;
 
 	if (dwRetCode != NO_ERROR)
 		return dwRetCode;
@@ -481,7 +483,7 @@ DWORD nppUacSave(const wchar_t* protectedFilePath2Save, HANDLE hParent, HANDLE r
 		}
 	}
 
-	writeFileContent(protectedFilePath2Save, content.data(), content.size());
+	dwRetCode = writeFileContentEx(protectedFilePath2Save, content.data(), content.size());
 
 	// set back the possible original file attributes
 	if (isOutputReadOnly || isOutputHidden || isOutputSystem)
@@ -537,16 +539,15 @@ DWORD nppUacCreateEmptyFile(const wchar_t* wszNewEmptyFilePath)
 	return ERROR_SUCCESS;
 }
 
-// Returns a handle to the parent process if (and only if) it's this very notepad++.exe image,
-// otherwise NULL. Caller must CloseHandle() it.
-HANDLE getParentProcessOfThisNotepadPlusPlus()
+// Checks the parent process if it is the same notepad++.exe module.
+bool isParentProcessThisNotepadPlusPlusModule()
 {
 	DWORD currentPid = ::GetCurrentProcessId();
 	DWORD parentPid = 0;
 
 	HANDLE hSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnap == INVALID_HANDLE_VALUE)
-		return nullptr;
+		return false;
 
 	PROCESSENTRY32W pe32{};
 	pe32.dwSize = sizeof(pe32);
@@ -567,20 +568,19 @@ HANDLE getParentProcessOfThisNotepadPlusPlus()
 	::CloseHandle(hSnap);
 
 	if (!found || parentPid == 0)
-		return nullptr;
+		return false;
 
-	HANDLE hParent = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_DUP_HANDLE, FALSE, parentPid);
+	HANDLE hParent = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, parentPid);
 	if (hParent == nullptr)
-		return nullptr; // parent gone or inaccessible — fail closed
+		return false; // parent gone or inaccessible
 
 	wchar_t parentPath[MAX_PATH] {};
 	DWORD parentPathLen = MAX_PATH;
 	bool gotPath = ::QueryFullProcessImageNameW(hParent, 0, parentPath, &parentPathLen) != 0;
-
 	if (!gotPath)
 	{
 		::CloseHandle(hParent);
-		return nullptr;
+		return false;
 	}
 
 	wchar_t selfImagePath[MAX_PATH] = {};
@@ -588,17 +588,18 @@ HANDLE getParentProcessOfThisNotepadPlusPlus()
 	if (!::QueryFullProcessImageNameW(::GetCurrentProcess(), 0, selfImagePath, &dwSizeSelf))
 	{
 		::CloseHandle(hParent);
-		return nullptr;
+		return false;
 	}
+
+	::CloseHandle(hParent);
 
 	if (_wcsicmp(parentPath, selfImagePath) == 0)
 	{
-		return hParent;
+		return true;
 	}
 	else
 	{
-		::CloseHandle(hParent);
-		return nullptr; // parent is not this notepad++.exe image
+		return false; // parent is not this notepad++.exe module
 	}
 }
 
@@ -646,8 +647,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		if (nppUacOpSign.starts_with(NPP_UAC_OP_PREFIX))
 		{
 			// Check the parent caller to ensure it is Notepad++ and not some other process
-			HANDLE hParent = getParentProcessOfThisNotepadPlusPlus();
-			if (!hParent)
+			if (!isParentProcessThisNotepadPlusPlusModule())
 			{
 				::MessageBox(Notepad_plus_Window::gNppHWND, L"The parent process is not Notepad++. Aborting the operation for security reasons.", L"Notepad++ UAC OPS Warning", MB_OK | MB_ICONERROR);
 				return static_cast<int>(ERROR_ACCESS_DENIED);
@@ -655,23 +655,18 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 			if ((__argc == 5) && (nppUacOpSign == NPP_UAC_SAVE_SIGN))
 			{
-				// __wargv[x]: 2 ... protectedFilePath2Save, 3 ... section handle value (valid in the parent process), 4 ... content size in bytes
+				// __wargv[x]: 2 ... protectedFilePath2Save, 3 ... content size in bytes, 4 ... one-time GUID
 				DWORD dwError = NO_ERROR;
 				try {
-					const uintptr_t remoteHandle = static_cast<uintptr_t>(std::stoull(std::wstring(__wargv[3])));
-					const size_t contentSize = static_cast<size_t>(std::stoull(std::wstring(__wargv[4])));
-					dwError = nppUacSave(__wargv[2], hParent, reinterpret_cast<HANDLE>(remoteHandle), contentSize);
+					const size_t contentSize = static_cast<size_t>(std::stoull(std::wstring(__wargv[3])));
+					dwError = nppUacSave(__wargv[2], contentSize, __wargv[4]);
 				}
 				catch ([[maybe_unused]] const std::exception& e)
 				{
 					dwError = ERROR_INVALID_PARAMETER; // conversion error (check e.what() for details)
 				}
-
-				::CloseHandle(hParent);
 				return static_cast<int>(dwError);
 			}
-
-			::CloseHandle(hParent);
 
 			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SETFILEATTRIBUTES_SIGN))
 			{
@@ -696,6 +691,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 				// __wargv[x]: 2 ... newEmptyFilePath
 				return static_cast<int>(nppUacCreateEmptyFile(__wargv[2]));
 			}
+
+			return static_cast<int>(ERROR_INVALID_PARAMETER);
 		}
 	} // Notepad++ UAC OPS////////////////////////////////////////////////////////////////////////////////////////////
 

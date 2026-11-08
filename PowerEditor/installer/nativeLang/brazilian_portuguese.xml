@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Oct 2026 for 8.9.8.1+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 07 Nov 2026 for 8.9.9+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.8">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1788,6 +1788,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selecione uma pasta origem da busca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Preencha o campo Pasta baseado no documento ativo"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="Destacar todas as correspondências da busca atual no documento ativo ao digitar"/>
 			<find-status-top-reached value="Localizar: O início do documento foi alcançado, a primeira ocorrência a partir do final foi encontrada."/>
 			<find-status-end-reached value="Localizar: O final do documento foi alcançado, a primeira ocorrência a partir do início foi encontrada."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Arquivos: 1 ocorrência foi substituída."/>

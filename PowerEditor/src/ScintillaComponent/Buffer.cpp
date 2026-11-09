@@ -1575,39 +1575,6 @@ static bool CreateMappingSecurityAttributes(SECURITY_ATTRIBUTES& sa, PSECURITY_D
 	return true;
 }
 
-// If returns ERROR_SUCCESS (zero), both the owner and Administrators can no longer obtain a write access.
-static DWORD ResetMappingToReadOnly4All(HANDLE hMapping)
-{
-	// OW ... OWNER RIGHTS
-	// BA ... BUILTIN\Administrators
-	// 0x0004 ... SECTION_MAP_READ
-	LPCWSTR sddl =
-		L"D:P"
-		L"(A;;0x0004;;;OW)"
-		L"(A;;0x0004;;;BA)";
-	PSECURITY_DESCRIPTOR pSD = nullptr;
-	if (!::ConvertStringSecurityDescriptorToSecurityDescriptorW(sddl, SDDL_REVISION_1, &pSD, nullptr))
-		return ::GetLastError();
-
-	DWORD dwResult = NO_ERROR;
-
-	BOOL bDaclPresent = FALSE;
-	BOOL bDaclDefaulted = FALSE;
-	PACL pDacl = nullptr;
-	if (!::GetSecurityDescriptorDacl(pSD, &bDaclPresent, &pDacl, &bDaclDefaulted))
-	{
-		dwResult = ::GetLastError();
-	}
-	else
-	{
-		dwResult = ::SetSecurityInfo(hMapping, SE_KERNEL_OBJECT, DACL_SECURITY_INFORMATION | PROTECTED_DACL_SECURITY_INFORMATION,
-			nullptr, nullptr, pDacl, nullptr);
-	}
-
-	::LocalFree(pSD);
-
-	return dwResult;
-}
 
 std::mutex save_mutex;
 
@@ -1795,6 +1762,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		HANDLE hMap = ::CreateFileMappingW(INVALID_HANDLE_VALUE, &sa, PAGE_READWRITE,
 			static_cast<DWORD>((uint64_t)mapSize >> 32), static_cast<DWORD>(mapSize), uniqueMappingName.c_str());
 
+		const bool alreadyExists = (hMap != NULL) && (::GetLastError() == ERROR_ALREADY_EXISTS);
+
 		::LocalFree(pSD);
 		pSD = nullptr;
 
@@ -1802,6 +1771,13 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 			 return SavingStatus::SaveOpenFailed;
+		}
+
+		if (alreadyExists) // somebody else has created an object with that name before us, do not use it
+		{
+			::CloseHandle(hMap);
+			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			return SavingStatus::SaveOpenFailed;
 		}
 
 		void* p = ::MapViewOfFile(hMap, FILE_MAP_WRITE, 0, 0, mapSize);
@@ -1816,14 +1792,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		::UnmapViewOfFile(p);
 		p = nullptr;
 
-		DWORD dwResetMappingResult = ResetMappingToReadOnly4All(hMap);
-		if (dwResetMappingResult != ERROR_SUCCESS)
-		{
-#ifndef NDEBUG
-			std::wstring msg = L"Failed to secure the already created filemapping object by R/O access only!\r\nErrorCode: " + std::to_wstring(dwResetMappingResult);
-			::MessageBoxW(NULL, msg.c_str(), L"Notepad++ ResetMappingToReadOnly4All", MB_OK | MB_ICONERROR | MB_APPLMODAL);
-#endif
-		}
+
 
 		// from here on, nobody (including a same-user attacker) can obtain write access to the section
 		HANDLE hMapRO = NULL;

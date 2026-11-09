@@ -1793,6 +1793,7 @@ Sök i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; 
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Välj en mapp att söka från"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Fyll mappfältet med aktivt dokument"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="Markera alla träffar för den aktuella sökningen i det aktiva dokumentet medan du skriver"/>
 			<find-status-top-reached value="Sök: Början av dokumentet har nåtts, där första förekomsten hittades ifrån slutet."/>
 			<find-status-end-reached value="Sök: Slutet av dokumentet har nåtts, där första förekomsten hittades ifrån början."/>
 			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>

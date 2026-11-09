@@ -202,8 +202,10 @@ void TabBar::reSizeTo(RECT & rc2Adjust)
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
 	// We don't need to resize the contained windows if they are even invisible anyway
 	display(rc2Adjust.right > 10);
-	RECT rc = rc2Adjust;
-	Window::reSizeTo(rc);
+	RECT rcTab = rc2Adjust;
+	if ((::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_VERTICAL) && rcTab.right < rcTab.bottom)
+		rcTab.right = rcTab.bottom;
+	Window::reSizeTo(rcTab);
 
 	// Do our own calculations because TabCtrl_AdjustRect doesn't work
 	// on vertical or multi-lined tab controls

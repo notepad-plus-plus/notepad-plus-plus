@@ -1802,6 +1802,14 @@ namespace NppDarkMode
 				break;
 			}
 
+			case WM_STYLECHANGED:
+			{
+				const LRESULT result = ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				if (wParam == GWL_STYLE)
+					NppDarkMode::updateTabUpDownControl(hWnd);
+				return result;
+			}
+
 			case WM_PARENTNOTIFY:
 			{
 				if (LOWORD(wParam) == WM_CREATE)
@@ -2608,6 +2616,10 @@ namespace NppDarkMode
 		bool _isHorizontal = false;
 		bool _isAligned = false;
 		bool _wasHotNext = false;
+		bool _isHotPrev = false;
+		bool _isHotNextLight = false;
+		bool _isPressedPrev = false;
+		bool _isPressedNext = false;
 
 		UpDownData() = delete;
 
@@ -2720,6 +2732,66 @@ namespace NppDarkMode
 		::SelectObject(hdc, holdFont);
 	}
 
+	static void paintLightModeUpDown(HWND hWnd, HDC hdc, UpDownData& upDownData)
+	{
+		const bool isDisabled = ::IsWindowEnabled(hWnd) == FALSE;
+		POINT ptCursor{};
+		::GetCursorPos(&ptCursor);
+		::ScreenToClient(hWnd, &ptCursor);
+		const bool isHotPrev = !isDisabled && (::PtInRect(&upDownData._rcPrev, ptCursor) == TRUE);
+		const bool isHotNext = !isDisabled && (::PtInRect(&upDownData._rcNext, ptCursor) == TRUE);
+		const bool isButtonDown = (::GetKeyState(VK_LBUTTON) & 0x8000) != 0;
+		const bool isPressedPrev = isHotPrev && isButtonDown;
+		const bool isPressedNext = isHotNext && isButtonDown;
+
+		::FillRect(hdc, &upDownData._rcClient, ::GetSysColorBrush(COLOR_BTNFACE));
+		::SetBkMode(hdc, TRANSPARENT);
+
+		HTHEME hTheme = ::OpenThemeData(hWnd, L"Button");
+		auto drawButton = [&](const RECT& rect, bool isHot, bool isPressed) -> void {
+			if (hTheme)
+			{
+				const int state = isDisabled ? PBS_DISABLED : (isPressed ? PBS_PRESSED : (isHot ? PBS_HOT : PBS_NORMAL));
+				::DrawThemeBackground(hTheme, hdc, BP_PUSHBUTTON, state, &rect, nullptr);
+				return;
+			}
+
+			UINT state = DFCS_BUTTONPUSH;
+			if (isDisabled)
+				state |= DFCS_INACTIVE;
+			else if (isPressed)
+				state |= DFCS_PUSHED;
+			else if (isHot)
+				state |= DFCS_HOT;
+			RECT buttonRect = rect;
+			::DrawFrameControl(hdc, &buttonRect, DFC_BUTTON, state);
+		};
+
+		drawButton(upDownData._rcPrev, isHotPrev, isPressedPrev);
+		drawButton(upDownData._rcNext, isHotNext, isPressedNext);
+
+		if (hTheme)
+			::CloseThemeData(hTheme);
+
+		HFONT hFont = reinterpret_cast<HFONT>(::SendMessage(hWnd, WM_GETFONT, 0, 0));
+		if (!hFont)
+			hFont = reinterpret_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
+		HGDIOBJ hOldFont = ::SelectObject(hdc, hFont);
+
+		constexpr UINT dtFlags = DT_NOPREFIX | DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP;
+		const COLORREF textColor = isDisabled ? ::GetSysColor(COLOR_GRAYTEXT) : ::GetSysColor(COLOR_BTNTEXT);
+		const wchar_t* prevArrow = upDownData._isHorizontal ? L"<" : L"˄";
+		const wchar_t* nextArrow = upDownData._isHorizontal ? L">" : L"˅";
+		const LONG offset = upDownData._isHorizontal ? DPIManagerV2::scale(1, ::GetParent(hWnd)) : 0;
+		RECT rcArrowPrev{ upDownData._rcPrev.left, upDownData._rcPrev.top, upDownData._rcPrev.right, upDownData._rcPrev.bottom - offset };
+		RECT rcArrowNext{ upDownData._rcNext.left + offset, upDownData._rcNext.top, upDownData._rcNext.right, upDownData._rcNext.bottom - offset };
+		::SetTextColor(hdc, textColor);
+		::DrawText(hdc, prevArrow, -1, &rcArrowPrev, dtFlags);
+		::DrawText(hdc, nextArrow, -1, &rcArrowNext, dtFlags);
+
+		::SelectObject(hdc, hOldFont);
+	}
+
 	static LRESULT CALLBACK UpDownSubclass(
 		HWND hWnd,
 		UINT uMsg,
@@ -2756,11 +2828,32 @@ namespace NppDarkMode
 				break;
 			}
 
+			case WM_SIZE:
+			{
+				const LRESULT result = ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				updateTabUpDownControl(::GetParent(hWnd));
+				return result;
+			}
+
 			case WM_PAINT:
 			{
 				if (!NppDarkMode::isEnabled())
 				{
-					break;
+					PAINTSTRUCT ps{};
+					HDC hdc = ::BeginPaint(hWnd, &ps);
+					RECT rcClient{};
+					::GetClientRect(hWnd, &rcClient);
+					pUpDownData->_isHorizontal = (::GetWindowLongPtr(hWnd, GWL_STYLE) & UDS_HORZ) == UDS_HORZ;
+					pUpDownData->updateRect(rcClient);
+					if (ps.rcPaint.right > ps.rcPaint.left && ps.rcPaint.bottom > ps.rcPaint.top)
+					{
+						const int savedState = ::SaveDC(hdc);
+						::IntersectClipRect(hdc, ps.rcPaint.left, ps.rcPaint.top, ps.rcPaint.right, ps.rcPaint.bottom);
+						paintLightModeUpDown(hWnd, hdc, *pUpDownData);
+						::RestoreDC(hdc, savedState);
+					}
+					::EndPaint(hWnd, &ps);
+					return 0;
 				}
 
 				PAINTSTRUCT ps{};
@@ -2819,11 +2912,44 @@ namespace NppDarkMode
 				return 0;
 			}
 
+			case WM_LBUTTONDOWN:
+			{
+				const LRESULT result = ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				if (!NppDarkMode::isEnabled() && pUpDownData->_isHorizontal)
+					::RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE);
+				return result;
+			}
+
+			case WM_LBUTTONUP:
+			case WM_CAPTURECHANGED:
+			case WM_CANCELMODE:
+			{
+				const LRESULT result = ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				if (!NppDarkMode::isEnabled() && pUpDownData->_isHorizontal)
+					::RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE);
+				return result;
+			}
+
 			case WM_MOUSEMOVE:
 			{
 				if (!NppDarkMode::isEnabled())
 				{
-					break;
+					if (!pUpDownData->_isHorizontal)
+						break;
+
+					const LRESULT result = ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+					TRACKMOUSEEVENT trackMouseEvent{ sizeof(TRACKMOUSEEVENT), TME_LEAVE, hWnd, 0 };
+					::TrackMouseEvent(&trackMouseEvent);
+					POINT ptCursor{ static_cast<short>(LOWORD(lParam)), static_cast<short>(HIWORD(lParam)) };
+					const bool isHotPrev = ::PtInRect(&pUpDownData->_rcPrev, ptCursor) == TRUE;
+					const bool isHotNext = ::PtInRect(&pUpDownData->_rcNext, ptCursor) == TRUE;
+					if (isHotPrev != pUpDownData->_isHotPrev || isHotNext != pUpDownData->_isHotNextLight)
+					{
+						pUpDownData->_isHotPrev = isHotPrev;
+						pUpDownData->_isHotNextLight = isHotNext;
+						::RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE);
+					}
+					return result;
 				}
 
 				if (pUpDownData->_wasHotNext)
@@ -2839,6 +2965,12 @@ namespace NppDarkMode
 			{
 				if (!NppDarkMode::isEnabled())
 				{
+					if (pUpDownData->_isHorizontal)
+					{
+						pUpDownData->_isHotPrev = false;
+						pUpDownData->_isHotNextLight = false;
+						::RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE);
+					}
 					break;
 				}
 
@@ -2855,6 +2987,22 @@ namespace NppDarkMode
 	{
 		if (cmpWndClassName(hWnd, UPDOWN_CLASS))
 		{
+			HWND hTab = ::GetParent(hWnd);
+
+			if (cmpWndClassName(hTab, WC_TABCONTROL))
+			{
+				LONG_PTR style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+				const LONG_PTR tabStyle = ::GetWindowLongPtr(hTab, GWL_STYLE);
+
+				if (tabStyle & TCS_VERTICAL)
+					style &= ~UDS_HORZ;
+				else
+					style |= UDS_HORZ;
+
+			::SetWindowLongPtr(hWnd, GWL_STYLE, style);
+			::SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER |SWP_NOACTIVATE | SWP_FRAMECHANGED);
+			::RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
+			}
 			if (::GetWindowSubclass(hWnd, UpDownSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == FALSE)
 			{
 				auto pUpdownData = reinterpret_cast<DWORD_PTR>(new UpDownData(hWnd));
@@ -2864,6 +3012,45 @@ namespace NppDarkMode
 			}
 		}
 		return false;
+	}
+
+	void updateTabUpDownControl(HWND hTab)
+	{
+		if (!hTab || !cmpWndClassName(hTab, WC_TABCONTROL))
+			return;
+
+		HWND hUpDown = ::FindWindowEx(hTab, nullptr, UPDOWN_CLASS, nullptr);
+		if (!hUpDown)
+			return;
+
+		const LONG_PTR tabStyle = ::GetWindowLongPtr(hTab, GWL_STYLE);
+		const bool isHorizontal = (tabStyle & TCS_VERTICAL) == 0;
+
+		LONG_PTR style = ::GetWindowLongPtr(hUpDown, GWL_STYLE);
+		const bool wasHorizontal = (style & UDS_HORZ) != 0;
+
+		if (isHorizontal)
+			style |= UDS_HORZ;
+		else
+			style &= ~UDS_HORZ;
+
+		if (isHorizontal != wasHorizontal)
+		{
+			::SetWindowLongPtr(hUpDown, GWL_STYLE, style);
+			::SetWindowPos(hUpDown, nullptr, 0, 0, 0, 0,
+				SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_FRAMECHANGED);
+		}
+
+		DWORD_PTR refData = 0;
+		if (::GetWindowSubclass(hUpDown, UpDownSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), &refData) && refData)
+		{
+			auto* pUpDownData = reinterpret_cast<UpDownData*>(refData);
+			pUpDownData->_isHorizontal = isHorizontal;
+			pUpDownData->_isAligned = (style & UDS_ALIGNRIGHT) == UDS_ALIGNRIGHT;
+			pUpDownData->updateRect(hUpDown);
+		}
+
+		::RedrawWindow(hUpDown, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
 	}
 
 	static void subclassAndThemeUpDownControl(HWND hWnd, NppDarkModeParams p)

@@ -714,6 +714,17 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
+		case WM_NOTIFY:
+		{
+			const auto* nm = reinterpret_cast<const NMUPDOWN*>(lParam);
+			if (nm->hdr.code == UDN_DELTAPOS)
+			{
+				::SendMessage(hwnd, WM_MOUSEWHEEL, MAKEWPARAM(0, nm->iDelta * WHEEL_DELTA), 0);
+				return TRUE;
+			}
+			break;
+		}
+
 		case WM_MOUSEWHEEL:
 		{
 			// ..............................................................................

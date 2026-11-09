@@ -1526,52 +1526,20 @@ static std::wstring CreateGuidString()
 
 static bool CreateMappingSecurityAttributes(SECURITY_ATTRIBUTES& sa, PSECURITY_DESCRIPTOR& pSD)
 {
-	HANDLE hToken = nullptr;
-	if (!::OpenProcessToken(::GetCurrentProcess(), TOKEN_QUERY, &hToken))
-		return false;
-
-	DWORD cb = 0;
-	::GetTokenInformation(hToken, TokenUser, nullptr, 0, &cb);
-	if (::GetLastError() != ERROR_INSUFFICIENT_BUFFER)
-	{
-		::CloseHandle(hToken);
-		return false;
-	}
-
-	std::vector<BYTE> buffer(cb);
-	if (!::GetTokenInformation(hToken, TokenUser, buffer.data(), cb, &cb))
-	{
-		::CloseHandle(hToken);
-		return false;
-	}
-
-	::CloseHandle(hToken);
-	hToken = nullptr;
-
-	auto* pUser = reinterpret_cast<TOKEN_USER*>(buffer.data());
-	wchar_t* sidString = nullptr;
-	if (!::ConvertSidToStringSidW(pUser->User.Sid, &sidString))
-		return false;
-
-	// SID for the built-in Windows Administrators group is S-1-5-32-544 (BA in SDDL notation)
-	// Original user: read + write (0x0006)
-	// Built-in Administrators: read only (0x0004)
-	std::wstring sddl =
+	// OW ... OWNER RIGHTS (removes the implicit WRITE_DAC of the owner)
+	// BA ... BUILTIN\Administrators
+	// 0x0004 ... SECTION_MAP_READ
+	LPCWSTR sddl =
 		L"D:P"
-		L"(A;;0x0006;;;" + std::wstring(sidString) + L")"
+		L"(A;;0x0004;;;OW)"
 		L"(A;;0x0004;;;BA)";
 
-	::LocalFree(sidString);
-	sidString = nullptr;
-
-	if (!::ConvertStringSecurityDescriptorToSecurityDescriptorW(
-		sddl.c_str(), SDDL_REVISION_1, &pSD, nullptr))
+	if (!::ConvertStringSecurityDescriptorToSecurityDescriptorW(sddl, SDDL_REVISION_1, &pSD, nullptr))
 		return false;
 
 	sa.nLength = sizeof(sa);
 	sa.lpSecurityDescriptor = pSD;
 	sa.bInheritHandle = FALSE;
-
 	return true;
 }
 

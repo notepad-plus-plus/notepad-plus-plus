@@ -1787,6 +1787,7 @@ OKボタンを押すと検索ダイアログが開きます。
 *.* !+\log*"/>
 			<find-in-files-select-folder value="検索するディレクトリを選択してください"/>
 			<find-in-files-dir-from-active-doc-tip value="現在の文書のディレクトリを記入する"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="入力中に、現在の文書内の一致個所をすべてハイライトする"/>
 			<find-status-top-reached value="検索：文書頭に到達したため、末尾から検索します"/>
 			<find-status-end-reached value="検索：文書末に到達したため、先頭から検索します"/>
 			<find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>

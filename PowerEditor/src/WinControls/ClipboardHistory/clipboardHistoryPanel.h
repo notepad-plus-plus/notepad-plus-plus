@@ -48,6 +48,7 @@ public:
 	void reSizeToWH(int width, int height);
 
 private:
+	using ListViewBase::init;
 	using Window::reSizeToWH;
 };
 

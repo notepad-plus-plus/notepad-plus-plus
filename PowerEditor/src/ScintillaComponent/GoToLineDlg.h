@@ -16,8 +16,17 @@
 
 
 #pragma once
-#include "resource.h"
+
+#include <windows.h>
+
+#include <cwchar>
+#include <stdexcept>
+
 #include "ScintillaEditView.h"
+#include "StaticDialog.h"
+#include "Window.h"
+#include "dpiManagerV2.h"
+#include "resource.h"
 
 class GoToLineDlg : public StaticDialog
 {
@@ -33,7 +42,11 @@ public :
 
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
+		{
+			const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 			create(IDD_GOLINE, isRTL);
+			DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+		}
 		display();
 	}
 
@@ -62,13 +75,15 @@ protected :
 private :
 	ScintillaEditView **_ppEditView = nullptr;
 
+	using Window::init;
+
 	long long getLine() const {
-		constexpr int maxLen = 256;
-		char goLineEditStr[maxLen] = {'\0'};
-		UINT count = ::GetDlgItemTextA(_hSelf, ID_GOLINE_EDIT, goLineEditStr, maxLen);
-		if (!count)
+		static constexpr int maxLen = 256;
+		wchar_t goLineEditStr[maxLen]{};
+		const UINT count = ::GetDlgItemTextW(_hSelf, ID_GOLINE_EDIT, goLineEditStr, maxLen);
+		if (count == 0)
 			return -1;
-		char* p_end = nullptr;
-		return strtoll(goLineEditStr, &p_end, 10);
+		wchar_t* p_end = nullptr;
+		return std::wcstoll(goLineEditStr, &p_end, 10);
 	}
 };

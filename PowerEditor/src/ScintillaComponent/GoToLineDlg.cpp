@@ -17,6 +17,16 @@
 
 #include "GoToLineDlg.h"
 
+#include <windows.h>
+
+#include <string>
+
+#include <Scintilla.h>
+
+#include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "resource.h"
 
 intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -170,6 +180,6 @@ void GoToLineDlg::updateLinesNumbers() const
 		limit = (currentDocLength > 0 ? currentDocLength - 1 : 0);
 	}
 
-	::SetDlgItemTextA(_hSelf, ID_CURRLINE_EDIT, std::to_string(current).c_str());
-	::SetDlgItemTextA(_hSelf, ID_LASTLINE, std::to_string(limit).c_str());
+	::SetDlgItemTextW(_hSelf, ID_CURRLINE_EDIT, std::to_wstring(current).c_str());
+	::SetDlgItemTextW(_hSelf, ID_LASTLINE, std::to_wstring(limit).c_str());
 }

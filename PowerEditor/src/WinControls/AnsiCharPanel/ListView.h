@@ -53,9 +53,10 @@ public:
 
 	static void subclassParentNotifyListViewCustomDraw(HWND hParent, UINT_PTR listViewID);
 
-private:
+protected:
 	using Window::init;
 
+private:
 	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) noexcept;
 	static LRESULT CALLBACK ListViewParentNotifyCustomDrawSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData) noexcept;
 };

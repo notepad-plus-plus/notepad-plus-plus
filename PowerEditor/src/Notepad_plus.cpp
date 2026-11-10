@@ -7474,6 +7474,9 @@ bool Notepad_plus::reloadLang()
 
 	_accelerator.updateFullMenu();
 
+	// The menu updates above clear the Encoding marks: set them again
+	checkUnicodeMenuItems();
+
 	_scintaccelerator.updateKeys();
 
 

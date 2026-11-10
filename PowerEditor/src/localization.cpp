@@ -422,7 +422,13 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle) const
 		if (!name) continue;
 
 		const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
-		::ModifyMenu(menuHandle, id, MF_BYCOMMAND, id, nameW);
+
+		// Change only the text, so the item keeps its check and enabled/greyed state
+		MENUITEMINFO mii{};
+		mii.cbSize = sizeof(mii);
+		mii.fMask = MIIM_STRING;
+		mii.dwTypeData = const_cast<wchar_t*>(nameW);
+		::SetMenuItemInfo(menuHandle, id, FALSE, &mii);
 	}
 
 	NppXml::Element subEntriesRoot = NppXml::firstChildElement(mainMenu, "SubEntries");

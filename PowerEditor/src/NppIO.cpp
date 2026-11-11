@@ -2620,6 +2620,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (i == 0 && session._activeMainIndex == 0)
 				_mainEditView.changeTextDirection(buf->isRTL());
 
+			if (session._mainViewFiles[i]._isWordWrapSet)
+				buf->setWordWrap(session._mainViewFiles[i]._isWordWrap);
+			if (buf == _mainEditView.getCurrentBuffer() && nppParam.getSVP()._isWordWrapPerDocument) // already shown
+				_mainEditView.wrap(_mainEditView.getDocumentWordWrap());
+
 			_mainDocTab.setIndividualTabColour(lastOpened, session._mainViewFiles[i]._individualTabColour);
 
 			//Force in the document so we can add the markers
@@ -2759,6 +2764,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				buf->setDirty(true);
 
 			buf->setRTL(session._subViewFiles[k]._isRTL);
+			if (session._subViewFiles[k]._isWordWrapSet)
+				buf->setWordWrap(session._subViewFiles[k]._isWordWrap);
+			if (buf == _subEditView.getCurrentBuffer() && nppParam.getSVP()._isWordWrapPerDocument) // already shown
+				_subEditView.wrap(_subEditView.getDocumentWordWrap());
 
 			_subDocTab.setIndividualTabColour(lastOpened, session._subViewFiles[k]._individualTabColour);
 

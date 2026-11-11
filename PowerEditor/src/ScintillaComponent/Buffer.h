@@ -429,6 +429,12 @@ public:
 	bool isRTL() const { return _isRTL; }
 	void setRTL(bool isRTL) { _isRTL = isRTL; }
 
+	// word wrap of the document with "Word wrap per document" (Preferences > Editing 1):
+	// until it is set, the document follows the global word wrap
+	bool isWordWrapSet() const { return _isWordWrapSet; }
+	bool isWordWrap() const { return _isWordWrap; }
+	void setWordWrap(bool isWordWrap) { _isWordWrap = isWordWrap; _isWordWrapSet = true; }
+
 	bool isPinned() const { return _isPinned; }
 	void setPinned(bool isPinned) { _isPinned = isPinned; }
 
@@ -522,5 +528,7 @@ private:
 	bool _isInaccessible = false;
 
 	bool _isRTL = false;
+	bool _isWordWrapSet = false;
+	bool _isWordWrap = false;
 	bool _isPinned = false;
 };

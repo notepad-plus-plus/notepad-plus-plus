@@ -319,6 +319,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 		throw std::runtime_error("TabBarPlus::init : CreateWindowEx() function return null");
 	}
 
+	NppDarkMode::subclassTabControl(_hSelf);
+
 	_tooltips = ::CreateWindowEx(0, TOOLTIPS_CLASS, NULL, TTS_ALWAYSTIP | TTS_NOPREFIX, 0, 0, 0, 0, _hParent, NULL, _hInst, 0);
 
 	if (!_tooltips)
@@ -719,7 +721,34 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			const auto* nm = reinterpret_cast<const NMUPDOWN*>(lParam);
 			if (nm->hdr.code == UDN_DELTAPOS)
 			{
-				::SendMessage(hwnd, WM_MOUSEWHEEL, MAKEWPARAM(0, nm->iDelta * WHEEL_DELTA), 0);
+				if (::SendMessage(hwnd, TCM_GETITEMCOUNT, 0, 0) == 0)
+					return TRUE;
+
+				const bool isHorizontalArrows = (::GetWindowLongPtr(nm->hdr.hwndFrom, GWL_STYLE) & UDS_HORZ) != 0;
+				bool isTowardStart = isHorizontalArrows ? nm->iDelta < 0 : nm->iDelta > 0;
+
+				POINT cursorPos{};
+				RECT arrowRect{};
+				if (::GetCursorPos(&cursorPos) &&
+					::GetWindowRect(nm->hdr.hwndFrom, &arrowRect))
+				{
+					::MapWindowPoints(nullptr, nm->hdr.hwndFrom, reinterpret_cast<LPPOINT>(&arrowRect), 2);
+					::ScreenToClient(nm->hdr.hwndFrom, &cursorPos);
+
+					const bool isCursorInArrows = ::PtInRect(&arrowRect, cursorPos) == TRUE;
+					if (isCursorInArrows)
+					{
+						const LONG midpoint = isHorizontalArrows
+							? arrowRect.left + ((arrowRect.right - arrowRect.left) / 2)
+							: arrowRect.top + ((arrowRect.bottom - arrowRect.top) / 2);
+						isTowardStart = isHorizontalArrows
+							? cursorPos.x < midpoint
+							: cursorPos.y < midpoint;
+					}
+				}
+
+				const SHORT wheelDelta = isTowardStart ? WHEEL_DELTA : -WHEEL_DELTA;
+				::SendMessage(hwnd, WM_MOUSEWHEEL, MAKEWPARAM(0, wheelDelta), 0);
 				return TRUE;
 			}
 			break;
@@ -748,6 +777,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			const bool isForward = ((short)HIWORD(wParam)) < 0; // wheel rotation towards the user will be considered as forward direction
 			const int lastTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
+			if (lastTabIndex < 0)
+				return 0;
 			
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 			bool doDragNDrop = nppGUI._tabStatus & TAB_DRAGNDROP;
@@ -1297,6 +1328,18 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				holdClip = nullptr;
 			}
 
+			const bool isUpDownExcluded = NppDarkMode::excludeTabUpDownControl(hdc, hwnd);
+			HRGN hTabClip = nullptr;
+			if (isUpDownExcluded)
+			{
+				hTabClip = CreateRectRgn(0, 0, 0, 0);
+				if (GetClipRgn(hdc, hTabClip) != 1)
+				{
+					DeleteObject(hTabClip);
+					hTabClip = nullptr;
+				}
+			}
+
 			int paddingDynamicTwoX = _dpiManager.scale(2);
 			int paddingDynamicTwoY = paddingDynamicTwoX;
 
@@ -1361,14 +1404,20 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					}
 
 					HRGN hClip = CreateRectRgnIndirect(&dis.rcItem);
-
-					SelectClipRgn(hdc, hClip);
+					if (hTabClip)
+						SelectClipRgn(hdc, hTabClip);
+					else
+						SelectClipRgn(hdc, holdClip);
+					ExtSelectClipRgn(hdc, hClip, RGN_AND);
 
 					drawItem(&dis, NppDarkMode::isEnabled());
 
 					DeleteObject(hClip);
 
-					SelectClipRgn(hdc, holdClip);
+					if (hTabClip)
+						SelectClipRgn(hdc, hTabClip);
+					else
+						SelectClipRgn(hdc, holdClip);
 				}
 			}
 
@@ -1408,6 +1457,11 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			SelectClipRgn(hdc, holdClip);
+			if (hTabClip)
+			{
+				DeleteObject(hTabClip);
+				hTabClip = nullptr;
+			}
 			if (holdClip)
 			{
 				DeleteObject(holdClip);
@@ -1479,6 +1533,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	HDC hDC = pDrawItemStruct->hDC;
 
 	int nSavedDC = ::SaveDC(hDC);
+	NppDarkMode::excludeTabUpDownControl(hDC, _hSelf);
 
 	::SetBkMode(hDC, TRANSPARENT);
 	HBRUSH hBrush = ::CreateSolidBrush(colorInactiveBgBase);
@@ -1738,25 +1793,26 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		IMAGEINFO info{};
 		ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
 
-		RECT& imageRect = info.rcImage;
-
-		int fromBorder;
+		const int imageWidth = info.rcImage.right - info.rcImage.left;
+		const int imageHeight = info.rcImage.bottom - info.rcImage.top;
 		int xPos, yPos;
 		if (isVertical)
 		{
-			fromBorder = (rect.right - rect.left - (imageRect.right - imageRect.left) + 1) / 2;
-			xPos = rect.left + fromBorder;
-			yPos = rect.bottom - fromBorder - (imageRect.bottom - imageRect.top);
-			rect.bottom -= fromBorder + (imageRect.bottom - imageRect.top);
+			const int iconPadding = _dpiManager.scale(4);
+			const int availableWidth = rect.right - rect.left;
+			xPos = rect.left + (availableWidth > imageWidth ? (availableWidth - imageWidth) / 2 : 0);
+			yPos = rect.bottom - iconPadding - imageHeight;
+			rect.bottom = yPos - iconPadding;
 		}
 		else
 		{
-			fromBorder = (rect.bottom - rect.top - (imageRect.bottom - imageRect.top) + 1) / 2;
+			const int availableHeight = rect.bottom - rect.top;
+			const int fromBorder = availableHeight > imageHeight ? (availableHeight - imageHeight + 1) / 2 : 0;
 			yPos = rect.top + fromBorder;
 			xPos = rect.left + fromBorder;
-			rect.left += fromBorder + (imageRect.right - imageRect.left);
+			rect.left += fromBorder + imageWidth;
 		}
-		ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, yPos, isSelected ? ILD_TRANSPARENT : ILD_SELECTED);
+		ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, yPos, ILD_TRANSPARENT);
 	}
 
 	// draw text

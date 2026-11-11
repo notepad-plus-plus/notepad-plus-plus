@@ -32,11 +32,12 @@
 #include "Parameters.h"
 #include "TaskListDlg.h"
 #include "VerticalFileSwitcherListView.h"
+#include "VerticalFileSwitcher_rc.h"
 #include "dockingResource.h"
+#include "dpiManagerV2.h"
 #include "localization.h"
 #include "menuCmdID.h"
 #include "resource.h"
-#include <dpiManagerV2.h>
 
 enum VFSLstMenuItemId
 {
@@ -59,7 +60,7 @@ static int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM l
 
 	int result = lstrcmp(str1, str2);
 
-	if (sortData->sortDirection == SORT_DIRECTION_UP)
+	if (sortData->sortDirection == SortDirection::UP)
 		return result;
 
 	return (0 - result);
@@ -103,10 +104,10 @@ void VerticalFileSwitcher::startColumnSort()
 	if (_lastSortingColumn >= columnCount)
 	{
 		_lastSortingColumn = 0;
-		_lastSortingDirection = SORT_DIRECTION_NONE;
+		_lastSortingDirection = SortDirection::NONE;
 	}
 
-	if (_lastSortingDirection != SORT_DIRECTION_NONE)
+	if (_lastSortingDirection != SortDirection::NONE)
 	{
 		sortCompareData sortData = {_fileListView.getHSelf(), _lastSortingColumn, _lastSortingDirection};
 		ListView_SortItemsEx(_fileListView.getHSelf(), ListViewCompareProc, reinterpret_cast<LPARAM>(&sortData));
@@ -178,7 +179,6 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 				const LONG paddingLeft = isThemeDark ? 1 : 0;
 				const LONG paddingRight = isThemeDark ? 2 : 1;
 
-				const auto lvii = LVITEMINDEX{ .iItem = static_cast<int>(lplvcd->nmcd.dwItemSpec), .iGroup = -1 };
 				RECT rcSubitem{
 					rcRow.left
 					, rcRow.top
@@ -189,7 +189,15 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 
 				for (int i = 1; i < nCol; ++i)
 				{
-					ListView_GetItemIndexRect(hList, &lvii, i, LVIR_BOUNDS, &rcSubitem);
+					if (Header_GetItemRect(hHeader, i, &rcSubitem) == FALSE)
+					{
+						continue;
+					}
+
+					::MapWindowPoints(hHeader, hList, reinterpret_cast<POINT*>(&rcSubitem), 2);
+					rcSubitem.top = rcRow.top;
+					rcSubitem.bottom = rcRow.bottom;
+
 					rcSubitem.left -= paddingLeft;
 					rcSubitem.right -= paddingRight;
 					::FillRect(lplvcd->nmcd.hdc, &rcSubitem, hBrush);
@@ -263,11 +271,11 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 		{
 			VerticalFileSwitcher::initPopupMenus();
 
-			_fileListView.init(_hInst, _hSelf, _hImaLst);
+			_fileListView.init(_hInst, _hSelf, IDC_LIST_DOCLIST, _hImaLst);
+			setFontForChild(_fileListView.getHSelf());
 			_fileListView.initList();
 			_fileListView.display();
 
-			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 			::SetWindowSubclass(_hSelf, VerticalFileSwitcher::FileSwitcherNotifySubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 			::SetWindowSubclass(_fileListView.getHSelf(), VerticalFileSwitcher::ListViewParentNotifyProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 
@@ -276,7 +284,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::autoThemeChildControls(_hSelf);
+			_fileListView.setDarkTheme();
 			return TRUE;
 		}
 
@@ -377,7 +385,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					{
 						int i = lpnmitem->iItem;
 						if (i == -1 || i >= nbItem)
- 							return TRUE;
+							return TRUE;
 
 						LVITEM item{};
 						item.mask = LVIF_PARAM;
@@ -402,7 +410,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 
 				case LVN_GETINFOTIP:
 				{
-					LPNMLVGETINFOTIP pGetInfoTip = (LPNMLVGETINFOTIP)lParam;
+					const auto pGetInfoTip = reinterpret_cast<LPNMLVGETINFOTIP>(lParam);
 					int i = pGetInfoTip->iItem;
 					if (i == -1)
 						return TRUE;
@@ -416,7 +424,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					const auto pnmLV = reinterpret_cast<LPNMLISTVIEW>(lParam);
 					_lastSortingDirection = setHeaderOrder(pnmLV->iSubItem);
 					_lastSortingColumn = pnmLV->iSubItem;
-					if (_lastSortingDirection != SORT_DIRECTION_NONE)
+					if (_lastSortingDirection != SortDirection::NONE)
 					{
 						startColumnSort();
 					}
@@ -480,15 +488,14 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 		}
 		return TRUE;
 
-        case WM_SIZE:
-        {
-			int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
-			::MoveWindow(_fileListView.getHSelf(), 0, 0, width, height, TRUE);
-			_fileListView.resizeColumns(width);
-            break;
-        }
-        
+		case WM_SIZE:
+		{
+			const int width = LOWORD(lParam);
+			const int height = HIWORD(lParam);
+			_fileListView.reSizeToWH(width, height);
+			break;
+		}
+
 		case WM_CONTEXTMENU:
 		{
 			if (nbSelectedFiles() == 0 || colHeaderRClick)
@@ -508,15 +515,15 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 		}
 
 		case WM_DESTROY:
-        {
+		{
 			_fileListView.destroy();
 			::DestroyMenu(_hGlobalMenu);
-            break;
-        }
+			break;
+		}
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default:
+			break;
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
@@ -610,14 +617,14 @@ void VerticalFileSwitcher::closeDoc(TaskLstFnStatus *tlfs) const
 	::SendMessage(_hParent, NPPM_INTERNAL_CLOSEDOC, view2set, index2Switch);
 }
 
-int VerticalFileSwitcher::setHeaderOrder(int columnIndex)
+SortDirection VerticalFileSwitcher::setHeaderOrder(int columnIndex)
 {
 	HWND hListView = _fileListView.getHSelf();
 	LVCOLUMN lvc{};
 	lvc.mask = LVCF_FMT;
 	
 	//strip HDF_SORTUP and HDF_SORTDOWN from old sort column
-	if (_lastSortingColumn != columnIndex && _lastSortingDirection != SORT_DIRECTION_NONE)
+	if (_lastSortingColumn != columnIndex && _lastSortingDirection != SortDirection::NONE)
 	{
 		HWND colHeader = reinterpret_cast<HWND>(SendMessage(hListView, LVM_GETHEADER, 0, 0));
 		const auto columnCount = static_cast<int>(::SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
@@ -631,21 +638,21 @@ int VerticalFileSwitcher::setHeaderOrder(int columnIndex)
 			SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
 		}
 		
-		_lastSortingDirection = SORT_DIRECTION_NONE;
+		_lastSortingDirection = SortDirection::NONE;
 	}
 	
-	if (_lastSortingDirection == SORT_DIRECTION_NONE)
+	if (_lastSortingDirection == SortDirection::NONE)
 	{
-		return SORT_DIRECTION_UP;
+		return SortDirection::UP;
 	}
 	
-	if (_lastSortingDirection == SORT_DIRECTION_UP)
+	if (_lastSortingDirection == SortDirection::UP)
 	{
-		return SORT_DIRECTION_DOWN;
+		return SortDirection::DOWN;
 	}
 
-	//if (_lastSortingDirection == SORT_DIRECTION_DOWN)
-	return SORT_DIRECTION_NONE;
+	//if (_lastSortingDirection == SortDirection::DOWN)
+	return SortDirection::NONE;
 }
 
 void VerticalFileSwitcher::updateHeaderArrow()
@@ -656,17 +663,17 @@ void VerticalFileSwitcher::updateHeaderArrow()
 	
 	SendMessage(hListView, LVM_GETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
 	
-	if (_lastSortingDirection == SORT_DIRECTION_UP)
+	if (_lastSortingDirection == SortDirection::UP)
 	{
 		lvc.fmt = (lvc.fmt | HDF_SORTUP) & ~HDF_SORTDOWN;
 		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
 	}
-	else if (_lastSortingDirection == SORT_DIRECTION_DOWN)
+	else if (_lastSortingDirection == SortDirection::DOWN)
 	{
 		lvc.fmt = (lvc.fmt & ~HDF_SORTUP) | HDF_SORTDOWN;
 		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
 	}
-	else if (_lastSortingDirection == SORT_DIRECTION_NONE)
+	else if (_lastSortingDirection == SortDirection::NONE)
 	{
 		lvc.fmt = lvc.fmt & (~HDF_SORTUP) & (~HDF_SORTDOWN);
 		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));

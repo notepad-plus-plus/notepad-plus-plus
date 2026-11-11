@@ -14,18 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <shlwapi.h>
-#include <stdexcept>
+
 #include "VerticalFileSwitcherListView.h"
+
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
 #include "Buffer.h"
-#include "localization.h"
+#include "Notepad_plus_msgs.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "TaskListDlg.h"
+#include "Window.h"
 #include "dpiManagerV2.h"
+#include "localization.h"
 
 using namespace std;
 
-void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst)
+void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND hParent, UINT_PTR listViewID, HIMAGELIST hImaLst)
 {
-	Window::init(hInst, parent);
+	Window::init(hInst, hParent);
 	_hImaLst = hImaLst;
 	INITCOMMONCONTROLSEX icex{};
 
@@ -35,10 +49,9 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 	InitCommonControlsEx(&icex);
 
 	// Create the list-view window in report view with label editing enabled.
-	int listViewStyles = LVS_REPORT /*| LVS_SINGLESEL*/ | LVS_AUTOARRANGE\
-						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS | LVS_ALIGNTOP;
+	static constexpr DWORD listViewStyles = LVS_REPORT | LVS_SHOWSELALWAYS | LVS_SHAREIMAGELISTS;
 
-	_hSelf = ::CreateWindow(WC_LISTVIEW,
+	_hSelf = ::CreateWindowExW(0, WC_LISTVIEW,
                                 L"",
                                 WS_CHILD | WS_BORDER | listViewStyles,
                                 0,
@@ -46,13 +59,15 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
                                 0,
                                 0,
                                 _hParent,
-                                nullptr,
+                                listViewID == 0 ? nullptr : reinterpret_cast<HMENU>(listViewID),
                                 hInst,
                                 nullptr);
 	if (!_hSelf)
 	{
 		throw std::runtime_error("VerticalFileSwitcherListView::init : CreateWindowEx() function return null");
 	}
+
+	NppDarkMode::subclassListViewControl(_hSelf);
 
 	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP | LVS_EX_DOUBLEBUFFER);
 	ListView_SetItemCountEx(_hSelf, 50, LVSICF_NOSCROLL);
@@ -65,14 +80,14 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 	group.mask = LVGF_HEADER | LVGF_GROUPID | LVGF_STATE;
 	group.pszHeader = header;
 	group.cchHeader = headerLen;
-	group.iGroupId = _groupID;
+	group.iGroupId = MAIN_VIEW;
 	group.state = LVGS_COLLAPSIBLE;
-
-	LVGROUP group2 = group;
-	group2.iGroupId = _group2ID;
-
 	ListView_InsertGroup(_hSelf, -1, &group);
-	ListView_InsertGroup(_hSelf, -1, &group2);
+
+	group.iGroupId = SUB_VIEW;
+	ListView_InsertGroup(_hSelf, -1, &group);
+
+	setDarkTheme();
 }
 
 void VerticalFileSwitcherListView::destroy()
@@ -88,8 +103,14 @@ void VerticalFileSwitcherListView::destroy()
 		delete tlfs;
 	}
 	::DestroyWindow(_hSelf);
-	_hSelf = NULL;
+	_hSelf = nullptr;
 } 
+
+void VerticalFileSwitcherListView::reSizeToWH(int width, int height)
+{
+	::SetWindowPos(_hSelf, nullptr, 0, 0, width, height, SWP_NOZORDER | SWP_NOACTIVATE); // SWP_NOMOVE must not be used due to RTL
+	resizeColumns(width);
+}
 
 void VerticalFileSwitcherListView::initList()
 {
@@ -150,11 +171,11 @@ void VerticalFileSwitcherListView::initList()
 		item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM | LVIF_GROUPID;
 		
 		item.pszText = fn;
-		item.iItem = static_cast<int32_t>(i);
+		item.iItem = static_cast<int>(i);
 		item.iSubItem = 0;
 		item.iImage = fileNameStatus._status;
 		item.lParam = reinterpret_cast<LPARAM>(tl);
-		item.iGroupId = (fileNameStatus._iView == MAIN_VIEW) ? _groupID : _group2ID;
+		item.iGroupId = fileNameStatus._iView;
 		ListView_InsertItem(_hSelf, &item);
 		int colIndex2 = 0;
 		if (isExtColumn)
@@ -207,7 +228,7 @@ BufferID VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & v
 	item.mask = LVIF_PARAM;
 	item.iItem = index;
 	ListView_GetItem(_hSelf, &item);
-	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+	const TaskLstFnStatus* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
 
 	view = tlfs->_iView;
 	return static_cast<BufferID>(tlfs->_bufID);
@@ -247,7 +268,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 		item.mask = LVIF_PARAM;
 		item.iItem = i;
 		ListView_GetItem(_hSelf, &item);
-		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)(item.lParam);
+		TaskLstFnStatus* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
 		if (tlfs->_bufID == bufferID)
 		{
 			tlfs->_fn = buf->getFullPathName();
@@ -256,7 +277,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 			int colIndex = 0;
 			if (isExtColumn)
 			{
-				ListView_SetItemText(_hSelf, i, ++colIndex, (LPTSTR)::PathFindExtension(buf->getFileName()));
+				ListView_SetItemText(_hSelf, i, ++colIndex, ::PathFindExtension(buf->getFileName()));
 			}
 			if (isPathColumn)
 			{
@@ -301,9 +322,9 @@ wstring VerticalFileSwitcherListView::getFullFilePath(size_t i) const
 
 	LVITEM item{};
 	item.mask = LVIF_PARAM;
-	item.iItem = static_cast<int32_t>(i);
+	item.iItem = static_cast<int>(i);
 	ListView_GetItem(_hSelf, &item);
-	const TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+	const TaskLstFnStatus* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);;
 
 	return tlfs->_fn;
 }
@@ -340,7 +361,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	Buffer *buf = bufferID;
 	const wchar_t *fileName = buf->getFileName();
 	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, (void *)bufferID, -1);
+	TaskLstFnStatus* tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, bufferID, -1);
 
 	wchar_t fn[MAX_PATH] = { '\0' };
 	wcscpy_s(fn, ::PathFindFileName(fileName));
@@ -358,7 +379,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	item.iSubItem = 0;
 	item.iImage = buf->isMonitoringOn()?3:(buf->isReadOnly()?2:(buf->isDirty()?1:0));
 	item.lParam = reinterpret_cast<LPARAM>(tl);
-	item.iGroupId = (iView == MAIN_VIEW) ? _groupID : _group2ID;
+	item.iGroupId = iView;
 	ListView_InsertItem(_hSelf, &item);
 	int colIndex = 0;
 	if (isExtColumn)
@@ -384,7 +405,7 @@ void VerticalFileSwitcherListView::remove(int index, bool removeFromListview)
 	item.mask = LVIF_PARAM;
 	item.iItem = index;
 	ListView_GetItem(_hSelf, &item);
-	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+	TaskLstFnStatus* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
 	delete tlfs;
 	
 	if (removeFromListview)
@@ -402,7 +423,7 @@ void VerticalFileSwitcherListView::removeAll()
 	ListView_DeleteAllItems(_hSelf);
 
 	HWND colHeader = reinterpret_cast<HWND>(SendMessage(_hSelf, LVM_GETHEADER, 0, 0));
-	int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
+	const auto columnCount = static_cast<int>(::SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
 
 	for (int i = 0; i < columnCount; ++i)
 	{
@@ -421,7 +442,7 @@ int VerticalFileSwitcherListView::find(BufferID bufferID, int iView) const
 		item.mask = LVIF_PARAM;
 		item.iItem = i;
 		ListView_GetItem(_hSelf, &item);
-		const TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+		const TaskLstFnStatus* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
 		if (tlfs->_bufID == bufferID && tlfs->_iView == iView)
 		{
 			found =  true;
@@ -437,7 +458,7 @@ void VerticalFileSwitcherListView::insertColumn(const wchar_t *name, int width, 
  
 	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
 	lvColumn.cx = width;
-	lvColumn.pszText = (wchar_t *)name;
+	lvColumn.pszText = const_cast<wchar_t*>(name);
 	ListView_InsertColumn(_hSelf, index, &lvColumn); // index is not 0 based but 1 based
 }
 
@@ -490,8 +511,8 @@ std::vector<BufferViewInfo> VerticalFileSwitcherListView::getSelectedFiles(bool 
 			item.iItem = i;
 			ListView_GetItem(_hSelf, &item);
 
-			TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
-			files.push_back(BufferViewInfo(static_cast<BufferID>(tlfs->_bufID), tlfs->_iView));
+			const TaskLstFnStatus* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
+			files.emplace_back(static_cast<BufferID>(tlfs->_bufID), tlfs->_iView);
 		}
 	}
 

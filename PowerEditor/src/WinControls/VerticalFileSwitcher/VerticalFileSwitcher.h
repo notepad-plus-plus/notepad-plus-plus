@@ -33,10 +33,17 @@
 
 #define FS_PROJECTPANELTITLE		L"Document List"
 
+enum class SortDirection
+{
+	NONE = -1,
+	UP,
+	DOWN
+};
+
 struct sortCompareData {
   HWND hListView = nullptr;
   int columnIndex = 0;
-  int sortDirection = 0;
+  SortDirection sortDirection = SortDirection::UP;
 };
 
 class VerticalFileSwitcher : public DockingDlgInterface {
@@ -83,7 +90,7 @@ public:
 		return _fileListView.getFullFilePath(i);
 	}
 
-	int setHeaderOrder(int columnIndex);
+	SortDirection setHeaderOrder(int columnIndex);
 	void updateHeaderArrow();
 
 	int nbSelectedFiles() const {
@@ -102,7 +109,7 @@ public:
 	}
 
 	void updateTabOrder(){
-		if (_lastSortingDirection == SORT_DIRECTION_NONE) {
+		if (_lastSortingDirection == SortDirection::NONE) {
 			_fileListView.reload();
 		}
 	}
@@ -149,7 +156,7 @@ protected:
 private:
 	bool colHeaderRClick = false;
 	int _lastSortingColumn = 0;
-	int _lastSortingDirection = SORT_DIRECTION_NONE;
+	SortDirection _lastSortingDirection = SortDirection::NONE;
 	VerticalFileSwitcherListView _fileListView;
 	HIMAGELIST _hImaLst = nullptr;
 
@@ -159,4 +166,8 @@ private:
 	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK FileSwitcherNotifySubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 	static LRESULT CALLBACK ListViewParentNotifyProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+
+	void onDpiChanged([[maybe_unused]] UINT prevDpi) override {
+		setFontForChild(_fileListView.getHSelf());
+	}
 };

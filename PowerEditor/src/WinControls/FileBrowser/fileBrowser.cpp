@@ -1007,7 +1007,7 @@ void FileBrowser::getDirectoryStructure(const wchar_t *dir, const std::vector<ws
 		do
 		{
 			if ((foundData.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT) && !NppParameters::getInstance().getNppGUI()._isFawSymlinkAllowed) // Ignore junctions and symbolic links to prevent infinite recursive loop, if not allowed
-				return;
+				continue;
 
 			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			{

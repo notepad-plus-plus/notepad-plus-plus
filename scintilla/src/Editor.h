@@ -441,7 +441,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void ChangeSize();
 
 	void FilterSelections();
-	SelectionPosition RealizeVirtualSpace(const SelectionPosition &position);
+	SelectionPosition RealizeVirtualSpace(const SelectionPosition position);
 	void AddChar(char ch);
 	virtual void InsertCharacter(std::string_view sv, Scintilla::CharacterSource charSource);
 	void ClearSelectionRange(SelectionRange &range);

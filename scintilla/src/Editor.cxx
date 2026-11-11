@@ -2062,7 +2062,7 @@ void Editor::ChangeSize() {
 }
 
 // Return the new position with no virtual space
-SelectionPosition Editor::RealizeVirtualSpace(const SelectionPosition &position) {
+SelectionPosition Editor::RealizeVirtualSpace(const SelectionPosition position) {
 	if (position.VirtualSpace() == 0) {
 		return position;
 	}

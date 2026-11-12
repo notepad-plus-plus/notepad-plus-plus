@@ -1,3 +1,11 @@
+Notepad++ v8.9.9.1 regression fixes & new feature:
+
+ 1. Fix regression in pasting into virtual space in multi paste mode.
+ 2. Fix regression where Folder as Workspace not load entirely if a symlink in the folder.
+ 3. Fix regression where save fails under UAC in Administrator Protection mode.
+ 4. Add highlight all matches for Find dialog.
+
+
 Notepad++ v8.9.9 vulnerability fixes, new features & bug-fixes:
 
  1. Vulnerability: Fix WM_COPYDATA sender authentication bypass.
@@ -42,7 +50,7 @@ Notepad++ v8.9.9 vulnerability fixes, new features & bug-fixes:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9.9/
+https://notepad-plus-plus.org/downloads/v8.9.9.1/
 
 
 Included plugins:

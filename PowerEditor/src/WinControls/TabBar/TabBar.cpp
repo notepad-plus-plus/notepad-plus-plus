@@ -167,7 +167,9 @@ void TabBar::deletItemAt(size_t index)
 		{
 			RECT itemRect{};
 			::SendMessage(_hSelf, TCM_GETITEMRECT, index, reinterpret_cast<LPARAM>(&itemRect));
-			if (itemRect.left < 5) //if last visible tab, scroll left once (no more than 5px away should be safe, usually 2px depending on the drawing)
+			const bool isVertical = (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_VERTICAL) != 0;
+			const bool isLastVisibleTab = isVertical ? itemRect.top < 5 : itemRect.left < 5;
+			if (isLastVisibleTab) 	//if last visible tab then scroll once not much..
 			{
 				//To scroll the tab control to the left, use the WM_HSCROLL notification
 				//Doesn't really seem to be documented anywhere, but the values do match the message parameters

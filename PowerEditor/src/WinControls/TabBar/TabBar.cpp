@@ -159,32 +159,30 @@ void TabBar::activateAt(int index) const
 
 void TabBar::deletItemAt(size_t index)
 {
+	int firstVisibleTab = -1;
 	if (index == _nbItem - 1)
 	{
 		//prevent invisible tabs. If last visible tab is removed, other tabs are put in view but not redrawn
 		//Therefore, scroll one tab to the left if only one tab visible
 		if (_nbItem > 1)
 		{
-			RECT itemRect{};
-			::SendMessage(_hSelf, TCM_GETITEMRECT, index, reinterpret_cast<LPARAM>(&itemRect));
-			const bool isVertical = (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_VERTICAL) != 0;
-			const bool isLastVisibleTab = isVertical ? itemRect.top < 5 : itemRect.left < 5;
-			if (isLastVisibleTab) 	//if last visible tab then scroll once not much..
-			{
-				//To scroll the tab control to the left, use the WM_HSCROLL notification
-				//Doesn't really seem to be documented anywhere, but the values do match the message parameters
-				//The up/down control really is just some sort of scrollbar
-				//There seems to be no negative effect on any internal state of the tab control or the up/down control
-				WPARAM wParam = MAKEWPARAM(SB_THUMBPOSITION, index - 1);
-				::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
-
-				wParam = MAKEWPARAM(SB_ENDSCROLL, index - 1);
-				::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
-			}
+			TC_HITTESTINFO hitInfo{};
+			hitInfo.pt = { _dpiManager.scale(12), _dpiManager.scale(12) };
+			firstVisibleTab = static_cast<int>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitInfo)));
 		}
 	}
 	::SendMessage(_hSelf, TCM_DELETEITEM, index, 0);
 	_nbItem--;
+	if (firstVisibleTab > 0)
+	{
+		WPARAM wParam = MAKEWPARAM(SB_THUMBPOSITION, firstVisibleTab - 1);
+		::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
+		wParam = MAKEWPARAM(SB_ENDSCROLL, firstVisibleTab - 1);
+		::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
+	}
+	RECT clientRect{};
+	::GetClientRect(_hSelf, &clientRect);
+	::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELPARAM(clientRect.right, clientRect.bottom));
 }
 
 

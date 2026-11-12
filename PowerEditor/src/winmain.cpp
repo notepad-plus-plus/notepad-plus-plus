@@ -233,11 +233,11 @@ bool getParamVal(wchar_t c, ParamVector& params, std::wstring& value, bool allow
 	for (auto it = params.begin(); it != params.end(); ++it)
 	{
 		const std::wstring& token = *it;
-		if (token.size() >= minLen && token[0] == L'-' && token[1] == c)
+		if (token.size() >= 2 && token[0] == L'-' && token[1] == c)
 		{
 			value.assign(token, 2, std::wstring::npos);
 			params.erase(it);
-			return true;
+			return token.size() >= minLen;
 		}
 	}
 	return false;

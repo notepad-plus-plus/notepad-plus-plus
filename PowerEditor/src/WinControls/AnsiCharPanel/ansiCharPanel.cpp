@@ -38,6 +38,8 @@
 
 using namespace std;
 
+static constexpr std::array kDefaultColBaseWidths{ 6, 6, 10, 13, 14, 17 };
+
 void AnsiCharPanel::switchEncoding()
 {
 	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
@@ -59,14 +61,18 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			wstring htmlNumberStr = pNativeSpeaker->getAttrNameStr(L"HTML Decimal", "AsciiInsertion", "ColumnHtmlNumber");
 			wstring htmlHexNbStr = pNativeSpeaker->getAttrNameStr(L"HTML Hexadecimal", "AsciiInsertion", "ColumnHtmlHexNb");
 
-			_listView.addColumn(columnInfo(valStr, _dpiManager.scale(45)));
-			_listView.addColumn(columnInfo(hexStr, _dpiManager.scale(45)));
-			_listView.addColumn(columnInfo(charStr, _dpiManager.scale(70)));
-			_listView.addColumn(columnInfo(htmlNameStr, _dpiManager.scale(90)));
-			_listView.addColumn(columnInfo(htmlNumberStr, _dpiManager.scale(100)));
-			_listView.addColumn(columnInfo(htmlHexNbStr, _dpiManager.scale(120)));
+			const auto avgWidth = DPIManagerV2::getFontAvgAlphaWidth(_hSelf);
+
+			_listView.addColumn(columnInfo(valStr, avgWidth * kDefaultColBaseWidths[0]));
+			_listView.addColumn(columnInfo(hexStr, avgWidth * kDefaultColBaseWidths[1]));
+			_listView.addColumn(columnInfo(charStr, avgWidth * kDefaultColBaseWidths[2]));
+			_listView.addColumn(columnInfo(htmlNameStr, avgWidth * kDefaultColBaseWidths[3]));
+			_listView.addColumn(columnInfo(htmlNumberStr, avgWidth * kDefaultColBaseWidths[4]));
+			_listView.addColumn(columnInfo(htmlHexNbStr, avgWidth * kDefaultColBaseWidths[5]));
 
 			_listView.init(_hInst, _hSelf, IDC_LIST_ANSICHAR);
+			setFontForChild(_listView.getHSelf());
+
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 			_listView.setValues(codepage==-1?0:codepage);
 			_listView.display();
@@ -158,6 +164,21 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+}
+
+void AnsiCharPanel::onDpiChanged(UINT prevDpi)
+{
+	HWND hList = _listView.getHSelf();
+
+	setFontForChild(hList);
+
+	const auto nCol = static_cast<int>(kDefaultColBaseWidths.size());
+	for (int i = 0; i < nCol; ++i)
+	{
+		const int width = ListView_GetColumnWidth(hList, i);
+		const UINT widthDpi = _dpiManager.scale(width, _dpiManager.getDpi(), prevDpi);
+		ListView_SetColumnWidth(hList, i, widthDpi);
+	}
 }
 
 void AnsiCharPanel::insertChar(unsigned char char2insert) const

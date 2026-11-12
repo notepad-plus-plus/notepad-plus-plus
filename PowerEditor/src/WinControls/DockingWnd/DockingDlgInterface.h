@@ -118,7 +118,7 @@ protected :
 
 	using StaticDialog::create;
 
-	virtual void onDpiChanged() {}
+	virtual void onDpiChanged([[maybe_unused]] UINT prevDpi) {}
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override {
 		switch (message)
@@ -138,8 +138,9 @@ protected :
 
 			case WM_DPICHANGED:
 			{
+				const UINT prevDpi = _dpiManager.getDpi();
 				_dpiManager.setDpiWP(wParam);
-				onDpiChanged();
+				onDpiChanged(prevDpi);
 				return TRUE;
 			}
 

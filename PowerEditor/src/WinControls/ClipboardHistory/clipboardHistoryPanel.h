@@ -103,7 +103,7 @@ private:
 
 	void onDoubleClick(HWND hList);
 
-	void onDpiChanged() override {
+	void onDpiChanged([[maybe_unused]] UINT prevDpi) override {
 		setFontForChild(_listView.getHSelf());
 	}
 };

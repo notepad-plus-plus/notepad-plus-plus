@@ -65,4 +65,6 @@ private:
 	AsciiListView _listView;
 
 	using DockingDlgInterface::init;
+	
+	void onDpiChanged([[maybe_unused]] UINT prevDpi) override;
 };

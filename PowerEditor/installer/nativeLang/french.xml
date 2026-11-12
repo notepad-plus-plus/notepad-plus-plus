@@ -1791,6 +1791,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Sélectionner un dossier pour rechercher à l’intérieur"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Remplir le champ Répertoire en se basant sur la document actif"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="Mettre en surbrillance toutes les occurrences de la recherche en cours dans le document actif pendant la saisie."/>
 			<find-status-top-reached value="Rechercher : Début du document atteint, 1ère occurrence trouvée depuis le bas."/>
 			<find-status-end-reached value="Rechercher : Fin du document atteinte, 1ère occurrence trouvée depuis le haut."/>
 			<find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>

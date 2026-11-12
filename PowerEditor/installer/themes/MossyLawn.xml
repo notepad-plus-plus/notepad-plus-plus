@@ -2038,7 +2038,7 @@ Installation:
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="FFDC87"></WidgetStyle>
         <WidgetStyle name="Mark Style 4" styleID="22" bgColor="CBE248"></WidgetStyle>
         <WidgetStyle name="Mark Style 5" styleID="21" bgColor="8ABBE4"></WidgetStyle>
-        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="6A1A01"></WidgetStyle>
+        <WidgetStyle name="Find matches highlight all" styleID="28" bgColor="6A1A01"></WidgetStyle>
         <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="92983E"></WidgetStyle>
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="DAB57E"></WidgetStyle>
         <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="58693D"></WidgetStyle>

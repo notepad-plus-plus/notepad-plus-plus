@@ -1765,6 +1765,7 @@ $STR_REPLACE$
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="選擇搜尋資料夾"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="填入目前檔案所在的資料夾"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="輸入時醒目標示目前文件中的所有搜尋結果"/>
 			<find-status-top-reached value="尋找：已到文件開頭，從結尾找到相符項目。"/>
 			<find-status-end-reached value="尋找：已到文件結尾，從開頭找到相符項目。"/>
 			<find-status-replaceinfiles-1-replaced value="在檔案中取代：取代了 1 個字串。"/>

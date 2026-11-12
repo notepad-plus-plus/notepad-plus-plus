@@ -226,18 +226,17 @@ bool isInList(const wchar_t *token2Find, ParamVector& params, bool eraseArg = tr
 	return false;
 }
 
-bool getParamVal(wchar_t c, ParamVector & params, std::wstring & value)
+bool getParamVal(wchar_t c, ParamVector& params, std::wstring& value, bool allowEmpty = false)
 {
-	value = L"";
-	size_t nbItems = params.size();
-
-	for (size_t i = 0; i < nbItems; ++i)
+	value.clear();
+	const size_t minLen = allowEmpty ? 2 : 3;
+	for (auto it = params.begin(); it != params.end(); ++it)
 	{
-		const wchar_t * token = params.at(i).c_str();
-		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) //dash, and enough chars
+		const std::wstring& token = *it;
+		if (token.size() >= minLen && token[0] == L'-' && token[1] == c)
 		{
-			value = (token+2);
-			params.erase(params.begin() + i);
+			value.assign(token, 2, std::wstring::npos);
+			params.erase(it);
 			return true;
 		}
 	}
@@ -281,7 +280,7 @@ std::wstring getLocalizationPathFromParam(ParamVector & params)
 	return NppParameters::getLocPathFromStr(locStr);
 }
 
-intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent)
+intptr_t getNumberFromParam(wchar_t paramName, ParamVector& params, bool& isParamePresent)
 {
 	std::wstring numStr;
 	if (!getParamVal(paramName, params, numStr))
@@ -289,8 +288,23 @@ intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParam
 		isParamePresent = false;
 		return -1;
 	}
-	isParamePresent = true;
-	return static_cast<intptr_t>(std::stoll(numStr));
+	try
+	{
+		size_t pos = 0;
+		auto val = std::stoll(numStr, &pos);
+		if (pos != numStr.size())
+		{
+			isParamePresent = false;
+			return -1;
+		}
+		isParamePresent = true;
+		return static_cast<intptr_t>(val);
+	}
+	catch (const std::exception&)
+	{
+		isParamePresent = false;
+		return -1;
+	}
 }
 
 std::wstring getEasterEggNameFromParam(ParamVector & params, unsigned char & type)

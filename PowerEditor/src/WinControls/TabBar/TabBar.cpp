@@ -160,24 +160,20 @@ void TabBar::activateAt(int index) const
 void TabBar::deletItemAt(size_t index)
 {
 	int firstVisibleTab = -1;
-	if (index == _nbItem - 1)
+	if (_nbItem > 1)
 	{
-		//prevent invisible tabs. If last visible tab is removed, other tabs are put in view but not redrawn
-		//Therefore, scroll one tab to the left if only one tab visible
-		if (_nbItem > 1)
-		{
-			TC_HITTESTINFO hitInfo{};
-			hitInfo.pt = { _dpiManager.scale(12), _dpiManager.scale(12) };
-			firstVisibleTab = static_cast<int>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitInfo)));
-		}
+		TC_HITTESTINFO hitInfo{};
+		hitInfo.pt = { _dpiManager.scale(12), _dpiManager.scale(12) };
+		firstVisibleTab = static_cast<int>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitInfo)));
 	}
 	::SendMessage(_hSelf, TCM_DELETEITEM, index, 0);
 	_nbItem--;
 	if (firstVisibleTab > 0)
 	{
-		WPARAM wParam = MAKEWPARAM(SB_THUMBPOSITION, firstVisibleTab - 1);
+		const int targetTab = firstVisibleTab - 1;
+		WPARAM wParam = MAKEWPARAM(SB_THUMBPOSITION, targetTab);
 		::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
-		wParam = MAKEWPARAM(SB_ENDSCROLL, firstVisibleTab - 1);
+		wParam = MAKEWPARAM(SB_ENDSCROLL, targetTab);
 		::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
 	}
 	RECT clientRect{};

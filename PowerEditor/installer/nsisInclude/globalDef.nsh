@@ -55,7 +55,7 @@
 !define CompanyName		"Don HO don.h@free.fr"
 !define Description		"Notepad++ : a free (GNU) source code editor"
 !define Version		"${nppVer_1}.${nppVer_2}.${nppVer_3}.${nppVer_4}"
-!define ProdVer		"${VERSION_MAJOR}.${VERSION_MINOR}"
+!define ProdVer		"${APPVERSION}"
 !define LegalCopyright		"Copyleft 1998-2026 by Don HO"
 
 !define APPWEBSITE "https://notepad-plus-plus.org/"

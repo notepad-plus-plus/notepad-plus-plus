@@ -237,6 +237,9 @@ bool getParamVal(wchar_t c, ParamVector & params, std::wstring & value)
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) //dash, and enough chars
 		{
 			value = (token+2);
+			if (value.empty())
+				return false;
+
 			params.erase(params.begin() + i);
 			return true;
 		}
@@ -290,7 +293,19 @@ intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParam
 		return -1;
 	}
 	isParamePresent = true;
-	return static_cast<intptr_t>(std::stoll(numStr));
+
+	long long res = -1;
+	try
+	{
+		res = std::stoll(numStr);
+	}
+	catch (const std::invalid_argument&) {
+		return -1;
+	} // not a number
+	catch (const std::out_of_range&) {
+		return -1;
+	}
+	return res;
 }
 
 std::wstring getEasterEggNameFromParam(ParamVector & params, unsigned char & type)

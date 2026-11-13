@@ -305,7 +305,7 @@ intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParam
 	catch (const std::out_of_range&) {
 		return -1;
 	}
-	return res;
+	return static_cast<intptr_t>(res);
 }
 
 std::wstring getEasterEggNameFromParam(ParamVector & params, unsigned char & type)

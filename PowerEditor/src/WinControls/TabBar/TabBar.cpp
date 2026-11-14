@@ -733,8 +733,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (_isDragging)
 				return 0;
 
-			const bool isForward = ((short)HIWORD(wParam)) < 0; // wheel rotation towards the user will be considered as forward direction
-			const int lastTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
+			const bool isForward = GET_WHEEL_DELTA_WPARAM(wParam) < 0; // wheel rotation towards the user will be considered as forward direction
+			const int lastTabIndex = static_cast<int>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
 			
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 			bool doDragNDrop = nppGUI._tabStatus & TAB_DRAGNDROP;
@@ -1235,7 +1235,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				GetCursorPos(&pt);
 
 				RECT rcLastTab{};
-				TabCtrl_GetItemRect(_hSelf, static_cast<int32_t>(TabCtrl_GetItemCount(_hSelf)) - 1, &rcLastTab);
+				TabCtrl_GetItemRect(_hSelf, TabCtrl_GetItemCount(_hSelf) - 1, &rcLastTab);
 				ClientRectToScreenRect(_hSelf, &rcLastTab);
 
 				bool isDbClickOnTabStrip = isVertical ? (pt.x < rcLastTab.right) : (pt.y < rcLastTab.bottom);
@@ -1263,7 +1263,10 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 		case WM_PRINTCLIENT:
 		{
 			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
-			if (!NppDarkMode::isEnabled() || !(dwStyle & TCS_OWNERDRAWFIXED))
+			const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			const bool isVertical = (nppGUI._tabStatus & TAB_VERTICAL) != 0;
+			const bool isSingleVertical = isVertical && (nppGUI._tabStatus & TAB_MULTILINE) == 0;
+			if ((!NppDarkMode::isEnabled() && !isSingleVertical) || (dwStyle & TCS_OWNERDRAWFIXED) == 0)
 			{
 				break;	// Let the control paint itself the default way
 			}
@@ -1274,8 +1277,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			const bool hasMultipleLines = ((dwStyle & TCS_BUTTONS) == TCS_BUTTONS);
 
 			UINT id = ::GetDlgCtrlID(hwnd);
-
-			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
+			const auto oldClr = ::SetDCPenColor(hdc, NppDarkMode::isEnabled() ? NppDarkMode::getEdgeColor() : ::GetSysColor(COLOR_BTNSHADOW));
+			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, static_cast<HPEN>(::GetStockObject(DC_PEN))));
 
 			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
 			if (1 != GetClipRgn(hdc, holdClip))
@@ -1291,12 +1294,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int nFocusTab = TabCtrl_GetCurFocus(hwnd);
 			int nSelTab = TabCtrl_GetCurSel(hwnd);
 
-			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
-
 			for (int i = 0; i < nTabs; ++i)
 			{
-				DRAWITEMSTRUCT dis = { ODT_TAB, id, (UINT)i, ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc, {}, 0 };
+				DRAWITEMSTRUCT dis = { ODT_TAB, id, static_cast<UINT>(i), ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc, {}, 0 };
 				TabCtrl_GetItemRect(hwnd, i, &dis.rcItem);
 
 				if (i == nFocusTab)
@@ -1402,6 +1402,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			SelectObject(hdc, holdPen);
+			::SetDCPenColor(hdc, oldClr);
 
 			if (Message == WM_PAINT)
 			{
@@ -1409,6 +1410,29 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			return 0;
+		}
+
+		case WM_NOTIFY:
+		{
+			const auto nm = reinterpret_cast<LPNMUPDOWN>(lParam);
+
+			if ((::GetWindowLongPtr(nm->hdr.hwndFrom, GWL_STYLE) & UDS_HORZ) != 0)
+			{
+				break;
+			}
+
+			if (nm->iDelta == 0)
+			{
+				return TRUE;
+			}
+
+			if (nm->hdr.code == UDN_DELTAPOS)
+			{
+				const short direction = nm->iDelta > 0 ? WHEEL_DELTA : -WHEEL_DELTA;
+				::SendMessage(hwnd, WM_MOUSEWHEEL, MAKEWPARAM(0, direction), 0);
+				return TRUE;
+			}
+			break;
 		}
 
 		case WM_PARENTNOTIFY:
@@ -1468,9 +1492,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	int nSavedDC = ::SaveDC(hDC);
 
 	::SetBkMode(hDC, TRANSPARENT);
-	HBRUSH hBrush = ::CreateSolidBrush(colorInactiveBgBase);
-	::FillRect(hDC, &rect, hBrush);
-	::DeleteObject(static_cast<HGDIOBJ>(hBrush));
+	::SetDCBrushColor(hDC, colorInactiveBgBase);
+	::FillRect(hDC, &rect, static_cast<HBRUSH>(::GetStockObject(DC_BRUSH)));
 
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 	bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
@@ -1479,10 +1502,12 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
 	bool drawInactiveTab = nppGUI._tabStatus & TAB_DRAWINACTIVETAB;
 
+	const bool isSingleVertical = isVertical && (nppGUI._tabStatus & TAB_MULTILINE) == 0;
+
 	// equalize drawing areas of active and inactive tabs
 	int paddingDynamicTwoX = _dpiManager.scale(2);
 	int paddingDynamicTwoY = paddingDynamicTwoX;
-	if (isSelected && !isDarkMode)
+	if (isSelected && (!isDarkMode && !isSingleVertical))
 	{
 		// the drawing area of the active tab extends on all borders by default
 		const int xEdge = _dpiManager.getSystemMetricsForDpi(SM_CXEDGE);
@@ -1539,9 +1564,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	NppParameters& nppParam = NppParameters::getInstance();
 	if (isSelected)
 	{
-		hBrush = ::CreateSolidBrush(colorActiveBg);
-		::FillRect(hDC, &pDrawItemStruct->rcItem, hBrush);
-		::DeleteObject(static_cast<HGDIOBJ>(hBrush));
+		::SetDCBrushColor(hDC, colorActiveBg);
+		::FillRect(hDC, &pDrawItemStruct->rcItem, static_cast<HBRUSH>(::GetStockObject(DC_BRUSH)));
 
 		if (drawTopBar)
 		{
@@ -1565,10 +1589,9 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 				topBarColour = nppParam.getIndividualTabColor(individualColourId, isDarkMode, isFocused);
 			}
 
-			hBrush = ::CreateSolidBrush(topBarColour);
 
-			::FillRect(hDC, &barRect, hBrush);
-			::DeleteObject(static_cast<HGDIOBJ>(hBrush));
+			::SetDCBrushColor(hDC, topBarColour);
+			::FillRect(hDC, &barRect, static_cast<HBRUSH>(::GetStockObject(DC_BRUSH)));
 		}
 	}
 	else // inactive tabs
@@ -1595,9 +1618,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 			brushColour = hls.toRGB4DarkModeWithTuning(15, 0); // make it lighter slightly
 		}
 		
-		hBrush = ::CreateSolidBrush(brushColour);
-		::FillRect(hDC, &inactiveRect, hBrush);
-		::DeleteObject(static_cast<HGDIOBJ>(hBrush));
+		::SetDCBrushColor(hDC, brushColour);
+		::FillRect(hDC, &inactiveRect, static_cast<HBRUSH>(::GetStockObject(DC_BRUSH)));
 	}
 
 	if (isDarkMode && hasMultipleLines)
@@ -1718,14 +1740,14 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	}
 
 	// draw image
-	HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0);
+	auto hImgLst = reinterpret_cast<HIMAGELIST>(::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0));
 
 	if (hImgLst && tci.iImage >= 0)
 	{
 		IMAGEINFO info{};
 		ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
 
-		RECT& imageRect = info.rcImage;
+		const RECT& imageRect = info.rcImage;
 
 		int fromBorder;
 		int xPos, yPos;
@@ -1843,7 +1865,7 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 		::GetClassName(hWin, className, 256);
 		if ((!std::wcscmp(className, L"Scintilla")) || (!std::wcscmp(className, WC_TABCONTROL)))
 		{
-			if (::GetKeyState(VK_LCONTROL) & 0x80000000)
+			if (::GetKeyState(VK_LCONTROL) < 0)
 				::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_PLUS_TAB)));
 			else
 				::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_TAB)));

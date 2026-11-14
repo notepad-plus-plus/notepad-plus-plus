@@ -845,6 +845,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
+		case WM_GETMINMAXINFO:
+		{
+			::DefWindowProc(hwnd, message, wParam, lParam);
+
+			if (const int tabStatus = nppParam.getNppGUI()._tabStatus; !(tabStatus & TAB_HIDE))
+			{
+				const bool isVert = (tabStatus & TAB_VERTICAL) != 0;
+				const int tabSize = isVert
+					? (tabStatus & TAB_PINBUTTON ? g_TabWidthButton : g_TabWidth)
+					: (tabStatus & TAB_REDUCE ? g_TabHeight : g_TabHeightLarge);
+				auto& minTrack = reinterpret_cast<MINMAXINFO*>(lParam)->ptMinTrackSize;
+				(isVert ? minTrack.x : minTrack.y) += DPIManagerV2::scale(tabSize, DPIManagerV2::getDpiForWindow(hwnd));
+			}
+			return TRUE;
+		}
+
 		case WM_MOVE:
 		{
 			// Close AutoComplete and CallTip

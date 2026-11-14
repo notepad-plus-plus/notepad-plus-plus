@@ -845,6 +845,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
+		case WM_GETMINMAXINFO:
+		{
+			::DefWindowProc(hwnd, message, wParam, lParam);
+
+			NppGUI& nppGUI = nppParam.getNppGUI();
+			MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
+			mmi->ptMinTrackSize.x += DPIManagerV2::scale((nppGUI._tabStatus & TAB_PINBUTTON) ? g_TabWidthButton : g_TabWidth, DPIManagerV2::getDpiForWindow(hwnd));
+			mmi->ptMinTrackSize.y += DPIManagerV2::scale((nppGUI._tabStatus & TAB_REDUCE) ? g_TabHeight : g_TabHeightLarge, DPIManagerV2::getDpiForWindow(hwnd));
+			return TRUE;
+		}
+
 		case WM_MOVE:
 		{
 			// Close AutoComplete and CallTip

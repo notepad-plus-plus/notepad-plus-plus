@@ -618,6 +618,9 @@ public :
 			return nullptr;
 	}
 
+	void refreshHighlightAll();
+	void refreshHighlightAllLater() const;
+
 private :
 	bool _isRTL = false;
 	FindReplaceDlg *_pFRDlg = nullptr;

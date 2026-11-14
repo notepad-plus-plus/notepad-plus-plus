@@ -17,7 +17,15 @@
 
 #pragma once
 
+#include <windows.h>
+
+#include <array>
+#include <string_view>
+
+#include "Docking.h"
 #include "DockingDlgInterface.h"
+#include "StaticDialog.h"
+#include "dockingResource.h"
 #include "documentMap_rc.h"
 
 #define DM_PANELTITLE     L"Document Map"
@@ -68,7 +76,7 @@ protected :
 	static COLORREF _focus;
 	static COLORREF _frost;
 
-	void drawPreviewZone(DRAWITEMSTRUCT *pdis);
+	void drawPreviewZone(DRAWITEMSTRUCT* pdis) const;
 
 private :
 	HWND _viewZoneCanvas = nullptr;
@@ -86,12 +94,12 @@ public:
 
 	void create(DockedWidgetData * data, bool isRTL = false) override {
 		DockingDlgInterface::create(data, isRTL);
-		data->pszAddInfo = id4dockingCont.c_str();
+		data->pszAddInfo = id4dockingCont.data();
 	}
 
 	void create(DockedWidgetData* data, std::array<int, 3> iconIDs, bool isRTL = false) override {
 		DockingDlgInterface::create(data, iconIDs, isRTL);
-		data->pszAddInfo = id4dockingCont.c_str();
+		data->pszAddInfo = id4dockingCont.data();
 	}
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
@@ -143,8 +151,10 @@ private:
 	// for needToRecomputeWith function
 	intptr_t _displayZoom = -1;
 	intptr_t _displayWidth = 0;
-	std::wstring id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
+	static constexpr std::wstring_view id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 
 	using DockingDlgInterface::init;
 	using StaticDialog::create;
+
+	void onDpiChanged(UINT prevDpi) override;
 };

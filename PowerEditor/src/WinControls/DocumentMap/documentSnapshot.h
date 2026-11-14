@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include "StaticDialog.h"
-
 #include <windows.h>
+
+#include "StaticDialog.h"
 
 class ScintillaEditView;
 class Buffer;
@@ -30,7 +30,7 @@ class DocumentPeeker : public StaticDialog {
 public:
 	DocumentPeeker() = default;
 
-	void doDialog(POINT p, Buffer *buf, const ScintillaEditView & scintSource);
+	void doDialog(POINT p, Buffer* pBuf, const ScintillaEditView& scintSource);
 	void syncDisplay(Buffer *buf, const ScintillaEditView & scintSource);
 
 	void setParent(HWND parent2set){

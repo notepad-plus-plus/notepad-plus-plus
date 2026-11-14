@@ -1069,6 +1069,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT* pDrawItemStruct)
 	HDC hDc = pDrawItemStruct->hDC;
 
 	int nSavedDC = ::SaveDC(hDc);
+	NppDarkMode::excludeTabUpDownControl(hDc, _hContTab);
 
 	::SetBkMode(hDc, TRANSPARENT);
 
@@ -1151,6 +1152,7 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			::SetWindowSubclass(_hCaption, DockingCaptionSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// intial subclassing of tab
+			NppDarkMode::subclassTabControl(_hContTab);
 			::SetWindowSubclass(_hContTab, DockingTabSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// set min tab width

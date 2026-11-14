@@ -159,30 +159,26 @@ void TabBar::activateAt(int index) const
 
 void TabBar::deletItemAt(size_t index)
 {
-	if (index == _nbItem - 1)
+	int firstVisibleTab = -1;
+	if (_nbItem > 1)
 	{
-		//prevent invisible tabs. If last visible tab is removed, other tabs are put in view but not redrawn
-		//Therefore, scroll one tab to the left if only one tab visible
-		if (_nbItem > 1)
-		{
-			RECT itemRect{};
-			::SendMessage(_hSelf, TCM_GETITEMRECT, index, reinterpret_cast<LPARAM>(&itemRect));
-			if (itemRect.left < 5) //if last visible tab, scroll left once (no more than 5px away should be safe, usually 2px depending on the drawing)
-			{
-				//To scroll the tab control to the left, use the WM_HSCROLL notification
-				//Doesn't really seem to be documented anywhere, but the values do match the message parameters
-				//The up/down control really is just some sort of scrollbar
-				//There seems to be no negative effect on any internal state of the tab control or the up/down control
-				WPARAM wParam = MAKEWPARAM(SB_THUMBPOSITION, index - 1);
-				::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
-
-				wParam = MAKEWPARAM(SB_ENDSCROLL, index - 1);
-				::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
-			}
-		}
+		TC_HITTESTINFO hitInfo{};
+		hitInfo.pt = { _dpiManager.scale(12), _dpiManager.scale(12) };
+		firstVisibleTab = static_cast<int>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitInfo)));
 	}
 	::SendMessage(_hSelf, TCM_DELETEITEM, index, 0);
 	_nbItem--;
+	if (firstVisibleTab > 0)
+	{
+		const int targetTab = firstVisibleTab - 1;
+		WPARAM wParam = MAKEWPARAM(SB_THUMBPOSITION, targetTab);
+		::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
+		wParam = MAKEWPARAM(SB_ENDSCROLL, targetTab);
+		::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
+	}
+	RECT clientRect{};
+	::GetClientRect(_hSelf, &clientRect);
+	::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELPARAM(clientRect.right, clientRect.bottom));
 }
 
 
@@ -202,8 +198,10 @@ void TabBar::reSizeTo(RECT & rc2Adjust)
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
 	// We don't need to resize the contained windows if they are even invisible anyway
 	display(rc2Adjust.right > 10);
-	RECT rc = rc2Adjust;
-	Window::reSizeTo(rc);
+	RECT rcTab = rc2Adjust;
+	if ((::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_VERTICAL) && rcTab.right < rcTab.bottom)
+		rcTab.right = rcTab.bottom;
+	Window::reSizeTo(rcTab);
 
 	// Do our own calculations because TabCtrl_AdjustRect doesn't work
 	// on vertical or multi-lined tab controls
@@ -316,6 +314,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	{
 		throw std::runtime_error("TabBarPlus::init : CreateWindowEx() function return null");
 	}
+
+	NppDarkMode::subclassTabControl(_hSelf);
 
 	_tooltips = ::CreateWindowEx(0, TOOLTIPS_CLASS, NULL, TTS_ALWAYSTIP | TTS_NOPREFIX, 0, 0, 0, 0, _hParent, NULL, _hInst, 0);
 
@@ -712,6 +712,44 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
+		case WM_NOTIFY:
+		{
+			const auto* nm = reinterpret_cast<const NMUPDOWN*>(lParam);
+			if (nm->hdr.code == UDN_DELTAPOS)
+			{
+				if (::SendMessage(hwnd, TCM_GETITEMCOUNT, 0, 0) == 0)
+					return TRUE;
+
+				const bool isHorizontalArrows = (::GetWindowLongPtr(nm->hdr.hwndFrom, GWL_STYLE) & UDS_HORZ) != 0;
+				bool isTowardStart = isHorizontalArrows ? nm->iDelta < 0 : nm->iDelta > 0;
+
+				POINT cursorPos{};
+				RECT arrowRect{};
+				if (::GetCursorPos(&cursorPos) &&
+					::GetWindowRect(nm->hdr.hwndFrom, &arrowRect))
+				{
+					::MapWindowPoints(nullptr, nm->hdr.hwndFrom, reinterpret_cast<LPPOINT>(&arrowRect), 2);
+					::ScreenToClient(nm->hdr.hwndFrom, &cursorPos);
+
+					const bool isCursorInArrows = ::PtInRect(&arrowRect, cursorPos) == TRUE;
+					if (isCursorInArrows)
+					{
+						const LONG midpoint = isHorizontalArrows
+							? arrowRect.left + ((arrowRect.right - arrowRect.left) / 2)
+							: arrowRect.top + ((arrowRect.bottom - arrowRect.top) / 2);
+						isTowardStart = isHorizontalArrows
+							? cursorPos.x < midpoint
+							: cursorPos.y < midpoint;
+					}
+				}
+
+				const SHORT wheelDelta = isTowardStart ? WHEEL_DELTA : -WHEEL_DELTA;
+				::SendMessage(hwnd, WM_MOUSEWHEEL, MAKEWPARAM(0, wheelDelta), 0);
+				return TRUE;
+			}
+			break;
+		}
+
 		case WM_MOUSEWHEEL:
 		{
 			// ..............................................................................
@@ -735,6 +773,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			const bool isForward = ((short)HIWORD(wParam)) < 0; // wheel rotation towards the user will be considered as forward direction
 			const int lastTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
+			if (lastTabIndex < 0)
+				return 0;
 			
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 			bool doDragNDrop = nppGUI._tabStatus & TAB_DRAGNDROP;
@@ -1284,6 +1324,18 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				holdClip = nullptr;
 			}
 
+			const bool isUpDownExcluded = NppDarkMode::excludeTabUpDownControl(hdc, hwnd);
+			HRGN hTabClip = nullptr;
+			if (isUpDownExcluded)
+			{
+				hTabClip = CreateRectRgn(0, 0, 0, 0);
+				if (GetClipRgn(hdc, hTabClip) != 1)
+				{
+					DeleteObject(hTabClip);
+					hTabClip = nullptr;
+				}
+			}
+
 			int paddingDynamicTwoX = _dpiManager.scale(2);
 			int paddingDynamicTwoY = paddingDynamicTwoX;
 
@@ -1348,14 +1400,20 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					}
 
 					HRGN hClip = CreateRectRgnIndirect(&dis.rcItem);
-
-					SelectClipRgn(hdc, hClip);
+					if (hTabClip)
+						SelectClipRgn(hdc, hTabClip);
+					else
+						SelectClipRgn(hdc, holdClip);
+					ExtSelectClipRgn(hdc, hClip, RGN_AND);
 
 					drawItem(&dis, NppDarkMode::isEnabled());
 
 					DeleteObject(hClip);
 
-					SelectClipRgn(hdc, holdClip);
+					if (hTabClip)
+						SelectClipRgn(hdc, hTabClip);
+					else
+						SelectClipRgn(hdc, holdClip);
 				}
 			}
 
@@ -1395,6 +1453,11 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			SelectClipRgn(hdc, holdClip);
+			if (hTabClip)
+			{
+				DeleteObject(hTabClip);
+				hTabClip = nullptr;
+			}
 			if (holdClip)
 			{
 				DeleteObject(holdClip);
@@ -1466,6 +1529,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	HDC hDC = pDrawItemStruct->hDC;
 
 	int nSavedDC = ::SaveDC(hDC);
+	NppDarkMode::excludeTabUpDownControl(hDC, _hSelf);
 
 	::SetBkMode(hDC, TRANSPARENT);
 	HBRUSH hBrush = ::CreateSolidBrush(colorInactiveBgBase);
@@ -1725,25 +1789,26 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		IMAGEINFO info{};
 		ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
 
-		RECT& imageRect = info.rcImage;
-
-		int fromBorder;
+		const int imageWidth = info.rcImage.right - info.rcImage.left;
+		const int imageHeight = info.rcImage.bottom - info.rcImage.top;
 		int xPos, yPos;
 		if (isVertical)
 		{
-			fromBorder = (rect.right - rect.left - (imageRect.right - imageRect.left) + 1) / 2;
-			xPos = rect.left + fromBorder;
-			yPos = rect.bottom - fromBorder - (imageRect.bottom - imageRect.top);
-			rect.bottom -= fromBorder + (imageRect.bottom - imageRect.top);
+			const int iconPadding = _dpiManager.scale(4);
+			const int availableWidth = rect.right - rect.left;
+			xPos = rect.left + (availableWidth > imageWidth ? (availableWidth - imageWidth) / 2 : 0);
+			yPos = rect.bottom - iconPadding - imageHeight;
+			rect.bottom = yPos - iconPadding;
 		}
 		else
 		{
-			fromBorder = (rect.bottom - rect.top - (imageRect.bottom - imageRect.top) + 1) / 2;
+			const int availableHeight = rect.bottom - rect.top;
+			const int fromBorder = availableHeight > imageHeight ? (availableHeight - imageHeight + 1) / 2 : 0;
 			yPos = rect.top + fromBorder;
 			xPos = rect.left + fromBorder;
-			rect.left += fromBorder + (imageRect.right - imageRect.left);
+			rect.left += fromBorder + imageWidth;
 		}
-		ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, yPos, isSelected ? ILD_TRANSPARENT : ILD_SELECTED);
+		ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, yPos, ILD_TRANSPARENT);
 	}
 
 	// draw text

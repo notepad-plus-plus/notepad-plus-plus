@@ -17,17 +17,42 @@
 
 #include "documentMap.h"
 
-#include <commctrl.h>
+#include <windows.h>
 
+#include <vector>
+
+#include <Scintilla.h>
+
+#include "Buffer.h"
+#include "DockingDlgInterface.h"
+#include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
 #include "ScintillaEditView.h"
-
+#include "dockingResource.h"
+#include "documentMap_rc.h"
+#include "dpiManagerV2.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
 #define DOCUMENTMAP_SCROLL        (WM_USER + 4) // DM_SETDEFID uses WM_USER + 1
 #define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 5) // DM_REPOSITION uses WM_USER + 2
 
 static constexpr bool moveDown = true;
 static constexpr bool moveUp = false;
+
+void DocumentMap::onDpiChanged([[maybe_unused]] UINT prevDpi)
+{
+	if (_pMapView != nullptr && _ppEditView != nullptr && _vzDlg.isCreated())
+	{
+		_displayZoom = -1;
+		_displayWidth = 0;
+		::SendMessage(_pMapView->getHSelf(), WM_DPICHANGED_AFTERPARENT, 0, 0);
+		doMove();
+		reloadMap();
+	}
+}
 
 void DocumentMap::reloadMap()
 {
@@ -184,7 +209,16 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 		// compute doc map width: dzw/ezw = 1/zoomRatio
 		double docMapWidth = editZoneWidth / zr;
 
-		::MoveWindow(_pMapView->getHSelf(), 0, 0, int(docMapWidth), rect.bottom-rect.top, TRUE);
+		// since docMapWidth is double, scale it directly, do not use DPIManagerV2::scale -> ::MulDiv,
+		// it also depends on pEditView witdth, so its dpi is used
+		const UINT dpi = _dpiManager.getDpi();
+		const UINT dpiEdit = DPIManagerV2::getDpiForWindow(pEditView->getHSelf());
+		if (dpi != dpiEdit)
+		{
+			docMapWidth = (docMapWidth * dpi) / static_cast<double>(dpiEdit);
+		}
+
+		::MoveWindow(_pMapView->getHSelf(), 0, 0, static_cast<int>(docMapWidth), rect.bottom-rect.top, TRUE);
 		_pMapView->wrap(true);
 
 		// sync wrapping indent mode
@@ -239,7 +273,7 @@ void DocumentMap::scrollMap()
 		//
 		// Mark view zone in map
 		//
-		_vzDlg.drawZone(static_cast<int32_t>(higherY), static_cast<int32_t>(lowerY));
+		_vzDlg.drawZone(static_cast<long>(higherY), static_cast<long>(lowerY));
 	}
 }
 
@@ -289,7 +323,7 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos)
 		//
 		// Mark view zone in map
 		//
-		_vzDlg.drawZone(static_cast<int32_t>(higherY), static_cast<int32_t>(lowerY));
+		_vzDlg.drawZone(static_cast<long>(higherY), static_cast<long>(lowerY));
 	}
 }
 
@@ -323,7 +357,7 @@ void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 	scrollMap();
 }
 
-void DocumentMap::redraw(bool) const
+void DocumentMap::redraw([[maybe_unused]] bool forceUpdate) const
 {
 	_pMapView->execute(SCI_COLOURISE, 0, -1);
 	DockingDlgInterface::redraw(true);
@@ -347,7 +381,7 @@ intptr_t CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			
 			reloadMap();
 
-			_vzDlg.init(::GetModuleHandle(NULL), _hSelf);
+			_vzDlg.init(_hInst, _hSelf);
 			_vzDlg.doDialog();
 			NppParameters::setTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
 			BringWindowToTop (_vzDlg.getHSelf());
@@ -481,20 +515,19 @@ void ViewZoneDlg::setColour(COLORREF colour2Set, ViewZoneColorIndex i)
 	}
 }
 
-void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT *pdis)
+void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT* pdis) const
 {
 	RECT rc = pdis->rcItem;
 
-	HBRUSH hbrushFg = CreateSolidBrush(ViewZoneDlg::_focus);
-	HBRUSH hbrushBg = CreateSolidBrush(ViewZoneDlg::_frost);
-	FillRect(pdis->hDC, &rc, hbrushBg);
+	const auto oldClr = ::SetDCBrushColor(pdis->hDC, ViewZoneDlg::_frost);
+	::FillRect(pdis->hDC, &rc, static_cast<HBRUSH>(::GetStockObject(DC_BRUSH)));
 
 	rc.top = _higherY;
 	rc.bottom = _lowerY;
-	FillRect(pdis->hDC, &rc, hbrushFg);
+	::SetDCBrushColor(pdis->hDC, ViewZoneDlg::_focus);
+	::FillRect(pdis->hDC, &rc, static_cast<HBRUSH>(::GetStockObject(DC_BRUSH)));
 	
-	DeleteObject(hbrushFg);
-	DeleteObject(hbrushBg);
+	::SetDCBrushColor(pdis->hDC, oldClr);
 }
 
 void ViewZoneDlg::doDialog()
@@ -573,7 +606,7 @@ LRESULT CALLBACK ViewZoneDlg::CanvasProc(
 	WPARAM wParam,
 	LPARAM lParam,
 	UINT_PTR uIdSubclass,
-	[[maybe_unused]] DWORD_PTR /*dwRefData*/
+	[[maybe_unused]] DWORD_PTR dwRefData
 )
 {
 	switch (uMsg)

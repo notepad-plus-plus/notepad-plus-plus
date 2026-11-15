@@ -406,6 +406,12 @@ inline constexpr const wchar_t g_npcStyleName[] = L"Non-printing characters cust
 
 // Style names
 
+// TreeView
+
+inline constexpr int g_treeviewIcoSize = 16;
+
+// TreeView
+
 
 inline constexpr const char SHORTCUT_XML_CONTENT[] = "\
 <?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n\

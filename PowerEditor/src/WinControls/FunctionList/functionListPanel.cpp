@@ -14,11 +14,37 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "json.hpp"
+
 #include "functionListPanel.h"
-#include "ScintillaEditView.h"
-#include "localization.h"
+
+#include <windows.h>
+
+#include <shlwapi.h>
+
+#include <cstdlib>
+#include <cwchar>
 #include <fstream>
+#include <string>
+
+#include <Scintilla.h>
+#include <json.hpp>
+
+#include "Buffer.h"
+#include "Common.h"
+#include "DockingDlgInterface.h"
+#include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "ScintillaEditView.h"
+#include "TreeView.h"
+#include "dockingResource.h"
+#include "dpiManagerV2.h"
+#include "functionListPanel_rc.h"
+#include "functionParser.h"
+#include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
 using nlohmann::json;
 using namespace std;
@@ -685,6 +711,26 @@ void FunctionListPanel::setSort(bool isEnabled)
 	::SendMessage(_hToolbarMenu, TB_SETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, reinterpret_cast<LPARAM>(&tbbuttonInfo));
 }
 
+void FunctionListPanel::setTVImageList()
+{
+	static constexpr std::array stdIds{
+		IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF
+	};
+
+	static constexpr std::array darkIds{
+		IDI_FUNCLIST_ROOT_DM, IDI_FUNCLIST_NODE_DM, IDI_FUNCLIST_LEAF_DM
+	};
+
+	static constexpr std::array lightIds{
+		IDI_FUNCLIST_ROOT2, IDI_FUNCLIST_NODE2, IDI_FUNCLIST_LEAF2
+	};
+
+	const auto imgIds = _treeView.getImageIds(stdIds, darkIds, lightIds);
+	const int imgSize = _dpiManager.scale(g_treeviewIcoSize);
+	_treeView.setImageList(imgIds, imgSize);
+	_treeViewSearchResult.setImageList(imgIds, imgSize);
+}
+
 intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -851,18 +897,12 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 				::SendMessage(_hSearchEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSearchEdit), MAKELPARAM(TRUE, 0));
 			}
 
-			std::vector<int> imgIds = _treeView.getImageIds(
-				{ IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF }
-				, { IDI_FUNCLIST_ROOT_DM, IDI_FUNCLIST_NODE_DM, IDI_FUNCLIST_LEAF_DM }
-				, { IDI_FUNCLIST_ROOT2, IDI_FUNCLIST_NODE2, IDI_FUNCLIST_LEAF2 }
-			);
-
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
-			_treeView.setImageList(imgIds);
 			_treeViewSearchResult.init(_hInst, _hSelf, IDC_LIST_FUNCLIST_AUX);
-			_treeViewSearchResult.setImageList(imgIds);
+			setTVImageList();
 			
 			_treeView.makeLabelEditable(false);
+			_treeViewSearchResult.makeLabelEditable(false);
 
 			_treeView.display();
 
@@ -882,16 +922,10 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			else
 			{
 				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+				NppDarkMode::setTreeViewStyle(_treeViewSearchResult.getHSelf());
 			}
 
-			std::vector<int> imgIds = _treeView.getImageIds(
-				{ IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF }
-				, { IDI_FUNCLIST_ROOT_DM, IDI_FUNCLIST_NODE_DM, IDI_FUNCLIST_LEAF_DM }
-				, { IDI_FUNCLIST_ROOT2, IDI_FUNCLIST_NODE2, IDI_FUNCLIST_LEAF2 }
-			);
-
-			_treeView.setImageList(imgIds);
-			_treeViewSearchResult.setImageList(imgIds);
+			setTVImageList();
 
 			return TRUE;
 		}

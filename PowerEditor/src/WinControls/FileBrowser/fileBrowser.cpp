@@ -19,21 +19,23 @@
 
 #include <windows.h>
 
+#include <shlobj.h>
 #include <shlwapi.h>
 #include <windowsx.h>
-#include <shlobj.h>
 
 #include <algorithm>
 #include <cstdlib>
 #include <cwchar>
+#include <filesystem>
 #include <functional>
 #include <string>
+#include <unordered_set>
 #include <vector>
-#include <filesystem>
 
 #include "Common.h"
 #include "DockingDlgInterface.h"
 #include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
 #include "ReadDirectoryChanges.h"
@@ -126,6 +128,24 @@ static bool isRelatedRootFolder(const std::wstring& relatedRoot, const std::wstr
 	return relatedRootArray[index2Compare] == subFolderArray[index2Compare];
 }
 
+void FileBrowser::setTVImageList()
+{
+	static constexpr std::array stdIds{
+		IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE
+	};
+
+	static constexpr std::array darkIds{
+		IDI_FB_ROOTOPEN_DM, IDI_FB_ROOTCLOSE_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM
+	};
+
+	static constexpr std::array lightIds{
+		IDI_FB_ROOTOPEN2, IDI_FB_ROOTCLOSE2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2
+	};
+
+	const auto imgIds = _treeView.getImageIds(stdIds, darkIds, lightIds);
+	_treeView.setImageList(imgIds);
+}
+
 intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -205,14 +225,8 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 			FileBrowser::initPopupMenus();
 
-			std::vector<int> imgIds = _treeView.getImageIds(
-				{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE }
-				, { IDI_FB_ROOTOPEN_DM, IDI_FB_ROOTCLOSE_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM }
-				, { IDI_FB_ROOTOPEN2, IDI_FB_ROOTCLOSE2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2 }
-			);
-
 			_treeView.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW);
-			_treeView.setImageList(imgIds);
+			setTVImageList();
 
 			_treeView.addCanNotDropInList(INDEX_OPEN_ROOT);
 			_treeView.addCanNotDropInList(INDEX_CLOSE_ROOT);
@@ -247,13 +261,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			}
 
-			std::vector<int> imgIds = _treeView.getImageIds(
-				{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE }
-				, { IDI_FB_ROOTOPEN_DM, IDI_FB_ROOTCLOSE_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM }
-				, { IDI_FB_ROOTOPEN2, IDI_FB_ROOTCLOSE2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2 }
-			);
-
-			_treeView.setImageList(imgIds);
+			setTVImageList();
 
 			return TRUE;
 		}

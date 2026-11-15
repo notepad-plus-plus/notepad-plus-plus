@@ -136,6 +136,8 @@ public:
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
 	}
 
+	void setTVImageList();
+
 	std::wstring getNodePath(HTREEITEM node) const;
 	std::wstring getNodeName(HTREEITEM node) const;
 	void addRootFolder(std::wstring rootFolderPath, std::unordered_set<std::wstring>* pExpandedPaths = nullptr);

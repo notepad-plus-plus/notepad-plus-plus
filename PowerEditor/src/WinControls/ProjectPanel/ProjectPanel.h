@@ -105,6 +105,9 @@ public:
 	void setForegroundColor(COLORREF fgColour) override {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
 	}
+
+	void setTVImageList();
+
 	bool enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<std::wstring>& patterns, std::vector<std::wstring>& fileNames);
 
 protected:

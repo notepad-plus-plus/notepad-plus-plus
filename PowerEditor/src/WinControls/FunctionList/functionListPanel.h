@@ -14,12 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
+#include <Windows.h>
+
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "DockingDlgInterface.h"
+#include "TreeView.h"
 #include "functionListPanel_rc.h"
 #include "functionParser.h"
-#include "TreeView.h"
 
 #define FL_PANELTITLE     L"Function List"
 #define FL_FUNCTIONLISTROOTNODE "FunctionList"
@@ -84,6 +91,8 @@ public:
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
 		TreeView_SetTextColor(_treeViewSearchResult.getHSelf(), fgColour);
 	}
+
+	void setTVImageList();
 
 	void setParent(HWND parent2set){
 		_hParent = parent2set;

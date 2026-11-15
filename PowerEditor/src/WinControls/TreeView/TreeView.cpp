@@ -15,34 +15,41 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
 #include "TreeView.h"
-#include "Parameters.h"
 
-using namespace std;
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <span>
+#include <string>
+
+#include "Common.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "ToolBar.h"
+#include "Window.h"
+#include "dpiManagerV2.h"
 
 constexpr int g_treeviewItemPadding = 1;
-constexpr int g_treeviewIcoSize = 16;
 
-void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
+void TreeView::init(HINSTANCE hInst, HWND parent, UINT_PTR treeViewID)
 {
 	Window::init(hInst, parent);
-	_hSelf = ::GetDlgItem(parent, treeViewID);
 
-	const auto treeViewStyles = WS_HSCROLL | WS_TABSTOP | TVS_LINESATROOT\
-						| TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS\
-						| TVS_EDITLABELS | TVS_INFOTIP;
+	static constexpr DWORD treeViewStyles = TVS_LINESATROOT | TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP;
 
 	_hSelf = CreateWindowEx(0,
 							WC_TREEVIEW,
 							L"Tree View",
-							WS_CHILD | WS_BORDER | treeViewStyles,
+							WS_CHILD | WS_BORDER | WS_HSCROLL | WS_TABSTOP | treeViewStyles,
 							0,
 							0,
 							0,
 							0,
 							_hParent,
-							nullptr,
+							treeViewID == 0 ? nullptr : reinterpret_cast<HMENU>(treeViewID),
 							_hInst,
 							nullptr);
 
@@ -124,7 +131,7 @@ LRESULT TreeView::staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPar
 
 void TreeView::makeLabelEditable(bool toBeEnabled)
 {
-	DWORD dwNewStyle = (DWORD)GetWindowLongPtr(_hSelf, GWL_STYLE);
+	auto dwNewStyle = static_cast<DWORD>(::GetWindowLongPtrW(_hSelf, GWL_STYLE));
 	if (toBeEnabled)
 		dwNewStyle |= TVS_EDITLABELS;
 	else
@@ -161,7 +168,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 	return tvItem.lParam;
 }
 
-wstring TreeView::getItemDisplayName(HTREEITEM Item2Set) const
+std::wstring TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
 	if (!Item2Set)
 		return L"";
@@ -216,7 +223,7 @@ HTREEITEM TreeView::addItem(const wchar_t *itemName, HTREEITEM hParentItem, int 
 	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
 
 	// Set the item label.
-	tvi.pszText = (LPTSTR)itemName;
+	tvi.pszText = const_cast<wchar_t*>(itemName);
 	tvi.cchTextMax = MAX_PATH;
 
 	// Set icon
@@ -309,7 +316,7 @@ HTREEITEM TreeView::searchSubItemByName(const wchar_t *itemName, HTREEITEM hPare
 	return nullptr;
 }
 
-bool TreeView::setImageList(const std::vector<int>& imageIds, int imgSize)
+bool TreeView::setImageList(std::span<const int> imageIds, int imgSize)
 {
 	const int nbImage = static_cast<int>(imageIds.size());
 	if (imgSize <= 0)
@@ -320,46 +327,58 @@ bool TreeView::setImageList(const std::vector<int>& imageIds, int imgSize)
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	const bool useStdIcons = nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD;
+	const auto tvStyle = useStdIcons ? NppDarkMode::TreeViewStyle::classic : NppDarkMode::getTreeViewStyle();
 
 	if (_hImaLst != nullptr)
 	{
 		int prevImageSize = 0;
 		::ImageList_GetIconSize(_hImaLst, &prevImageSize, nullptr);
-		if ((prevImageSize != dpiImgSize) || (!(useStdIcons && _tvStyleType == NppDarkMode::TreeViewStyle::classic) && _tvStyleType != NppDarkMode::getTreeViewStyle()))
+		if (prevImageSize == dpiImgSize && _tvStyleType == tvStyle)
 		{
-			::ImageList_Destroy(_hImaLst);
-			_hImaLst = nullptr;
-		}
-		else
 			return false;
+		}
 	}
 
-	if (_hImaLst == nullptr)
+	HIMAGELIST hImgLstNew = ::ImageList_Create(dpiImgSize, dpiImgSize, ILC_COLOR32 | ILC_MASK, nbImage, 0);
+	if (hImgLstNew == nullptr)
 	{
-		if ((_hImaLst = ::ImageList_Create(dpiImgSize, dpiImgSize, ILC_COLOR32 | ILC_MASK, nbImage, 0)) == nullptr)
-			return false;
+		return false;
+	}
 
-		// Add the ico into the list
-		for (const int& id : imageIds)
+	for (const int id : imageIds)
+	{
+		HICON hIcon = nullptr;
+		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), dpiImgSize, dpiImgSize, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		if (hIcon == nullptr)
 		{
-			HICON hIcon = nullptr;
-			DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), dpiImgSize, dpiImgSize, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-			if (hIcon == nullptr)
-				return false;
+			::ImageList_Destroy(hImgLstNew);
+			return false;
+		}
 
-			::ImageList_AddIcon(_hImaLst, hIcon);
-			::DestroyIcon(hIcon);
+		const int icoIdx = ::ImageList_AddIcon(hImgLstNew, hIcon);
+		::DestroyIcon(hIcon);
+		if (icoIdx == -1)
+		{
+			::ImageList_Destroy(hImgLstNew);
+			return false;
 		}
 	}
 
 	// Set image list to the tree view
-	TreeView_SetImageList(_hSelf, _hImaLst, TVSIL_NORMAL);
-	_tvStyleType = useStdIcons ? NppDarkMode::TreeViewStyle::classic : NppDarkMode::getTreeViewStyle();
+	HIMAGELIST hImgLstOld = TreeView_SetImageList(_hSelf, hImgLstNew, TVSIL_NORMAL);
+	_hImaLst = hImgLstNew;
+	_tvStyleType = tvStyle;
+
+	if (hImgLstOld != nullptr && hImgLstOld != hImgLstNew)
+	{
+		::ImageList_Destroy(hImgLstOld);
+	}
 
 	return true;
 }
 
-std::vector<int> TreeView::getImageIds(std::vector<int> stdIds, std::vector<int> darkIds, std::vector<int> lightIds)
+std::span<const int> TreeView::getImageIds(std::span<const int> stdIds, std::span<const int> darkIds, std::span<const int> lightIds)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	const bool useStdIcons = nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD;
@@ -476,9 +495,7 @@ void TreeView::beginDrag(NMTREEVIEW* tv)
 void TreeView::dragItem(HWND parentHandle, int x, int y)
 {
 	// convert the dialog coords to control coords
-	POINT point{};
-	point.x = (SHORT)x;
-	point.y = (SHORT)y;
+	POINT point{ .x = x, .y = y };
 	::ClientToScreen(parentHandle, &point);
 	::ScreenToClient(_hSelf, &point);
 
@@ -568,12 +585,9 @@ bool TreeView::isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem)
 	return isDescendant(parent, draggedItem);
 }
 
-bool TreeView::isParent(HTREEITEM targetItem, HTREEITEM draggedItem)
+bool TreeView::isParent(HTREEITEM targetItem, HTREEITEM draggedItem) const
 {
-	HTREEITEM parent = getParent(draggedItem);
-	if (parent == targetItem)
-		return true;
-	return false;
+	return getParent(draggedItem) == targetItem;
 }
 
 void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
@@ -588,7 +602,7 @@ void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 
 	TVINSERTSTRUCT tvInsertStruct{};
 	tvInsertStruct.item = tvDraggingItem;
-	tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
+	tvInsertStruct.hInsertAfter = TVI_LAST;
 	tvInsertStruct.hParent = targetItem;
 
 	HTREEITEM hTreeParent = reinterpret_cast<HTREEITEM>(::SendMessage(_hSelf, TVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&tvInsertStruct)));
@@ -619,7 +633,7 @@ bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 
 	// get previous and next for both items with () function
 	HTREEITEM itemTop = getPrevSibling(itemGoDown);
-	itemTop = itemTop?itemTop:(HTREEITEM)TVI_FIRST;
+	itemTop = itemTop?itemTop:TVI_FIRST;
 	HTREEITEM parentGoDown = getParent(itemGoDown);
 	HTREEITEM parentGoUp = getParent(itemGoUp);
 
@@ -710,7 +724,7 @@ bool TreeView::canDragOut(HTREEITEM targetItem)
 
 
 
-bool TreeView::searchLeafAndBuildTree(const TreeView & tree2Build, const wstring & text2Search, int index2Search)
+bool TreeView::searchLeafAndBuildTree(const TreeView& tree2Build, const std::wstring& text2Search, int index2Search)
 {
 	//tree2Build.removeAllItems();
 	//HTREEITEM root = getRoot();
@@ -718,7 +732,7 @@ bool TreeView::searchLeafAndBuildTree(const TreeView & tree2Build, const wstring
 	return searchLeafRecusivelyAndBuildTree(tree2Build.getRoot(), text2Search, index2Search, getRoot());
 }
 
-bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const wstring & text2Search, int index2Search, HTREEITEM tree2Search)
+bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const std::wstring& text2Search, int index2Search, HTREEITEM tree2Search)
 {
 	if (!tree2Search)
 		return false;
@@ -733,11 +747,11 @@ bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const wstr
 
 	if (tvItem.iImage == index2Search)
 	{
-		wstring itemNameUpperCase = stringToUpper(tvItem.pszText);
-		wstring text2SearchUpperCase = stringToUpper(text2Search);
+		std::wstring itemNameUpperCase = stringToUpper(tvItem.pszText);
+		std::wstring text2SearchUpperCase = stringToUpper(text2Search);
 
 		size_t res = itemNameUpperCase.find(text2SearchUpperCase);
-		if (res != wstring::npos)
+		if (res != std::wstring::npos)
 		{
 			TVINSERTSTRUCT tvInsertStruct{};
 			tvInsertStruct.item = tvItem;
@@ -777,7 +791,7 @@ bool TreeView::retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREE
 
 	if (tvItem.lParam)
 	{
-		treeState2Construct._extraData = *((wstring *)tvItem.lParam);
+		treeState2Construct._extraData = *(reinterpret_cast<std::wstring*>(tvItem.lParam));
 	}
 
 	int i = 0;
@@ -790,7 +804,7 @@ bool TreeView::retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREE
 	return true;
 }
 
-bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode)
+bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode) const
 {
 	if (!treeviewNode)
 		return false;
@@ -828,7 +842,7 @@ void TreeView::sort(HTREEITEM hTreeItem, bool isRecusive)
 }
 
 
-void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecusive)
+void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive)
 {
 	TVSORTCB treeViewSortCB{};
 	treeViewSortCB.hParent = hTreeItem;
@@ -836,9 +850,9 @@ void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFu
 	treeViewSortCB.lParam = lParam;
 
 	::SendMessage(_hSelf, TVM_SORTCHILDRENCB, 0, reinterpret_cast<LPARAM>(&treeViewSortCB));
-	if (!isRecusive)
+	if (!isRecursive)
 		return;
 
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
-		customSorting(hItem, sortingCallbackFunc, lParam, isRecusive);
+		customSorting(hItem, sortingCallbackFunc, lParam, isRecursive);
 }

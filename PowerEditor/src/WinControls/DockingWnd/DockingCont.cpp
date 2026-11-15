@@ -1442,6 +1442,20 @@ int DockingCont::hideDockedWidget(DockedWidgetData *pTbData, BOOL hideClient)
 	int iItem = searchPosInTab(pTbData);
 	BOOL hadFocus = ::IsChild (pTbData->hClient, ::GetFocus());
 
+	const int nbItem = static_cast<int>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	if (nbItem > 1 && iItem == nbItem - 1)
+	{
+		//prevent invisible tabs. If last visible tab is removed, other tabs are put in view but not redrawn
+		//Therefore, scroll one tab to the left if only one tab visible (same as in TabBar::deletItemAt())
+		RECT rcItem{};
+		::SendMessage(_hContTab, TCM_GETITEMRECT, iItem, reinterpret_cast<LPARAM>(&rcItem));
+		if (rcItem.left < 5) //if last visible tab, scroll left once
+		{
+			::SendMessage(_hContTab, WM_HSCROLL, MAKEWPARAM(SB_THUMBPOSITION, iItem - 1), 0);
+			::SendMessage(_hContTab, WM_HSCROLL, MAKEWPARAM(SB_ENDSCROLL, iItem - 1), 0);
+		}
+	}
+
 	// delete item
 	if (TRUE == ::SendMessage(_hContTab, TCM_DELETEITEM, iItem, 0))
 	{

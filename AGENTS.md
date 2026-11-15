@@ -25,5 +25,5 @@
 - Link every PR to an issue using `fix #NNNNN`.
 - Disclose AI assistance, including the model. If possible also the prompt.
 - Include AI agent as a co-author using a `Co-Authored-By` trailer.
-- Contributors are encouraged to write their own PR descriptions.
+- No redundant AI-generated PR description babble. Contributors must write PR descriptions themselves.
 - Comments and replies should be written by the contributors themselves.

@@ -287,6 +287,7 @@ Installation:
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="981f0e" bgColor="fdd64a" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="USERLITERAL" styleID="25" fgColor="FCD683" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="cbe248" bgColor="58693D" fontName="" fontStyle="0" fontSize="" keywordClass="substyle1" />
             <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="cbe248" bgColor="58693D" fontName="" fontStyle="0" fontSize="" keywordClass="substyle2" />
             <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="cbe248" bgColor="58693D" fontName="" fontStyle="0" fontSize="" keywordClass="substyle3" />

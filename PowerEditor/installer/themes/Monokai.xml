@@ -90,6 +90,7 @@ Credits:
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="USERLITERAL" styleID="25" fgColor="C19FFC" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="" keywordClass="substyle1" />
             <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="" keywordClass="substyle2" />
             <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="" keywordClass="substyle3" />

@@ -262,6 +262,7 @@ License:             GPL2
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="PREPROCESSOR COMMENT" styleID="23" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="PREPROCESSOR COMMENT DOC" styleID="24" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="USERLITERAL" styleID="25" fgColor="A0D3D1" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
             <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
             <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />

@@ -3946,8 +3946,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		if (!text.empty())
 		{
-			_findResTitle = text;
-			data.pszName = _findResTitle.c_str();
+			wcsncpy_s(_findResTitle, _countof(_findResTitle), text.c_str(), _TRUNCATE);
+			data.pszName = _findResTitle;
 		}
 
 		::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -4093,8 +4093,8 @@ Finder* FindReplaceDlg::createFinder()
 	wstring text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", L"");
 	if (!text.empty())
 	{
-		_findResTitle = text;
-		data.pszName = _findResTitle.c_str();
+		wcsncpy_s(_findResTitle, _countof(_findResTitle), text.c_str(), _TRUNCATE);
+		data.pszName = _findResTitle;
 	}
 
 	::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));

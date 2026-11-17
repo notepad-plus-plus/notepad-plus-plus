@@ -479,7 +479,7 @@ private:
 	ScintillaEditView** _ppEditView = nullptr;
 	ScintillaEditView* _pMatchHighlightView = nullptr; // view of the last updateMatchHighlighting()
 	Finder  *_pFinder = nullptr;
-	std::wstring _findResTitle;
+	wchar_t _findResTitle[MAX_PATH] = { '\0' };
 
 	std::vector<Finder*> _findersOfFinder{};
 

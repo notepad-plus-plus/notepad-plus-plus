@@ -1534,22 +1534,16 @@ int DockingCont::hideDockedWidget(DockedWidgetData *pTbData, BOOL hideClient)
 	BOOL hadFocus = ::IsChild (pTbData->hClient, ::GetFocus());
 
 	const int nbItem = static_cast<int>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
-	if (iItem == nbItem - 1)
+	if (nbItem > 1 && iItem == nbItem - 1)
 	{
 		//prevent invisible tabs. If last visible tab is removed, other tabs are put in view but not redrawn
 		//Therefore, scroll one tab to the left if only one tab visible (same as in TabBar::deletItemAt())
-		if (nbItem > 1)
+		RECT rcItem{};
+		::SendMessage(_hContTab, TCM_GETITEMRECT, iItem, reinterpret_cast<LPARAM>(&rcItem));
+		if (rcItem.left < 5) //if last visible tab, scroll left once
 		{
-			RECT itemRect{};
-			::SendMessage(_hContTab, TCM_GETITEMRECT, iItem, reinterpret_cast<LPARAM>(&itemRect));
-			if (itemRect.left < 5) //if last visible tab, scroll left once
-			{
-				WPARAM wParam = MAKEWPARAM(SB_THUMBPOSITION, iItem - 1);
-				::SendMessage(_hContTab, WM_HSCROLL, wParam, 0);
-
-				wParam = MAKEWPARAM(SB_ENDSCROLL, iItem - 1);
-				::SendMessage(_hContTab, WM_HSCROLL, wParam, 0);
-			}
+			::SendMessage(_hContTab, WM_HSCROLL, MAKEWPARAM(SB_THUMBPOSITION, iItem - 1), 0);
+			::SendMessage(_hContTab, WM_HSCROLL, MAKEWPARAM(SB_ENDSCROLL, iItem - 1), 0);
 		}
 	}
 

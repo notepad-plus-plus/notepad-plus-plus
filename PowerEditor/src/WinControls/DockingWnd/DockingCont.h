@@ -16,12 +16,14 @@
 
 
 #pragma once
-#include "resource.h"
-#include "Docking.h"
-#include <vector>
-#include "StaticDialog.h"
-#include "Common.h"
 
+#include <windows.h>
+
+#include <string>
+#include <vector>
+
+#include "Docking.h"
+#include "StaticDialog.h"
 
 // window styles
 #define POPUP_STYLES		(WS_POPUP|WS_CLIPSIBLINGS|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_MAXIMIZEBOX)
@@ -42,10 +44,10 @@ enum eMousePos {
 #define CLOSEBTN_POS_LEFT	3
 #define CLOSEBTN_POS_TOP	3
 
-constexpr int g_dockingContCloseBtnSize = 12;
+inline constexpr int g_dockingContCloseBtnSize = 12;
 
-constexpr int g_dockingContTabIconSize = 16;
-constexpr int g_dockingContTabIconPadding = 3;
+inline constexpr int g_dockingContTabIconSize = 16;
+inline constexpr int g_dockingContTabIconPadding = 3;
 
 class DockingCont : public StaticDialog
 {
@@ -53,10 +55,10 @@ public:
 	DockingCont();
 	~DockingCont() override;
 
-	HWND getTabWnd() {
+	HWND getTabWnd() const {
 		return _hContTab;
 	}
-	HWND getCaptionWnd() {
+	HWND getCaptionWnd() const {
 		if (_isFloating == false)
 			return _hCaption;
 		else
@@ -87,7 +89,7 @@ public:
 	int getActiveTb();
 	DockedWidgetData * getDataOfActiveTb();
 
-	std::vector<DockedWidgetData *> getDataOfAllTb() {
+	const std::vector<DockedWidgetData*>& getDataOfAllTb() const {
 		return _dwDataVect;
 	}
 
@@ -96,11 +98,11 @@ public:
 
 	void doDialog(bool willBeShown = true, bool isFloating = false);
 
-	bool isFloating() {
+	bool isFloating() const {
 		return _isFloating;
 	}
 
-	size_t getElementCnt() {
+	size_t getElementCnt() const {
 		return _dwDataVect.size();
 	}
 
@@ -109,11 +111,6 @@ public:
 		BOOL	dragFromTabTemp = _dragFromTab;
 		_dragFromTab = FALSE;
 		return dragFromTabTemp;
-	}
-
-	void setCaptionTop(BOOL isTopCaption) {
-		_isTopCaption = (isTopCaption == CAPTION_TOP);
-		onSize();
 	}
 
 	void focusClient();
@@ -148,7 +145,7 @@ protected:
 	LRESULT runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK DockingTabSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 
 	// drawing functions
 	void drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct);
@@ -156,13 +153,13 @@ protected:
 	void onSize();
 
 	// functions for caption handling and drawing
-	eMousePos isInRect(HWND hwnd, int x, int y);
+	eMousePos isInRect(HWND hwnd, int x, int y) const;
 
 	// handling of docked widgets
 	void doClose(BOOL closeAll);
 
 	// return new item
-	int  searchPosInTab(DockedWidgetData* pTbData);
+	int  searchPosInTab(DockedWidgetData* pTbData) const;
 	void selectTab(int iTab);
 
 	int  hideDockedWidget(DockedWidgetData* pTbData, BOOL hideClient = TRUE);
@@ -188,7 +185,6 @@ private:
 	HFONT _hFontCaption = nullptr;
 
 	// caption params
-	BOOL _isTopCaption = CAPTION_TOP;
 	std::wstring _pszCaption;
 
 	BOOL _isMouseDown = FALSE;

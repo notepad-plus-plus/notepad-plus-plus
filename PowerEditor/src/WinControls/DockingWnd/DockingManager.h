@@ -14,14 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
-#include <vector>
 #include <windows.h>
-#include <commctrl.h>
-#include "Window.h"
+
+#include <vector>
+
+#include "Docking.h"
 #include "DockingCont.h"
-#include "SplitterContainer.h"
+#include "Window.h"
 
 #define DSPC_CLASS_NAME L"dockingManager"
 #define	CONT_MAP_MAX	50
@@ -65,14 +67,8 @@ public:
 	}
 
 	// get dock data (sized areas)
-	void getDockInfo(tDockMgr *pDockData) {
+	void getDockInfo(tDockMgr* pDockData) const {
 		*pDockData	= _dockData;
-	}
-
-	// setting styles of docking
-	void setStyleCaption(BOOL captionOnTop) {
-		_vContainer[CONT_TOP]->setCaptionTop(captionOnTop);
-		_vContainer[CONT_BOTTOM]->setCaptionTop(captionOnTop);
 	}
 
 	int getDockedContSize(int iCont);
@@ -92,6 +88,7 @@ private:
 	int							_iContMap[CONT_MAP_MAX] = { 0 };
 	std::vector<DockingSplitter*>	_vSplitter;
 
+	using Window::init;
 
 	static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);

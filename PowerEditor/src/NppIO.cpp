@@ -2620,10 +2620,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (i == 0 && session._activeMainIndex == 0)
 				_mainEditView.changeTextDirection(buf->isRTL());
 
-			if (session._mainViewFiles[i]._isWordWrapSet)
+			if (!buf->isLargeFile() || !nppGUI._largeFileRestriction._deactivateWordWrap) // a large file keeps word wrap off
 				buf->setWordWrap(session._mainViewFiles[i]._isWordWrap);
-			if (buf == _mainEditView.getCurrentBuffer() && nppParam.getSVP()._isWordWrapPerDocument) // already shown
-				_mainEditView.wrap(_mainEditView.getDocumentWordWrap());
+			if (buf == _mainEditView.getCurrentBuffer()) // already shown
+				_mainEditView.wrap(buf->isWordWrap());
 
 			_mainDocTab.setIndividualTabColour(lastOpened, session._mainViewFiles[i]._individualTabColour);
 
@@ -2764,10 +2764,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				buf->setDirty(true);
 
 			buf->setRTL(session._subViewFiles[k]._isRTL);
-			if (session._subViewFiles[k]._isWordWrapSet)
+			if (!buf->isLargeFile() || !nppGUI._largeFileRestriction._deactivateWordWrap) // a large file keeps word wrap off
 				buf->setWordWrap(session._subViewFiles[k]._isWordWrap);
-			if (buf == _subEditView.getCurrentBuffer() && nppParam.getSVP()._isWordWrapPerDocument) // already shown
-				_subEditView.wrap(_subEditView.getDocumentWordWrap());
+			if (buf == _subEditView.getCurrentBuffer()) // already shown
+				_subEditView.wrap(buf->isWordWrap());
 
 			_subDocTab.setIndividualTabColour(lastOpened, session._subViewFiles[k]._individualTabColour);
 
@@ -2937,7 +2937,11 @@ const wchar_t * Notepad_plus::fileSaveSession(size_t nbFile, wchar_t ** fileName
 			for (size_t i = 0 ; i < nbFile ; ++i)
 			{
 				if (doesFileExist(fileNames[i]))
-					currentSession._mainViewFiles.push_back(sessionFileInfo(fileNames[i]));
+				{
+					sessionFileInfo sfi(fileNames[i]);
+					sfi._isWordWrap = NppParameters::getInstance().getSVP()._doWrap; // default word wrap
+					currentSession._mainViewFiles.push_back(sfi);
+				}
 			}
 		}
 		else

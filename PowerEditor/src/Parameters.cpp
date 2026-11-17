@@ -3633,11 +3633,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 					sfi._individualTabColour = NppXml::intAttribute(childNode, "tabColourId", -1);
 					sfi._isRTL = getBoolAttribute(childNode, "RTL");
-					if (NppXml::attribute(childNode, "wordWrap"))
-					{
-						sfi._isWordWrapSet = true;
-						sfi._isWordWrap = getBoolAttribute(childNode, "wordWrap");
-					}
+					sfi._isWordWrap = getBoolAttribute(childNode, "wordWrap", _svp._doWrap);
 
 					for (NppXml::Element markNode = NppXml::firstChildElement(childNode, "Mark");
 						markNode;
@@ -4914,8 +4910,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestampHigh", vsFile._originalFileLastModifTimestamp.dwHighDateTime);
 				NppXml::setAttribute(fileNameNode, "tabColourId", vsFile._individualTabColour);
 				setBoolAttribute(fileNameNode, "RTL", vsFile._isRTL);
-				if (vsFile._isWordWrapSet)
-					setBoolAttribute(fileNameNode, "wordWrap", vsFile._isWordWrap);
+				setBoolAttribute(fileNameNode, "wordWrap", vsFile._isWordWrap);
 				setBoolAttribute(fileNameNode, "tabPinned", vsFile._isPinned);
 
 				// Save this info only when it's an untitled entry
@@ -7300,7 +7295,6 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 
 	// Do Wrap
 	_svp._doWrap = getBoolAttribute(element, "Wrap");
-	_svp._isWordWrapPerDocument = getBoolAttribute(element, "wordWrapPerDocument", _svp._isWordWrapPerDocument);
 
 	// Do Edge
 	_svp._isEdgeBgMode = getBoolAttribute(element, "isEdgeBgMode");
@@ -7596,7 +7590,6 @@ bool NppParameters::writeScintillaParams()
 	setBoolAttribute(scintNode, "disableAdvancedScrolling", _svp._disableAdvancedScrolling);
 	setBoolAttribute(scintNode, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
 	setBoolAttribute(scintNode, "Wrap", _svp._doWrap);
-	setBoolAttribute(scintNode, "wordWrapPerDocument", _svp._isWordWrapPerDocument);
 	setBoolAttribute(scintNode, "borderEdge", _svp._showBorderEdge);
 
 	std::string edgeColumnPosStr;

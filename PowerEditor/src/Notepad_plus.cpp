@@ -6641,7 +6641,6 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 			sfi._isMonitoring = buf->isMonitoringOn();
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
 			sfi._isRTL = buf->isRTL();
-			sfi._isWordWrapSet = buf->isWordWrapSet();
 			sfi._isWordWrap = buf->isWordWrap();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
@@ -7075,17 +7074,9 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		_pDocMap->setSyntaxHiliting();
 	}
 
-	// "Word wrap per document": the menu, the toolbar and the document map follow the current document
-	if (NppParameters::getInstance().getSVP()._isWordWrapPerDocument)
-	{
-		checkMenuItem(IDM_VIEW_WRAP, _pEditView->isWrap());
-		_toolBar.setCheck(IDM_VIEW_WRAP, _pEditView->isWrap());
-		if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
-		{
-			_pDocMap->initWrapMap();
-			_pDocMap->wrapMap();
-		}
-	}
+	// the menu and the toolbar follow the word wrap of the current document
+	checkMenuItem(IDM_VIEW_WRAP, _pEditView->isWrap());
+	_toolBar.setCheck(IDM_VIEW_WRAP, _pEditView->isWrap());
 
 	if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 	{

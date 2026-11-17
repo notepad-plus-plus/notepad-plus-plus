@@ -632,6 +632,7 @@ private :
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
+	bool isCurrentBufSearchChanged();
 };
 
 

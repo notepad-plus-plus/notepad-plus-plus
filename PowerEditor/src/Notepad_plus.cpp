@@ -1734,6 +1734,7 @@ void Notepad_plus::doTrim(trimOp whichPart)
 	auto mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	bool isEntireDoc = (mainSelAnchor == mainSelCaretPos);
 	auto docLength = _pEditView->execute(SCI_GETLENGTH);
+	auto firstVisibleLine = _pEditView->execute(SCI_GETFIRSTVISIBLELINE);
 
 	// block selection is not supported
 	if ((_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN))
@@ -1757,6 +1758,7 @@ void Notepad_plus::doTrim(trimOp whichPart)
 		_pEditView->execute(SCI_SETSEL, startPos, endPos);
 	}
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	_pEditView->execute(SCI_SETFIRSTVISIBLELINE, firstVisibleLine); // keep the view, replacing in a selection scrolls to it
 
 	// restore original selection if nothing has changed
 	if (!isEntireDoc && (docLength == _pEditView->execute(SCI_GETLENGTH)))

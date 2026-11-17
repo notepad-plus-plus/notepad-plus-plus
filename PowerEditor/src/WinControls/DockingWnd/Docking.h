@@ -21,10 +21,6 @@
 
 // ATTENTION : It's a part of interface header, so don't include the others header here
 
-// styles for containers
-#define	CAPTION_TOP				TRUE
-#define	CAPTION_BOTTOM			FALSE
-
 //   defines for docking manager
 #define	CONT_LEFT		0
 #define	CONT_RIGHT		1

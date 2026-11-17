@@ -15,10 +15,14 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+#include <windows.h>
+
 #include <stdexcept>
+
 #include "DockingSplitter.h"
-#include "Notepad_plus_msgs.h"
-#include "Parameters.h"
+#include "NppDarkMode.h"
+#include "Window.h"
+#include "dockingResource.h"
 
 BOOL DockingSplitter::_isVertReg = FALSE;
 BOOL DockingSplitter::_isHoriReg = FALSE;

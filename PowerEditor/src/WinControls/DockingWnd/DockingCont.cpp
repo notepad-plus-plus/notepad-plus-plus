@@ -14,19 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "dockingResource.h"
+
 #include "DockingCont.h"
 
-#include "SplitterContainer.h"
-#include "ToolTip.h"
+#include <windows.h>
+
+#include <algorithm>
+#include <cstdlib>
+#include <string>
+#include <vector>
+
+#include "Common.h"
+#include "Docking.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "Parameters.h"
+#include "ToolTip.h"
+#include "dockingResource.h"
+#include "dpiManagerV2.h"
 #include "localization.h"
 
 using namespace std;
-
-#ifndef WH_MOUSE_LL
-#define WH_MOUSE_LL 14
-#endif
 
 static HWND		hWndServer		= NULL;
 static HHOOK	hookMouse		= NULL;
@@ -39,12 +47,12 @@ static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 		{
 		case WM_MOUSEMOVE:
 		case WM_NCMOUSEMOVE:
-			::PostMessage(hWndServer, UINT(wParam), 0, 0);
+			::PostMessage(hWndServer, static_cast<UINT>(wParam), 0, 0);
 			break;
 
 		case WM_LBUTTONUP:
 		case WM_NCLBUTTONUP:
-			::PostMessage(hWndServer, UINT(wParam), 0, 0);
+			::PostMessage(hWndServer, static_cast<UINT>(wParam), 0, 0);
 			break;
 
 		default:
@@ -470,40 +478,39 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	HFONT hOldFont = NULL;
 	RECT rc = pDrawItemStruct->rcItem;
 	HDC hDc = pDrawItemStruct->hDC;
-	HPEN hPen = ::CreatePen(PS_SOLID, 1, ::GetSysColor(COLOR_BTNSHADOW));
 	BITMAP bmp {};
 	HBITMAP hBmpCur = NULL;
 	HBITMAP hBmpOld = NULL;
 	HBITMAP hBmpNew = NULL;
-	int length = static_cast<int32_t>(_pszCaption.length());
+	const auto length = static_cast<int>(_pszCaption.length());
 
 	int nSavedDC = ::SaveDC(hDc);
 
 	// begin with paint
 	::SetBkMode(hDc, TRANSPARENT);
 
-	auto holdPen = static_cast<HPEN>(::SelectObject(hDc, NppDarkMode::isEnabled() ? NppDarkMode::getEdgePen() : hPen));
+	const auto oldClrDcPen = NppDarkMode::isEnabled() ? 0 : ::SetDCPenColor(hDc, ::GetSysColor(COLOR_BTNSHADOW));
+	auto holdPen = static_cast<HPEN>(::SelectObject(hDc, NppDarkMode::isEnabled() ? NppDarkMode::getEdgePen() : static_cast<HPEN>(::GetStockObject(DC_PEN))));
 
 	if (NppDarkMode::isEnabled())
 	{
-		bgbrush = ::CreateSolidBrush(_isActive ? NppDarkMode::getCtrlBackgroundColor() : NppDarkMode::getBackgroundColor());
+		bgbrush = _isActive ? NppDarkMode::getCtrlBackgroundBrush() : NppDarkMode::getBackgroundBrush();
 		SetTextColor(hDc, NppDarkMode::getTextColor());
 	}
 	else
 	{
 		if (_isActive == TRUE)
 		{
-			bgbrush = ::CreateSolidBrush(::GetSysColor(COLOR_ACTIVECAPTION));
+			bgbrush = ::GetSysColorBrush(COLOR_ACTIVECAPTION);
 			::SetTextColor(hDc, ::GetSysColor(COLOR_CAPTIONTEXT));
 		}
 		else
 		{
-			bgbrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
+			bgbrush = ::GetSysColorBrush(COLOR_BTNFACE);
 		}
 	}
 
 	// set text and/or caption grid
-	if (_isTopCaption == TRUE)
 	{
 		if (_isActive == TRUE)
 		{
@@ -542,67 +549,12 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 		::SelectObject(hDc, hOldFont);
 	}
-	else
-	{
-		// create local font for vertical draw
-		HFONT	hFont;
-
-		if (_isActive == TRUE)
-		{
-			// fill background
-			::FillRect(hDc, &rc, bgbrush);
-			rc.right	-= 1;
-			rc.bottom	-= 1;
-		}
-		else
-		{
-			// fill background
-			rc.right	-= 1;
-			rc.bottom	-= 1;
-			::FillRect(hDc, &rc, bgbrush);
-
-			// draw grid lines
-			MoveToEx(hDc, rc.left , rc.top , NULL);
-			LineTo  (hDc, rc.right, rc.top );
-			LineTo  (hDc, rc.right, rc.bottom );
-			LineTo  (hDc, rc.left , rc.bottom );
-			LineTo  (hDc, rc.left , rc.top);
-		}
-
-		// draw text
-		rc.left		+= 1;
-		rc.top += _captionHeightDynamic;
-		// to make ellipsis working
-		rc.right	= rc.bottom - rc.top;
-		rc.bottom	+= 14;
-
-		LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent, DPIManagerV2::FontType::smcaption) };
-		lf.lfEscapement = 900;
-		hFont = ::CreateFontIndirect(&lf);
-		if (hFont == nullptr)
-		{
-			hFont = ::CreateFont(12, 0, 90 * 10, 0,
-				FW_NORMAL, FALSE, FALSE, FALSE,
-				ANSI_CHARSET, OUT_DEFAULT_PRECIS,
-				CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-				DEFAULT_PITCH | FF_ROMAN,
-				L"MS Shell Dlg");
-		}
-
-		hOldFont = (HFONT)::SelectObject(hDc, hFont);
-		::DrawText(hDc, _pszCaption.c_str(), length, &rc, DT_BOTTOM | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
-
-		// calculate text size and if its trankated...
-		SIZE	size	= {};
-		GetTextExtentPoint32(hDc, _pszCaption.c_str(), length, &size);
-		_bCaptionTT = (((rc.bottom - rc.top) < size.cy) ? TRUE : FALSE);
-
-		::SelectObject(hDc, hOldFont);
-		::DeleteObject(hFont);
-	}
+	
 	::SelectObject(hDc, holdPen);
-	::DeleteObject(hPen);
-	::DeleteObject(bgbrush);
+	if (!NppDarkMode::isEnabled())
+	{
+		::SetDCPenColor(hDc, oldClrDcPen);
+	}
 
 	// draw button
 
@@ -616,14 +568,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		auto hOld = static_cast<HFONT>(::SelectObject(hDc, _hFont));
 
 		rc = pDrawItemStruct->rcItem;
-		if (_isTopCaption == TRUE)
-		{
-			rc.left = rc.right - _closeButtonWidth - _closeButtonPosLeftDynamic;
-		}
-		else
-		{
-			rc.bottom = rc.top + _closeButtonWidth + _closeButtonPosLeftDynamic; // non-dark uses Left instead of Top for the button pos so being consistent
-		}
+		rc.left = rc.right - _closeButtonWidth - _closeButtonPosLeftDynamic;
 
 		if ((_isMouseOver == TRUE) && (_isMouseDown == TRUE))
 		{
@@ -640,22 +585,19 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 		// select correct bitmap
 		if ((_isMouseOver == TRUE) && (_isMouseDown == TRUE))
-			hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_DOWN), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
+			hBmpCur = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_DOWN), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0));
 		else
-			hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_UP), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
+			hBmpCur = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_UP), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0));
 
 		// blit bitmap into the destination
 		::GetObject(hBmpCur, sizeof(bmp), &bmp);
-		hBmpOld = (HBITMAP)::SelectObject(dcMem, hBmpCur);
+		hBmpOld = static_cast<HBITMAP>(::SelectObject(dcMem, hBmpCur));
 		hBmpNew = ::CreateCompatibleBitmap(dcMem, bmp.bmWidth, bmp.bmHeight);
 
 		rc = pDrawItemStruct->rcItem;
 		::SelectObject(hDc, hBmpNew);
 
-		if (_isTopCaption == TRUE)
-			::BitBlt(hDc, rc.right - bmp.bmWidth - _closeButtonPosLeftDynamic, _closeButtonPosTopDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
-		else
-			::BitBlt(hDc, _closeButtonPosLeftDynamic, _closeButtonPosLeftDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
+		::BitBlt(hDc, rc.right - bmp.bmWidth - _closeButtonPosLeftDynamic, _closeButtonPosTopDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
 
 		::SelectObject(dcMem, hBmpOld);
 		::DeleteObject(hBmpCur);
@@ -666,37 +608,22 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	::RestoreDC(hDc, nSavedDC);
 }
 
-eMousePos DockingCont::isInRect(HWND hwnd, int x, int y)
+eMousePos DockingCont::isInRect(HWND hwnd, int x, int y) const
 {
-	RECT rc {};
-	eMousePos	ret	= posOutside;
+	RECT rc{};
+	eMousePos ret = posOutside;
 
 	::GetWindowRect(hwnd, &rc);
-	::MapWindowPoints(NULL, hwnd, (LPPOINT)&rc, 2);
+	::MapWindowPoints(nullptr, hwnd, reinterpret_cast<LPPOINT>(&rc), 2);
 
-	if (_isTopCaption == TRUE)
+	if ((x > rc.left) && (x < rc.right - _captionHeightDynamic) && (y > rc.top) && (y < rc.bottom))
 	{
-		if ((x > rc.left) && (x < rc.right - _captionHeightDynamic) && (y > rc.top) && (y < rc.bottom))
-		{
-			ret = posCaption;
-		}
-		else if ((x > rc.right - (_closeButtonWidth + _closeButtonPosLeftDynamic)) && (x < (rc.right - _closeButtonPosLeftDynamic)) &&
-			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.bottom - _closeButtonPosTopDynamic)))
-		{
-			ret = posClose;
-		}
+		ret = posCaption;
 	}
-	else
+	else if ((x > rc.right - (_closeButtonWidth + _closeButtonPosLeftDynamic)) && (x < (rc.right - _closeButtonPosLeftDynamic)) &&
+		(y > (rc.top + _closeButtonPosTopDynamic)) && (y < (rc.bottom - _closeButtonPosTopDynamic)))
 	{
-		if ((x > rc.left) && (x < rc.right) && (y > rc.top + _captionHeightDynamic) && (y < rc.bottom))
-		{
-			ret = posCaption;
-		}
-		else if ((x > rc.left + _closeButtonPosLeftDynamic) && (x < rc.right - _closeButtonPosLeftDynamic) &&
-			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.top + (_closeButtonHeight + _closeButtonPosLeftDynamic))))
-		{
-			ret = posClose;
-		}
+		ret = posClose;
 	}
 
 	return ret;
@@ -1224,7 +1151,7 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			}
 			else
 			{
-				drawCaptionItem((DRAWITEMSTRUCT *)lParam);
+				drawCaptionItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
 				return TRUE;
 			}
 			break;
@@ -1340,18 +1267,9 @@ void DockingCont::onSize()
 	if (_isFloating == false)
 	{
 		// draw caption
-		if (_isTopCaption == TRUE)
-		{
-			::SetWindowPos(_hCaption, NULL, rc.left, rc.top, rc.right, _captionHeightDynamic, SWP_NOZORDER | SWP_NOACTIVATE);
-			rc.top += _captionHeightDynamic;
-			rc.bottom -= _captionHeightDynamic;
-		}
-		else
-		{
-			::SetWindowPos(_hCaption, NULL, rc.left, rc.top, _captionHeightDynamic, rc.bottom, SWP_NOZORDER | SWP_NOACTIVATE);
-			rc.left += _captionHeightDynamic;
-			rc.right -= _captionHeightDynamic;
-		}
+		::SetWindowPos(_hCaption, nullptr, rc.left, rc.top, rc.right, _captionHeightDynamic, SWP_NOZORDER | SWP_NOACTIVATE);
+		rc.top += _captionHeightDynamic;
+		rc.bottom -= _captionHeightDynamic;
 
 		UINT iTabOff = 0;
 
@@ -1377,17 +1295,8 @@ void DockingCont::onSize()
 
 		// resize client area for plugin
 		rcTemp = rc;
-		if (_isTopCaption == TRUE)
-		{
-			rcTemp.top += _captionGapDynamic;
-			rcTemp.bottom -= (iTabOff + _captionGapDynamic);
-		}
-		else
-		{
-			rcTemp.left += _captionGapDynamic;
-			rcTemp.right -= _captionGapDynamic;
-			rcTemp.bottom -= iTabOff;
-		}
+		rcTemp.top += _captionGapDynamic;
+		rcTemp.bottom -= (iTabOff + _captionGapDynamic);
 
 		// set position of client area
 		::SetWindowPos(::GetDlgItem(_hSelf, IDC_CLIENT_TAB), NULL,
@@ -1581,10 +1490,10 @@ int DockingCont::hideDockedWidget(DockedWidgetData *pTbData, BOOL hideClient)
 	return iItem;
 }
 
-void DockingCont::viewDockedWidget(DockedWidgetData* pDwData)
+void DockingCont::viewDockedWidget(DockedWidgetData* pTbData)
 {
 	TCITEM tcItem {};
-	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	const auto iItemCnt = static_cast<int>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	if (iItemCnt > 0)
 	{
@@ -1602,9 +1511,9 @@ void DockingCont::viewDockedWidget(DockedWidgetData* pDwData)
 	}
 
 	// create new tab if it not exists
-	int iTabPos = searchPosInTab(pDwData);
+	int iTabPos = searchPosInTab(pTbData);
 	tcItem.mask = TCIF_PARAM;
-	tcItem.lParam = reinterpret_cast<LPARAM>(pDwData);
+	tcItem.lParam = reinterpret_cast<LPARAM>(pTbData);
 
 	if (iTabPos == -1)
 	{
@@ -1630,10 +1539,10 @@ void DockingCont::viewDockedWidget(DockedWidgetData* pDwData)
 	onSize();
 }
 
-int DockingCont::searchPosInTab(DockedWidgetData* pTbData)
+int DockingCont::searchPosInTab(DockedWidgetData* pTbData) const
 {
 	TCITEM tcItem {};
-	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	const auto iItemCnt = static_cast<int>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	tcItem.mask	= TCIF_PARAM;
 
@@ -1643,7 +1552,7 @@ int DockingCont::searchPosInTab(DockedWidgetData* pTbData)
 		if (!tcItem.lParam)
 			continue;
 
-		if (((DockedWidgetData*)tcItem.lParam)->hClient == pTbData->hClient)
+		if (reinterpret_cast<DockedWidgetData*>(tcItem.lParam)->hClient == pTbData->hClient)
 			return iItem;
 	}
 	return -1;
@@ -1729,14 +1638,14 @@ void DockingCont::selectTab(int iTab)
 
 	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
-		wstring szText;
+		std::wstring szText;
 		if (iItem == iTab && pszMaxTxt)
 		{
 			// fake here an icon before text ...
 			szText = L"        ";
 			szText += pszMaxTxt;
 		}
-		tcItem.pszText = (wchar_t *)szText.c_str();
+		tcItem.pszText = szText.data();
 		::SendMessage(_hContTab, TCM_SETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 	}
 
@@ -1804,7 +1713,7 @@ void DockingCont::focusClient()
 		if (!tcItem.lParam)
 			return;
 
-		DockedWidgetData* dwData = (DockedWidgetData *)tcItem.lParam;
+		const DockedWidgetData* dwData = reinterpret_cast<DockedWidgetData*>(tcItem.lParam);
 		if (dwData->pszAddInfo && lstrcmp(dwData->pszAddInfo, DM_NOFOCUSWHILECLICKINGCAPTION) == 0)
 			return;
 		

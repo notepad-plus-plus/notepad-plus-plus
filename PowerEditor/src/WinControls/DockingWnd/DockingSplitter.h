@@ -17,9 +17,9 @@
 
 #pragma once
 
+#include <windows.h>
+
 #include "Window.h"
-#include "Docking.h"
-#include "dockingResource.h"
 
 #define	DMS_VERTICAL		0x00000001
 #define	DMS_HORIZONTAL		0x00000002
@@ -59,4 +59,6 @@ private:
 
 	// get layout direction
 	bool _isRTL = false;
+
+	using Window::init;
 };

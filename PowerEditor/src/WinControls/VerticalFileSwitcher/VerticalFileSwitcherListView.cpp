@@ -208,13 +208,14 @@ void VerticalFileSwitcherListView::reload()
 	resizeColumns(rc.right - rc.left);
 	::SendMessage(_hParent, WM_SETREDRAW, true, 0);
 	::SendMessage(_hSelf, WM_SETREDRAW, true, 0);
+
 	redrawItems();
+	ensureVisibleCurrentItem();
 }
 
 void VerticalFileSwitcherListView::redrawItems()
 {
 	int nbItem = ListView_GetItemCount(_hSelf);
-	::SendMessage(_hSelf, WM_PAINT, 0, 0);
 	ListView_RedrawItems(_hSelf, 0, nbItem - 1);
 }
 
@@ -351,8 +352,9 @@ void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 	selectCurrentItem();
 	// Have to enable redraw to be able to move selection to the current item
 	::SendMessage(_hSelf, WM_SETREDRAW, true, 0);
-	ensureVisibleCurrentItem();
+
 	redrawItems();
+	ensureVisibleCurrentItem();
 }
 
 int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)

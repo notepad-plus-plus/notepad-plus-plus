@@ -29,7 +29,12 @@ jobs:
           ditto dist/macOS/NoteX.app dist/dmg-stage/NoteX.app
           ln -s /Applications dist/dmg-stage/Applications
           hdiutil create -volname NoteX -srcfolder dist/dmg-stage -format UDZO dist/NoteX-1.6.1-macos-arm64.dmg
-          hdiutil verify dist/NoteX-1.6.1-macos-arm64.dmg
+          # DiskImages can briefly hold a newly created image busy on hosted runners.
+          for attempt in 1 2 3 4 5; do
+            if hdiutil verify dist/NoteX-1.6.1-macos-arm64.dmg; then break; fi
+            if [ "$attempt" = 5 ]; then exit 1; fi
+            sleep 2
+          done
           mkdir -p dist/dmg-check
           hdiutil attach -readonly -nobrowse -mountpoint "$PWD/dist/dmg-check" dist/NoteX-1.6.1-macos-arm64.dmg
           codesign --verify --strict dist/dmg-check/NoteX.app

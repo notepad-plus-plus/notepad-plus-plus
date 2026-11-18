@@ -70,22 +70,18 @@ func run() error {
 		return cmd.Process.Release()
 	}
 	configPath := filepath.Join(*profile, "notex-updates.json")
-	settings := map[string]any{}
-	if b, e := os.ReadFile(configPath); e == nil {
-		if e = json.Unmarshal(b, &settings); e != nil {
-			return e
-		}
-	} else if !os.IsNotExist(e) {
+	settings, e := readSettings(configPath)
+	if e != nil {
 		return e
 	}
 	if *mode == "settings" {
-		disabled, _ := settings["disabled"].(bool)
+		disabled := checksDisabled(settings)
 		prompt := "Automatic update checks are enabled. Disable them?"
 		if disabled {
 			prompt = "Automatic update checks are disabled. Enable them?"
 		}
 		if ask(prompt) {
-			settings["disabled"] = !disabled
+			settings["disabled"] = json.RawMessage(strconv.FormatBool(!disabled))
 			b, _ := json.MarshalIndent(settings, "", "  ")
 			return atomicWrite(configPath, b, 0600)
 		}
@@ -95,13 +91,13 @@ func run() error {
 		return errors.New("unknown updater action")
 	}
 	if *mode == "auto" {
-		disabled, _ := settings["disabled"].(bool)
-		last, _ := settings["lastCheck"].(float64)
+		disabled := checksDisabled(settings)
+		last := lastCheck(settings)
 		if disabled || time.Since(time.Unix(int64(last), 0)) < 24*time.Hour {
 			return nil
 		}
 	}
-	settings["lastCheck"] = time.Now().Unix()
+	settings["lastCheck"] = json.RawMessage(strconv.FormatInt(time.Now().Unix(), 10))
 	b, _ := json.MarshalIndent(settings, "", "  ")
 	if e := atomicWrite(configPath, b, 0600); e != nil {
 		return e
@@ -188,7 +184,9 @@ func install(root, profile, current string, parent int, work string, recovery bo
 	}
 	if b, e := os.ReadFile(filepath.Join(state, "lock")); e == nil {
 		pid, _ := strconv.Atoi(string(b))
-		if pid <= 0 || processAlive(pid) {
+		st, statError := os.Stat(filepath.Join(state, "lock"))
+		initializing := pid <= 0 && (statError != nil || time.Since(st.ModTime()) < 30*time.Second)
+		if initializing || (pid > 0 && processAlive(pid)) {
 			return errors.New("another updater is active")
 		}
 		if e = os.Remove(filepath.Join(state, "lock")); e != nil {

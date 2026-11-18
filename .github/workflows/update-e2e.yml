@@ -14,9 +14,18 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - name: Install independent signature verifier
-        run: python3 -m pip install -r updater/signing-requirements.txt
+        shell: bash
+        run: |
+          python3 -m venv .e2e-venv
+          if [ -f .e2e-venv/Scripts/python.exe ]; then
+            echo "$PWD/.e2e-venv/Scripts" >> "$GITHUB_PATH"
+            .e2e-venv/Scripts/python.exe -m pip install -r updater/signing-requirements.txt
+          else
+            echo "$PWD/.e2e-venv/bin" >> "$GITHUB_PATH"
+            .e2e-venv/bin/python -m pip install -r updater/signing-requirements.txt
+          fi
       - name: Native application update from actual public releases
-        run: python3 updater/e2e_release.py --output dist/update-e2e.json
+        run: python updater/e2e_release.py --output dist/update-e2e.json
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         if: always()
         with:

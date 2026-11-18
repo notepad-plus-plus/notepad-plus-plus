@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file Document.cxx
  ** Text document that handles notifications, DBCS, styling, words and end of line.
@@ -347,6 +351,7 @@ void Document::TentativeUndo() {
 											   linesAdded, action.data));
 			}
 
+			rich.restoreHistory(cb.UndoCurrent()); RichChanged();
 			const bool endSavePoint = cb.IsSavePoint();
 			if (startSavePoint != endSavePoint)
 				NotifySavePoint(endSavePoint);
@@ -1454,6 +1459,52 @@ void Document::TrimReplacement(std::string_view &text, Range &range) const noexc
 // Document only modified by gateways DeleteChars, InsertString, Undo, Redo, and SetStyleAt.
 // SetStyleAt does not change the persistent state of a document
 
+void Document::RichChanged() {
+    DocModification change(ModificationFlags::ChangeStyle, 0, LengthNoExcept());
+    change.token=0x4e505046;NotifyModified(change);
+}
+
+bool Document::ApplyRichFormat(const NoteX::Change& change) {
+    CheckReadOnly();
+    if (change.fields > NoteX::All || change.value.mask > NoteX::All || change.value.family.size()>256 || change.value.size<600 || change.value.size>9600) return false;
+    if (cb.IsReadOnly() || change.start < 0 || change.end > LengthNoExcept() || change.end <= change.start) return false;
+    auto before = rich.state.runs;
+    if (!rich.apply(change)) return false;
+    const int current = cb.UndoCurrent();
+    rich.history.erase(rich.history.upper_bound(current), rich.history.end());
+    rich.history[current] = std::move(before);
+    cb.BeginUndoAction();
+    cb.AddUndoAction(0x4e505046, false);
+    cb.EndUndoAction();
+    rich.checkpoint(cb.UndoCurrent());
+    NotifySavePoint(false);
+    RichChanged();
+    return true;
+}
+
+bool Document::RestoreRichFormat(const NoteX::Restore& restore) {
+    if (restore.state.formats.empty()) return false;
+    Sci::Position previous = 0;
+    for (const auto& r : restore.state.runs) {
+        if (r.start < previous || r.end <= r.start || r.end > LengthNoExcept() || r.style >= restore.state.formats.size()) return false;
+        previous = r.end;
+    }
+    if (restore.undoable) {
+        if (cb.IsReadOnly()) return false;
+        cb.BeginUndoAction();
+        NoteX::Change clear; clear.end = LengthNoExcept(); ApplyRichFormat(clear);
+        for (const auto& r : restore.state.runs) {
+            NoteX::Change c; c.start=r.start;c.end=r.end;c.value=restore.state.formats[r.style];ApplyRichFormat(c);
+        }
+        cb.EndUndoAction();
+    } else {
+        rich.state = restore.state;
+        rich.history.clear(); rich.checkpoint(cb.UndoCurrent()); ++rich.revision;
+        RichChanged();
+    }
+    return true;
+}
+
 bool Document::DeleteChars(Sci::Position pos, Sci::Position len) {
 	if (pos < 0)
 		return false;
@@ -1479,7 +1530,9 @@ bool Document::DeleteChars(Sci::Position pos, Sci::Position len) {
 		const Sci::Line prevLinesTotal = LinesTotal();
 		const bool startSavePoint = cb.IsSavePoint();
 		bool startSequence = false;
+		rich.checkpoint(cb.UndoCurrent(), true);
 		const char *text = cb.DeleteChars(pos, len, startSequence);
+		rich.erase(pos, len); rich.checkpoint(cb.UndoCurrent());
 		if (startSavePoint && cb.IsCollectingUndo())
 			NotifySavePoint(false);
 		if ((pos < LengthNoExcept()) || (pos == 0))
@@ -1500,7 +1553,7 @@ bool Document::DeleteChars(Sci::Position pos, Sci::Position len) {
 /**
  * Insert a string with a length.
  */
-Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci::Position insertLength) {
+Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci::Position insertLength, const NoteX::Format *typingFormat) {
 	if (insertLength <= 0) {
 		return 0;
 	}
@@ -1540,7 +1593,17 @@ Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci:
 	const Sci::Line prevLinesTotal = LinesTotal();
 	const bool startSavePoint = cb.IsSavePoint();
 	bool startSequence = false;
+	rich.checkpoint(cb.UndoCurrent(), true);
 	const char *text = cb.InsertString(position, s, insertLength, startSequence);
+	rich.insert(position, insertLength);
+    // Include the chosen typing style in the text edit's existing undo record.
+    if (typingFormat) {
+        NoteX::Change change;
+        change.start = position; change.end = position + insertLength;
+        change.value = *typingFormat;
+        rich.apply(change);
+    }
+    rich.checkpoint(cb.UndoCurrent());
 	if (startSavePoint && cb.IsCollectingUndo())
 		NotifySavePoint(false);
 	ModifiedAt(position);
@@ -1557,8 +1620,8 @@ Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci:
 	return insertLength;
 }
 
-Sci::Position Document::InsertString(Sci::Position position, std::string_view sv) {
-	return InsertString(position, sv.data(), sv.length());
+Sci::Position Document::InsertString(Sci::Position position, std::string_view sv, const NoteX::Format *typingFormat) {
+	return InsertString(position, sv.data(), sv.length(), typingFormat);
 }
 
 void Document::ChangeInsertion(const char *s, Sci::Position length) {
@@ -1649,6 +1712,7 @@ Sci::Position Document::Undo() {
 											   linesAdded, action.data, 0, newPos));
 			}
 
+			rich.restoreHistory(cb.UndoCurrent()); RichChanged();
 			const bool endSavePoint = cb.IsSavePoint();
 			if (startSavePoint != endSavePoint)
 				NotifySavePoint(endSavePoint);
@@ -1709,6 +1773,7 @@ Sci::Position Document::Redo() {
 									linesAdded, action.data, 0, newPos));
 			}
 
+			rich.restoreHistory(cb.UndoCurrent()); RichChanged();
 			const bool endSavePoint = cb.IsSavePoint();
 			if (startSavePoint != endSavePoint)
 				NotifySavePoint(endSavePoint);

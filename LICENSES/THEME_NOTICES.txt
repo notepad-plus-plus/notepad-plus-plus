@@ -1,0 +1,1454 @@
+Source: PowerEditor/installer/themes/Bespin.xml
+<!--//
+
+Bespin
+Copyright (c) 2009 Oren Farhi, Orizen Designs - https://www.orizens.com
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Requirements:
+    * This style is based on DejaVu fonts <http://dejavu.sourceforge.net/wiki/index.php/Main_Page>.
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+
+
+Credits:
+    Thanks for the original Textmate theme author.
+    Thanks for Fabio Zendhi Nagao for the tmTheme2nppStyler.
+    Thanks for the user for the tmTheme source.
+
+					 2023-09-30: update Perl support.
+//-->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- "TYPEDEF" styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="FFAA00" bgColor="2A211C" fontName="" fontStyle="" fontSize="" keywordClass="instre2" />
+            -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="" bgColor="2A211C" fontName="" fontStyle="" fontSize="" />
+        -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Bespin.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!--//
+
+Blackboard
+Copyright (c) 2008 Fabio Zendhi Nagao <http://zend.lojcomm.com.br/>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Requirements:
+    * This style is based on DejaVu fonts <http://dejavu.sourceforge.net/wiki/index.php/Main_Page>.
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\
+
+About:
+    This styler has been built by Textmate theme to Notepad++ styler <http://framework.lojcomm.com.br/tmTheme2nppStyler/>
+
+Credits:
+    Thanks for the original Textmate theme author.
+    Thanks for Fabio Zendhi Nagao for the tmTheme2nppStyler.
+    Thanks for the user for the tmTheme source.
+
+					 2023-09-30: update Perl support.
+//-->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- "TYPEDEF" styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="" fontSize="" keywordClass="instre2" />
+            -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="" bgColor="0C1021" fontName="" fontStyle="" fontSize="" />
+        -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Black board.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!--//
+
+choco
+Copyright (c) 2008 Fabio Zendhi Nagao <http://zend.lojcomm.com.br/>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Requirements:
+    * This style is based on DejaVu fonts <http://dejavu.sourceforge.net/wiki/index.php/Main_Page>.
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\
+
+About:
+    This styler has been built by Textmate theme to Notepad++ styler <http://framework.lojcomm.com.br/tmTheme2nppStyler/>
+
+Credits:
+    Thanks for the original Textmate theme author.
+    Thanks for Fabio Zendhi Nagao for the tmTheme2nppStyler.
+    Thanks for the user for the tmTheme source.
+
+					 2023-09-30: update Perl support.
+//-->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="B3935C" bgColor="1A0F0B" fontName="" fontStyle="" fontSize="" keywordClass="instre2" />
+            -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="" bgColor="1A0F0B" fontName="" fontStyle="" fontSize="" />
+        -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Choco.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!--
+Dark mode default style for Notepad++.
+This file is based on Zenburn them (zenburn.xml)
+License:             GPL2
+-->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!--WordsStyle name="IDENTIFIER2" styleID="15" fgColor="0040E0" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" /-->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!--WordsStyle name="IDENTIFIER3" styleID="17" fgColor="00A0E0" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" /-->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!--WordsStyle name="EXTENDED_IDENTIFIER" styleID="19" fgColor="7F7F00" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" /-->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- LEGACY_PSEUDOELEMENT == EXTENDED_PSEUDOCLASS -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!--WordsStyle name="EXTENDED_PSEUDOELEMENT" styleID="21" fgColor="7F7F00" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" /-->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- "TYPEDEF" styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/DarkModeDefault.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!--
+Style Name:         Deep Black
+Description:        Based on the theme Port VibrantInk by tyler
+File name:          Deep Black.xml
+Created by:         Mariusz Kasperkiewicz
+Released:           28.05.2009
+Featured languages: SQL, C, C++, Pascal, PHP, CSS, JavaScript, HTML, XML and others
+License:            Feel free to modify this style and re-release it. This style is available under the terms of the GNU Free License.
+
+Keep Notepad++ development active, donate!:
+https://notepad-plus-plus.org/donate/
+-->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="A001D6" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+			-->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+		-->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Deep Black.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!--
+Theme name : Hello Kitty
+This theme is not complete. If you enhance it, please send it back to me :
+<don.h@free.fr>
+so your enhanced file can be included in Notepad++ future release.
+					 2023-09-30: update Perl support.
+ -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+		-->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Hello Kitty.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!--//
+File Name:           HotFudgeSundae.xml
+Style Name:          HotFudgeSundae
+Description:         HotFudgeSundae theme for Notepad++.
+                     Hues from photographs of hot fudge sundaes.
+                     Hot fudge, some ice cream peeking out, drizzled with
+                     caramel, nuts, and sprinkles with a cherry on top.
+Supported languages: All the languages supported by release 6.7.4
+Created by:          Paul Neubauer (PaulRNeubauer at gmail dot com)
+Released:            4/17/2012
+Last Modified:       2/20/2015
+                     Improved contrast in comments.
+                     Added support for CoffeeScript.
+					 2023-09-30: update Perl support.
+License:             Feel free to modify this theme.
+                     This theme is available under the terms of the Creative Commons
+                     Attribution 3.0 Unported License. You are free to to copy,
+                     distribute and transmit the work, to adapt the work, or to make
+                     commercial use of the work under the condition that you must
+                     attribute the work in the manner specified by the author or
+                     licensor (but not in any way that suggests that they endorse you
+                     or your use of the work). See
+                     http://creativecommons.org/licenses/by/3.0/
+                     for a legal description of the license terms. Briefly, this
+                     means: please note in derivatives of this theme, that they are
+                     based on my work. Of course, if you are using this file as no
+                     more than a framework for an entirely different color scheme, you
+                     may, and should, omit such attribution.
+
+Installation:
+    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    For WindowsXP:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    For Windows Vista or 7:
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+
+//-->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/HotFudgeSundae.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!--//
+File Name:           khaki.xml
+Style Name:          khaki
+Description:         khaki theme for Notepad++.
+                     Based (moderately closely) on khaki.vim by Frank Baruch
+                     http://www.vim.org/scripts/script.php?script_id=1987
+Supported languages: All the languages supported by release 6.7.4
+Created by:          Paul Neubauer (PaulRNeubauer at gmail dot com)
+Last Modified:       1/14/2015
+                     Added support for CoffeeScript.
+ 					 2023-09-30: update Perl support.
+Released:            4/17/2012
+License:             Feel free to modify this theme.
+                     This theme is available under the terms of the Creative Commons
+                     Attribution 3.0 Unported License. You are free to to copy,
+                     distribute and transmit the work, to adapt the work, or to make
+                     commercial use of the work under the condition that you must
+                     attribute the work in the manner specified by the author or
+                     licensor (but not in any way that suggests that they endorse you
+                     or your use of the work). See
+                     http://creativecommons.org/licenses/by/3.0/
+                     for a legal description of the license terms. Briefly, this
+                     means: please note in derivatives of this theme, that they are
+                     based on my work. Of course, if you are using this file as no
+                     more than a framework for an entirely different color scheme, you
+                     may, and should, omit such attribution.
+
+Installation:
+    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    For WindowsXP:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    For Windows Vista or 7:
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+
+//-->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/khaki.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!--//
+
+monoindustrial
+Copyright (c) 2008 Fabio Zendhi Nagao <http://zend.lojcomm.com.br/>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Requirements:
+    * This style is based on DejaVu fonts <http://dejavu.sourceforge.net/wiki/index.php/Main_Page>.
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\
+
+About:
+    This styler has been built by Textmate theme to Notepad++ styler <http://framework.lojcomm.com.br/tmTheme2nppStyler/>
+
+Credits:
+    Thanks for the original Textmate theme author.
+    Thanks for Fabio Zendhi Nagao for the tmTheme2nppStyler.
+    Thanks for the user for the tmTheme source.
+
+					 2023-09-30: update Perl support.
+//-->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="A39E64" bgColor="222C28" fontName="" fontStyle="" fontSize="" keywordClass="instre2" />
+            -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="" bgColor="222C28" fontName="" fontStyle="" fontSize="" />
+        -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Mono Industrial.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!--//
+
+Monokai
+Copyright (c) 2008 Fabio Zendhi Nagao <http://zend.lojcomm.com.br/>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Requirements:
+    * This style is based on DejaVu fonts <http://dejavu.sourceforge.net/wiki/index.php/Main_Page>.
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\
+
+About:
+    This styler has been built by Textmate theme to Notepad++ styler <http://framework.lojcomm.com.br/tmTheme2nppStyler/>
+
+Credits:
+    Thanks for the original Textmate theme author.
+    Thanks for Fabio Zendhi Nagao for the tmTheme2nppStyler.
+    Thanks for the user for the tmTheme source.
+
+					 2023-09-30: update Perl support.
+//-->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="" keywordClass="instre2" />
+            -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="" fontSize="" />
+        -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Monokai.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!--//
+File Name:           MossyLawn.xml
+Style Name:          MossyLawn
+Description:         MossyLawn theme for Notepad++.
+                     A "natural" theme for NP++
+                     The hues are taken from photographs of mosses and grasses, with a few
+                     hues from tree trunks, autumn leaves and flowers added for contrast.
+                     The name is a tip of the hat to Terry Pratchett.
+Supported languages: All the languages supported by release 6.7.4
+Created by:          Paul Neubauer (PaulRNeubauer at gmail dot com)
+Last Modified:       1/14/2015
+                     Added support for CoffeeScript.\
+					 Improved contrast for readbility.
+					 2023-09-30: update Perl support.
+Released:            4/17/2012
+License:             Feel free to modify this theme.
+                     This theme is available under the terms of the Creative Commons
+                     Attribution 3.0 Unported License. You are free to to copy,
+                     distribute and transmit the work, to adapt the work, or to make
+                     commercial use of the work under the condition that you must
+                     attribute the work in the manner specified by the author or
+                     licensor (but not in any way that suggests that they endorse you
+                     or your use of the work). See
+                     http://creativecommons.org/licenses/by/3.0/
+                     for a legal description of the license terms. Briefly, this
+                     means: please note in derivatives of this theme, that they are
+                     based on my work. Of course, if you are using this file as no
+                     more than a framework for an entirely different color scheme, you
+                     may, and should, omit such attribution.
+
+Installation:
+    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    For WindowsXP:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    For Windows Vista or 7:
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+
+//-->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/MossyLawn.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!--//
+File Name:           Navajo.xml
+Style Name:          Navajo
+Description:         Navajo theme for Notepad++.
+                     Based on navajo.vim by R. Edward Ralston
+                     Official Navajo home page: http://www.vim.org/scripts/script.php?script_id=190
+Supported languages: All the languages supported by release 6.7.4
+Created by:          Paul Neubauer (PaulRNeubauer at gmail dot com)
+Last Modified:       1/14/2015
+                     Added support for CoffeeScript.
+					 2023-09-30: update Perl support.
+Released:            4/17/2012
+License:             Feel free to modify this theme.
+                     This theme is available under the terms of the Creative Commons
+                     Attribution 3.0 Unported License. You are free to to copy,
+                     distribute and transmit the work, to adapt the work, or to make
+                     commercial use of the work under the condition that you must
+                     attribute the work in the manner specified by the author or
+                     licensor (but not in any way that suggests that they endorse you
+                     or your use of the work). See
+                     http://creativecommons.org/licenses/by/3.0/
+                     for a legal description of the license terms. Briefly, this
+                     means: please note in derivatives of this theme, that they are
+                     based on my work. Of course, if you are using this file as no
+                     more than a framework for an entirely different color scheme, you
+                     may, and should, omit such attribution.
+
+Installation:
+    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    For WindowsXP:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    For Windows Vista or 7:
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+
+//-->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Navajo.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!--
+Notepad++ Custom Style
+
+  Style name:    Obsidian v2
+      Author:    Joni Eskelinen
+        Date:    2009-04-06 (last changed 2013-04-23)
+   Languages:    php, html, css, xml, javascript, python, sql, c, c++,
+                   assembly, bash, batch, lua at least for detail. Everything else more or less...
+        Info:    Inspired by Oblivion theme for gedit.
+
+				 2023-09-30: update Perl support.
+ -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Obsidian.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!--//
+
+PlasticCodeWrap
+Copyright (c) 2008 Fabio Zendhi Nagao <http://zend.lojcomm.com.br/>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Requirements:
+    * This style is based on DejaVu fonts <http://dejavu.sourceforge.net/wiki/index.php/Main_Page>.
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\
+
+About:
+    This styler has been built by Textmate theme to Notepad++ styler <http://framework.lojcomm.com.br/tmTheme2nppStyler/>
+
+Credits:
+    Thanks for the original Textmate theme author.
+    Thanks for Fabio Zendhi Nagao for the tmTheme2nppStyler.
+    Thanks for the user for the tmTheme source.
+
+					 2023-09-30: update Perl support.
+//-->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!--WordsStyle name="VARIABLE" styleID="5" fgColor="FB9A4B" bgColor="0B161D" fontName="" fontStyle="0" fontSize="">if else for while</WordsStyle-->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="FFAA00" bgColor="0B161D" fontName="" fontStyle="" fontSize="" keywordClass="instre2" />
+            -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="" bgColor="0B161D" fontName="" fontStyle="" fontSize="" />
+        -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Plastic Code Wrap.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!--
+Notepad++ Custom stylers
+Style name: 		Port Ruby Blue
+File name: 			stylers.xml
+Created by:			tomsolo (aka tonoslo on sourceforge.net)
+				http://www.3276.hu
+Featured language:	Php, Css, Sql, JavaScript, Html, XML.
+Note: 			If u create other languages with this style please send me the modified styler.xml : tonoslo at users.sourceforge.net (ty!)
+Other info:			this style is based on and inspired by Textmate (a Mac source editor, http:/www.textmate.org) user submitted theme:
+				Ruby Blue theme created by John W. Long, http://wiseheartdesign.com/articles/2006/03/11/ruby-blue-textmate-theme)
+				Thanks John!
+				This style available under the terms of the GNU Free License.
+
+
+Requirements:
+	1. The style is based on DejaVu fonts, go to
+	http://dejavu.sourceforge.net/wiki/index.php/Main_Page
+	and grab this font pack and install (use DejaVu Mono).
+	2. Use Cleartype, for nice smooth font on screen (optional).
+	3. Notepad 3.5 install :)
+
+Install: copy your installed Notepad++ directory root, overwrite old stylers.xml (backup old file first),
+or copy c:\Documents and Settings\**USERNAME**\Application Data\Notepad++\
+overwrite old stylers.xml (backup old file first)
+
+
+ENJOY!
+
+
+If u like, please donate Notepad++:
+http://sourceforge.net/donate/index.php?group_id=95717
+
+
+
+2006.03.27.
+
+					 2023-09-30: update Perl support.
+-->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="" bgColor="" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+			-->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Ruby Blue.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!--//
+File Name:           Solarized-light.xml
+Style Name:          Solarized-light
+Description:         Solarized theme for Notepad++.
+                     Based on Solarized by Ethan Schoonover
+                     Official Solarized home page: http://ethanschoonover.com/solarized
+Commpliance:         Nearly complete (see README.txt for exceptions).
+Supported languages: All the languages supported by release 6.7.4
+Created by:          Paul Neubauer (PaulRNeubauer at gmail dot com)
+Last Modified:       1/14/2015
+                     Added support for CoffeeScript.
+					 2023-09-30: update Perl support.
+Released:            3/7/2012
+License:             Feel free to modify this theme.
+                     This theme is available under the terms of the Creative Commons
+                     Attribution 3.0 Unported License. You are free to to copy,
+                     distribute and transmit the work, to adapt the work, or to make
+                     commercial use of the work under the condition that you must
+                     attribute the work in the manner specified by the author or
+                     licensor (but not in any way that suggests that they endorse you
+                     or your use of the work). See
+                     http://creativecommons.org/licenses/by/3.0/
+                     for a legal description of the license terms. Briefly, this
+                     means: please note in derivatives of this theme, that they are
+                     based on my work. Of course, if you are using this file as no
+                     more than a framework for an entirely different color scheme, you
+                     may, and should, omit such attribution.
+
+Requirements:
+    * This theme is based on the Inconsolata-dz font http://media.nodnod.net/Inconsolata-dz.otf.zip
+      However, that font may be replaced in the "GlobalStyles" section of this
+      file, where it is found in only the "Global override" and "Default Style" lines.
+      Fonts are not separately specified anywhere else in this version of the style file.
+      Note 3/29/2012: I have replaced Inconsola-dz with Consolas, since Consolas is
+      installed by default in recent versions of Windows.
+
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    For WindowsXP:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    For Windows Vista or 7:
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+
+//-->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- "TYPEDEF" styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Solarized-light.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!--//
+File Name:           Solarized.xml
+Style Name:          Solarized
+Description:         Solarized theme for Notepad++.
+                     Based on Solarized by Ethan Schoonover
+                     Official Solarized home page: http://ethanschoonover.com/solarized
+Commpliance:         Nearly complete (see README.txt for exceptions).
+Supported languages: All the languages supported by release 6.7.4
+Created by:          Paul Neubauer (PaulRNeubauer at gmail dot com)
+Last Modified:       30 October 2022
+                     Added support for all of the missing languages (up-to-date with stylers.xml).
+					 2023-09-30: update Perl support.
+Released:            3/7/2012
+License:             Feel free to modify this theme.
+                     This theme is available under the terms of the Creative Commons
+                     Attribution 3.0 Unported License. You are free to to copy,
+                     distribute and transmit the work, to adapt the work, or to make
+                     commercial use of the work under the condition that you must
+                     attribute the work in the manner specified by the author or
+                     licensor (but not in any way that suggests that they endorse you
+                     or your use of the work). See
+                     http://creativecommons.org/licenses/by/3.0/
+                     for a legal description of the license terms. Briefly, this
+                     means: please note in derivatives of this theme, that they are
+                     based on my work. Of course, if you are using this file as no
+                     more than a framework for an entirely different color scheme, you
+                     may, and should, omit such attribution.
+
+Requirements:
+    * This theme is based on the Inconsolata-dz font http://media.nodnod.net/Inconsolata-dz.otf.zip
+      However, that font may be replaced in the "GlobalStyles" section of this
+      file, where it is found in only the "Global override" and "Default Style" lines.
+      Fonts are not separately specified anywhere else in this version of the style file.
+      Note 3/29/2012: I have replaced Inconsola-dz with Consolas, since Consolas is
+      installed by default in recent versions of Windows.
+
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    For WindowsXP:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    For Windows Vista or 7:
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+
+//-->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Solarized.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!--//
+
+Twilight
+Copyright (c) 2008 Fabio Zendhi Nagao <http://zend.lojcomm.com.br/>
+              2011-2014 Renato Silva <br.renatosilva@gmail.com>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Requirements:
+    * This style is based on DejaVu fonts <http://dejavu.sourceforge.net/wiki/index.php/Main_Page>.
+    * Notepad++, of course.
+
+Installation:
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\
+
+About:
+    This styler has been built by Textmate theme to Notepad++ styler <http://framework.lojcomm.com.br/tmTheme2nppStyler/>
+
+Credits:
+    Thanks for the original Textmate theme author.
+    Thanks for Fabio Zendhi Nagao for the tmTheme2nppStyler.
+    Thanks for the user for the tmTheme source.
+
+					 2023-09-30: update Perl support.
+//-->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="CDA869" bgColor="141414" fontName="" fontStyle="" fontSize="" keywordClass="instre2"/>
+            -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="" bgColor="141414" fontName="" fontStyle="" fontSize=""/>
+        -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Twilight.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!--
+Style Name: Port VibrantInk
+Description: Based on the Textmate theme VibrantInk (http://alternateidea.com/blog/articles/2006/01/03/textmate-vibrant-ink-theme-and-prototype-bundle) by Justin Palmer
+File name: 			stylers.xml
+Created by:			tyler (tyler at impoverishedgourmet.com)
+Featured language:	Php, Css, JavaScript, Html, XML, others?
+Note:				Feel free to modify this style and re-release it.  Any additions to languages or syntax to bring it closer to VibrantInk would be appreciated.
+					This style available under the terms of the GNU Free License.
+
+Install: copy your installed Notepad++ directory root, overwrite old stylers.xml (backup old file first),
+or copy %APPDATA%\Notepad++\
+overwrite old stylers.xml (backup old file first)
+
+Keep Notepad++ development active, donate!:
+http://sourceforge.net/donate/index.php?group_id=95717
+
+2007.11.16
+					 2023-09-30: update Perl support.
+-->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="A001D6" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+			-->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+		-->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Vibrant Ink.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!--
+            <WordsStyle name="DIRECTIVE" styleID="19" fgColor="A001D6" bgColor="000040" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+			-->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!--
+            <WordsStyle name="" styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+		-->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/vim Dark Blue.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!--
+File name:           Zenburn.xml
+Style Name:          Zenburn
+Description:         Zenburn-like style for Notepad++.
+                     Inspired by the original Zenburn colorscheme for Vim by Jani Nurminen.
+                     Official Vim Zenburn home page: http://kippura.org/zenburnpage/
+Supported languages: All the languages supported by release 7.7
+Created by:          Jani Kesänen (jani dot kesanen gmail com)
+Released:            25.06.2019
+License:             GPL2
+					 2023-09-30: update Perl support.
+ -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!--WordsStyle name="IDENTIFIER2" styleID="15" fgColor="0040E0" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" /-->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!--WordsStyle name="IDENTIFIER3" styleID="17" fgColor="00A0E0" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" /-->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!--WordsStyle name="EXTENDED_IDENTIFIER" styleID="19" fgColor="7F7F00" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" /-->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- LEGACY_PSEUDOELEMENT == EXTENDED_PSEUDOCLASS -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!--WordsStyle name="EXTENDED_PSEUDOELEMENT" styleID="21" fgColor="7F7F00" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" /-->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- NOADDRESS 6 N/A -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- RECCOUNT 8 N/A -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- EXTENDEDADDRESS 11 N/A -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- DATA_UNKNOWN 14 N/A -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- DATA_EMPTY 15 N/A -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- Attention : Don't modify the name of styleID="0" -->
+
+Source: PowerEditor/installer/themes/Zenburn.xml
+<!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->

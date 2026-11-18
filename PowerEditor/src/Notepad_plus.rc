@@ -1,3 +1,8 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-11-18.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -43,12 +48,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE    "CompanyName",        "Don HO don.h@free.fr\0"
-            VALUE    "FileDescription",    "Notepad++\0"
+            VALUE    "FileDescription",    "NoteX Editor\0"
             VALUE    "FileVersion",        VERSION_PRODUCT_VALUE
-            VALUE    "InternalName",       "notepad++.exe\0"
-            VALUE    "LegalCopyright",     "Copyleft 1998-2023 by Don HO\0"
-            VALUE    "OriginalFilename",   "notepad++.exe\0"
-            VALUE    "ProductName",        "Notepad++\0"
+            VALUE    "InternalName",       "NoteX.exe\0"
+            VALUE    "LegalCopyright",     "Copyleft 1998-2023 by Don HO; Copyright (C) 2026 Berk Kivircik (NoteX modifications)\0"
+            VALUE    "OriginalFilename",   "NoteX.exe\0"
+            VALUE    "ProductName",        "NoteX\0"
             VALUE    "ProductVersion",     VERSION_PRODUCT_VALUE
         END
     END
@@ -609,9 +614,6 @@ BEGIN
             MENUITEM "Open Containing Folder in Explorer", IDM_EDIT_OPENSELECTEDFILEFOLDERINEXPLORER
             MENUITEM SEPARATOR
             MENUITEM "&Redact Selection █ (Shift: ●)", IDM_EDIT_REDACT_SELECTION
-            MENUITEM SEPARATOR
-            MENUITEM "Search on Internet", IDM_EDIT_SEARCHONINTERNET
-            MENUITEM "Change Search Engine...", IDM_EDIT_CHANGESEARCHENGINE
         END
         MENUITEM SEPARATOR
         POPUP "Multi-select All"
@@ -1349,16 +1351,16 @@ BEGIN
     BEGIN
         MENUITEM "Command Line Arguments...",      IDM_CMDLINEARGUMENTS
         MENUITEM SEPARATOR
-        MENUITEM "Notepad++ Home",                 IDM_HOMESWEETHOME
-        MENUITEM "Notepad++ Project Page",         IDM_PROJECTPAGE
+        MENUITEM "NoteX Home",                 IDM_HOMESWEETHOME
+        MENUITEM "NoteX Source Code",         IDM_PROJECTPAGE
         MENUITEM "Notepad++ Online User Manual",   IDM_ONLINEDOCUMENT
         MENUITEM "Notepad++ Community (Forum)",    IDM_FORUM
         MENUITEM SEPARATOR
-        MENUITEM "Update Notepad++",               IDM_UPDATE_NPP
-        MENUITEM "Set Updater Proxy...",           IDM_CONFUPDATERPROXY
+        MENUITEM "Check for NoteX Updates...",               IDM_UPDATE_NPP
+        MENUITEM "Plugin Updater Proxy...",           IDM_CONFUPDATERPROXY
         MENUITEM SEPARATOR
         MENUITEM "Debug Info...",                  IDM_DEBUGINFO
-        MENUITEM "About Notepad++",                IDM_ABOUT
+        MENUITEM "About NoteX",                IDM_ABOUT
     END
 
     MENUITEM "＋",               IDM_FILE_NEW, HELP
@@ -1412,11 +1414,11 @@ BEGIN
 	//LTEXT           "Tiananmen Massacre Commemoration", IDC_AUTHOR_NAME, 85, 38, 150, 10
     //LTEXT           "Slava Ukraini", IDC_AUTHOR_NAME, 85, 38, 150, 10
     LTEXT            "Home:",IDC_STATIC,21,58,47,8
-    LTEXT            "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,56,126,10
-    GROUPBOX        "GNU General Public Licence",IDC_STATIC,20,75,230,138,BS_CENTER
+    LTEXT            "github.com/berkkivircik/NoteX",IDC_HOME_ADDR,50,56,190,10
+    GROUPBOX        "GNU General Public License",IDC_STATIC,20,75,230,138,BS_CENTER
     DEFPUSHBUTTON   "OK",IDOK,110,220,50,14
     // IDC_LICENCE_EDIT should be the last line, don't know why
-    EDITTEXT        IDC_LICENCE_EDIT,30,93,210,117,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_LICENCE_EDIT,30,93,210,117,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL | NOT WS_BORDER
 END
 
 IDD_DEBUGINFOBOX DIALOGEX 0, 0, 300, 195

@@ -1,3 +1,9 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
+#include "NoteXUpdate.h"
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -840,54 +846,10 @@ void Notepad_plus::command(int id)
 		}
 
 		case IDM_EDIT_SEARCHONINTERNET:
-		{
-			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
-				return;
-
-			const NppGUI & nppGui = (NppParameters::getInstance()).getNppGUI();
-			wstring url;
-			if (nppGui._searchEngineChoice == nppGui.se_custom)
-			{
-				url = nppGui._searchEngineCustom;
-				url.erase(std::remove_if(url.begin(), url.end(), [](wchar_t x) {return std::iswspace(x); }),
-					url.end());
-
-				auto httpPos = url.find(L"http://");
-				auto httpsPos = url.find(L"https://");
-
-				if (url.empty() || (httpPos != 0 && httpsPos != 0)) // if string is not a url (for launching only browser)
-				{
-					url = L"https://www.google.com/search?q=$(CURRENT_WORD)";
-				}
-			}
-			else if (nppGui._searchEngineChoice == nppGui.se_duckDuckGo || nppGui._searchEngineChoice == nppGui.se_bing)
-			{
-				url = L"https://duckduckgo.com/?q=$(CURRENT_WORD)";
-			}
-			else if (nppGui._searchEngineChoice == nppGui.se_google)
-			{
-				url = L"https://www.google.com/search?q=$(CURRENT_WORD)";
-			}
-			else if (nppGui._searchEngineChoice == nppGui.se_yahoo)
-			{
-				url = L"https://search.yahoo.com/search?q=$(CURRENT_WORD)";
-			}
-			else if (nppGui._searchEngineChoice == nppGui.se_stackoverflow)
-			{
-				url = L"https://stackoverflow.com/search?q=$(CURRENT_WORD)";
-			}
-
-			Command cmd(url.c_str());
-			cmd.run(_pPublicInterface->getHSelf());	
-		}
-		break;
-
 		case IDM_EDIT_CHANGESEARCHENGINE:
-		{
-			command(IDM_SETTING_PREFERENCE);
-			_preference.showDialogByName(L"SearchEngine");
-		}
-		break;
+			// NoteX disables sending editor text to web search. Keep the IDs inert
+			// for existing shortcuts, macros, context menus and plugin commands.
+			return;
 
 		case IDM_EDIT_PASTE_AS_RTF:
 		case IDM_EDIT_PASTE_AS_HTML:
@@ -3783,12 +3745,12 @@ void Notepad_plus::command(int id)
 
 		case IDM_HOMESWEETHOME :
 		{
-			::ShellExecute(NULL, L"open", L"https://notepad-plus-plus.org/", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, L"open", L"https://github.com/berkkivircik/NoteX", NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 		case IDM_PROJECTPAGE :
 		{
-			::ShellExecute(NULL, L"open", L"https://github.com/notepad-plus-plus/notepad-plus-plus/", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, L"open", L"https://github.com/berkkivircik/NoteX", NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
@@ -3810,63 +3772,25 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_UPDATE_NPP :
-		case IDM_CONFUPDATERPROXY :
-		{
-			// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad_plus_plus.org
-			const NppParameters& nppParams = NppParameters::getInstance();
-			winVer ver = nppParams.getWinVersion();
-			if (ver <= WV_XP)
-			{
-				long res = _nativeLangSpeaker.messageBox("XpUpdaterProblem",
-					_pPublicInterface->getHSelf(),
-					L"Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?",
-					L"Notepad++ Updater",
-					MB_YESNO);
-
-				if (res == IDYES)
-				{
-					::ShellExecute(NULL, L"open", L"https://notepad-plus-plus.org/downloads/", NULL, NULL, SW_SHOWNORMAL);
-				}
-			}
-			else
-			{
-				wstring updaterDir = nppParams.getNppPath();
-				pathAppend(updaterDir, L"updater");
-
-				wstring updaterFullPath = updaterDir;
-				pathAppend(updaterFullPath, L"gup.exe");
-
-
-#if !defined(NDEBUG)  // if not debug, then it's release
-				bool isCertifVerified = true;
-#else //RELEASE
-				// check the signature on updater
-				SecurityGuard securityGuard;
-				bool isCertifVerified = securityGuard.checkModule(updaterFullPath, nm_gup);
-#endif
-				if (isCertifVerified)
-				{
-					wstring param;
-					bool isElevationRequired = false;
-
-					if (id == IDM_CONFUPDATERPROXY)
-					{
-						param = L"-options";
-						isElevationRequired = needsElevation4Access(updaterDir, true); // proxy settings storage is ".\updater\gupOptions.xml"
-					}
-					else
-					{
-						nppParams.buildGupParams(param);
-						param += L" -verbose";
-					}
-
-					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
-					updater.run(isElevationRequired);
-				}
-			}
-			break;
-		}
+        case IDM_UPDATE_NPP:
+            noteXUpdate(L"manual");
+            break;
+        case IDM_NOTEX_UPDATE_SETTINGS:
+            noteXUpdate(L"settings");
+            break;
+        case IDM_CONFUPDATERPROXY:
+        {
+            // This option belongs to Plugins Admin only; it cannot update NoteX.
+            const auto& params = NppParameters::getInstance();
+            const std::wstring dir = params.getNppPath() + L"\\updater";
+            const std::wstring exe = dir + L"\\gup.exe";
+            SecurityGuard guard;
+            if (guard.checkModule(exe, nm_gup)) {
+                Process proxy(exe.c_str(), L"-options", dir.c_str());
+                proxy.run(needsElevation4Access(dir, true));
+            }
+            break;
+        }
 
 		case IDM_EDIT_AUTOCOMPLETE :
 			showAutoComp();

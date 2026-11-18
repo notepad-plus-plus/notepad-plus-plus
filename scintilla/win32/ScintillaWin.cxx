@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file ScintillaWin.cxx
  ** Windows specific subclass of ScintillaBase.
@@ -2732,11 +2736,12 @@ void ScintillaWin::UpdateSystemCaret() {
 			// fix candidate window for Google Japanese IME moved on typing on Win7.
 			return;
 		}
+		Point pos = PointMainCaret(); // Refresh metrics before checking the native caret.
 		if (HasCaretSizeChanged()) {
 			DestroySystemCaret();
 			CreateSystemCaret();
 		}
-		const Point pos = PointMainCaret();
+        pos.y += std::max(0.0, MetricsForLine(pdoc->SciLineFromPosition(CurrentPosition())).ascent - StyleAtCaret(CurrentPosition(), vs).ascent);
 		::SetCaretPos(static_cast<int>(pos.x), static_cast<int>(pos.y));
 	}
 }
@@ -3139,6 +3144,8 @@ void ScintillaWin::Paste() {
 	bool isRectangular = false;
 	bool hasUnicodeText = false;
 	std::string putf;
+	NoteX::State pastedFormat;
+	bool hasFormat=false;
 
 	{
 		Clipboard clipboard(MainHWND());
@@ -3164,7 +3171,22 @@ void ScintillaWin::Paste() {
 		if (const wchar_t *uptr = static_cast<const wchar_t *>(memUSelection.ptr)) {
 			hasUnicodeText = true;
 			putf = EncodeWString(uptr);
-			memUSelection.Unlock();
+            std::wstring_view unicode(uptr);
+            HANDLE richData = ::GetClipboardData(RegisterClipboardFormatW(L"NoteX.RichText.v1"));
+            if (!richData) richData = ::GetClipboardData(RegisterClipboardFormatW(NoteX::previousClipboardName().c_str()));
+            GlobalMemory formatted(richData);
+            if(formatted && formatted.Size()<=64*1024*1024) {
+                std::string bytes(static_cast<const char*>(formatted.ptr),formatted.Size());
+                // GlobalAlloc can round up; the first 8 bytes contain the payload size.
+                std::uint64_t length=0;if(bytes.size()>=8)memcpy(&length,bytes.data(),8);
+                if(length<=bytes.size()-std::min<size_t>(8,bytes.size()) && length>0)hasFormat=NoteX::decode(bytes.substr(8,static_cast<size_t>(length)),pastedFormat,unicode.size());
+                formatted.Unlock();
+            }
+            if(hasFormat)for(auto& r:pastedFormat.runs){
+                auto offset=[&](NoteX::Position p){auto prefix=EncodeWString(unicode.substr(0,static_cast<size_t>(p)));if(convertPastes)prefix=Document::TransformLineEnds(prefix,pdoc->eolMode);return static_cast<NoteX::Position>(prefix.size());};
+                r.start=offset(r.start);r.end=offset(r.end);
+            }
+            memUSelection.Unlock();
 		}
 	}
 
@@ -3172,7 +3194,13 @@ void ScintillaWin::Paste() {
 		UndoGroup ug(pdoc);
 		const PasteShape pasteShape = isRectangular ? PasteShape::rectangular : (isLine ? PasteShape::line : PasteShape::stream);
 		ClearSelection(multiPasteMode == MultiPaste::Each);
-		InsertPasteShape(putf, pasteShape);
+        const auto insertStart=sel.MainCaret();
+        const bool simple=sel.Count()==1 && pasteShape==PasteShape::stream;
+        InsertPasteShape(putf, pasteShape);
+        if(hasFormat && simple && !pdoc->IsReadOnly()) {
+            NoteX::Change clear;clear.start=insertStart;clear.end=sel.MainCaret();pdoc->ApplyRichFormat(clear);
+            for(auto r:pastedFormat.runs){NoteX::Change c;c.start=insertStart+r.start;c.end=insertStart+r.end;c.value=pastedFormat.formats[r.style];pdoc->ApplyRichFormat(c);}
+        }
 	}
 	Redraw();
 }
@@ -3626,7 +3654,15 @@ void ScintillaWin::CopyToClipboard(const SelectionText &selectedText) {
 		uniText.SetClip(CF_UNICODETEXT);
 	}
 
-	if (selectedText.rectangular) {
+    if(!selectedText.rectangular && !selectedText.lineCopy) {
+        auto state=selectedText.richSelection;
+        const auto cp=IsUnicodeMode()?CP_UTF8:CodePageFromCharSet(selectedText.characterSet,selectedText.codePage);
+        for(auto& r:state.runs){r.start=MultiByteToWideChar(cp,0,selectedText.Data(),static_cast<int>(r.start),nullptr,0);r.end=MultiByteToWideChar(cp,0,selectedText.Data(),static_cast<int>(r.end),nullptr,0);}
+        auto bytes=NoteX::encode(state);std::uint64_t size=bytes.size();
+        GlobalMemory format;format.Allocate(bytes.size()+8);
+        if(format){memcpy(format.ptr,&size,8);memcpy(static_cast<char*>(format.ptr)+8,bytes.data(),bytes.size());format.SetClip(RegisterClipboardFormatW(L"NoteX.RichText.v1"));}
+    }
+    if (selectedText.rectangular) {
 		::SetClipboardData(cfColumnSelect, {});
 
 		GlobalMemory borlandSelection;
@@ -3975,7 +4011,7 @@ bool ScintillaWin::Unregister() noexcept {
 bool ScintillaWin::HasCaretSizeChanged() const noexcept {
 	return
 		((0 != vs.caret.width) && (sysCaretWidth != vs.caret.width))
-		|| ((0 != vs.lineHeight) && (sysCaretHeight != vs.lineHeight));
+		|| (sysCaretHeight != static_cast<int>(std::ceil(StyleAtCaret(CurrentPosition(), vs).ascent + StyleAtCaret(CurrentPosition(), vs).descent)));
 }
 
 BOOL ScintillaWin::CreateSystemCaret() {
@@ -3983,7 +4019,8 @@ BOOL ScintillaWin::CreateSystemCaret() {
 	if (0 == sysCaretWidth) {
 		sysCaretWidth = 1;
 	}
-	sysCaretHeight = vs.lineHeight;
+	const auto &style = StyleAtCaret(CurrentPosition(), vs);
+	sysCaretHeight = std::max(1, static_cast<int>(std::ceil(style.ascent + style.descent)));
 	const int bitmapSize = (((sysCaretWidth + 15) & ~15) >> 3) *
 		sysCaretHeight;
 	std::vector<BYTE> bits(bitmapSize);

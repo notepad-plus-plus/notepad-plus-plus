@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -193,6 +197,19 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message,
 
 	switch(message)
 	{
+		case WM_GETMINMAXINFO:
+		{
+			// WM_GETMINMAXINFO may precede WM_NCCREATE and DPI manager setup.
+			auto limits = reinterpret_cast<MINMAXINFO*>(lParam);
+			HDC dc = ::GetDC(hwnd);
+			const int dpi = dc ? ::GetDeviceCaps(dc, LOGPIXELSX) : 96;
+			if (dc)
+				::ReleaseDC(hwnd, dc);
+			limits->ptMinTrackSize.x = MulDiv(480, dpi, 96);
+			limits->ptMinTrackSize.y = MulDiv(360, dpi, 96);
+			return 0;
+		}
+
 		case WM_NCCREATE:
 		{
 			// First message we get the pointer of instantiated object
@@ -774,6 +791,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				lParam = MAKELPARAM(rc.right - rc.left, rc.bottom - rc.top);
 
 			::MoveWindow(_rebarTop.getHSelf(), 0, 0, rc.right, _rebarTop.getHeight(), TRUE);
+			_noteXTools.resize(rc.right, _rebarTop.getHeight());
 			_statusBar.adjustParts(rc.right);
 			::SendMessage(_statusBar.getHSelf(), WM_SIZE, wParam, lParam);
 
@@ -875,6 +893,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_COMMAND:
 		{
+			if (LOWORD(wParam) == NoteXMenu::Customize && HIWORD(wParam) == 0)
+			{
+				_noteXMenu.customize([](HWND dialog) {
+					NppDarkMode::setDarkTitleBar(dialog);
+					NppDarkMode::autoSubclassAndThemeChildControls(dialog);
+				}, [](UINT message, WPARAM dc) -> INT_PTR {
+					if (message == WM_CTLCOLORDLG) return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(dc));
+					if (message == WM_CTLCOLORSTATIC) return NppDarkMode::onCtlColorDlgStaticText(reinterpret_cast<HDC>(dc), true);
+					return 0;
+				});
+				return TRUE;
+			}
 			if (HIWORD(wParam) == SCEN_SETFOCUS)
 			{
 				HWND hMain = _mainEditView.getHSelf(), hSec = _subEditView.getHSelf();
@@ -2384,7 +2414,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			_pluginsManager.notify(notification);
 
-			return notify(notification);
+			const auto notified = notify(notification);
+			// Hover and paint notifications do not change the formatting controls.
+			// Invalidating them from SCN_PAINTED creates a repaint feedback loop.
+			if (notification->nmhdr.code == SCN_UPDATEUI || notification->nmhdr.code == SCN_MODIFIED ||
+				notification->nmhdr.code == SCN_FOCUSIN || notification->nmhdr.code == TCN_SELCHANGE)
+				_noteXTools.sync();
+			return notified;
 		}
 
 		case WM_ACTIVATEAPP:
@@ -3395,7 +3431,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._menuBarShow = !hide;
 			if (nppGUI._menuBarShow)
-				::SetMenu(hwnd, _mainMenuHandle);
+				::SetMenu(hwnd, _noteXMenu.handle());
 			else
 				::SetMenu(hwnd, NULL);
 
@@ -3866,15 +3902,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_INITMENUPOPUP:
 		{
-			_windowsMenu.initPopupMenu(reinterpret_cast<HMENU>(wParam), _pDocTab);
+			_windowsMenu.initPopupMenu(_noteXMenu.canonical(reinterpret_cast<HMENU>(wParam)), _pDocTab);
+			_noteXMenu.popup(reinterpret_cast<HMENU>(wParam));
 			return TRUE;
 		}
 
 		case WM_ENTERMENULOOP:
 		{
+			if (!wParam && !_sysMenuEntering) _noteXMenu.refresh();
 			const NppGUI & nppgui = nppParam.getNppGUI();
 			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
-				::SetMenu(hwnd, _mainMenuHandle);
+				::SetMenu(hwnd, _noteXMenu.handle());
 
 			return TRUE;
 		}
@@ -3892,6 +3930,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			const UINT dpi = LOWORD(wParam);
 			_toolBar.resizeIconsDpi(dpi);
+            _noteXTools.dpiChanged(dpi);
 
 			_mainDocTab.dpiManager().setDpi(dpi);
 			_subDocTab.dpiManager().setDpi(dpi);

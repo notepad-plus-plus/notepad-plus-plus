@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -107,7 +111,7 @@ private:
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	static constexpr wchar_t _className[32] = L"Notepad++";
+	static constexpr wchar_t _className[32] = L"NoteX";
 	bool _isPrelaunch = false;
 	bool _disablePluginsManager = false;
 

@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file Editor.cxx
  ** Main code for the edit control.
@@ -235,6 +239,7 @@ void Editor::DropGraphics() noexcept {
 }
 
 void Editor::InvalidateStyleData() noexcept {
+	InvalidateRichMetrics();
 	stylesValid = false;
 	vs.technology = technology;
 	DropGraphics();
@@ -249,15 +254,30 @@ void Editor::InvalidateStyleRedraw() {
 }
 
 void Editor::RefreshStyleData() {
+	if (vs.richRevision != pdoc->rich.revision) {
+        auto formats=pdoc->rich.state.formats;
+        std::vector<bool> used(formats.size(),false);
+        for(const auto& r:pdoc->rich.state.runs)used[r.style]=true;
+        for(size_t n=1;n<used.size();++n)if(!used[n])formats[n]=NoteX::Format{};
+        if(formats!=vs.richFormats)InvalidateStyleData();
+        vs.richFormats=std::move(formats);vs.richRevision=pdoc->rich.revision;
+        view.DropGraphics();
+    }
 	if (!stylesValid) {
 		stylesValid = true;
 		AutoSurface surface(this);
 		if (surface) {
+			vs.richFormats=pdoc->rich.state.formats;vs.richRevision=pdoc->rich.revision;
+            std::vector<bool> used(vs.richFormats.size(),false);
+            for(const auto& r:pdoc->rich.state.runs)used[r.style]=true;
+            for(size_t n=1;n<used.size();++n)if(!used[n])vs.richFormats[n]=NoteX::Format{};
 			vs.Refresh(*surface, pdoc->tabInChars);
 		}
+		UpdateRichMetrics(vs);
 		SetScrollBars();
 		SetRectangularRange();
 	}
+	UpdateRichMetrics(vs);
 }
 
 bool Editor::HasMarginWindow() const noexcept {
@@ -276,7 +296,7 @@ PointDocument Editor::DocumentPointFromView(Point ptView) const {
 		ptDocument.y += ptOrigin.y;
 	} else {
 		ptDocument.x += xOffset;
-		ptDocument.y += static_cast<double>(topLine * vs.lineHeight);
+		ptDocument.y += DisplayY(topLine);
 	}
 	return ptDocument;
 }
@@ -311,7 +331,7 @@ Sci::Line Editor::LinesOnScreen() const {
 	const Point sizeClient = ClientSize();
 	const int htClient = static_cast<int>(sizeClient.y);
 	//Platform::DebugPrintf("lines on screen = %d\n", htClient / lineHeight + 1);
-	return htClient / vs.lineHeight;
+	return std::max<Sci::Line>(1, DisplayLineFromY(DisplayY(topLine) + htClient) - topLine);
 }
 
 Sci::Line Editor::LinesToScroll() const {
@@ -326,7 +346,11 @@ Sci::Line Editor::MaxScrollPos() const {
 	//LinesTotal(), LinesOnScreen(), LinesTotal() - LinesOnScreen() + 1);
 	Sci::Line retVal = pcs->LinesDisplayed();
 	if (endAtLastLine) {
-		retVal -= LinesOnScreen();
+		if (!richLineMetrics.empty()) {
+            const double lastTop=std::max(0.0,DisplayY(pcs->LinesDisplayed())-ClientSize().y);
+            retVal=DisplayLineFromY(lastTop);
+            if(DisplayY(retVal)<lastTop)++retVal;
+        } else retVal -= LinesOnScreen();
 	} else {
 		retVal--;
 	}
@@ -410,7 +434,7 @@ Sci::Position Editor::PositionFromLineX(Sci::Line lineDoc, int x) {
 }
 
 Sci::Line Editor::LineFromLocation(Point pt) const noexcept {
-	return pcs->DocFromDisplay(static_cast<int>(pt.y) / vs.lineHeight + topLine);
+	return pcs->DocFromDisplay(DisplayLineFromY(DisplayY(topLine) + pt.y));
 }
 
 void Editor::SetTopLine(Sci::Line topLineNew) {
@@ -534,12 +558,12 @@ PRectangle Editor::RectangleFromRange(Range r, int overlap) {
 	PRectangle rc;
 	const int leftTextOverlap = ((xOffset == 0) && (vs.leftMarginWidth > 0)) ? 1 : 0;
 	rc.left = static_cast<XYPOSITION>(vs.textStart - leftTextOverlap);
-	rc.top = static_cast<XYPOSITION>((minLine - TopLineOfMain()) * vs.lineHeight - overlap);
+	rc.top = static_cast<XYPOSITION>(DisplayY(minLine) - DisplayY(TopLineOfMain()) - overlap);
 	if (rc.top < rcClientDrawing.top)
 		rc.top = rcClientDrawing.top;
 	// Extend to right of prepared area if any to prevent artifacts from caret line highlight
 	rc.right = rcClientDrawing.right;
-	rc.bottom = static_cast<XYPOSITION>((maxLine - TopLineOfMain() + 1) * vs.lineHeight + overlap);
+	rc.bottom = static_cast<XYPOSITION>(DisplayY(maxLine + 1) - DisplayY(TopLineOfMain()) + overlap);
 
 	return rc;
 }
@@ -644,6 +668,7 @@ SelectionRange Editor::LineSelectionRange(SelectionPosition currentPos_, Selecti
 }
 
 void Editor::SetSelection(SelectionPosition currentPos_, SelectionPosition anchor_) {
+    if (currentPos_.Position() != typingPosition) pendingTypingFormat.reset();
 	currentPos_ = ClampPositionIntoDocument(currentPos_);
 	anchor_ = ClampPositionIntoDocument(anchor_);
 	const Sci::Line currentLine = pdoc->SciLineFromPosition(currentPos_.Position());
@@ -663,6 +688,7 @@ void Editor::SetSelection(SelectionPosition currentPos_, SelectionPosition ancho
 		RedrawSelMargin();
 	}
 	QueueIdleWork(WorkItems::updateUI);
+	UpdateSystemCaret();
 }
 
 void Editor::SetSelection(Sci::Position currentPos_, Sci::Position anchor_) {
@@ -671,6 +697,7 @@ void Editor::SetSelection(Sci::Position currentPos_, Sci::Position anchor_) {
 
 // Just move the caret on the main selection
 void Editor::SetSelection(SelectionPosition currentPos_) {
+    if (currentPos_.Position() != typingPosition) pendingTypingFormat.reset();
 	currentPos_ = ClampPositionIntoDocument(currentPos_);
 	const Sci::Line currentLine = pdoc->SciLineFromPosition(currentPos_.Position());
 	if (sel.Count() > 1 || !(sel.RangeMain().caret == currentPos_)) {
@@ -693,9 +720,11 @@ void Editor::SetSelection(SelectionPosition currentPos_) {
 		RedrawSelMargin();
 	}
 	QueueIdleWork(WorkItems::updateUI);
+	UpdateSystemCaret();
 }
 
 void Editor::SetEmptySelection(SelectionPosition currentPos_) {
+    if (currentPos_.Position() != typingPosition) pendingTypingFormat.reset();
 	const Sci::Line currentLine = pdoc->SciLineFromPosition(currentPos_.Position());
 	SelectionRange rangeNew(ClampPositionIntoDocument(currentPos_));
 	if (sel.Count() > 1 || !(sel.RangeMain() == rangeNew)) {
@@ -711,6 +740,7 @@ void Editor::SetEmptySelection(SelectionPosition currentPos_) {
 		RedrawSelMargin();
 	}
 	QueueIdleWork(WorkItems::updateUI);
+	UpdateSystemCaret();
 }
 
 void Editor::SetEmptySelection(Sci::Position currentPos_) {
@@ -977,7 +1007,7 @@ void Editor::ScrollTo(Sci::Line line, bool moveThumb) {
 		// Try to optimise small scrolls
 #ifndef UNDER_CE
 		const Sci::Line linesToMove = topLine - topLineNew;
-		const bool performBlit = (std::abs(linesToMove) <= 10) && (paintState == PaintState::notPainting);
+		const bool performBlit = richLineMetrics.empty() && (std::abs(linesToMove) <= 10) && (paintState == PaintState::notPainting);
 		willRedrawAll = !performBlit;
 #endif
 		SetTopLine(topLineNew);
@@ -1117,8 +1147,8 @@ void Editor::MoveCaretInsideView(bool ensureVisible) {
 		            Point::FromInts(lastXChosen - xOffset, static_cast<int>(rcClient.top)),
 					false, false, UserVirtualSpace()),
 					Selection::SelTypes::none, ensureVisible);
-	} else if ((pt.y + vs.lineHeight - 1) > rcClient.bottom) {
-		const ptrdiff_t yOfLastLineFullyDisplayed = static_cast<ptrdiff_t>(rcClient.top) + ((LinesOnScreen() - 1) * vs.lineHeight);
+	} else if ((pt.y + MetricsForLine(pdoc->SciLineFromPosition(CurrentPosition())).height - 1) > rcClient.bottom) {
+		const auto yOfLastLineFullyDisplayed = rcClient.top + DisplayY(topLine + LinesOnScreen() - 1) - DisplayY(topLine);
 		MovePositionTo(SPositionFromLocation(
 		            Point::FromInts(lastXChosen - xOffset, static_cast<int>(rcClient.top + static_cast<XYPOSITION>(yOfLastLineFullyDisplayed))),
 					false, false, UserVirtualSpace()),
@@ -1183,7 +1213,7 @@ Editor::XYScrollPosition Editor::XYScrollToMakeVisible(const SelectionRange &ran
 	const Point ptOrigin = GetVisibleOriginInMain();
 	const Point pt = LocationFromPosition(range.caret) + ptOrigin;
 	const Point ptAnchor = LocationFromPosition(range.anchor) + ptOrigin;
-	const Point ptBottomCaret(pt.x, pt.y + vs.lineHeight - 1);
+	const Point ptBottomCaret(pt.x, pt.y + MetricsForLine(pdoc->SciLineFromPosition(range.caret.Position())).height - 1);
 
 	XYScrollPosition newXY(xOffset, topLine);
 	if (rcClient.Empty()) {
@@ -1291,7 +1321,15 @@ Editor::XYScrollPosition Editor::XYScrollToMakeVisible(const SelectionRange &ran
 				newXY.topLine = std::min(newXY.topLine, lineCaret);
 			}
 		}
-		newXY.topLine = std::clamp<Sci::Line>(newXY.topLine, 0, MaxScrollPos());
+		if (!richLineMetrics.empty()) {
+            const double bottom=DisplayY(lineCaret+1);
+            if(bottom > DisplayY(newXY.topLine)+rcClient.Height()) {
+                newXY.topLine=DisplayLineFromY(bottom-rcClient.Height());
+                if(DisplayY(newXY.topLine)<bottom-rcClient.Height())++newXY.topLine;
+            }
+            newXY.topLine=std::min(newXY.topLine,lineCaret);
+        }
+        newXY.topLine = std::clamp<Sci::Line>(newXY.topLine, 0, MaxScrollPos());
 	}
 
 	// Horizontal positioning
@@ -1863,7 +1901,7 @@ void Editor::RefreshPixMaps(Surface *surfaceWindow) {
 	marginView.RefreshPixMaps(surfaceWindow, vs);
 	if (view.bufferedDraw && !(view.pixmapLine && marginView.pixmapSelMargin)) {
 		const PRectangle rcClient = GetClientRectangle();
-		view.pixmapLine = surfaceWindow->AllocatePixMap(static_cast<int>(rcClient.Width()), vs.lineHeight);
+		view.pixmapLine = surfaceWindow->AllocatePixMap(static_cast<int>(rcClient.Width()), MaximumLineHeight());
 		marginView.pixmapSelMargin = surfaceWindow->AllocatePixMap(vs.fixedColumnWidth,
 			static_cast<int>(rcClient.Height()));
 	}
@@ -2084,6 +2122,31 @@ void Editor::FilterSelections() {
 }
 
 // InsertCharacter inserts a character encoded in document code page.
+const NoteX::Format *Editor::TypingFormat() {
+    if (typingDocument != pdoc || sel.Count() != 1 || !sel.Empty() ||
+        typingPosition != sel.MainCaret()) pendingTypingFormat.reset();
+    return pendingTypingFormat ? &*pendingTypingFormat : nullptr;
+}
+
+NoteX::Format Editor::InsertionFormat(Sci::Position position) const {
+    const auto line = pdoc->SciLineFromPosition(position);
+    if (position > pdoc->LineStart(line)) --position;
+    return pdoc->rich.state.formats[pdoc->rich.at(position)];
+}
+
+Sci::Position Editor::InsertTypedString(Sci::Position position, std::string_view text) {
+    std::optional<NoteX::Format> chosen;
+    if (const auto *format = TypingFormat(); format && position == typingPosition)
+        chosen = *format;
+    const auto length = pdoc->InsertString(position, text, chosen ? &*chosen : nullptr);
+    if (chosen && length > 0) {
+        pendingTypingFormat = *chosen;
+        typingDocument = pdoc;
+        typingPosition = position + length;
+    }
+    return length;
+}
+
 void Editor::InsertCharacter(std::string_view sv, CharacterSource charSource) {
 	if (sv.empty()) {
 		return;
@@ -2119,7 +2182,7 @@ void Editor::InsertCharacter(std::string_view sv, CharacterSource charSource) {
 					}
 				}
 				positionInsert = RealizeVirtualSpace(positionInsert, currentSel->caret.VirtualSpace());
-				const Sci::Position lengthInserted = pdoc->InsertString(positionInsert, sv);
+				const Sci::Position lengthInserted = InsertTypedString(positionInsert, sv);
 				if (lengthInserted > 0) {
 					*currentSel = SelectionRange(positionInsert + lengthInserted);
 				}
@@ -2206,7 +2269,7 @@ void Editor::InsertPaste(std::string_view text) {
 	if (multiPasteMode == MultiPaste::Once) {
 		SelectionPosition selStart = sel.Start();
 		selStart = RealizeVirtualSpace(selStart);
-		const Sci::Position lengthInserted = pdoc->InsertString(selStart.Position(), text);
+		const Sci::Position lengthInserted = InsertTypedString(selStart.Position(), text);
 		if (lengthInserted > 0) {
 			SetEmptySelection(selStart.Position() + lengthInserted);
 		}
@@ -2217,7 +2280,7 @@ void Editor::InsertPaste(std::string_view text) {
 				Sci::Position positionInsert = sel.Range(r).Start().Position();
 				ClearSelectionRange(sel.Range(r));
 				positionInsert = RealizeVirtualSpace(positionInsert, sel.Range(r).caret.VirtualSpace());
-				const Sci::Position lengthInserted = pdoc->InsertString(positionInsert, text);
+				const Sci::Position lengthInserted = InsertTypedString(positionInsert, text);
 				if (lengthInserted > 0) {
 					sel.Range(r) = SelectionRange(positionInsert + lengthInserted);
 				}
@@ -2481,6 +2544,7 @@ void Editor::RestoreSelection(Sci::Position newPos, UndoRedo history) {
 }
 
 void Editor::Undo() {
+        pendingTypingFormat.reset();
 	if (pdoc->CanUndo()) {
 		InvalidateCaret();
 		pdoc->Undo();
@@ -2488,6 +2552,7 @@ void Editor::Undo() {
 }
 
 void Editor::Redo() {
+        pendingTypingFormat.reset();
 	if (pdoc->CanRedo()) {
 		pdoc->Redo();
 	}
@@ -2836,6 +2901,7 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 	if (FlagSet(mh.modificationType, ModificationFlags::ChangeStyle | ModificationFlags::ChangeIndicator)) {
 		if (FlagSet(mh.modificationType, ModificationFlags::ChangeStyle)) {
 			pdoc->IncrementStyleClock();
+            InvalidateRichMetrics();
 		}
 		if (paintState == PaintState::notPainting) {
 			const Sci::Line lineDocTop = pcs->DocFromDisplay(topLine);
@@ -3161,17 +3227,17 @@ void Editor::PageMove(int direction, Selection::SelTypes selt, bool stuttered) {
 	const Sci::Line topStutterLine = topLine + caretPolicies.y.slop;
 	const Sci::Line bottomStutterLine =
 	    pdoc->SciLineFromPosition(PositionFromLocation(
-	                Point::FromInts(lastXChosen - xOffset, direction * vs.lineHeight * static_cast<int>(LinesToScroll()))))
+	                Point::FromInts(lastXChosen - xOffset, static_cast<int>(DisplayY(topLine + direction * LinesToScroll()) - DisplayY(topLine)))))
 	    - caretPolicies.y.slop - 1;
 
 	if (stuttered && (direction < 0 && currentLine > topStutterLine)) {
 		topLineNew = topLine;
-		newPos = SPositionFromLocation(Point::FromInts(lastXChosen - xOffset, vs.lineHeight * caretPolicies.y.slop),
+		newPos = SPositionFromLocation(Point::FromInts(lastXChosen - xOffset, static_cast<int>(DisplayY(topLine + caretPolicies.y.slop) - DisplayY(topLine))),
 			false, false, UserVirtualSpace());
 
 	} else if (stuttered && (direction > 0 && currentLine < bottomStutterLine)) {
 		topLineNew = topLine;
-		newPos = SPositionFromLocation(Point::FromInts(lastXChosen - xOffset, vs.lineHeight * static_cast<int>(LinesToScroll() - caretPolicies.y.slop)),
+		newPos = SPositionFromLocation(Point::FromInts(lastXChosen - xOffset, static_cast<int>(DisplayY(topLine + LinesToScroll() - caretPolicies.y.slop) - DisplayY(topLine))),
 			false, false, UserVirtualSpace());
 
 	} else {
@@ -3181,7 +3247,7 @@ void Editor::PageMove(int direction, Selection::SelTypes selt, bool stuttered) {
 		            topLine + direction * LinesToScroll(), 0, MaxScrollPos());
 		newPos = SPositionFromLocation(
 			Point::FromInts(lastXChosen - xOffset, static_cast<int>(pt.y) +
-				direction * (vs.lineHeight * static_cast<int>(LinesToScroll()))),
+				static_cast<int>(DisplayY(topLineNew) - DisplayY(topLine))),
 			false, false, UserVirtualSpace());
 	}
 
@@ -3357,7 +3423,7 @@ void Editor::NewLine() {
 	for (size_t r = 0; r < sel.Count(); r++) {
 		sel.Range(r).ClearVirtualSpace();
 		const Sci::Position positionInsert = sel.Range(r).caret.Position();
-		const Sci::Position insertLength = pdoc->InsertString(positionInsert, eol);
+		const Sci::Position insertLength = InsertTypedString(positionInsert, eol);
 		if (insertLength > 0) {
 			sel.Range(r) = SelectionRange(positionInsert + insertLength);
 			countInsertions++;
@@ -3390,7 +3456,7 @@ SelectionPosition Editor::PositionUpOrDown(SelectionPosition spStart, int direct
 	if (vs.annotationVisible != AnnotationVisible::Hidden) {
 		const Sci::Line lineDoc = pdoc->SciLineFromPosition(spStart.Position());
 		const Point ptStartLine = LocationFromPosition(pdoc->LineStart(lineDoc));
-		const int subLine = static_cast<int>(pt.y - ptStartLine.y) / vs.lineHeight;
+		const int subLine = static_cast<int>(pt.y - ptStartLine.y) / MetricsForLine(lineDoc).height;
 
 		if (direction < 0 && subLine == 0) {
 			const Sci::Line lineDisplay = pcs->DisplayFromDoc(lineDoc);
@@ -3402,7 +3468,8 @@ SelectionPosition Editor::PositionUpOrDown(SelectionPosition spStart, int direct
 		}
 	}
 
-	const Sci::Line newY = static_cast<Sci::Line>(pt.y) + (1 + skipLines) * direction * vs.lineHeight;
+	const Sci::Line targetDisplay = DisplayLineFromY(pt.y + DisplayY(TopLineOfMain())) + (1 + skipLines) * direction;
+	const auto newY = DisplayY(targetDisplay) - DisplayY(TopLineOfMain());
 	if (lastX < 0) {
 		lastX = static_cast<int>(pt.x) + xOffset;
 	}
@@ -4233,12 +4300,12 @@ void Editor::Indent(bool forwards, bool lineIndent) {
 					sel.Range(r) = SelectionRange(posSelect);
 				} else {
 					if (pdoc->useTabs) {
-						const Sci::Position lengthInserted = pdoc->InsertString(caretPosition, "\t");
+						const Sci::Position lengthInserted = InsertTypedString(caretPosition, "\t");
 						sel.Range(r) = SelectionRange(caretPosition + lengthInserted);
 					} else {
 						const Sci::Position numSpaces = pdoc->tabInChars - (column % pdoc->tabInChars);
 						const std::string spaceText(numSpaces, ' ');
-						const Sci::Position lengthInserted = pdoc->InsertString(caretPosition, spaceText);
+						const Sci::Position lengthInserted = InsertTypedString(caretPosition, spaceText);
 						sel.Range(r) = SelectionRange(caretPosition + lengthInserted);
 					}
 				}
@@ -4522,6 +4589,11 @@ void Editor::CopySelectionRange(SelectionText *ss, bool allowLineCopy) {
 		}
 		ss->Copy(text, pdoc->dbcsCodePage,
 			vs.styles[StyleDefault].characterSet, rangesInOrder.size() > 1, sel.selType == Selection::SelTypes::lines);
+		if (rangesInOrder.size() == 1) {
+			auto start=rangesInOrder[0].Start().Position(), end=rangesInOrder[0].End().Position();
+			ss->richSelection.formats=pdoc->rich.state.formats;
+			for(auto r:pdoc->rich.state.runs) {r.start=std::max<NoteX::Position>(r.start,start);r.end=std::min<NoteX::Position>(r.end,end);if(r.end>r.start){r.start-=start;r.end-=start;ss->richSelection.runs.push_back(r);}}
+		}
 	}
 }
 
@@ -5377,7 +5449,7 @@ Sci::Position Editor::PositionAfterArea(PRectangle rcArea) const {
 	// The start of the document line after the display line after the area
 	// This often means that the line after a modification is restyled which helps
 	// detect multiline comment additions and heals single line comments
-	const Sci::Line lineAfter = TopLineOfMain() + static_cast<Sci::Line>(rcArea.bottom - 1) / vs.lineHeight + 1;
+	const Sci::Line lineAfter = DisplayLineFromY(DisplayY(TopLineOfMain()) + rcArea.bottom - 1) + 1;
 	if (lineAfter < pcs->LinesDisplayed()) {
 		return pdoc->LineStart(pcs->DocFromDisplay(lineAfter) + 1);
 	}
@@ -6295,6 +6367,44 @@ sptr_t Editor::BytesResult(Scintilla::sptr_t lParam, std::string_view sv) noexce
 }
 
 sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
+    switch (static_cast<unsigned>(iMessage)) {
+    case NoteX::GetFormat: {
+        auto* q=reinterpret_cast<NoteX::SelectionFormat*>(lParam); if(!q) return 0;
+        if (q->start == q->end) {
+            const auto *chosen = TypingFormat();
+            q->value = chosen && q->start == typingPosition ? *chosen : InsertionFormat(q->start);
+            q->mixed = 0;
+        } else *q=pdoc->rich.query(q->start,q->end);
+        return 1;
+    }
+    case NoteX::ApplyFormat: {
+        auto* c=reinterpret_cast<const NoteX::Change*>(lParam);
+        if (!c || pdoc->IsReadOnly()) return 0;
+        if (c->start == c->end) {
+            if (sel.Count() != 1 || !sel.Empty() || c->start != sel.MainCaret() ||
+                c->fields > NoteX::All || c->value.mask > NoteX::All ||
+                c->value.family.size() > 256 || c->value.size < 600 || c->value.size > 9600) return 0;
+            const auto *chosen = TypingFormat();
+            auto format = chosen ? *chosen : InsertionFormat(c->start);
+            format.merge(c->value, c->fields);
+            pendingTypingFormat = std::move(format);
+            typingPosition = c->start; typingDocument = pdoc;
+            ContainerNeedsUpdate(Update::Selection);
+            return 1;
+        }
+        pendingTypingFormat.reset();
+        return pdoc->ApplyRichFormat(*c);
+    }
+    case NoteX::GetState: {
+        auto* s=reinterpret_cast<NoteX::State*>(lParam);if(!s)return 0;*s=pdoc->rich.state;return 1;
+    }
+    case NoteX::SetState: {
+        pendingTypingFormat.reset();
+        auto* s=reinterpret_cast<const NoteX::Restore*>(lParam);return s && pdoc->RestoreRichFormat(*s);
+    }
+    default: break;
+    }
+
 	//Platform::DebugPrintf("S start wnd proc %d %d %d\n",iMessage, wParam, lParam);
 
 	// Optional macro recording hook
@@ -6500,8 +6610,7 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 			UndoGroup ug(pdoc);
 			ClearSelection();
 			const char *replacement = ConstCharPtrFromSPtr(lParam);
-			const Sci::Position lengthInserted = pdoc->InsertString(
-				sel.MainCaret(), replacement, strlen(replacement));
+			const Sci::Position lengthInserted = InsertTypedString(sel.MainCaret(), replacement);
 			SetEmptySelection(sel.MainCaret() + lengthInserted);
 			SetLastXChosen();
 			EnsureCaretVisible();
@@ -7357,7 +7466,7 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case Message::TextHeight:
 		RefreshStyleData();
-		return vs.lineHeight;
+		return MetricsForLine(LineFromUPtr(wParam)).height;
 
 	case Message::SetEndAtLastLine:
 		PLATFORM_ASSERT((wParam == 0) || (wParam == 1));
@@ -8464,6 +8573,7 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		return SPtrFromPtr(pdoc->AsDocumentEditable());
 
 	case Message::SetDocPointer:
+        pendingTypingFormat.reset();
 		CancelModes();
 		SetDocPointer(static_cast<Document *>(static_cast<IDocumentEditable *>(PtrFromSPtr(lParam))));
 		return 0;

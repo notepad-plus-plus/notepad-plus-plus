@@ -1,0 +1,47 @@
+name: Windows release validation
+on:
+  push:
+    branches: [main]
+    paths: ['PowerEditor/**', 'scintilla/**', 'lexilla/**', 'boostregex/**', 'updater/**', '.github/workflows/windows.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.27.4'
+          cache: false
+      - name: Updater and migration tests
+        run: |
+          go -C updater test -v ./...
+          if ($LASTEXITCODE -ne 0) { throw 'Updater tests failed.' }
+          python -m unittest discover -s updater -p test_migration.py
+          if ($LASTEXITCODE -ne 0) { throw 'Migration tests failed.' }
+          ./updater/build_windows.ps1
+          if ($LASTEXITCODE -ne 0) { throw 'Updater build failed.' }
+      - name: Native build and integration tests
+        run: ./PowerEditor/Test/NoteX/build-release.ps1 -LogDirectory dist/native-tests
+      - name: Function List and clean package verification
+        run: |
+          python PowerEditor/Test/NoteX/smoke_release.py --output dist/function-list
+          if ($LASTEXITCODE -ne 0) { throw 'Function List tests failed.' }
+          python PowerEditor/Packaging/NoteX/package.py --output dist/NoteX
+          if ($LASTEXITCODE -ne 0) { throw 'Packaging failed.' }
+          python PowerEditor/Packaging/NoteX/verify_package.py dist/NoteX
+          if ($LASTEXITCODE -ne 0) { throw 'Package verification failed.' }
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: NoteX-windows-amd64
+          path: dist/NoteX/
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        if: always()
+        with:
+          name: windows-validation-results
+          path: |
+            dist/native-tests/**/*.log
+            dist/function-list/*.json

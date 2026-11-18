@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -46,6 +50,9 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 	for (size_t i = 0, len = menuItemArray.size(); i < len; ++i)
 	{
 		const MenuItemUnit & item = menuItemArray[i];
+		if (item._cmdID == IDM_EDIT_SEARCHONINTERNET || item._cmdID == IDM_EDIT_CHANGESEARCHENGINE)
+			continue; // Also hide disabled web search from existing user context menus.
+
 		if (item._parentFolderName.empty())
 		{
 			currentParentFolderStr.clear();

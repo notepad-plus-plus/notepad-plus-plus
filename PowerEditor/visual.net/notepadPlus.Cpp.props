@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+     Modified for NoteX; latest publication changes: 2026-10-28.
+     See MODIFICATIONS.md. Original copyright and license notices are preserved. -->
+
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Configuration">
     <ExternalIncludePath>..\..\lexilla\include;..\..\scintilla\include;..\src\pugixml;..\src\uchardet;..\src\json;$(ExternalIncludePath)</ExternalIncludePath>
@@ -50,7 +54,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>/DEPENDENTLOADFLAG:0x800 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/DEPENDENTLOADFLAG:0x800 /PDBALTPATH:%_PDB% %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
       <Command>call "..\..\PowerEditor\src\NppLibsVersionH-generator.bat"</Command>
@@ -97,7 +101,7 @@
     </ClCompile>
     <Link>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <TypeLibraryResourceID>1</TypeLibraryResourceID>

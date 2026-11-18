@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file MarginView.cxx
  ** Defines the appearance of the editor margin.
@@ -276,9 +280,8 @@ constexpr LineMarker::FoldPart PartForBar(bool markBefore, bool markAfter) {
 void MarginView::PaintOneMargin(Surface *surface, PRectangle rc, PRectangle rcOneMargin, const MarginStyle &marginStyle,
 	const EditModel &model, const ViewStyle &vs) const {
 	const Point ptOrigin = model.GetVisibleOriginInMain();
-	const Sci::Line lineStartPaint = static_cast<Sci::Line>(rcOneMargin.top + ptOrigin.y) / vs.lineHeight;
-	Sci::Line visibleLine = model.TopLineOfMain() + lineStartPaint;
-	XYPOSITION yposScreen = static_cast<XYPOSITION>(lineStartPaint * vs.lineHeight) - ptOrigin.y;
+	Sci::Line visibleLine = model.DisplayLineFromY(model.DisplayY(model.TopLineOfMain()) + rcOneMargin.top + ptOrigin.y);
+	XYPOSITION yposScreen = model.DisplayY(visibleLine) - model.DisplayY(model.TopLineOfMain()) - ptOrigin.y;
 	// Work out whether the top line is whitespace located after a
 	// lessening of fold level which implies a 'fold tail' but which should not
 	// be displayed until the last of a sequence of whitespace.
@@ -365,7 +368,7 @@ void MarginView::PaintOneMargin(Surface *surface, PRectangle rc, PRectangle rcOn
 			rcOneMargin.left,
 			yposScreen,
 			rcOneMargin.right,
-			yposScreen + vs.lineHeight);
+			yposScreen + model.DisplayHeight(visibleLine));
 		if (marginStyle.style == MarginType::Number) {
 			if (firstSubLine) {
 				std::string sNumber;
@@ -394,7 +397,7 @@ void MarginView::PaintOneMargin(Surface *surface, PRectangle rc, PRectangle rcOn
 				const XYPOSITION xpos = rcNumber.right - width - vs.marginNumberPadding;
 				rcNumber.left = xpos;
 				DrawTextNoClipPhase(surface, rcNumber, vs.styles[StyleLineNumber],
-					rcNumber.top + vs.maxAscent, sNumber, DrawPhase::all);
+					rcNumber.top + model.MetricsForLine(lineDoc).ascent, sNumber, DrawPhase::all);
 			} else if (FlagSet(vs.wrap.visualFlags, WrapVisualFlag::Margin)) {
 				PRectangle rcWrapMarker = rcMarker;
 				rcWrapMarker.right -= wrapMarkerPaddingRight;
@@ -456,8 +459,8 @@ void MarginView::PaintOneMargin(Surface *surface, PRectangle rc, PRectangle rcOn
 			}
 		}
 
+		yposScreen += model.DisplayHeight(visibleLine);
 		visibleLine++;
-		yposScreen += vs.lineHeight;
 	}
 }
 

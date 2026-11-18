@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file EditModel.h
  ** Defines the editor state that must be visible to EditorView.
@@ -89,6 +93,26 @@ public:
 	Scintilla::UndoSelectionHistoryOption undoSelectionHistoryOption = UndoSelectionHistoryOption::Disabled;
 	bool needRedoRemembered = false;
 	ModelStateShared modelState;
+
+
+    struct LineMetrics { XYPOSITION ascent = 1, descent = 1; int height = 2; };
+    mutable std::vector<LineMetrics> richLineMetrics;
+    mutable std::vector<double> richLineY;
+    mutable uint64_t measuredRichRevision = uint64_t(-1);
+    mutable size_t measuredContractionRevision = size_t(-1);
+    mutable const Document *measuredDocument = nullptr;
+    mutable const IContractionState *measuredContraction = nullptr;
+    LineMetrics baseLineMetrics;
+    bool metricsAnnotations = false;
+    void InvalidateRichMetrics() noexcept { measuredRichRevision = uint64_t(-1); }
+    void UpdateRichMetrics(const ViewStyle &vs);
+    const Style &StyleAtCaret(Sci::Position position, const ViewStyle &vs) const noexcept;
+    void EnsureRichLineY() const;
+    LineMetrics MetricsForLine(Sci::Line line) const noexcept;
+    double DisplayY(Sci::Line displayLine) const;
+    Sci::Line DisplayLineFromY(double y) const;
+    int DisplayHeight(Sci::Line displayLine) const;
+    int MaximumLineHeight() const noexcept;
 
 	EditModel();
 	// Deleted so EditModel objects can not be copied.

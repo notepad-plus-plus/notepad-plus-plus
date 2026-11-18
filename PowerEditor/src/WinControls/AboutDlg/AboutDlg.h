@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -22,7 +26,12 @@
 #include "StaticDialog.h"
 
 #define LICENCE_TXT \
-L"This program is free software; you can redistribute it and/or \
+L"NoteX 1.3.1 - modified by Berk Kivircik, October 31, 2026.\r\n\
+Based on Notepad++ 8.9.8.1 by Don HO and contributors.\r\n\
+NoteX modifications: Copyright (C) 2026 Berk Kivircik.\r\n\
+Corresponding source: https://github.com/berkkivircik/NoteX\r\n\
+License: GNU GPL version 3. See LICENSE.txt and THIRD_PARTY_NOTICES.md.\r\n\r\n\
+This program is free software; you can redistribute it and/or \
 modify it under the terms of the GNU General Public License \
 as published by the Free Software Foundation; either \
 version 3 of the License, or at your option any later version.\r\n\

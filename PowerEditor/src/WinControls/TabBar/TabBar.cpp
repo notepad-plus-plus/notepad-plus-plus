@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-11-18.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -386,12 +390,13 @@ void TabBar::setFont()
 	TabBar::destroyFonts();
 
 	LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_dpiManager.getDpi()) };
+    lf.lfHeight=-_dpiManager.scale(13);
 	LOGFONT lfVer{ lf };
 
 	_hFont = ::CreateFontIndirect(&lf);
 
-	lf.lfWeight = FW_HEAVY;
-	static const UINT fontSize = DPIManagerV2::scaleFontForFactor(10);
+	lf.lfWeight = FW_MEDIUM;
+	static const UINT fontSize = DPIManagerV2::scaleFontForFactor(9);
 	lf.lfHeight = DPIManagerV2::scaleFont(fontSize, _dpiManager.getDpi());
 
 	_hLargeFont = ::CreateFontIndirect(&lf);
@@ -401,7 +406,7 @@ void TabBar::setFont()
 
 	_hVerticalFont = CreateFontIndirect(&lfVer);
 
-	lfVer.lfWeight = FW_HEAVY;
+	lfVer.lfWeight = FW_MEDIUM;
 
 	_hVerticalLargeFont = CreateFontIndirect(&lfVer);
 }
@@ -425,18 +430,19 @@ void TabBarPlus::triggerOwnerDrawTabbar(DPIManagerV2* pDPIManager)
 				int paddingSize = 0;
 				if (drawTabCloseButton && drawTabPinButton) // 2 buttons
 				{
-					paddingSize = 16;
+					paddingSize = 26;
 				}
 				else if (!drawTabCloseButton && !drawTabPinButton) // no button
 				{
-					paddingSize = 6;
+					paddingSize = 12;
 				}
 				else // only 1 button
 				{
-					paddingSize = 10;
+					paddingSize = 24;
 				}
 				const int paddingSizeDynamicW = pDPIManager->scale(paddingSize);
-				::SendMessage(_tabbrPlusInstanceHwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(paddingSizeDynamicW, 0));
+				::SendMessage(_tabbrPlusInstanceHwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(paddingSizeDynamicW, pDPIManager->scale(6)));
+                ::SendMessage(_tabbrPlusInstanceHwndArray[i], TCM_SETITEMSIZE,0,MAKELPARAM(0,pDPIManager->scale(36)));
 			}
 		}
 	}
@@ -1530,7 +1536,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 
 		if (drawTopBar)
 		{
-			int topBarHeight = _dpiManager.scale(4);
+			int topBarHeight = _dpiManager.scale(2);
 			if (isVertical)
 			{
 				barRect.left -= (hasMultipleLines && isDarkMode) ? 0 : paddingDynamicTwoX;
@@ -1590,6 +1596,18 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		::FrameRect(hDC, &pDrawItemStruct->rcItem, NppDarkMode::getEdgeBrush());
 	}
 
+	// Keep text clear of both action buttons. Tab padding also reserves this
+	// space so the complete label fits instead of being painted under the pin.
+	LONG textRight = rect.right;
+	if (!isVertical)
+	{
+		if (drawTabCloseButton)
+			textRight = std::min(textRight, _closeButtonZone.getButtonRectFrom(rect, false).left);
+		if (drawTabPinButton)
+			textRight = std::min(textRight, _pinButtonZone.getButtonRectFrom(rect, false).left);
+		textRight -= _dpiManager.scale(8);
+	}
+
 	// draw close button
 	if (drawTabCloseButton && _hCloseBtnImgLst != nullptr)
 	{
@@ -1615,7 +1633,14 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 
 		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, isVertical);
 
-		::ImageList_Draw(_hCloseBtnImgLst, idxCloseImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
+		if (isDarkMode && !isVertical && tci.iImage == 1 && _currentHoverTabItem != nTab) {
+            const int radius=_dpiManager.scale(4);
+            const int x=(buttonRect.left+buttonRect.right)/2, y=(buttonRect.top+buttonRect.bottom)/2;
+            auto dot=::CreateSolidBrush(RGB(232,163,61));auto oldBrush=::SelectObject(hDC,dot);
+            auto oldPen=::SelectObject(hDC,GetStockObject(NULL_PEN));
+            ::Ellipse(hDC,x-radius,y-radius,x+radius,y+radius);
+            ::SelectObject(hDC,oldPen);::SelectObject(hDC,oldBrush);::DeleteObject(dot);
+        } else ::ImageList_Draw(_hCloseBtnImgLst, idxCloseImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
 	}
 
 	// draw pin button
@@ -1728,10 +1753,20 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 			xPos = rect.left + fromBorder;
 			rect.left += fromBorder + (imageRect.right - imageRect.left);
 		}
-		ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, yPos, isSelected ? ILD_TRANSPARENT : ILD_SELECTED);
+		if (isDarkMode && !isVertical && tci.iImage <= 1) {
+            auto pen=::CreatePen(PS_SOLID,_dpiManager.scale(1),RGB(127,178,229));
+            auto oldPen=::SelectObject(hDC,pen);auto oldBrush=::SelectObject(hDC,GetStockObject(NULL_BRUSH));
+            auto x=[&](int n){return xPos+_dpiManager.scale(n);};
+            auto y=[&](int n){return yPos+_dpiManager.scale(n);};
+            POINT page[]={{x(3),y(1)},{x(10),y(1)},{x(14),y(5)},{x(14),y(15)},{x(3),y(15)},{x(3),y(1)}};
+            ::Polyline(hDC,page,6);::MoveToEx(hDC,x(10),y(1),nullptr);::LineTo(hDC,x(10),y(5));::LineTo(hDC,x(14),y(5));
+            ::SelectObject(hDC,oldBrush);::SelectObject(hDC,oldPen);::DeleteObject(pen);
+        } else ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, yPos, isSelected ? ILD_TRANSPARENT : ILD_SELECTED);
 	}
 
 	// draw text
+	if (!isVertical)
+		rect.right = textRight;
 	bool isStandardSize = (::SendMessage(_hParent, NPPM_INTERNAL_ISTABBARREDUCED, 0, 0) == TRUE);
 
 	if (isStandardSize)

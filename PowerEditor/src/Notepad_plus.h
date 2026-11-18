@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -17,6 +21,8 @@
 #pragma once
 
 #include "ScintillaEditView.h"
+#include "NoteXTools.h"
+#include "NoteXMenu.h"
 #include "DocTabView.h"
 #include "SplitterContainer.h"
 #include "FindReplaceDlg.h"
@@ -317,6 +323,8 @@ private:
 	ContextMenu _fileSwitcherMultiFilePopupMenu;
 
 	ToolBar	_toolBar;
+	NoteXTools _noteXTools;
+	NoteXMenu _noteXMenu;
 
     StatusBar _statusBar;
 	ReBar _rebarTop;

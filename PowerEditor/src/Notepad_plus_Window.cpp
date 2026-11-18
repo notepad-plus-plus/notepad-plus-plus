@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -99,7 +103,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	_hSelf = ::CreateWindowEx(
 		WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL() ? WS_EX_LAYOUTRTL : 0),
 		_className,
-		L"Notepad++",
+		L"NoteX",
 		(WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN),
 		// CreateWindowEx bug : set all 0 to walk around the problem
 		0, 0, 0, 0,

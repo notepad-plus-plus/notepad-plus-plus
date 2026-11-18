@@ -21,7 +21,11 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <map>
 #include <vector>
 #include <assert.h>
+// NoteX modification (2026-11-01): this lexer also builds on native macOS.
+// Copyright (C) 2026 Berk Kivircik; original notices above are retained.
+#ifdef _WIN32
 #include <windows.h>
+#endif
 
 #include "ILexer.h"
 #include "LexAccessor.h"
@@ -1239,17 +1243,21 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
     prefixes[13] = styler.GetPropertyInt("userDefine.prefixKeywords7", 0) != 0;
     prefixes[14] = styler.GetPropertyInt("userDefine.prefixKeywords8", 0) != 0;
 
-    char nestingBuffer[] = "userDefine.nesting.00";     // "00" is only a placeholder, the actual number is set by _itoa
-    _itoa(SCE_USER_STYLE_COMMENT,       (nestingBuffer+20), 10);    int commentNesting      = styler.GetPropertyInt(nestingBuffer, 0);
-    _itoa(SCE_USER_STYLE_COMMENTLINE,   (nestingBuffer+20), 10);    int lineCommentNesting  = styler.GetPropertyInt(nestingBuffer, 0);
-    _itoa(SCE_USER_STYLE_DELIMITER1,    (nestingBuffer+19), 10);    int delim1Nesting       = styler.GetPropertyInt(nestingBuffer, 0);  // one byte difference
-    _itoa(SCE_USER_STYLE_DELIMITER2,    (nestingBuffer+19), 10);    int delim2Nesting       = styler.GetPropertyInt(nestingBuffer, 0);  // for two-digit numbers
-    _itoa(SCE_USER_STYLE_DELIMITER3,    (nestingBuffer+19), 10);    int delim3Nesting       = styler.GetPropertyInt(nestingBuffer, 0);
-    _itoa(SCE_USER_STYLE_DELIMITER4,    (nestingBuffer+19), 10);    int delim4Nesting       = styler.GetPropertyInt(nestingBuffer, 0);
-    _itoa(SCE_USER_STYLE_DELIMITER5,    (nestingBuffer+19), 10);    int delim5Nesting       = styler.GetPropertyInt(nestingBuffer, 0);
-    _itoa(SCE_USER_STYLE_DELIMITER6,    (nestingBuffer+19), 10);    int delim6Nesting       = styler.GetPropertyInt(nestingBuffer, 0);
-    _itoa(SCE_USER_STYLE_DELIMITER7,    (nestingBuffer+19), 10);    int delim7Nesting       = styler.GetPropertyInt(nestingBuffer, 0);
-    _itoa(SCE_USER_STYLE_DELIMITER8,    (nestingBuffer+19), 10);    int delim8Nesting       = styler.GetPropertyInt(nestingBuffer, 0);
+    // Build the same zero-padded property keys without the Windows CRT _itoa.
+    auto nesting = [&](int style) {
+        const std::string key = "userDefine.nesting." + std::string(style < 10 ? "0" : "") + std::to_string(style);
+        return styler.GetPropertyInt(key.c_str(), 0);
+    };
+    int commentNesting = nesting(SCE_USER_STYLE_COMMENT);
+    int lineCommentNesting = nesting(SCE_USER_STYLE_COMMENTLINE);
+    int delim1Nesting = nesting(SCE_USER_STYLE_DELIMITER1);
+    int delim2Nesting = nesting(SCE_USER_STYLE_DELIMITER2);
+    int delim3Nesting = nesting(SCE_USER_STYLE_DELIMITER3);
+    int delim4Nesting = nesting(SCE_USER_STYLE_DELIMITER4);
+    int delim5Nesting = nesting(SCE_USER_STYLE_DELIMITER5);
+    int delim6Nesting = nesting(SCE_USER_STYLE_DELIMITER6);
+    int delim7Nesting = nesting(SCE_USER_STYLE_DELIMITER7);
+    int delim8Nesting = nesting(SCE_USER_STYLE_DELIMITER8);
 
     commentNesting  |= SCE_USER_MASK_NESTING_FOLDERS_IN_COMMENT_OPEN
                     |  SCE_USER_MASK_NESTING_FOLDERS_IN_COMMENT_MIDDLE

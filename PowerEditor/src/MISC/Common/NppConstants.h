@@ -1,3 +1,8 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2025 Don HO <don.h@free.fr>
 
@@ -18,6 +23,7 @@
 #pragma once
 
 #include <windows.h>
+#include <Scintilla.h>
 
 #include <cstdint>
 
@@ -101,6 +107,11 @@ inline constexpr bool fold_expand = true;
 inline constexpr bool fold_collapse = false;
 
 inline constexpr int MODEVENTMASK_OFF = 0;
+
+// Persistent NoteX formatting uses tagged ChangeStyle notifications; without
+// these the snapshot tracker misses format-only edits after its previous save.
+inline constexpr unsigned long NPP_SCINTILLA_MODEVENTMASK = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT |
+	SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR | SC_MOD_CHANGESTYLE;
 
 enum TextCase : unsigned char
 {
@@ -444,12 +455,8 @@ inline constexpr const char SHORTCUT_XML_CONTENT[] = "\
 	</Macros>\r\n\
 	<UserDefinedCommands>\r\n\
 		<!--\r\n\
-		<Command name=\"Get PHP help\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"112\" FolderName=\"Help on Internet\">https://www.php.net/$(CURRENT_WORD)</Command>\r\n\
-		<Command name=\"Wikipedia Search\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"114\" FolderName=\"Help on Internet\">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>\r\n\
 		<Command name=\"Open selected file path in new instance\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"117\">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>\r\n\
 		-->\r\n\
-		<Command name=\"Get PHP help\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"112\">https://www.php.net/$(CURRENT_WORD)</Command>\r\n\
-		<Command name=\"Wikipedia Search\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"114\">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>\r\n\
 		<Command name=\"Open selected file path in new instance\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"117\">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>\r\n\
 	</UserDefinedCommands>\r\n\
 	<PluginCommands />\r\n\

@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -1978,7 +1982,7 @@ public:
 	bool getServerName(const std::string& path2check, std::string& serverNameOutput);
 
 private:
-	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;
+	unsigned long _sintillaModEventMask = NPP_SCINTILLA_MODEVENTMASK;
 	enum class ConfXml { lang, styles };
 
 	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(NppXml::Document xmldoc);

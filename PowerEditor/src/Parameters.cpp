@@ -1,3 +1,6 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
+// Modified for NoteX on 2026-10-31: migrate the previous theme name without overwriting user data.
+#include "NoteXFormat.h"
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -4172,6 +4175,12 @@ void NppParameters::feedUserCmds(const NppXml::Element& element)
 				const char* cmdStr = NppXml::getValue(aNode);
 				if (cmdStr)
 				{
+                    // Remove only the two bundled selection-upload commands, including migrated profiles.
+                    // A user command with the same name but a different destination is preserved.
+                    const std::string_view name(sc.getName()), command(cmdStr);
+                    if ((name == "Get PHP help" && command == "https://www.php.net/$(CURRENT_WORD)") ||
+                        (name == "Wikipedia Search" && command == "https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)"))
+                        continue;
 					const auto cmdID = ID_USER_CMD + static_cast<int>(_userCommands.size());
 					_userCommands.emplace_back(sc, cmdStr, cmdID);
 					_runMenuItems.emplace_back(cmdID, string2wstring(sc.getName()), string2wstring(fdnm));
@@ -7050,6 +7059,15 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			auto& darkThemeName = darkDefaults._xmlFileName;
 			auto& darkTbInfo = darkDefaults._tbIconInfo;
 			darkThemeName = string2wstring(NppXml::attribute(childNode, "darkThemeName", "DarkModeDefault.xml"));
+            if (darkThemeName == NoteX::previousBrand() + L".xml") {
+                for (auto directory : {_nppPath, _userPath}) {
+                    pathAppend(directory, L"themes\\");
+                    auto previous = directory + darkThemeName;
+                    auto current = directory + L"NoteX.xml";
+                    if (!doesFileExist(current.c_str())) MoveFileExW(previous.c_str(), current.c_str(), MOVEFILE_WRITE_THROUGH);
+                }
+                darkThemeName = L"NoteX.xml";
+            }
 			if (darkThemeName.empty())
 				darkThemeName = L"DarkModeDefault.xml";
 			darkTbInfo._tbIconSet = getRangeDefaultAttribute(childNode, "darkToolBarIconSet", TB_SMALL, TB_STANDARD, darkTbInfo._tbIconSet);

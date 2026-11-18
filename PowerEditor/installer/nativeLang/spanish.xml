@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
@@ -379,8 +379,8 @@ Translation note:
 					<Item id="47004" name="Comunidad Notepad++ (foro)"/>
 					<Item id="47012" name="Información de depuración"/>
 					<Item id="47005" name="Obtener más complementos"/>
-					<Item id="47006" name="Actualizar Notepad++"/>
-					<Item id="47009" name="Establecer proxy actualizador"/>
+					<Item id="47006" name="Check for NoteX Updates..."/>
+					<Item id="47009" name="Plugin Updater Proxy..."/>
 					<Item id="48005" name="Importar complemento(s)..."/>
 					<Item id="48006" name="Importar tema(s)..."/>
 					<Item id="48018" name="Editar menú contextual emergente"/>

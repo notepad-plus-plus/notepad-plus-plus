@@ -1,50 +1,91 @@
-What is Notepad++ ?
-===================
+# NoteX
 
-[![GitHub release](https://img.shields.io/github/release/notepad-plus-plus/notepad-plus-plus.svg)](../../releases/latest)&nbsp;&nbsp;&nbsp;&nbsp;[![Build Status](https://img.shields.io/github/actions/workflow/status/notepad-plus-plus/notepad-plus-plus/CI_build.yml)](https://github.com/notepad-plus-plus/notepad-plus-plus/actions/workflows/CI_build.yml)
-&nbsp;&nbsp;&nbsp;&nbsp;[![Join the discussions at https://community.notepad-plus-plus.org/](https://notepad-plus-plus.org/assets/images/NppCommunityBadge.svg)](https://community.notepad-plus-plus.org/)
+NoteX is a portable Windows text and code editor based on Notepad++ 8.9.8.1.
+It adds visual text formatting, a redesigned
+toolbar, customizable menus, and formatting-aware session recovery.
+This is an independent modified distribution maintained by Berk Kivircik.
 
-Notepad++ is a free (free as in both "free speech" and "free beer") source code
-editor and Notepad replacement that supports several programming languages and
-natural languages. Running in the MS Windows environment, its use is governed by
-[GPL License](LICENSE).
+## Download and run
 
-See the [Notepad++ official site](https://notepad-plus-plus.org/) for more information.
+Download `NoteX-1.6.1-portable-x64.zip` from the
+[1.6.1 release](https://github.com/berkkivircik/NoteX/releases/tag/v1.6.1),
+extract it to a writable folder, and run `NoteX.exe`. No installer is required.
+The public package starts with a fresh profile and no documents or session history.
+Windows x64 is required. This release is unsigned.
 
+See the [download guide](DOWNLOADS.md), [Code signing policy](CODE_SIGNING.md),
+and [privacy policy](PRIVACY.md) before first launch. Automatic GitHub update
+checks are enabled by default and can be disabled in the application's
+**Automatic Update Checks** menu.
 
-Notepad++ GPG Release Key
--------------------------
-_Since the release of version 7.6.5 Notepad++ is signed using GPG with the following key:_
+Windows shortcuts have their own display names. If a shortcut still shows an
+older application name, rename the shortcut to `NoteX` and verify that its target
+is your current `NoteX.exe`. Updating the EXE does not rename existing shortcuts.
 
-- **Signer:** Notepad++
-- **E-mail:** don.h@free.fr
-- **Key ID:** 0x8D84F46E
-- **Key fingerprint:** 14BC E436 2749 B2B5 1F8C 7122 6C42 9F1D 8D84 F46E
-- **Key type:** RSA 4096/4096
-- **Created:** 2019-03-11
-- **Expires:** 2027-03-13
+### Native macOS
 
-https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppGpgPub.asc
+The native Apple Silicon edition is available separately as
+`NoteX-1.6.1-macos-arm64.dmg` or `NoteX-1.6.1-macos-arm64.zip` in the
+[unified release](https://github.com/berkkivircik/NoteX/releases/tag/v1.6.1).
+It uses AppKit and Cocoa Scintilla, without Wine or Rosetta. Requires macOS 14
+or later. See [the macOS guide](macOS/README.md) for installation, recovery,
+build instructions, native workbench features, and platform compatibility.
+This edition is ad-hoc signed and is not notarized by Apple.
 
+## Features
 
-Supported OS
-------------
+- Apply fonts, sizes, bold, italic, underline, strikethrough, and colors to text ranges.
+- Set the format for text you type next, copy formatting, and create lists.
+- Use line and caret heights that follow the formatting on each line.
+- Reorder and hide menu items with persistent menu customization.
+- Recover unsaved text and formatting through session snapshots.
+- Use English, Turkish, or Spanish interface translations; syntax highlighting
+  support is independent of the interface language.
 
-All the Windows systems still supported by Microsoft are supported by Notepad++. However, not all Notepad++ users can or want to use the newest system. Here is the [Supported systems information](SUPPORTED_SYSTEM.md) you may need in case you are one of them.
+Formatting is stored separately in `.notex` companion files. Previous portable-release companions and menu settings are migrated without
+resetting document formatting or menu preferences.
+The package uses GDI rendering and disables upstream automatic updates.
+Optional third-party plugins and the upstream updater are not bundled in this
+public release. They are not required for the editor's built-in features.
 
+## Source and build
 
+The repository includes the modified editor, Scintilla, Lexilla, Boost.Regex,
+build scripts, tests, and portable packaging inputs. See [BUILD.md](BUILD.md).
+The `v1.6.1` tag and `NoteX-1.6.1-source.zip` release asset identify the source
+for the matching portable binary. Do not substitute upstream Notepad++ source
+or a different NoteX revision when redistributing this binary.
 
+## License and attribution
 
-Build Notepad++
----------------
+NoteX is distributed under the **GNU General Public License, version 3**.
+See [LICENSE](LICENSE) for the complete license. The original Notepad++ license
+and copyright notice are preserved in [LICENSES/Notepad-plus-plus-LICENSE.txt](LICENSES/Notepad-plus-plus-LICENSE.txt).
+NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+Original Notepad++ copyrights, including Don HO's, are preserved.
+See [MODIFICATIONS.md](MODIFICATIONS.md), [CHANGELOG.md](CHANGELOG.md),
+and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Please follow [build guide](BUILD.md) to build Notepad++ from source.
+You may use NoteX commercially, study and modify its source, and redistribute
+it under the applicable license terms. No additional license fee or permission
+from the NoteX maintainer is required. The software is provided without warranty.
+Separate components and fonts retain their own license terms.
 
+NoteX is not an official Notepad++ release and is not endorsed by the upstream
+project. Report NoteX issues in this repository. Upstream documentation is
+retained in the `UPSTREAM_*.md` files for reference.
 
-Contribution
-------------
+## Upgrading an existing portable installation
 
-Contributions are welcome. Be mindful of our [Contribution Rules](CONTRIBUTING.md) to increase the likelihood of your contribution getting accepted.
+Close the application normally and back up the complete existing directory.
+Keep the same installation path. Preserve `config.xml`, `session.xml*`, `backup/`,
+`.notex` companions, menu settings, user shortcuts, translations, and customized
+syntax/theme files. Replace application files without deleting the profile.
+The fresh-install ZIP contains default configuration; do not overwrite a user's
+configuration with those defaults. Earlier companion filenames are accepted
+and migrated when the corresponding document is loaded. A current companion is
+preferred when both versions exist; conflicting files are never overwritten.
 
-[Notepad++ Contributors](https://github.com/notepad-plus-plus/notepad-plus-plus/graphs/contributors)
+## Updates and code signing
 
+See [Updating NoteX](UPDATING.md) for authenticated updates, first-install migration, data preservation, and recovery. See the [Code signing policy](https://github.com/berkkivircik/NoteX/blob/main/CODE_SIGNING.md) for the separate Windows publisher and macOS signing status.

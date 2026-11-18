@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file ContractionState.cxx
  ** Manages visibility of lines for folding and wrapping.
@@ -148,6 +152,7 @@ void ContractionState<LINE>::DeleteLine(Sci::Line lineDoc) {
 
 template <typename LINE>
 void ContractionState<LINE>::Clear() noexcept {
+	++revision;
 	visible.reset();
 	expanded.reset();
 	heights.reset();
@@ -215,6 +220,7 @@ Sci::Line ContractionState<LINE>::DocFromDisplay(Sci::Line lineDisplay) const no
 
 template <typename LINE>
 void ContractionState<LINE>::InsertLines(Sci::Line lineDoc, Sci::Line lineCount) {
+	++revision;
 	if (OneToOne()) {
 		linesInDocument += line_cast(lineCount);
 	} else {
@@ -227,6 +233,7 @@ void ContractionState<LINE>::InsertLines(Sci::Line lineDoc, Sci::Line lineCount)
 
 template <typename LINE>
 void ContractionState<LINE>::DeleteLines(Sci::Line lineDoc, Sci::Line lineCount) {
+	++revision;
 	if (OneToOne()) {
 		linesInDocument -= line_cast(lineCount);
 	} else {
@@ -250,6 +257,7 @@ bool ContractionState<LINE>::GetVisible(Sci::Line lineDoc) const noexcept {
 
 template <typename LINE>
 bool ContractionState<LINE>::SetVisible(Sci::Line lineDocStart, Sci::Line lineDocEnd, bool isVisible) {
+	++revision;
 	if (OneToOne() && isVisible) {
 		return false;
 	} else {
@@ -382,6 +390,7 @@ bool ContractionState<LINE>::SetHeight(Sci::Line lineDoc, int height) {
 	} else if (lineDoc < LinesInDoc()) {
 		EnsureData();
 		if (GetHeight(lineDoc) != height) {
+			++revision;
 			if (GetVisible(lineDoc)) {
 				displayLines->InsertText(line_cast(lineDoc), height - GetHeight(lineDoc));
 			}

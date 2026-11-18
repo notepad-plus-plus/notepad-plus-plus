@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -48,6 +52,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case SCN_MODIFIED:
 		{
 			if (!notifyView) return FALSE;
+			if ((notification->modificationType & SC_MOD_CHANGESTYLE) && notification->token == 0x4e505046)
+				notifyView->getCurrentBuffer()->setModifiedStatus(true);
 
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))  // SC_PERFORMED_UNDO | SC_PERFORMED_REDO are also included in SC_MOD_DELETETEXT and SC_MOD_INSERTTEXT
 			{

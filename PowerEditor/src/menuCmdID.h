@@ -1,3 +1,4 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
 // This file is part of Notepad++ project
 // Copyright (C)2025 Don HO <don.h@free.fr>
 
@@ -661,3 +662,5 @@
 #define IDR_DROPLIST_MENU 14000
     #define    IDM_DROPLIST_LIST           (IDR_DROPLIST_MENU + 1)
     #define    IDM_DROPLIST_MRU_FIRST      (IDR_DROPLIST_MENU + 20)
+
+#define IDM_NOTEX_UPDATE_SETTINGS 49950

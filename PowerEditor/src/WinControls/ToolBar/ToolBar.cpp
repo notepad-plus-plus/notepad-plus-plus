@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -393,7 +397,7 @@ int ToolBar::getHeight() const
 {
 	DWORD size = static_cast<DWORD>(SendMessage(_hSelf, TB_GETBUTTONSIZE, 0, 0));
 	DWORD padding = static_cast<DWORD>(SendMessage(_hSelf, TB_GETPADDING, 0, 0));
-	int totalHeight = HIWORD(size) + HIWORD(padding) - 3;
+	int totalHeight = std::max<int>(_dpiManager.scale(44), HIWORD(size) + HIWORD(padding) - 3);
 	return totalHeight;
 }
 
@@ -477,6 +481,23 @@ void ToolBar::reset(bool create)
 			_hInst,
 			0);
 
+        // Keep native and plugin commands, but use the demo's 30px hit targets.
+        SetWindowSubclass(_hSelf, [](HWND h, UINT m, WPARAM w, LPARAM l, UINT_PTR, DWORD_PTR) -> LRESULT {
+            if(m==TB_SETPADDING) {
+                const int padding=DPIManagerV2::scale(14,DPIManagerV2::getDpiForWindow(h));
+                l=MAKELPARAM(std::max<int>(LOWORD(l),padding),std::max<int>(HIWORD(l),padding));
+            }
+            if(m==TB_SETBUTTONINFOW || m==TB_SETBUTTONINFOA) {
+                auto info=reinterpret_cast<TBBUTTONINFOW*>(l);
+                if(info && (info->dwMask&TBIF_SIZE)) info->cx=static_cast<WORD>(std::max<int>(info->cx,DPIManagerV2::scale(30,DPIManagerV2::getDpiForWindow(h))));
+            }
+            if(m==TB_SETBUTTONSIZE) {
+                const UINT dpi=DPIManagerV2::getDpiForWindow(h);
+                const int minimum=DPIManagerV2::scale(30,dpi);
+                l=MAKELPARAM(std::max<int>(LOWORD(l),minimum),std::max<int>(HIWORD(l),minimum));
+            }
+            return DefSubclassProc(h,m,w,l);
+        }, 0x4e5050, 0);
 		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::toolbar);
 
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
@@ -569,9 +590,11 @@ void ToolBar::reset(bool create)
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
 		_nbCurrentButtons = _nbTotalButtons;
-		WORD btnSize = static_cast<WORD>(_dpiManager.scale((_state == TB_LARGE || _state == TB_LARGE2) ? 32 : 16));
+		WORD btnSize = static_cast<WORD>(_dpiManager.scale((_state == TB_LARGE || _state == TB_LARGE2) ? 36 : 30));
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB.get()));
+        ::SendMessage(_hSelf, TB_SETPADDING,0,MAKELPARAM(_dpiManager.scale(14),_dpiManager.scale(14)));
+        ::SendMessage(_hSelf, TB_SETBUTTONSIZE,0,MAKELPARAM(btnSize,btnSize));
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
 

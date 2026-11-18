@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file PositionCache.h
  ** Classes for caching layout information.
@@ -63,10 +67,10 @@ public:
 	int xHighlightGuide = 0;
 	bool highlightColumn = false;
 	bool containsCaret = false;
-	unsigned char bracePreviousStyles[2]{};
+	unsigned int bracePreviousStyles[2]{};
 	int edgeColumn = 0;
 	std::unique_ptr<char[]> chars;
-	std::unique_ptr<unsigned char[]> styles;
+	std::unique_ptr<unsigned int[]> styles;
 	std::unique_ptr<XYPOSITION[]> positions;
 
 	std::unique_ptr<BidiData> bidiData;

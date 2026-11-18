@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file EditView.h
  ** Defines the appearance of the main text area of the editor window.
@@ -154,7 +158,7 @@ private:
 		Sci::Line line, Sci::Line lineVisible, int xOrigin, PRectangle rcLine, int subLine, DrawPhase phase);
 
 public:
-	void PaintText(Surface *surfaceWindow, const EditModel &model, const ViewStyle &vsDraw,
+	void PaintText(Surface *surfaceWindow, const EditModel &model, ViewStyle &vsDraw,
 		PRectangle rcArea, PRectangle rcClient);
 	Sci::Position FormatRange(bool draw, CharacterRangeFull chrg, Rectangle rc, Surface *surface, Surface *surfaceMeasure,
 		const EditModel &model, const ViewStyle &vs);

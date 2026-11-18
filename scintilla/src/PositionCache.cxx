@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file PositionCache.cxx
  ** Classes for caching layout information.
@@ -73,7 +77,7 @@ void LineLayout::Resize(int maxLineLength_) {
 	if (maxLineLength_ > maxLineLength) {
 		const size_t lineAllocation = maxLineLength_ + 1;
 		chars = std::make_unique<char[]>(lineAllocation);
-		styles = std::make_unique<unsigned char []>(lineAllocation);
+		styles = std::make_unique<unsigned int []>(lineAllocation);
 		// Extra position allocated as sometimes the Windows
 		// GetTextExtentExPoint API writes an extra element.
 		positions = std::make_unique<XYPOSITION []>(lineAllocation + 1);
@@ -957,7 +961,7 @@ bool BreakFinder::More() const noexcept {
 }
 
 class PositionCacheEntry {
-	uint16_t styleNumber = 0;
+	unsigned int styleNumber = 0;
 	uint16_t len = 0;
 	uint16_t clock = 0;
 	bool unicode = false;
@@ -1015,7 +1019,7 @@ PositionCacheEntry::PositionCacheEntry(const PositionCacheEntry &other) :
 void PositionCacheEntry::Set(unsigned int styleNumber_, bool unicode_, std::string_view sv,
 	const XYPOSITION *positions_, uint16_t clock_) {
 	Clear();
-	styleNumber = static_cast<uint16_t>(styleNumber_);
+	styleNumber = styleNumber_;
 	len = static_cast<uint16_t>(sv.length());
 	clock = clock_;
 	unicode = unicode_;
@@ -1089,7 +1093,7 @@ size_t PositionCache::GetSize() const noexcept {
 
 void PositionCache::MeasureWidths(Surface *surface, const ViewStyle &vstyle, unsigned int styleNumber,
 	bool unicode, std::string_view sv, XYPOSITION *positions, bool needsLocking) {
-	const Style &style = vstyle.styles[styleNumber];
+	const Style &style = vstyle.RenderStyle(styleNumber);
 	if (style.monospaceASCII) {
 		if (AllGraphicASCII(sv)) {
 			const XYPOSITION monospaceCharacterWidth = style.monospaceCharacterWidth;

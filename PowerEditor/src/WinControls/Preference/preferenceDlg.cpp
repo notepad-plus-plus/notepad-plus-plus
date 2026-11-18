@@ -1,3 +1,8 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -306,9 +311,6 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_cloudAndLinkSubDlg.init(_hInst, _hSelf);
 			_cloudAndLinkSubDlg.create(IDD_PREFERENCE_SUB_CLOUD_LINK, false, false);
 
-			_searchEngineSubDlg.init(_hInst, _hSelf);
-			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);
-
 			_wVector.push_back(DlgInfo(&_generalSubDlg, L"General", L"Global"));
 			_wVector.push_back(DlgInfo(&_toolbarSubDlg, L"Toolbar", L"Toolbar"));
 			_wVector.push_back(DlgInfo(&_tabbarSubDlg, L"Tab Bar", L"Tabbar"));
@@ -331,7 +333,6 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_wVector.push_back(DlgInfo(&_delimiterSubDlg, L"Delimiter", L"Delimiter"));
 			_wVector.push_back(DlgInfo(&_performanceSubDlg, L"Performance", L"Performance"));
 			_wVector.push_back(DlgInfo(&_cloudAndLinkSubDlg, L"Cloud & Link", L"Cloud"));
-			_wVector.push_back(DlgInfo(&_searchEngineSubDlg, L"Search Engine", L"SearchEngine"));
 			_wVector.push_back(DlgInfo(&_miscSubDlg, L"MISC.", L"MISC"));
 
 
@@ -3341,14 +3342,10 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SAVEALLCONFIRM, BM_SETCHECK, nppGUI._saveAllConfirm, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ALOOWSIMLINKFAW, BM_SETCHECK, nppGUI._isFawSymlinkAllowed, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_AUTOUPDATE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Disable"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_AUTOUPDATE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Enable on Notepad++ startup"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_AUTOUPDATE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Enable on Notepad++ exit"));
-			if ((nppGUI._autoUpdateOpt._doAutoUpdate < NppGUI::autoupdate_disabled) || (nppGUI._autoUpdateOpt._doAutoUpdate > NppGUI::autoupdate_on_exit))
-				nppGUI._autoUpdateOpt._doAutoUpdate = NppGUI::autoupdate_on_startup;
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_AUTOUPDATE, CB_SETCURSEL, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
-			::ShowWindow(::GetDlgItem(_hSelf, IDC_AUTOUPDATE_STATIC), nppGUI._doesExistUpdater && !nppParam.isNppAutoUpdateDisabled() ? SW_SHOW : SW_HIDE);
-			::ShowWindow(::GetDlgItem(_hSelf, IDC_COMBO_AUTOUPDATE), nppGUI._doesExistUpdater && !nppParam.isNppAutoUpdateDisabled() ? SW_SHOW : SW_HIDE);
+            // The obsolete upstream setting is not an application update control.
+            // NoteX exposes its own opt-out under Help > Automatic Update Checks.
+            ::ShowWindow(::GetDlgItem(_hSelf, IDC_AUTOUPDATE_STATIC), SW_HIDE);
+            ::ShowWindow(::GetDlgItem(_hSelf, IDC_COMBO_AUTOUPDATE), SW_HIDE);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);

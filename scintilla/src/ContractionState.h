@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file ContractionState.h
  ** Manages visibility of lines for folding and wrapping.
@@ -15,6 +19,7 @@ namespace Scintilla::Internal {
 class IContractionState {
 public:
 	virtual ~IContractionState() {};
+	size_t revision = 0;
 
 	virtual void Clear()=0;
 

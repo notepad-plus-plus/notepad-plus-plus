@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file Editor.h
  ** Defines the main editor class.
@@ -67,6 +71,7 @@ public:
 class SelectionText {
 	std::string s;
 public:
+	NoteX::State richSelection;
 	bool rectangular;
 	bool lineCopy;
 	int codePage;
@@ -74,6 +79,7 @@ public:
 	SelectionText() noexcept : rectangular(false), lineCopy(false), codePage(0), characterSet(Scintilla::CharacterSet::Ansi) {}
 	void Clear() noexcept {
 		s.clear();
+		richSelection.runs.clear();
 		rectangular = false;
 		lineCopy = false;
 		codePage = 0;
@@ -81,6 +87,7 @@ public:
 	}
 	void Copy(const std::string &s_, int codePage_, Scintilla::CharacterSet characterSet_, bool rectangular_, bool lineCopy_) {
 		s = s_;
+		richSelection = NoteX::State{};
 		codePage = codePage_;
 		characterSet = characterSet_;
 		rectangular = rectangular_;
@@ -89,6 +96,7 @@ public:
 	}
 	void Copy(const SelectionText &other) {
 		Copy(other.s, other.codePage, other.characterSet, other.rectangular, other.lineCopy);
+		richSelection = other.richSelection;
 	}
 	const char *Data() const noexcept {
 		return s.c_str();
@@ -188,6 +196,13 @@ constexpr XYScrollOptions operator|(XYScrollOptions a, XYScrollOptions b) noexce
  */
 class Editor : public EditModel, public DocWatcher {
 protected:	// ScintillaBase subclass needs access to much of Editor
+    // A typing choice belongs to this view and caret, never to another buffer.
+    std::optional<NoteX::Format> pendingTypingFormat;
+    Document *typingDocument = nullptr;
+    Sci::Position typingPosition = -1;
+    const NoteX::Format *TypingFormat();
+    NoteX::Format InsertionFormat(Sci::Position position) const;
+    Sci::Position InsertTypedString(Sci::Position position, std::string_view text);
 
 	/** On GTK+, Scintilla is a container widget holding two scroll bars
 	 * whereas on Windows there is just one window with both scroll bars turned on. */

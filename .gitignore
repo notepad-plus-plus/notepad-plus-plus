@@ -166,3 +166,25 @@ PowerEditor/src/MISC/md5/RCa06792
 *.db
 *.sln
 *.opendb
+# NoteX private/runtime data and generated publication artifacts
+/dist/
+**/out/
+**/validation/
+**/__pycache__/
+*.pyc
+.claude-flow/
+.codex/
+.env
+.env.*
+*.pem
+*.key
+*.notex
+# Previous-release companions are private user data as well.
+*.[n][p][p][p][r][o]
+session.xml*
+NoteX-menu.cfg
+backup/
+!PowerEditor/visual.net/notepadPlus.sln
+
+/updater/*.syso
+/updater/*.res

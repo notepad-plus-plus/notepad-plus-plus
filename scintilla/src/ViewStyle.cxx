@@ -1,3 +1,7 @@
+// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteX; latest publication changes: 2026-10-28.
+// See MODIFICATIONS.md. Original copyright and license notices are preserved.
+
 // Scintilla source code edit control
 /** @file ViewStyle.cxx
  ** Store information on how the document is to be viewed.
@@ -268,6 +272,8 @@ ViewStyle::ViewStyle(size_t stylesSize_) :
 // modified for printing styles.
 ViewStyle::ViewStyle(const ViewStyle &source) : ViewStyle(source.styles.size()) {
 	styles = source.styles;
+	richFormats = source.richFormats;
+	richRevision = source.richRevision;
 	for (Style &style : styles) {
 		// Can't just copy fontName as its lifetime is relative to its owning ViewStyle
 		style.fontName = fontNames.Save(style.fontName);
@@ -379,7 +385,27 @@ void ViewStyle::CalculateMarginWidthAndMask() noexcept {
 }
 
 void ViewStyle::Refresh(Surface &surface, int tabInChars) {
-	fonts.clear();
+    richStyles.clear();
+    for (size_t f=1; f<richFormats.size(); ++f) {
+        const auto& format=richFormats[f];
+        for (size_t b=0; b<256; ++b) {
+            Style s=styles[b];
+            if(format.mask & NoteX::Bold) s.weight=format.bold?FontWeight::Bold:FontWeight::Normal;
+            if(format.mask & NoteX::Italic) s.italic=format.italic;
+            if(format.mask & NoteX::Underline) s.underline=format.underline;
+            if(format.mask & NoteX::Strike) s.strike=format.strike;
+            if(format.mask & NoteX::Family) s.fontName=fontNames.Save(format.family.c_str());
+            if(format.mask & NoteX::Size) s.size=std::clamp(format.size,600,9600);
+            if(format.mask & NoteX::Fore) s.fore=ColourRGBA::FromRGB(format.fore);
+            if(format.mask & NoteX::Back) s.back=ColourRGBA::FromRGB(format.back);
+            if(format.mask & NoteX::Highlight) {
+                const auto h=ColourRGBA::FromRGB(format.highlight);
+                s.back=ColourRGBA((s.back.GetRed()+h.GetRed()*2)/3,(s.back.GetGreen()+h.GetGreen()*2)/3,(s.back.GetBlue()+h.GetBlue()*2)/3);
+            }
+            s.extraFontFlag=extraFontFlag; richStyles.push_back(s);
+        }
+    }
+    fonts.clear();
 
 	selbar = Platform::Chrome();
 	selbarlight = Platform::ChromeHighlight();
@@ -395,6 +421,7 @@ void ViewStyle::Refresh(Surface &surface, int tabInChars) {
 		CreateAndAddFont(style);
 	}
 
+	for (const Style& style : richStyles) CreateAndAddFont(style);
 	// Ask platform to allocate each unique font.
 	for (const std::pair<const FontSpecification, std::unique_ptr<FontRealised>> &font : fonts) {
 		font.second->Realise(surface, zoomLevel, technology, font.first, localeName.c_str());
@@ -406,6 +433,7 @@ void ViewStyle::Refresh(Surface &surface, int tabInChars) {
 		style.Copy(fr->font, fr->measurements);
 	}
 
+	for (Style& style : richStyles) { const FontRealised* fr=Find(style);style.Copy(fr->font,fr->measurements); }
 	indicatorsDynamic = std::any_of(indicators.cbegin(), indicators.cend(),
 		[](const Indicator &indicator) noexcept { return indicator.IsDynamic(); });
 

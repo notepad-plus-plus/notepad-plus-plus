@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the native NoteX application using only Xcode Command Line Tools.
+"""Build the native NoteQu application using only Xcode Command Line Tools.
 
 Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
 """
@@ -15,7 +15,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.6.2"
+VERSION = "1.7.0"
 BUILD = "1"
 
 def main():
@@ -24,9 +24,9 @@ def main():
     output = ROOT / "dist" / "macOS"
     if output.exists():
         raise SystemExit("dist/macOS already exists. Use a clean checkout or a new output directory.")
-    bundle = output / "NoteX.app" / "Contents"
+    bundle = output / "NoteQu.app" / "Contents"
     resources = bundle / "Resources"
-    binary = bundle / "MacOS" / "NoteX"
+    binary = bundle / "MacOS" / "NoteQu"
     binary.parent.mkdir(parents=True)
     resources.mkdir(parents=True)
     objects = output / "objects"
@@ -63,11 +63,11 @@ def main():
     subprocess.run(["xcrun", "clang++", *flags, *map(str, compiled), "-framework", "Cocoa",
                     "-framework", "QuartzCore", "-framework", "CoreText", "-o", str(binary)], check=True)
     info = {
-        "CFBundleName": "NoteX", "CFBundleDisplayName": "NoteX",
-        "CFBundleIdentifier": "com.berkkivircik.NoteX", "CFBundleExecutable": "NoteX",
+        "CFBundleName": "NoteQu", "CFBundleDisplayName": "NoteQu",
+        "CFBundleIdentifier": "com.berkkivircik.NoteQu", "CFBundleExecutable": "NoteQu",
         "CFBundlePackageType": "APPL", "CFBundleShortVersionString": VERSION,
         "CFBundleVersion": BUILD, "LSMinimumSystemVersion": "14.0",
-        "CFBundleIconFile": "NoteX.icns",
+        "CFBundleIconFile": "NoteQu.icns",
         "NSHighResolutionCapable": True, "NSPrincipalClass": "NSApplication",
         "NSHumanReadableCopyright": "Copyright © 2026 Berk Kivircik and contributors. GPLv3.",
         "CFBundleDocumentTypes": [{"CFBundleTypeName": "Text document", "CFBundleTypeRole": "Editor",
@@ -75,9 +75,9 @@ def main():
     }
     with (bundle / "Info.plist").open("wb") as file:
         plistlib.dump(info, file)
-    iconset = output / "NoteX.iconset"
+    iconset = output / "NoteQu.iconset"
     subprocess.run(["xcrun", "swift", str(ROOT / "macOS/make_icon.swift"), str(iconset)], check=True)
-    subprocess.run(["iconutil", "-c", "icns", str(iconset), "-o", str(resources / "NoteX.icns")], check=True)
+    subprocess.run(["iconutil", "-c", "icns", str(iconset), "-o", str(resources / "NoteQu.icns")], check=True)
     for name in ["LICENSE", "THIRD_PARTY_NOTICES.md", "MODIFICATIONS.md", "UPDATING.md", "CODE_SIGNING.md"]:
         shutil.copy2(ROOT / name, resources / name)
     shutil.copytree(ROOT / "LICENSES", resources / "LICENSES")
@@ -88,7 +88,7 @@ def main():
     shutil.copy2(ROOT / "macOS/README.md", resources / "README.md")
     (resources / "encodings.json").write_text(json.dumps(encoding_tables()), encoding="utf-8")
     (resources / "languages.json").write_text(json.dumps(catalog(ROOT), ensure_ascii=False), encoding="utf-8")
-    shutil.copytree(ROOT / "PowerEditor/Packaging/NoteX/assets/fonts", resources / "Fonts")
+    shutil.copytree(ROOT / "PowerEditor/Packaging/NoteQu/assets/fonts", resources / "Fonts")
     for source in (ROOT / "scintilla/cocoa/res").glob("*.png"):
         shutil.copy2(source, resources / source.name)
     # Xcode normally combines these PNG pairs into the TIFFs Cocoa loads.
@@ -97,11 +97,11 @@ def main():
                         str(resources / f"{stem}@2x.png"), "-out", str(resources / f"{stem}.tiff")], check=True)
     revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     (resources / "SOURCE.txt").write_text(
-        f"NoteX {VERSION} native macOS preview {BUILD}\nSource revision: {revision}\n"
-        f"https://github.com/berkkivircik/NoteX/tree/{revision}\n"
+        f"NoteQu {VERSION} native macOS preview {BUILD}\nSource revision: {revision}\n"
+        f"https://github.com/berkkivircik/NoteQu/tree/{revision}\n"
         "Build: python3 macOS/build.py\nLicense: GNU GPL version 3\n", encoding="utf-8")
-    subprocess.run(["go", "build", "-trimpath", "-ldflags=-s -w", "-o", str(bundle / "MacOS/NoteXUpdater"), "."], cwd=ROOT / "updater", check=True)
-    subprocess.run(["codesign", "--force", "--sign", "-", str(bundle / "MacOS/NoteXUpdater")], check=True)
+    subprocess.run(["go", "build", "-trimpath", "-ldflags=-s -w", "-o", str(bundle / "MacOS/NoteQuUpdater"), "."], cwd=ROOT / "updater", check=True)
+    subprocess.run(["codesign", "--force", "--sign", "-", str(bundle / "MacOS/NoteQuUpdater")], check=True)
     subprocess.run(["codesign", "--force", "--sign", "-", str(bundle.parent)], check=True)
     subprocess.run(["codesign", "--verify", "--strict", str(bundle.parent)], check=True)
     subprocess.run(["file", str(binary)], check=True)

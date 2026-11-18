@@ -5,10 +5,10 @@
     <parameter name="version" required="true" />
   </parameters>
   <zip-file>
-    <pe-file path="NoteX.exe" product-name="NoteX" product-version="${version}" file-version="${version}" original-filename="NoteX.exe">
+    <pe-file path="NoteQu.exe" product-name="NoteQu" product-version="${version}" file-version="${version}" original-filename="NoteQu.exe">
       <authenticode-sign />
     </pe-file>
-    <pe-file path="NoteXUpdater.exe" product-name="NoteX" product-version="${version}" file-version="${version}" original-filename="NoteXUpdater.exe">
+    <pe-file path="NoteQuUpdater.exe" product-name="NoteQu" product-version="${version}" file-version="${version}" original-filename="NoteQuUpdater.exe">
       <authenticode-sign />
     </pe-file>
   </zip-file>

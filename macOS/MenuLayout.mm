@@ -208,7 +208,7 @@ static BOOL ValidLayout(NSDictionary *value) {
     _draft = [_settings mutableCopy];
     _dialog = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 600, 520) styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
     _dialog.title = @"Customize Menus"; _dialog.appearance = window.appearance;
-    NSTextField *help = [NSTextField wrappingLabelWithString:@"Choose visible commands and reorder menus or commands with Move Up / Move Down. The NoteX menu, Quit, and layout recovery commands remain available."];
+    NSTextField *help = [NSTextField wrappingLabelWithString:@"Choose visible commands and reorder menus or commands with Move Up / Move Down. The NoteQu menu, Quit, and layout recovery commands remain available."];
     help.frame = NSMakeRect(16, 456, 568, 48); [_dialog.contentView addSubview:help];
     NSScrollView *scroll = [[NSScrollView alloc] initWithFrame:NSMakeRect(16, 68, 568, 380)]; scroll.hasVerticalScroller = YES;
     _tree = [[NSOutlineView alloc] initWithFrame:scroll.bounds];

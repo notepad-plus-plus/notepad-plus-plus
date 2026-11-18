@@ -9,8 +9,8 @@
         NSMutableDictionary *session=[self.lastSnapshot mutableCopy];[session removeObjectForKey:@"macros"];
         NSData *data=[NSPropertyListSerialization dataWithPropertyList:session format:NSPropertyListBinaryFormat_v1_0 options:0 error:&error];if(!data||!NXWrite(data,panel.URL.path,&error))Alert(error.localizedDescription);
     }else {
-        NSOpenPanel *panel=[NSOpenPanel openPanel];panel.message=@"Open a native NoteX session. Existing tabs remain open.";if([panel runModal]!=NSModalResponseOK)return;
-        NSData *data=[NSData dataWithContentsOfURL:panel.URL options:NSDataReadingMappedIfSafe error:&error];NSDictionary *session=data.length<=256*1024*1024?NXDecodeSession(data):nil;if(!session){Alert(@"This is not a valid native NoteX session, or it exceeds 256 MB.");return;}
+        NSOpenPanel *panel=[NSOpenPanel openPanel];panel.message=@"Open a native NoteQu session. Existing tabs remain open.";if([panel runModal]!=NSModalResponseOK)return;
+        NSData *data=[NSData dataWithContentsOfURL:panel.URL options:NSDataReadingMappedIfSafe error:&error];NSDictionary *session=data.length<=256*1024*1024?NXDecodeSession(data):nil;if(!session){Alert(@"This is not a valid native NoteQu session, or it exceeds 256 MB.");return;}
         if(self.documents.count+[session[@"documents"] count]>1000){Alert(@"Close some documents before opening this session. The session limit is 1,000 documents.");return;}
         if(![self snapshot:&error]){Alert(error.localizedDescription);return;}
         BOOL wasRestoring=self.restoring;self.restoring=YES;
@@ -35,7 +35,7 @@
         NSData *disk=[NSData dataWithContentsOfFile:doc.path options:NSDataReadingMappedIfSafe error:nil];if(!disk||disk.length>16*1024*1024){doc.monitoring=NO;Send(doc.primaryEditor,SCI_SETREADONLY,0);self.status.stringValue=@"File monitoring stopped: the file is missing, unreadable, or larger than 16 MB.";continue;}
         NSData *hash=NXDigest(disk);if([hash isEqual:doc.diskHash])continue;
         NSString *text=NXDecodeText(disk);if(!text)text=NXDecodeEncoding(disk,doc.encoding);if(!text||doc.dirty){doc.monitoring=NO;Send(doc.primaryEditor,SCI_SETREADONLY,0);self.status.stringValue=@"File monitoring stopped to preserve the document.";continue;}
-        Send(doc.primaryEditor,SCI_SETREADONLY,0);SetText(doc.primaryEditor,[text dataUsingEncoding:NSUTF8StringEncoding]);doc.diskHash=hash;NoteX::State state;
+        Send(doc.primaryEditor,SCI_SETREADONLY,0);SetText(doc.primaryEditor,[text dataUsingEncoding:NSUTF8StringEncoding]);doc.diskHash=hash;NoteQu::State state;
         if(NXReadCompanion([NSData dataWithContentsOfFile:[doc.path stringByAppendingString:@".notex"]],Text(doc.primaryEditor),state))Restore(doc.primaryEditor,state);
         Send(doc.primaryEditor,SCI_GOTOPOS,Send(doc.primaryEditor,SCI_GETLENGTH));Send(doc.primaryEditor,SCI_SETREADONLY,1);
     }

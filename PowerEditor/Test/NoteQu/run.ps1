@@ -1,6 +1,6 @@
 # Copyright (C) 2026 Berk Kivircik.
 # SPDX-License-Identifier: GPL-3.0-only
-# Created for NoteX; publication date: 2026-10-28.
+# Created for NoteQu; publication date: 2026-10-28.
 
 param(
     [ValidateSet('Debug','Release')][string]$Configuration = 'Release',
@@ -40,5 +40,5 @@ Set-Content -LiteralPath $script -Value $command -Encoding ascii
 Push-Location $Output
 try {
     & cmd.exe /c $script | Tee-Object -FilePath (Join-Path $Output 'results.log')
-    if ($LASTEXITCODE -ne 0) { throw "NoteX native integration tests failed ($LASTEXITCODE)." }
+    if ($LASTEXITCODE -ne 0) { throw "NoteQu native integration tests failed ($LASTEXITCODE)." }
 } finally { Pop-Location }

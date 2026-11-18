@@ -1,15 +1,15 @@
 // Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
 // Native macOS storage, created 2026-11-01.
 #import <Foundation/Foundation.h>
-#include "NoteXFormat.h"
+#include "NoteQuFormat.h"
 
 NSDictionary *NXDecodeSession(NSData *data);
 NSError *NXError(NSString *message);
 NSData *NXDigest(NSData *data);
 NSString *NXCanonicalPath(NSString *path);
 BOOL NXWrite(NSData *data, NSString *path, NSError **error);
-NSData *NXCompanion(NSData *text, const NoteX::State &state);
-BOOL NXReadCompanion(NSData *bytes, NSData *text, NoteX::State &state);
+NSData *NXCompanion(NSData *text, const NoteQu::State &state);
+BOOL NXReadCompanion(NSData *bytes, NSData *text, NoteQu::State &state);
 BOOL NXOwnedCompanion(NSData *bytes);
 
 @interface NXStorage : NSObject

@@ -1,7 +1,7 @@
 #import "Update.h"
 #include "ColumnNumbers.h"
 // Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
-// Native NoteX application, created 2026-11-01.
+// Native NoteQu application, created 2026-11-01.
 #import <Cocoa/Cocoa.h>
 #import <CoreText/CoreText.h>
 #import "ScintillaView.h"
@@ -40,18 +40,18 @@ static void SetText(ScintillaView *view, NSData *data) {
     Send(view, SCI_EMPTYUNDOBUFFER);
     Send(view, SCI_SETSAVEPOINT);
 }
-static NoteX::State State(ScintillaView *view) {
-    NoteX::State state;
-    Send(view, NoteX::GetState, 0, reinterpret_cast<sptr_t>(&state));
+static NoteQu::State State(ScintillaView *view) {
+    NoteQu::State state;
+    Send(view, NoteQu::GetState, 0, reinterpret_cast<sptr_t>(&state));
     return state;
 }
-static void Restore(ScintillaView *view, NoteX::State state) {
-    NoteX::Restore restore{std::move(state), false};
-    Send(view, NoteX::SetState, 0, reinterpret_cast<sptr_t>(&restore));
+static void Restore(ScintillaView *view, NoteQu::State state) {
+    NoteQu::Restore restore{std::move(state), false};
+    Send(view, NoteQu::SetState, 0, reinterpret_cast<sptr_t>(&restore));
 }
 static void Alert(NSString *message) {
     NSAlert *alert = [NSAlert new];
-    alert.messageText = @"NoteX";
+    alert.messageText = @"NoteQu";
     alert.informativeText = message ?: @"The operation could not be completed.";
     [alert runModal];
 }
@@ -372,14 +372,14 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
 }
 - (void)buildMenus {
     NSMenu *root = [NSMenu new];
-    NSMenu *app = [self menu:@"NoteX" parent:root];
-    [self item:app title:@"About NoteX" action:@selector(about:) key:@"" tag:0];
+    NSMenu *app = [self menu:@"NoteQu" parent:root];
+    [self item:app title:@"About NoteQu" action:@selector(about:) key:@"" tag:0];
     [self item:app title:@"Check for Updates…" action:@selector(checkUpdates:) key:@"" tag:0];
     [self item:app title:@"Automatic Update Checks…" action:@selector(updateSettings:) key:@"" tag:0];
     [app addItem:NSMenuItem.separatorItem];
-    NSMenuItem *hide = [[NSMenuItem alloc] initWithTitle:@"Hide NoteX" action:@selector(hide:) keyEquivalent:@"h"];
+    NSMenuItem *hide = [[NSMenuItem alloc] initWithTitle:@"Hide NoteQu" action:@selector(hide:) keyEquivalent:@"h"];
     [app addItem:hide];
-    NSMenuItem *quit = [[NSMenuItem alloc] initWithTitle:@"Quit NoteX" action:@selector(terminate:) keyEquivalent:@"q"];
+    NSMenuItem *quit = [[NSMenuItem alloc] initWithTitle:@"Quit NoteQu" action:@selector(terminate:) keyEquivalent:@"q"];
     [app addItem:quit];
     NSMenu *file = [self menu:@"File" parent:root];
     [self item:file title:@"New Tab" action:@selector(newDocument:) key:@"n" tag:0];
@@ -401,12 +401,12 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     [self item:edit title:@"Find Next" action:@selector(findNext:) key:@"g" tag:0];
     [self item:edit title:@"Go to Line…" action:@selector(goToLine:) key:@"l" tag:0];
     NSMenu *format = [self menu:@"Format" parent:root];
-    [self item:format title:@"Bold" action:@selector(toggleFormat:) key:@"b" tag:NoteX::Bold];
-    [self item:format title:@"Italic" action:@selector(toggleFormat:) key:@"i" tag:NoteX::Italic];
-    [self item:format title:@"Underline" action:@selector(toggleFormat:) key:@"u" tag:NoteX::Underline];
-    [self item:format title:@"Strikethrough" action:@selector(toggleFormat:) key:@"" tag:NoteX::Strike];
-    [self item:format title:@"Text Color…" action:@selector(pickColor:) key:@"" tag:NoteX::Fore];
-    [self item:format title:@"Highlight Color…" action:@selector(pickColor:) key:@"" tag:NoteX::Highlight];
+    [self item:format title:@"Bold" action:@selector(toggleFormat:) key:@"b" tag:NoteQu::Bold];
+    [self item:format title:@"Italic" action:@selector(toggleFormat:) key:@"i" tag:NoteQu::Italic];
+    [self item:format title:@"Underline" action:@selector(toggleFormat:) key:@"u" tag:NoteQu::Underline];
+    [self item:format title:@"Strikethrough" action:@selector(toggleFormat:) key:@"" tag:NoteQu::Strike];
+    [self item:format title:@"Text Color…" action:@selector(pickColor:) key:@"" tag:NoteQu::Fore];
+    [self item:format title:@"Highlight Color…" action:@selector(pickColor:) key:@"" tag:NoteQu::Highlight];
     [self item:format title:@"Clear Formatting" action:@selector(clearFormat:) key:@"" tag:0];
     [self item:format title:@"Bulleted List" action:@selector(makeList:) key:@"" tag:0];
     [self item:format title:@"Numbered List" action:@selector(makeList:) key:@"" tag:1];
@@ -440,7 +440,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     self.window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 1120, 740)
         styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable
         backing:NSBackingStoreBuffered defer:NO];
-    self.window.title = @"NoteX";
+    self.window.title = @"NoteQu";
     self.window.minSize = NSMakeSize(900, 450);
     self.window.delegate = self;
     self.window.releasedWhenClosed = NO;
@@ -471,12 +471,12 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     }
     NSStackView *toolbar = [NSStackView stackViewWithViews:@[
         [self button:@"+" action:@selector(newDocument:) tag:0], self.family, self.size,
-        [self button:@"B" action:@selector(toggleFormat:) tag:NoteX::Bold],
-        [self button:@"I" action:@selector(toggleFormat:) tag:NoteX::Italic],
-        [self button:@"U" action:@selector(toggleFormat:) tag:NoteX::Underline],
-        [self button:@"S̶" action:@selector(toggleFormat:) tag:NoteX::Strike],
-        [self button:@"Color" action:@selector(pickColor:) tag:NoteX::Fore],
-        [self button:@"Highlight" action:@selector(pickColor:) tag:NoteX::Highlight], self.bulletListButton, self.numberedListButton, self.language]];
+        [self button:@"B" action:@selector(toggleFormat:) tag:NoteQu::Bold],
+        [self button:@"I" action:@selector(toggleFormat:) tag:NoteQu::Italic],
+        [self button:@"U" action:@selector(toggleFormat:) tag:NoteQu::Underline],
+        [self button:@"S̶" action:@selector(toggleFormat:) tag:NoteQu::Strike],
+        [self button:@"Color" action:@selector(pickColor:) tag:NoteQu::Fore],
+        [self button:@"Highlight" action:@selector(pickColor:) tag:NoteQu::Highlight], self.bulletListButton, self.numberedListButton, self.language]];
     self.toolbar=toolbar;
     toolbar.spacing = 6;
     toolbar.edgeInsets = NSEdgeInsetsMake(8, 10, 8, 10);
@@ -538,7 +538,13 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     self.dark = YES; self.wrap = YES; self.restoring = YES;
     NSError *error = nil;
     NSString *profile = NSProcessInfo.processInfo.environment[@"NOTEX_PROFILE"];
-    if (!profile.length) profile = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/NoteX"];
+    if (!profile.length) {
+        NSString *support = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support"];
+        NSString *current = [support stringByAppendingPathComponent:@"NoteQu"];
+        NSString *previous = [support stringByAppendingPathComponent:@"NoteX"];
+        NSFileManager *files = NSFileManager.defaultManager;
+        profile = ![files fileExistsAtPath:current] && [files fileExistsAtPath:previous] ? previous : current;
+    }
     self.storage = [[NXStorage alloc] initWithDirectory:profile error:&error];
     NSDictionary *session = self.storage ? [self.storage load:&error] : nil;
     if (error) { Alert(error.localizedDescription); exit(1); }
@@ -583,7 +589,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     [NSApp activateIgnoringOtherApps:YES];
     [self.window makeFirstResponder:self.current.editor];
     [self tick:nil];
-    if (self.storage.recoveredPrevious) Alert(@"The latest session snapshot could not be read. NoteX restored the previous snapshot and retained the damaged file in the session folder. The most recent edits may be missing.");
+    if (self.storage.recoveredPrevious) Alert(@"The latest session snapshot could not be read. NoteQu restored the previous snapshot and retained the damaged file in the session folder. The most recent edits may be missing.");
     for (NSString *path in self.pendingFiles) {
         NSError *openError = nil;
         if (![self openPath:path error:&openError]) Alert(openError.localizedDescription);
@@ -607,7 +613,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
         SetText(doc.editor, record[@"text"]);
         if ([record[@"eol"] isKindOfClass:NSNumber.class]) Send(doc.editor, SCI_SETEOLMODE, [record[@"eol"] integerValue]);
         for (NSNumber *line in record[@"bookmarks"]) if (line.longLongValue >= 0 && line.longLongValue < Send(doc.editor, SCI_GETLINECOUNT)) Send(doc.editor, SCI_MARKERADD, line.unsignedLongLongValue, 0);
-        NoteX::State state;
+        NoteQu::State state;
         NXReadCompanion(record[@"format"], record[@"text"], state);
         Restore(doc.editor, std::move(state));
         Send(doc.editor, SCI_EMPTYUNDOBUFFER); Send(doc.editor, SCI_SETSAVEPOINT);
@@ -713,14 +719,14 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     if(self.secondaryVisible)[self updateLineNumberMargin:self.secondaryEditor];
     // Leave the active field editor alone while a font value is being entered.
     if (self.window.firstResponder == self.family.currentEditor || self.window.firstResponder == self.size.currentEditor) return;
-    NoteX::SelectionFormat query;
+    NoteQu::SelectionFormat query;
     query.start = Send(doc.editor, SCI_GETSELECTIONSTART); query.end = Send(doc.editor, SCI_GETSELECTIONEND);
-    Send(doc.editor, NoteX::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
-    self.family.stringValue = (query.value.mask & NoteX::Family) ? @(query.value.family.c_str()) : self.preferences[@"font"];
-    self.size.stringValue = [NSString stringWithFormat:@"%g", (query.value.mask & NoteX::Size) ? query.value.size / 100.0 : [self.preferences[@"fontSize"] doubleValue]];
+    Send(doc.editor, NoteQu::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
+    self.family.stringValue = (query.value.mask & NoteQu::Family) ? @(query.value.family.c_str()) : self.preferences[@"font"];
+    self.size.stringValue = [NSString stringWithFormat:@"%g", (query.value.mask & NoteQu::Size) ? query.value.size / 100.0 : [self.preferences[@"fontSize"] doubleValue]];
     NSDictionary *custom=[self userLanguage:doc];
     [self.language selectItemWithTitle:custom?[@"User: " stringByAppendingString:custom[@"name"]]:[doc.lexer isEqual:@"null"] ? @"Plain Text" : doc.lexer];
-    self.window.title = [NSString stringWithFormat:@"%@%@ — NoteX", doc.title, doc.dirty ? @" •" : @""];
+    self.window.title = [NSString stringWithFormat:@"%@%@ — NoteQu", doc.title, doc.dirty ? @" •" : @""];
     if (!self.snapshotFailed) self.status.stringValue = [NSString stringWithFormat:@"  Line %ld   Column %ld   %@   %lu characters",
         (long)Send(doc.editor, SCI_LINEFROMPOSITION, Send(doc.editor, SCI_GETCURRENTPOS)) + 1,
         (long)Send(doc.editor, SCI_GETCOLUMN, Send(doc.editor, SCI_GETCURRENTPOS)) + 1,
@@ -808,13 +814,13 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     [self configureLexer:doc];
     NSString *sidecar = [path stringByAppendingString:@".notex"];
     if (![NSFileManager.defaultManager fileExistsAtPath:sidecar]) {
-        auto old = NoteX::previousSidecarExtension();
+        auto old = NoteQu::previousSidecarExtension();
         std::string extension(old.begin(), old.end());
         sidecar = [path stringByAppendingString:@(extension.c_str())];
     }
     if ([NSFileManager.defaultManager fileExistsAtPath:sidecar]) {
         NSData *data = [NSData dataWithContentsOfFile:sidecar];
-        NoteX::State state;
+        NoteQu::State state;
         if (NXReadCompanion(data, Text(doc.editor), state)) Restore(doc.editor, std::move(state));
         else Alert(@"The formatting companion does not match this document or could not be read. The text was opened without applying it; the companion was preserved.");
     }
@@ -835,7 +841,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     if ([path isEqual:doc.path]) {
         NSData *existing = [NSData dataWithContentsOfFile:path options:0 error:error];
         if (!existing || ![NXDigest(existing) isEqual:doc.diskHash]) {
-            if (error) *error = NXError(@"The file changed outside NoteX or is no longer readable. Use Save As to preserve your edits without overwriting it."); return NO;
+            if (error) *error = NXError(@"The file changed outside NoteQu or is no longer readable. Use Save As to preserve your edits without overwriting it."); return NO;
         }
     }
     NSString *companion = [path stringByAppendingString:@".notex"];
@@ -878,7 +884,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     NXDocument *doc = self.current;
     if (doc.dirty) {
         NSAlert *alert = [NSAlert new]; alert.messageText = [NSString stringWithFormat:@"Save changes to %@?", doc.title];
-        alert.informativeText = @"Closing this tab discards its unsaved changes. Quitting NoteX instead preserves open tabs for your next session.";
+        alert.informativeText = @"Closing this tab discards its unsaved changes. Quitting NoteQu instead preserves open tabs for your next session.";
         [alert addButtonWithTitle:@"Save"]; [alert addButtonWithTitle:@"Cancel"]; [alert addButtonWithTitle:@"Discard"];
         auto response = [alert runModal];
         if (response == NSAlertSecondButtonReturn || (response == NSAlertFirstButtonReturn && ![self saveCurrentAs:NO])) return;
@@ -891,38 +897,38 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     if (!self.documents.count) [self newDocument:nil];
     [self tick:nil];
 }
-- (void)apply:(NoteX::Format)format fields:(unsigned)fields {
+- (void)apply:(NoteQu::Format)format fields:(unsigned)fields {
     auto *view = self.current.editor;
-    NoteX::Change change; change.start = Send(view, SCI_GETSELECTIONSTART); change.end = Send(view, SCI_GETSELECTIONEND);
+    NoteQu::Change change; change.start = Send(view, SCI_GETSELECTIONSTART); change.end = Send(view, SCI_GETSELECTIONEND);
     change.value = format; change.fields = fields;
-    Send(view, NoteX::ApplyFormat, 0, reinterpret_cast<sptr_t>(&change));
+    Send(view, NoteQu::ApplyFormat, 0, reinterpret_cast<sptr_t>(&change));
     [self.window makeFirstResponder:view]; [self tick:nil];
 }
 - (void)toggleFormat:(id)sender {
     unsigned field = static_cast<unsigned>([sender tag]);
-    NoteX::SelectionFormat query; auto *view = self.current.editor;
+    NoteQu::SelectionFormat query; auto *view = self.current.editor;
     query.start = Send(view, SCI_GETSELECTIONSTART); query.end = Send(view, SCI_GETSELECTIONEND);
-    Send(view, NoteX::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
-    NoteX::Format format = query.value; format.mask |= field;
+    Send(view, NoteQu::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
+    NoteQu::Format format = query.value; format.mask |= field;
     bool mixed = query.mixed & field;
-    if (field == NoteX::Bold) format.bold = mixed || !format.bold;
-    if (field == NoteX::Italic) format.italic = mixed || !format.italic;
-    if (field == NoteX::Underline) format.underline = mixed || !format.underline;
-    if (field == NoteX::Strike) format.strike = mixed || !format.strike;
+    if (field == NoteQu::Bold) format.bold = mixed || !format.bold;
+    if (field == NoteQu::Italic) format.italic = mixed || !format.italic;
+    if (field == NoteQu::Underline) format.underline = mixed || !format.underline;
+    if (field == NoteQu::Strike) format.strike = mixed || !format.strike;
     [self apply:format fields:field];
 }
 - (void)changeFamily:(id)sender {
     if (![NSFontManager.sharedFontManager.availableFontFamilies containsObject:self.family.stringValue]) { NSBeep(); return; }
-    NoteX::Format format; format.mask = NoteX::Family; format.family = self.family.stringValue.UTF8String;
-    [self apply:format fields:NoteX::Family];
+    NoteQu::Format format; format.mask = NoteQu::Family; format.family = self.family.stringValue.UTF8String;
+    [self apply:format fields:NoteQu::Family];
 }
 - (void)changeSize:(id)sender {
     double size = self.size.doubleValue;
     if (!std::isfinite(size) || size < 6 || size > 96) { NSBeep(); return; }
-    NoteX::Format format; format.mask = NoteX::Size; format.size = static_cast<int>(size * 100);
-    [self apply:format fields:NoteX::Size];
+    NoteQu::Format format; format.mask = NoteQu::Size; format.size = static_cast<int>(size * 100);
+    [self apply:format fields:NoteQu::Size];
 }
-- (void)clearFormat:(id)sender { [self apply:NoteX::Format{} fields:NoteX::All]; }
+- (void)clearFormat:(id)sender { [self apply:NoteQu::Format{} fields:NoteQu::All]; }
 - (void)pickColor:(id)sender {
     self.colorField = static_cast<unsigned>([sender tag]);
     NSColorPanel *panel = NSColorPanel.sharedColorPanel; panel.target = self; panel.action = @selector(changeColor:);
@@ -931,8 +937,8 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
 - (void)changeColor:(NSColorPanel *)panel {
     NSColor *color = [panel.color colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace];
     unsigned rgb = (unsigned)lround(color.redComponent * 255) | ((unsigned)lround(color.greenComponent * 255) << 8) | ((unsigned)lround(color.blueComponent * 255) << 16);
-    NoteX::Format format; format.mask = self.colorField;
-    if (self.colorField == NoteX::Fore) format.fore = rgb; else format.highlight = rgb;
+    NoteQu::Format format; format.mask = self.colorField;
+    if (self.colorField == NoteQu::Fore) format.fore = rgb; else format.highlight = rgb;
     [self apply:format fields:self.colorField];
 }
 - (void)makeList:(id)sender { [self toggleList:[sender tag] != 0]; }
@@ -956,7 +962,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     if ([alert runModal] == NSAlertFirstButtonReturn) Send(self.current.editor, SCI_GOTOLINE, std::max<NSInteger>(0, field.integerValue - 1));
 }
 - (void)about:(id)sender {
-    [NSApp orderFrontStandardAboutPanelWithOptions:@{NSAboutPanelOptionApplicationName:@"NoteX",
+    [NSApp orderFrontStandardAboutPanelWithOptions:@{NSAboutPanelOptionApplicationName:@"NoteQu",
         NSAboutPanelOptionApplicationVersion:[NSString stringWithFormat:@"%@ — Native macOS Preview %@",[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"],[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"]],
         NSAboutPanelOptionCredits:[[NSAttributedString alloc] initWithString:@"Native AppKit • Scintilla • Lexilla\nCopyright © 2026 Berk Kivircik and contributors.\nGNU General Public License version 3.\nSee Help for source, licensing, and preview limitations."]}];
 }
@@ -968,7 +974,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
 }
 - (void)showSession:(id)sender { [NSWorkspace.sharedWorkspace openURL:[NSURL fileURLWithPath:self.storage.directory]]; }
 - (void)guide:(id)sender { [NSWorkspace.sharedWorkspace openURL:[NSBundle.mainBundle URLForResource:@"README" withExtension:@"md"]]; }
-- (void)source:(id)sender { [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:@"https://github.com/berkkivircik/NoteX"]]; }
+- (void)source:(id)sender { [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:@"https://github.com/berkkivircik/NoteQu"]]; }
 @end
 
 #include "DocumentCommands.inc"

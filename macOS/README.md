@@ -1,6 +1,6 @@
-# NoteX for macOS
+# NoteQu for macOS
 
-The native macOS edition uses AppKit, Cocoa Scintilla, the shared NoteX formatting
+The native macOS edition uses AppKit, Cocoa Scintilla, the shared NoteQu formatting
 engine, and Lexilla. It does not use Wine, Rosetta, Electron, or a web view.
 Version 1.5.0 adds automatic lists, left-aligned wrapping tabs, a compact preferences
 window, and native equivalents for the Windows edition's editing and workbench
@@ -10,7 +10,7 @@ platform substitutions, and verification boundaries.
 ## Install
 
 Requires an Apple Silicon Mac and macOS 14 or later. Open the release DMG and
-drag NoteX.app to Applications, or extract the ZIP and move NoteX.app there.
+drag NoteQu.app to Applications, or extract the ZIP and move NoteQu.app there.
 The DMG and ZIP contain the same application. The application is ad-hoc signed,
 not Apple Developer ID signed or notarized. If macOS blocks it, review the
 download source and use System Settings > Privacy & Security > Open Anyway.
@@ -20,11 +20,11 @@ Do not disable Gatekeeper globally.
 
 Session snapshots, including unsaved text, formatting, cursor positions, bookmarks,
 project trees, menu layouts, and preferences,
-are stored in `~/Library/Application Support/NoteX`, outside the application.
-Quit NoteX normally before replacing NoteX.app. Keep the Application Support
+are stored outside the application. The default is `~/Library/Application Support/NoteQu`. When upgrading, the app opens the existing `~/Library/Application Support/NoteX` folder if no NoteQu profile exists.
+Quit NoteQu normally before replacing NoteQu.app. Keep the Application Support
 folder. Replacing the application does not replace your session.
 Split layout, independent view positions, shortcut assignments, custom languages,
-and themes are also stored in the session folder, outside NoteX.app.
+and themes are also stored in the session folder, outside NoteQu.app.
 
 Command-Q and closing the window preserve open tabs. Explicitly closing a tab
 asks whether to save or discard unsaved changes. Snapshots run while you edit;
@@ -38,16 +38,16 @@ Windows session.xml files and absolute Windows paths are not imported.
 ## Build
 
 Install Xcode Command Line Tools, then run `python3 macOS/build.py` from a clean
-source checkout. The output is `dist/macOS/NoteX.app`. No package manager or
+source checkout. The output is `dist/macOS/NoteQu.app`. No package manager or
 downloaded runtime is needed. Run `python3 macOS/test.py` for isolated native
 integration tests. Test data is synthetic and never comes from a user profile.
 
 ## Menus and panels
 
-Choose NoteX > Customize Menus to hide commands and reorder top-level menus or
+Choose NoteQu > Customize Menus to hide commands and reorder top-level menus or
 commands within a menu. Apply saves the layout; Cancel keeps the previous layout.
 The application menu, Quit, and menu recovery commands remain accessible.
-NoteX > Reset Menu Layout restores the defaults.
+NoteQu > Reset Menu Layout restores the defaults.
 
 View > Function List toggles the sidebar and shows functions and classes for the active document. Double-click
 a symbol to navigate to its definition. Filter narrows the tree; A–Z switches between
@@ -101,18 +101,18 @@ run the search again if you change the query or replacement.
 Apply Previewed Replacements asks for confirmation. It checks that the searched
 content is still current, skips dirty saved tabs and externally changed files,
 backs up original documents and formatting companions, then saves through the
-normal NoteX path. UTF-16 BOMs, formatting companions, and file permission bits
+normal NoteQu path. UTF-16 BOMs, formatting companions, and file permission bits
 are preserved. Open Documents results, including dirty saved tabs and untitled tabs, are edited
 with a single undo action and are not silently saved to disk. Successful changes remain applied if another file fails;
 the result report lists skipped files and errors.
 
 Open Backups in the search window opens the recovery directory.
 Backups, `recovery.json`, and `report.json` are stored under
-`~/Library/Application Support/NoteX/ReplaceBackups/<batch ID>`.
+`~/Library/Application Support/NoteQu/ReplaceBackups/<batch ID>`.
 The recovery map is written before each file is changed, so original paths remain
 available if the app stops during a batch. The final report records outcomes. Keep these backups
 until you have reviewed the changes. Restore copies only after closing the file
-in NoteX, and keep its formatting companion beside it.
+in NoteQu, and keep its formatting companion beside it.
 
 Search is cancellable and bounded to 10,000 files and 20,000 matches. Unsupported
 encodings, binary files, unreadable files, symbolic links, application bundles,
@@ -121,20 +121,20 @@ stopped by the per-document time limit. Narrow the search if a limit is reached.
 
 ## Preferences, shortcuts, languages, and themes
 
-NoteX > Preferences edits font, size, indentation, whitespace, wrapping, appearance,
+NoteQu > Preferences edits font, size, indentation, whitespace, wrapping, appearance,
 caret behavior, the column guide, new-document encoding and line endings, and the
 recovery interval. Reset restores defaults in the draft. Apply saves the changes;
 Cancel leaves the current preferences unchanged. A longer recovery interval means
 more recent edits can be lost if the process stops before the next snapshot.
 
-NoteX > Shortcut Editor lists native commands, including hidden menu commands.
+NoteQu > Shortcut Editor lists native commands, including hidden menu commands.
 Choose a command, enter a character or F1–F20, select modifiers, and click Assign.
 Apply checks conflicts and saves the draft. An empty key removes an assignment.
 Text shortcuts require Command or Control; function keys can be unmodified.
 Command-Q remains reserved for Quit. Reset All restores default shortcuts in the
 draft. Menu visibility and shortcut assignments can be reset independently.
 
-NoteX > Language Editor creates, duplicates, and deletes user-defined languages.
+NoteQu > Language Editor creates, duplicates, and deletes user-defined languages.
 Configure filename extensions without a leading dot, eight keyword groups,
 case sensitivity, line/block comments, ASCII string quote and escape characters,
 and folding tokens. Open matching files to apply an extension rule, or choose
@@ -142,11 +142,11 @@ View > Choose User-Defined Language for an existing tab. Keyword matching suppor
 Unicode identifiers. User-defined syntax is styled for documents up to 16 MB.
 The built-in Lexilla language selector remains available for standard languages.
 
-NoteX > Theme Editor edits the editor background, text, caret, selection, current
+NoteQu > Theme Editor edits the editor background, text, caret, selection, current
 line, line numbers, keyword groups, comments, strings, numbers, and operators.
 Keyword bold and comment italic options are included. Choose a theme through
 View > Choose Theme. Lexilla semantic style names map built-in syntax to theme
-roles; custom languages use all eight keyword colors. Explicit per-range NoteX
+roles; custom languages use all eight keyword colors. Explicit per-range NoteQu
 formatting takes precedence over syntax colors.
 
 The preferences, language, and theme editors support validated JSON import/export.
@@ -164,7 +164,7 @@ Line-number margins adjust to the number of digits and the editor font instead
 of reserving a fixed-width blank area. Bookmark and folding controls remain available.
 
 ## Other features
-- NoteX > Preferences controls the default font, size, tab width, tabs/spaces,
+- NoteQu > Preferences controls the default font, size, tab width, tabs/spaces,
   line numbers, whitespace, automatic indentation, brace matching, and word completion.
 - Bookmarks supports toggle, next, previous, and clear. The editor margins also support
   bookmarks and syntax folding; View includes Fold All and Unfold All.
@@ -178,7 +178,7 @@ of reserving a fixed-width blank area. Bookmark and folding controls remain avai
 
 Windows DLL plugins cannot run in the native application. Native settings exports
 use JSON; Windows session, shortcut, menu, macro, UDL, and theme configuration files
-are not automatically imported. Notepad++ project workspace XML and NoteX formatting
+are not automatically imported. Notepad++ project workspace XML and NoteQu formatting
 companions are supported as described above. Both Boost.Regex and ICU are selectable; expressions must match the selected engine.
 Macro parity and Windows settings/data migration are outside this release. Existing
 native macro records remain readable for backward compatibility. The interface is US English.

@@ -468,12 +468,12 @@ IDM_WINDOW_SORT_FD_DSC,Modified Time Descending,Native implementation,Navigation
 IDM_WINDOW_WINDOWS,Windows...,Native implementation,NavigationCommands.inc / UtilityCommands.inc / Chooser.mm,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
 IDM_WINDOW_MRU_FIRST,Recent Window,Native implementation,NavigationCommands.inc / UtilityCommands.inc / Chooser.mm,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
 IDM_CMDLINEARGUMENTS,Command Line Arguments...,Native substitute,"macOS/README.md: app bundle, native profile and open-file behavior; Windows command-line switches do not apply",Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
-IDM_HOMESWEETHOME,NoteX Home,Native implementation,main.mm Help menu / UtilityCommands.inc debugInformation:,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
-IDM_PROJECTPAGE,NoteX Source Code,Native implementation,main.mm Help menu / UtilityCommands.inc debugInformation:,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
+IDM_HOMESWEETHOME,NoteQu Home,Native implementation,main.mm Help menu / UtilityCommands.inc debugInformation:,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
+IDM_PROJECTPAGE,NoteQu Source Code,Native implementation,main.mm Help menu / UtilityCommands.inc debugInformation:,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
 IDM_ONLINEDOCUMENT,Notepad++ Online User Manual,Native substitute,Help > macOS Guide and Limitations; upstream Windows support links are not native features,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
 IDM_FORUM,Notepad++ Community (Forum),Native substitute,Help > macOS Guide and Limitations; upstream Windows support links are not native features,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
-IDM_UPDATE_NPP,Update Notepad++,Intentionally disabled,Upstream updater remains disabled in NoteX,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
-IDM_CONFUPDATERPROXY,Set Updater Proxy...,Intentionally disabled,Upstream updater remains disabled in NoteX,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
+IDM_UPDATE_NPP,Update Notepad++,Intentionally disabled,Upstream updater remains disabled in NoteQu,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
+IDM_CONFUPDATERPROXY,Set Updater Proxy...,Intentionally disabled,Upstream updater remains disabled in NoteQu,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
 IDM_DEBUGINFO,Debug Info...,Native implementation,main.mm Help menu / UtilityCommands.inc debugInformation:,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
-IDM_ABOUT,About NoteX,Native implementation,main.mm Help menu / UtilityCommands.inc debugInformation:,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
+IDM_ABOUT,About NoteQu,Native implementation,main.mm Help menu / UtilityCommands.inc debugInformation:,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.
 IDM_DROPLIST_LIST,Recent Window,Native implementation,NavigationCommands.inc / UtilityCommands.inc / Chooser.mm,Source mapping; see the behavior-level test matrix in FEATURE_PARITY.md.

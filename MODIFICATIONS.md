@@ -1,5 +1,9 @@
 # NoteX modification notice
 
+## 2026-11-18 — NoteQu application and repository identity
+
+Renamed the active fork and both applications to NoteQu. Updated Windows resources, the macOS bundle, build and packaging scripts, and the authenticated update repository and inventories. Preserved legacy profile names, saved data formats, signing key storage, and historical release assets.
+
 ## 2026-11-18 — NoteX 1.6.2 About dialog maintenance
 
 Modified the Windows About dialog notice to use NOTEPAD_PLUS_VERSION instead of a separately hard-coded product version and date. Updated release metadata and packaging to 1.6.2. Original copyright and license notices remain intact.

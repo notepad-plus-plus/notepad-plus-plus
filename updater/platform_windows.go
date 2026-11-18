@@ -28,7 +28,7 @@ func replaceFile(src, dst string) error {
 	return nil
 }
 func message(s string, flags uintptr) uintptr {
-	t, _ := syscall.UTF16PtrFromString("NoteX Updates")
+	t, _ := syscall.UTF16PtrFromString("NoteQu Updates")
 	b, _ := syscall.UTF16PtrFromString(s)
 	r, _, _ := syscall.NewLazyDLL("user32.dll").NewProc("MessageBoxW").Call(0, uintptr(unsafe.Pointer(b)), uintptr(unsafe.Pointer(t)), flags|0x10000)
 	return r
@@ -67,7 +67,7 @@ func processAlive(pid int) bool {
 }
 func applicationRunning(root string) bool {
 	// Windows refuses write/delete sharing while the executable is mapped. Test without mutation.
-	p, _ := syscall.UTF16PtrFromString(filepath.Join(root, "NoteX.exe"))
+	p, _ := syscall.UTF16PtrFromString(filepath.Join(root, "NoteQu.exe"))
 	h, e := syscall.CreateFile(p, syscall.GENERIC_READ|syscall.GENERIC_WRITE, 0, nil, syscall.OPEN_EXISTING, 0, 0)
 	if e != nil {
 		return true
@@ -77,7 +77,7 @@ func applicationRunning(root string) bool {
 }
 func verifyPlatform(root string) error { return nil } // Ed25519 authenticates every executable byte before launch.
 func launchApplication(root, profile string) (*os.Process, error) {
-	c := exec.Command(filepath.Join(root, "NoteX.exe"), "-multiInst", "-settingsDir="+profile)
+	c := exec.Command(filepath.Join(root, "NoteQu.exe"), "-multiInst", "-settingsDir="+profile)
 	c.Dir = root
 	detach(c)
 	if e := c.Start(); e != nil {

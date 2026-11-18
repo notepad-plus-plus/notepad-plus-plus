@@ -1,6 +1,6 @@
 
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified 2026-11-01: preserve NoteX formatting on the native macOS clipboard.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified 2026-11-01: preserve NoteQu formatting on the native macOS clipboard.
 /**
  * Scintilla source code edit control
  * @file ScintillaCocoa.mm - Cocoa subclass of ScintillaBase
@@ -1115,17 +1115,17 @@ void ScintillaCocoa::Paste(bool forceRectangular) {
 		const bool richPaste = !selectedText.rectangular && sel.Count() == 1;
 		ClearSelection(false);
 		const auto start = sel.MainCaret();
-		auto mapOffset = [&](NoteX::Position offset) -> Sci::Position {
+		auto mapOffset = [&](NoteQu::Position offset) -> Sci::Position {
 			const auto prefix = selectedText.AsView().substr(0, static_cast<size_t>(offset));
 			return convertPastes ? Document::TransformLineEnds(prefix, pdoc->eolMode).size() : offset;
 		};
 		InsertPasteShape(selectedText.AsView(),
 				 selectedText.rectangular ? PasteShape::rectangular : PasteShape::stream);
 		if (richPaste && sel.MainCaret() - start == mapOffset(selectedText.Length())) {
-			NoteX::Change clear; clear.start = start; clear.end = sel.MainCaret();
+			NoteQu::Change clear; clear.start = start; clear.end = sel.MainCaret();
 			pdoc->ApplyRichFormat(clear);
 			for (auto run : selectedText.richSelection.runs) {
-				NoteX::Change change; change.start = start + mapOffset(run.start); change.end = start + mapOffset(run.end);
+				NoteQu::Change change; change.start = start + mapOffset(run.start); change.end = start + mapOffset(run.end);
 				change.value = selectedText.richSelection.formats[run.style];
 				pdoc->ApplyRichFormat(change);
 			}
@@ -1700,7 +1700,7 @@ void ScintillaCocoa::SetPasteboardData(NSPasteboard *board, const SelectionText 
 
 	[board setString: (__bridge NSString *)cfsVal forType: NSPasteboardTypeString];
 	if (!selectedText.rectangular && selectedText.codePage == SC_CP_UTF8) {
-		const auto encoded = NoteX::encode(selectedText.richSelection);
+		const auto encoded = NoteQu::encode(selectedText.richSelection);
 		NSDictionary *payload = @{@"text": [NSData dataWithBytes:selectedText.Data() length:selectedText.Length()],
 			@"format": [NSData dataWithBytes:encoded.data() length:encoded.size()]};
 		NSData *data = [NSPropertyListSerialization dataWithPropertyList:payload
@@ -1751,7 +1751,7 @@ bool ScintillaCocoa::GetPasteboardData(NSPasteboard *board, SelectionText *selec
 					[payload[@"format"] isKindOfClass:NSData.class] &&
 					[payload[@"text"] isEqual:[NSData dataWithBytes:dest.data() length:dest.size()]]) {
 					NSData *format = payload[@"format"];
-					NoteX::decode(std::string(static_cast<const char *>(format.bytes), format.length), selectedText->richSelection, dest.size());
+					NoteQu::decode(std::string(static_cast<const char *>(format.bytes), format.length), selectedText->richSelection, dest.size());
 				}
 			}
 		}

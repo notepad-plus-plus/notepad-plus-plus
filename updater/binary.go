@@ -30,9 +30,9 @@ func binaryMatches(data []byte, platform, arch string) bool {
 	return false
 }
 func validateExecutables(root string, s Signed) error {
-	names := []string{"NoteX.exe", "NoteXUpdater.exe"}
+	names := []string{"NoteQu.exe", "NoteQuUpdater.exe"}
 	if s.Manifest.Platform == "darwin" {
-		names = []string{"Contents/MacOS/NoteX", "Contents/MacOS/NoteXUpdater"}
+		names = []string{"Contents/MacOS/NoteQu", "Contents/MacOS/NoteQuUpdater"}
 	}
 	for _, p := range names {
 		b, e := os.ReadFile(filepath.Join(root, filepath.FromSlash(p)))

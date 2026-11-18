@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-     Modified for NoteX; latest publication changes: 2026-10-28.
+<!-- NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+     Modified for NoteQu; latest publication changes: 2026-10-28.
      See MODIFICATIONS.md. Original copyright and license notices are preserved. -->
 
 <Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -308,10 +308,10 @@
     <ClInclude Include="..\src\menuCmdID.h" />
     <ClInclude Include="..\src\MISC\Exception\MiniDumper.h" />
     <ClInclude Include="..\src\Notepad_plus.h" />
-    <ClInclude Include="..\src\NoteXTools.h" />
-    <ClInclude Include="..\src\NoteXMenu.h" />
-    <ClInclude Include="..\src\NoteXSidecar.h" />
-    <ClInclude Include="..\..\scintilla\include\NoteXFormat.h" />
+    <ClInclude Include="..\src\NoteQuTools.h" />
+    <ClInclude Include="..\src\NoteQuMenu.h" />
+    <ClInclude Include="..\src\NoteQuSidecar.h" />
+    <ClInclude Include="..\..\scintilla\include\NoteQuFormat.h" />
     <ClInclude Include="..\src\MISC\PluginsManager\Notepad_plus_msgs.h" />
     <ClInclude Include="..\src\Notepad_plus_Window.h" />
     <ClInclude Include="..\src\Parameters.h" />

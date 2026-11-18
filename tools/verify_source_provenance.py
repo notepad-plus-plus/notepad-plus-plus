@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the additive public NoteX/upstream provenance transition."""
+"""Verify the additive public NoteQu/upstream provenance transition."""
 import os
 import subprocess
 from pathlib import Path

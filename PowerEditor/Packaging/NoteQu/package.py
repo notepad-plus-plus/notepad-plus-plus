@@ -1,7 +1,7 @@
 # Copyright (C) 2026 Berk Kivircik.
 # SPDX-License-Identifier: GPL-3.0-only
-# Modified for NoteX publication: 2026-11-18.
-"""Build a fresh NoteX portable package from reviewed source-tree inputs."""
+# Modified for NoteQu publication: 2026-11-18.
+"""Build a fresh NoteQu portable package from reviewed source-tree inputs."""
 from binary_metadata import require_metadata
 
 import argparse
@@ -30,7 +30,7 @@ def main():
     repo = packaging.parents[2]
     assets = packaging / 'assets'
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=repo / 'dist/NoteX')
+    parser.add_argument('--output', type=Path, default=repo / 'dist/NoteQu')
     parser.add_argument('--binary', type=Path, default=repo / 'PowerEditor/bin64/notepad++.exe')
     args = parser.parse_args()
     target = args.output.resolve()
@@ -38,8 +38,8 @@ def main():
     if target.exists() and (not target.is_dir() or any(target.iterdir())):
         parser.error('Output must be a new or empty directory. Never overwrite an active profile.')
     require_x64(binary)
-    require_metadata(binary, "1.6.2")
-    require_metadata(repo / "dist/NoteXUpdater.exe", "1.6.2", updater=True)
+    require_metadata(binary, "1.7.0")
+    require_metadata(repo / "dist/NoteQuUpdater.exe", "1.7.0", updater=True)
     source_ref = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip()
     if subprocess.run(['git', 'diff', '--quiet', 'HEAD', '--'], cwd=repo).returncode:
         parser.error('Commit source changes before packaging so the source reference is accurate.')
@@ -48,8 +48,8 @@ def main():
         ET.parse(repo / 'PowerEditor/installer/nativeLang' / name)
     ET.parse(assets / 'config.xml')
     target.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(binary, target / 'NoteX.exe')
-    shutil.copy2(repo / 'dist/NoteXUpdater.exe', target / 'NoteXUpdater.exe')
+    shutil.copy2(binary, target / 'NoteQu.exe')
+    shutil.copy2(repo / 'dist/NoteQuUpdater.exe', target / 'NoteQuUpdater.exe')
     for name in ('UPDATING.md',):
         shutil.copy2(repo / name, target / name)
     for name in ('langs.model.xml', 'stylers.model.xml'):
@@ -70,18 +70,18 @@ def main():
         shutil.copy2(repo / name, target / name)
     shutil.copytree(repo / 'LICENSES', target / 'LICENSES')
     (target / 'SOURCE_CODE.txt').write_text(
-        'NoteX 1.6.2 - corresponding source\n\n'
+        'NoteQu 1.7.0 - corresponding source\n\n'
         f'This package was prepared from source commit: {source_ref}\n'
-        f'Browse: https://github.com/berkkivircik/NoteX/tree/{source_ref}\n'
-        f'Download: https://github.com/berkkivircik/NoteX/archive/{source_ref}.zip\n'
-        'Release source: https://github.com/berkkivircik/NoteX/releases/tag/v1.6.2\n\n'
+        f'Browse: https://github.com/berkkivircik/NoteQu/tree/{source_ref}\n'
+        f'Download: https://github.com/berkkivircik/NoteQu/archive/{source_ref}.zip\n'
+        '\n'
         'The matching source includes the modified editor, embedded libraries, tests,\n'
         'build scripts, packaging inputs, and licenses. See BUILD.md to compile and\n'
         'install modified versions. Source is available without an additional charge.\n'
-        'NoteX is distributed under GNU GPL version 3, without warranty.\n'
+        'NoteQu is distributed under GNU GPL version 3, without warranty.\n'
         'Original component and font notices are included in LICENSES and fonts.\n', encoding='utf-8')
     manifest = {
-        'version': 'NoteX 1.6.2',
+        'version': 'NoteQu 1.7.0',
         'configuration': 'Release',
         'architecture': 'x64',
         'created_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),

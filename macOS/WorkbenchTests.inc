@@ -6,7 +6,7 @@ static void CancelNextDialog(void) {
 }
 @implementation NXApp (WorkbenchTests)
 - (void)seedWorkbench {
-    NSMutableDictionary *language=[NXDefaultLanguage() mutableCopy];language[@"id"]=@"test-language";language[@"name"]=@"Test Language";language[@"extensions"]=@"nxtest";language[@"keywords1"]=@"NoteX begin end café";
+    NSMutableDictionary *language=[NXDefaultLanguage() mutableCopy];language[@"id"]=@"test-language";language[@"name"]=@"Test Language";language[@"extensions"]=@"nxtest";language[@"keywords1"]=@"NoteQu begin end café";
     NSMutableDictionary *theme=[NXDefaultTheme() mutableCopy];theme[@"id"]=@"test-theme";theme[@"name"]=@"Test Theme";theme[@"keyword1"]=@"FF4040";
     self.configuration=[@{@"languages":@[language],@"themes":@[theme],@"selectedTheme":@"test-theme"} mutableCopy];self.current.customLanguage=@"test-language";
     self.preferences[@"caretWidth"]=@2;
@@ -92,7 +92,7 @@ static void CancelNextDialog(void) {
     NSString *report=[self applySearchResults:results];
     if(![report hasPrefix:@"1 documents updated"]){fprintf(stderr,"Replacement report: %s\n",report.UTF8String);for(NSString *name in [NSFileManager.defaultManager subpathsAtPath:[self.storage.directory stringByAppendingPathComponent:@"ReplaceBackups"]])if([name hasSuffix:@"report.json"])fprintf(stderr,"%s\n",[[NSString alloc]initWithContentsOfFile:[[self.storage.directory stringByAppendingPathComponent:@"ReplaceBackups"] stringByAppendingPathComponent:name] encoding:NSUTF8StringEncoding error:nil].UTF8String);}
     Check([report hasPrefix:@"1 documents updated"]&&[saved.primaryEditor.string containsString:@"note-34"],"previewed file replacements use normal save path");
-    NoteX::State state;NSData *newBytes=[NSData dataWithContentsOfFile:file];Check(NXReadCompanion([NSData dataWithContentsOfFile:[file stringByAppendingString:@".notex"]],newBytes,state)&&!state.runs.empty(),"replacement updates matching formatting companion");
+    NoteQu::State state;NSData *newBytes=[NSData dataWithContentsOfFile:file];Check(NXReadCompanion([NSData dataWithContentsOfFile:[file stringByAppendingString:@".notex"]],newBytes,state)&&!state.runs.empty(),"replacement updates matching formatting companion");
     NSArray *backups=[NSFileManager.defaultManager subpathsAtPath:[self.storage.directory stringByAppendingPathComponent:@"ReplaceBackups"]];BOOL foundBackup=NO;
     for(NSString *path in backups)if([path hasSuffix:@"sample.txt"]&&[[NSData dataWithContentsOfFile:[[self.storage.directory stringByAppendingPathComponent:@"ReplaceBackups"] stringByAppendingPathComponent:path]] isEqual:original])foundBackup=YES;
     Check(foundBackup,"replace-in-files retains recoverable original bytes");
@@ -126,13 +126,13 @@ static void CancelNextDialog(void) {
     Check([self snapshot:&error],"persist complete workbench state");
 }
 - (void)workbenchUI:(NSString *)mode {
-    NXDocument *doc=self.current;SetText(doc.primaryEditor,[@"NoteX Workbench\n\nbegin café {\n    // Highlight a user-defined language\n    print(\"Hello, NoteX\");\n}\n" dataUsingEncoding:NSUTF8StringEncoding]);[self seedWorkbench];
+    NXDocument *doc=self.current;SetText(doc.primaryEditor,[@"NoteQu Workbench\n\nbegin café {\n    // Highlight a user-defined language\n    print(\"Hello, NoteQu\");\n}\n" dataUsingEncoding:NSUTF8StringEncoding]);[self seedWorkbench];
     if(![mode isEqual:@"ui-split"])[self closeSecondary:nil];
     if([mode isEqual:@"ui-sidebar-hidden"]){SetText(doc.primaryEditor,NSData.data);[self updateControls];Check(!self.sidebarVisible&&self.editorSplit.frame.origin.x<1,"hidden-sidebar UI uses full editor width");}
     if([mode isEqual:@"ui-toolbar"]){SetText(doc.primaryEditor,[@"First item\nSecond item\n\nFirst step\nSecond step" dataUsingEncoding:NSUTF8StringEncoding]);Send(doc.primaryEditor,SCI_SETSEL,0,Send(doc.primaryEditor,SCI_POSITIONFROMLINE,2));[self.bulletListButton performClick:nil];Send(doc.primaryEditor,SCI_SETSEL,Send(doc.primaryEditor,SCI_POSITIONFROMLINE,3),Send(doc.primaryEditor,SCI_GETLENGTH));[self.numberedListButton performClick:nil];Send(doc.primaryEditor,SCI_GOTOPOS,0);}
     if([mode isEqual:@"ui-tabs"]){for(NSUInteger i=0;i<30;++i){NXDocument *tab=[self newDocument:nil];tab.title=[NSString stringWithFormat:@"Document %lu.txt",(unsigned long)i+1];}[self.tabs selectTabViewItemAtIndex:3];[self tick:nil];}
     if([mode isEqual:@"ui-document-map"])[self viewCommand:TestCommand(4)];
-    if([mode isEqual:@"ui-search"]){[self findInFiles:nil];NSTextField *query=[self.fileSearch valueForKey:@"query"];query.stringValue=@"NoteX";[(NSPopUpButton *)[self.fileSearch valueForKey:@"scope"] selectItemAtIndex:1];[NSApp sendAction:NSSelectorFromString(@"search:") to:self.fileSearch from:nil];}
+    if([mode isEqual:@"ui-search"]){[self findInFiles:nil];NSTextField *query=[self.fileSearch valueForKey:@"query"];query.stringValue=@"NoteQu";[(NSPopUpButton *)[self.fileSearch valueForKey:@"scope"] selectItemAtIndex:1];[NSApp sendAction:NSSelectorFromString(@"search:") to:self.fileSearch from:nil];}
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,2*NSEC_PER_SEC),dispatch_get_main_queue(),^{
         if([mode isEqual:@"ui-sidebar-hidden"]||[mode isEqual:@"ui-toolbar"]){
             printf("Layout: content=%s stack=%s outer=%s editor=%s tabs=%s status=%s\n",NSStringFromRect(self.window.contentView.bounds).UTF8String,NSStringFromRect(self.split.superview.frame).UTF8String,NSStringFromRect(self.split.frame).UTF8String,NSStringFromRect(self.editorSplit.frame).UTF8String,NSStringFromRect(self.tabs.frame).UTF8String,NSStringFromRect(self.status.frame).UTF8String);fflush(stdout);

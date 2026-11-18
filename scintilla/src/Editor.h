@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // Scintilla source code edit control
@@ -71,7 +71,7 @@ public:
 class SelectionText {
 	std::string s;
 public:
-	NoteX::State richSelection;
+	NoteQu::State richSelection;
 	bool rectangular;
 	bool lineCopy;
 	int codePage;
@@ -87,7 +87,7 @@ public:
 	}
 	void Copy(const std::string &s_, int codePage_, Scintilla::CharacterSet characterSet_, bool rectangular_, bool lineCopy_) {
 		s = s_;
-		richSelection = NoteX::State{};
+		richSelection = NoteQu::State{};
 		codePage = codePage_;
 		characterSet = characterSet_;
 		rectangular = rectangular_;
@@ -197,11 +197,11 @@ constexpr XYScrollOptions operator|(XYScrollOptions a, XYScrollOptions b) noexce
 class Editor : public EditModel, public DocWatcher {
 protected:	// ScintillaBase subclass needs access to much of Editor
     // A typing choice belongs to this view and caret, never to another buffer.
-    std::optional<NoteX::Format> pendingTypingFormat;
+    std::optional<NoteQu::Format> pendingTypingFormat;
     Document *typingDocument = nullptr;
     Sci::Position typingPosition = -1;
-    const NoteX::Format *TypingFormat();
-    NoteX::Format InsertionFormat(Sci::Position position) const;
+    const NoteQu::Format *TypingFormat();
+    NoteQu::Format InsertionFormat(Sci::Position position) const;
     Sci::Position InsertTypedString(Sci::Position position, std::string_view text);
 
 	/** On GTK+, Scintilla is a container widget holding two scroll bars

@@ -11,7 +11,7 @@
 #include <cerrno>
 
 NSError *NXError(NSString *message) {
-    return [NSError errorWithDomain:@"NoteX" code:1
+    return [NSError errorWithDomain:@"NoteQu" code:1
                            userInfo:@{NSLocalizedDescriptionKey: message}];
 }
 NSString *NXCanonicalPath(NSString *path) {return path.length?path.stringByStandardizingPath.stringByResolvingSymlinksInPath:@"";}
@@ -61,8 +61,8 @@ BOOL NXWrite(NSData *data, NSString *path, NSError **error) {
 BOOL NXOwnedCompanion(NSData *bytes) {
     return bytes.length >= 8 && (!memcmp(bytes.bytes, "NOTEXSC1", 8) || !memcmp(bytes.bytes, "NPPSIDE1", 8));
 }
-NSData *NXCompanion(NSData *text, const NoteX::State &state) {
-    NoteX::State compact;
+NSData *NXCompanion(NSData *text, const NoteQu::State &state) {
+    NoteQu::State compact;
     for (auto run : state.runs) {
         const auto &format = state.formats.at(run.style);
         auto found = std::find(compact.formats.begin(), compact.formats.end(), format);
@@ -74,14 +74,14 @@ NSData *NXCompanion(NSData *text, const NoteX::State &state) {
     }
     NSMutableData *data = [NSMutableData dataWithBytes:"NOTEXSC1" length:8];
     [data appendData:NXDigest(text)];
-    auto encoded = NoteX::encode(compact);
+    auto encoded = NoteQu::encode(compact);
     [data appendBytes:encoded.data() length:encoded.size()];
     return data;
 }
-BOOL NXReadCompanion(NSData *bytes, NSData *text, NoteX::State &state) {
+BOOL NXReadCompanion(NSData *bytes, NSData *text, NoteQu::State &state) {
     if (bytes.length < 64 || bytes.length > 64 * 1024 * 1024 || !NXOwnedCompanion(bytes)) return NO;
     if (memcmp(static_cast<const char *>(bytes.bytes) + 8, NXDigest(text).bytes, 32)) return NO;
-    return NoteX::decode(std::string(static_cast<const char *>(bytes.bytes) + 40, bytes.length - 40), state, text.length);
+    return NoteQu::decode(std::string(static_cast<const char *>(bytes.bytes) + 40, bytes.length - 40), state, text.length);
 }
 NSDictionary *NXDecodeSession(NSData *data) {
     if (!data) return nil;
@@ -161,7 +161,7 @@ NSDictionary *NXDecodeSession(NSData *data) {
             if (![doc[key] isKindOfClass:NSNumber.class]) return nil;
         NSData *text = doc[@"text"];
         if (![[NSString alloc] initWithData:text encoding:NSUTF8StringEncoding]) return nil;
-        NoteX::State format;
+        NoteQu::State format;
         if (!NXReadCompanion(doc[@"format"], text, format)) return nil;
     }
     return root;
@@ -181,7 +181,7 @@ NSDictionary *NXDecodeSession(NSData *data) {
     NSString *lock = [directory stringByAppendingPathComponent:@"profile.lock"];
     _lock = open(lock.fileSystemRepresentation, O_CREAT | O_RDWR, 0600);
     if (_lock < 0 || flock(_lock, LOCK_EX | LOCK_NB) != 0) {
-        if (error) *error = NXError(@"This NoteX profile is already open, or its lock cannot be accessed.");
+        if (error) *error = NXError(@"This NoteQu profile is already open, or its lock cannot be accessed.");
         return nil;
     }
     return self;
@@ -203,7 +203,7 @@ NSDictionary *NXDecodeSession(NSData *data) {
         _recoveredPrevious = YES;
         return result;
     }
-    if (error) *error = NXError(@"The session and its previous snapshot could not be read. Your files were preserved. Back up the NoteX Application Support folder before repairing it.");
+    if (error) *error = NXError(@"The session and its previous snapshot could not be read. Your files were preserved. Back up the NoteQu Application Support folder before repairing it.");
     return nil;
 }
 - (BOOL)save:(NSDictionary *)session error:(NSError **)error {

@@ -1,4 +1,4 @@
-// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
+// Modified for NoteQu on 2026-11-18: authenticated updates and bundled-command privacy.
 // This file is part of Notepad++ project
 // Copyright (C)2025 Don HO <don.h@free.fr>
 

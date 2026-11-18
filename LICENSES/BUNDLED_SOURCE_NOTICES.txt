@@ -1,4 +1,4 @@
-NoteX bundled source notices
+NoteQu bundled source notices
 Verbatim comment notices extracted from the distributed source tree.
 Complete primary component licenses are also supplied as separate files.
 
@@ -792,8 +792,8 @@ Source: PowerEditor/src/MISC/Common/FileInterface.cpp
 
 ==============================================================================
 Source: PowerEditor/src/MISC/Common/NppConstants.h
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -1131,8 +1131,8 @@ Source: PowerEditor/src/MISC/sha1/sha1.h
 
 ==============================================================================
 Source: PowerEditor/src/Notepad_plus.cpp
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -1153,8 +1153,8 @@ Source: PowerEditor/src/Notepad_plus.cpp
 
 ==============================================================================
 Source: PowerEditor/src/Notepad_plus.rc
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -1216,10 +1216,10 @@ Source: PowerEditor/src/NppDarkMode.h
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ==============================================================================
-Source: PowerEditor/src/NoteXMenu.h
+Source: PowerEditor/src/NoteQuMenu.h
 // Copyright (C) 2026 Berk Kivircik.
 // SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX/NoteX; publication date: 2026-10-28.
+// Created for NoteQu/NoteQu; publication date: 2026-10-28.
 
 ==============================================================================
 Source: PowerEditor/src/NppXml.h
@@ -1281,8 +1281,8 @@ Source: PowerEditor/src/pugixml/pugiconfig.hpp
 
 ==============================================================================
 Source: PowerEditor/src/resource.h
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -2095,12 +2095,12 @@ Source: scintilla/include/ILoader.h
 // The License.txt file describes the conditions under which this software may be distributed.
 
 ==============================================================================
-Source: scintilla/include/NoteXFormat.h
+Source: scintilla/include/NoteQuFormat.h
 // Copyright (C) 2026 Berk Kivircik.
 // SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX/NoteX; publication date: 2026-10-28.
+// Created for NoteQu/NoteQu; publication date: 2026-10-28.
 
-// NoteX per-range formatting. Independent of lexer styles and file encoding.
+// NoteQu per-range formatting. Independent of lexer styles and file encoding.
 
 ==============================================================================
 Source: scintilla/include/Sci_Position.h
@@ -2253,8 +2253,8 @@ Source: scintilla/src/CharClassify.h
 
 ==============================================================================
 Source: scintilla/src/ContractionState.cxx
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // Scintilla source code edit control

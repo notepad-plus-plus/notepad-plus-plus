@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // Scintilla source code edit control
@@ -390,15 +390,15 @@ void ViewStyle::Refresh(Surface &surface, int tabInChars) {
         const auto& format=richFormats[f];
         for (size_t b=0; b<256; ++b) {
             Style s=styles[b];
-            if(format.mask & NoteX::Bold) s.weight=format.bold?FontWeight::Bold:FontWeight::Normal;
-            if(format.mask & NoteX::Italic) s.italic=format.italic;
-            if(format.mask & NoteX::Underline) s.underline=format.underline;
-            if(format.mask & NoteX::Strike) s.strike=format.strike;
-            if(format.mask & NoteX::Family) s.fontName=fontNames.Save(format.family.c_str());
-            if(format.mask & NoteX::Size) s.size=std::clamp(format.size,600,9600);
-            if(format.mask & NoteX::Fore) s.fore=ColourRGBA::FromRGB(format.fore);
-            if(format.mask & NoteX::Back) s.back=ColourRGBA::FromRGB(format.back);
-            if(format.mask & NoteX::Highlight) {
+            if(format.mask & NoteQu::Bold) s.weight=format.bold?FontWeight::Bold:FontWeight::Normal;
+            if(format.mask & NoteQu::Italic) s.italic=format.italic;
+            if(format.mask & NoteQu::Underline) s.underline=format.underline;
+            if(format.mask & NoteQu::Strike) s.strike=format.strike;
+            if(format.mask & NoteQu::Family) s.fontName=fontNames.Save(format.family.c_str());
+            if(format.mask & NoteQu::Size) s.size=std::clamp(format.size,600,9600);
+            if(format.mask & NoteQu::Fore) s.fore=ColourRGBA::FromRGB(format.fore);
+            if(format.mask & NoteQu::Back) s.back=ColourRGBA::FromRGB(format.back);
+            if(format.mask & NoteQu::Highlight) {
                 const auto h=ColourRGBA::FromRGB(format.highlight);
                 s.back=ColourRGBA((s.back.GetRed()+h.GetRed()*2)/3,(s.back.GetGreen()+h.GetGreen()*2)/3,(s.back.GetBlue()+h.GetBlue()*2)/3);
             }

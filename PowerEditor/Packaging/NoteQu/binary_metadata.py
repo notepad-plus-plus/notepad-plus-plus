@@ -1,6 +1,6 @@
 # Copyright (C) 2026 Berk Kivircik.
 # SPDX-License-Identifier: GPL-3.0-only
-# Created for NoteX on 2026-11-18.
+# Created for NoteQu on 2026-11-18.
 """Check the built executable's Windows properties and embedded identity."""
 import ctypes as C
 from ctypes import wintypes as W
@@ -14,7 +14,7 @@ def require_metadata(file: Path, version: str, *, updater=False):
     if sys.platform != 'win32':
         raise RuntimeError('Validate Windows executable metadata on Windows.')
     if not re.fullmatch(r'\d+\.\d+\.\d+', version):
-        raise ValueError('Expected a three-part NoteX release version.')
+        raise ValueError('Expected a three-part NoteQu release version.')
     api = C.WinDLL('version', use_last_error=True)
     api.GetFileVersionInfoSizeW.argtypes = [W.LPCWSTR, C.POINTER(W.DWORD)]
     api.GetFileVersionInfoSizeW.restype = W.DWORD
@@ -48,10 +48,10 @@ def require_metadata(file: Path, version: str, *, updater=False):
     if not length or length % 4:
         raise ValueError('Invalid executable translation table.')
     pairs = C.cast(translations, C.POINTER(W.WORD))
-    description_name = 'NoteX Updater' if updater else 'NoteX Editor'
-    file_name = 'NoteXUpdater.exe' if updater else 'NoteX.exe'
-    identity_name = 'NoteX.Updater' if updater else 'NoteX'
-    expected = {'FileDescription': description_name, 'ProductName': 'NoteX',
+    description_name = 'NoteQu'
+    file_name = 'NoteQuUpdater.exe' if updater else 'NoteQu.exe'
+    identity_name = 'NoteQu.Updater' if updater else 'NoteQu'
+    expected = {'FileDescription': description_name, 'ProductName': 'NoteQu',
                 'InternalName': file_name, 'OriginalFilename': file_name,
                 'FileVersion': version + '.0', 'ProductVersion': version + '.0'}
     for i in range(0, length // 2, 2):
@@ -92,9 +92,9 @@ def require_metadata(file: Path, version: str, *, updater=False):
         identity = manifest.find(namespace + 'assemblyIdentity')
         description = manifest.find(namespace + 'description')
         if identity is None or identity.get('name') != identity_name:
-            raise ValueError('Embedded application identity must be NoteX.')
+            raise ValueError('Embedded application identity must be NoteQu.')
         if description is None or description.text != description_name:
-            raise ValueError('Embedded application description must be NoteX Editor.')
+            raise ValueError('Embedded application description must be NoteQu.')
     finally:
         kernel.FreeLibrary(module)
     return expected

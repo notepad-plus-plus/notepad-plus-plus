@@ -1,7 +1,7 @@
-// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
-#include "NoteXUpdate.h"
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// Modified for NoteQu on 2026-11-18: authenticated updates and bundled-command privacy.
+#include "NoteQuUpdate.h"
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -866,8 +866,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	try {
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
 		allowForbidPrivilegeMessages(notepad_plus_plus, ver);
-        noteXUpdateHealthy();
-        if (!doFunctionListExport && !doPrintAndQuit) noteXUpdate(L"auto");
+        noteQuUpdateHealthy();
+        if (!doFunctionListExport && !doPrintAndQuit) noteQuUpdate(L"auto");
 		bool going = true;
 		while (going)
 		{

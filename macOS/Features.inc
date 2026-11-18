@@ -137,15 +137,15 @@ static BOOL StringMacroMessage(unsigned message) {
 }
 - (void)preferencesDialog:(id)sender { [self preferencesEditor:sender]; }
 - (void)copyFormat:(id)sender {
-    NoteX::SelectionFormat query; query.start = Send(self.current.editor, SCI_GETSELECTIONSTART); query.end = Send(self.current.editor, SCI_GETSELECTIONEND);
-    Send(self.current.editor, NoteX::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
-    NoteX::State state; state.formats.push_back(query.value); state.runs.push_back({0, 1, 1});
-    auto bytes = NoteX::encode(state); self.paintFormat = [NSData dataWithBytes:bytes.data() length:bytes.size()];
+    NoteQu::SelectionFormat query; query.start = Send(self.current.editor, SCI_GETSELECTIONSTART); query.end = Send(self.current.editor, SCI_GETSELECTIONEND);
+    Send(self.current.editor, NoteQu::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
+    NoteQu::State state; state.formats.push_back(query.value); state.runs.push_back({0, 1, 1});
+    auto bytes = NoteQu::encode(state); self.paintFormat = [NSData dataWithBytes:bytes.data() length:bytes.size()];
 }
 - (void)pasteFormat:(id)sender {
     if (!self.paintFormat) { NSBeep(); return; }
-    NoteX::State state;
-    if (NoteX::decode(std::string(static_cast<const char *>(self.paintFormat.bytes), self.paintFormat.length), state, 1) && state.formats.size() > 1) [self apply:state.formats[1] fields:NoteX::All];
+    NoteQu::State state;
+    if (NoteQu::decode(std::string(static_cast<const char *>(self.paintFormat.bytes), self.paintFormat.length), state, 1) && state.formats.size() > 1) [self apply:state.formats[1] fields:NoteQu::All];
 }
 - (void)saveAll:(id)sender {
     NSTabViewItem *selected = self.tabs.selectedTabViewItem;BOOL secondaryWasFocused=self.secondaryFocused;
@@ -312,13 +312,13 @@ static BOOL StringMacroMessage(unsigned message) {
         NSString *part = [[NSString alloc] initWithBytes:static_cast<const char *>(bytes.bytes) + run.start length:run.end - run.start encoding:NSUTF8StringEncoding];
         if (!prefix || !part) continue;
         auto f = state.formats[run.style];
-        NSFont *font = [NSFont fontWithName:f.mask & NoteX::Family ? @(f.family.c_str()) : base.fontName size:f.mask & NoteX::Size ? f.size / 100.0 : base.pointSize] ?: base;
+        NSFont *font = [NSFont fontWithName:f.mask & NoteQu::Family ? @(f.family.c_str()) : base.fontName size:f.mask & NoteQu::Size ? f.size / 100.0 : base.pointSize] ?: base;
         if (f.bold) font = [NSFontManager.sharedFontManager convertFont:font toHaveTrait:NSBoldFontMask];
         if (f.italic) font = [NSFontManager.sharedFontManager convertFont:font toHaveTrait:NSItalicFontMask];
         NSMutableDictionary *attributes = [@{NSFontAttributeName:font, NSUnderlineStyleAttributeName:@(f.underline ? NSUnderlineStyleSingle : 0), NSStrikethroughStyleAttributeName:@(f.strike ? NSUnderlineStyleSingle : 0)} mutableCopy];
         auto color = [](unsigned value) { return [NSColor colorWithSRGBRed:(value & 255) / 255.0 green:((value >> 8) & 255) / 255.0 blue:((value >> 16) & 255) / 255.0 alpha:1]; };
-        if (f.mask & NoteX::Fore) attributes[NSForegroundColorAttributeName] = color(f.fore);
-        if (f.mask & (NoteX::Back | NoteX::Highlight)) attributes[NSBackgroundColorAttributeName] = color(f.mask & NoteX::Highlight ? f.highlight : f.back);
+        if (f.mask & NoteQu::Fore) attributes[NSForegroundColorAttributeName] = color(f.fore);
+        if (f.mask & (NoteQu::Back | NoteQu::Highlight)) attributes[NSBackgroundColorAttributeName] = color(f.mask & NoteQu::Highlight ? f.highlight : f.back);
         [output addAttributes:attributes range:NSMakeRange(prefix.length, part.length)];
     }
     return output;

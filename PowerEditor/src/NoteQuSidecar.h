@@ -1,16 +1,16 @@
 // Copyright (C) 2026 Berk Kivircik.
 // SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX; publication date: 2026-10-28.
+// Created for NoteQu; publication date: 2026-10-28.
 
 #pragma once
 #include <windows.h>
 #include "MISC/sha2/sha-256.h"
-#include "NoteXFormat.h"
+#include "NoteQuFormat.h"
 #include "Scintilla.h"
 #include <array>
 #include <atomic>
 
-namespace NoteX
+namespace NoteQu
 {
 inline std::array<unsigned char, 32> textDigest(HWND editor)
 {
@@ -131,6 +131,6 @@ inline void loadSidecar(HWND editor, const wchar_t *file)
             GetAncestor(editor, GA_ROOT),
             (L"BiÃ§im dosyasÄ± geÃ§ersiz veya metin deÄŸiÅŸmiÅŸ. YanlÄ±ÅŸ aralÄ±klara biÃ§im uygulanmadÄ±.\n\n" + path)
                 .c_str(),
-            L"NoteX â€” BiÃ§imlendirme", MB_OK | MB_ICONINFORMATION);
+            L"NoteQu â€” BiÃ§imlendirme", MB_OK | MB_ICONINFORMATION);
 }
-} // namespace NoteX
+} // namespace NoteQu

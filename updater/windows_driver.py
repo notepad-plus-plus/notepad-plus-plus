@@ -33,7 +33,7 @@ def windows(exe):
     @Callback
     def visit(hwnd, unused):
         cls = c.create_unicode_buffer(100); u.GetClassNameW(hwnd, cls, 100)
-        if cls.value != 'NoteX': return True
+        if cls.value != 'NoteQu': return True
         pid = w.DWORD(); u.GetWindowThreadProcessId(hwnd, c.byref(pid))
         handle = k.OpenProcess(0x1000, False, pid.value)
         if handle:
@@ -50,7 +50,7 @@ def wait_window(exe, timeout=30):
         if found:
             time.sleep(1); return found[0]
         time.sleep(.1)
-    raise RuntimeError('The isolated NoteX window did not open.')
+    raise RuntimeError('The isolated NoteQu window did not open.')
 
 def editor(hwnd):
     found = []

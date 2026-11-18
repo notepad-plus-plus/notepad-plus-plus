@@ -5,6 +5,7 @@ Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
 import json
 import os
 import platform
+import plistlib
 from pathlib import Path
 import shutil
 import subprocess
@@ -15,13 +16,25 @@ import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "dist/macOS"
-APP = OUTPUT / "NoteX.app"
-results = [{"macOS": platform.mac_ver()[0], "architecture": platform.machine()}]
+APP = OUTPUT / "NoteQu.app"
+with (APP / "Contents/Info.plist").open("rb") as file:
+    metadata = plistlib.load(file)
+expected_identity = {
+    "CFBundleName": "NoteQu",
+    "CFBundleDisplayName": "NoteQu",
+    "CFBundleExecutable": "NoteQu",
+    "CFBundleIdentifier": "com.berkkivircik.NoteQu",
+}
+for key, value in expected_identity.items():
+    if metadata.get(key) != value:
+        raise SystemExit(f"Expected {key}={value!r}, got {metadata.get(key)!r}.")
+results = [{"macOS": platform.mac_ver()[0], "architecture": platform.machine(),
+            "identity": expected_identity}]
 
-def run(app, mode, profile):
+def run(app, mode, profile, executable="NoteQu"):
     env = dict(os.environ, NOTEX_PROFILE=str(profile), NOTEX_TEST_SOURCE=str(ROOT), NOTEX_TEST_IMAGE=str(OUTPUT / "native-preview.png"))
     try:
-        result = subprocess.run([str(app / "Contents/MacOS/NoteX"), "--self-test", mode],
+        result = subprocess.run([str(app / "Contents/MacOS" / executable), "--self-test", mode],
                                 env=env, capture_output=True, text=True, timeout=90)
     except subprocess.TimeoutExpired as error:
         print(error.stdout, flush=True)
@@ -40,7 +53,7 @@ with tempfile.TemporaryDirectory(prefix="notex-native-tests-") as directory:
     run(APP, "suite", work / "test-suite")
     run(APP, "seed", work / "test-restart")
     run(APP, "restore", work / "test-restart")
-    replacement = work / "Replacement/NoteX.app"
+    replacement = work / "Replacement/NoteQu.app"
     replacement.parent.mkdir()
     shutil.copytree(APP, replacement)
     run(replacement, "restore", work / "test-restart")
@@ -54,16 +67,16 @@ with tempfile.TemporaryDirectory(prefix="notex-native-tests-") as directory:
         ]
         for tag, version, digest in releases:
             old_zip = work / f"previous-{version}.zip"
-            urllib.request.urlretrieve(f"https://github.com/berkkivircik/NoteX/releases/download/{tag}/NoteX-{version}-macos-arm64.zip", old_zip)
+            urllib.request.urlretrieve(f"https://github.com/berkkivircik/NoteQu/releases/download/{tag}/NoteX-{version}-macos-arm64.zip", old_zip)
             assert hashlib.sha256(old_zip.read_bytes()).hexdigest() == digest
             previous = work / f"Previous-{version}"
             subprocess.run(["ditto", "-x", "-k", str(old_zip), str(previous)], check=True)
-            run(previous / "NoteX.app", "seed", work / f"test-upgrade-{version}")
+            run(previous / "NoteX.app", "seed", work / f"test-upgrade-{version}", executable="NoteX")
             run(APP, "restore-legacy", work / f"test-upgrade-{version}")
     # Kill only the child launched here, after the ordinary autosnapshot timer.
     log = work / "crash.log"
     with log.open("w") as output:
-        process = subprocess.Popen([str(APP / "Contents/MacOS/NoteX"), "--self-test", "crash-seed"],
+        process = subprocess.Popen([str(APP / "Contents/MacOS/NoteQu"), "--self-test", "crash-seed"],
             env=dict(os.environ, NOTEX_PROFILE=str(work / "test-crash")), stdout=output, stderr=subprocess.STDOUT)
         try:
             deadline = time.monotonic() + 60
@@ -83,7 +96,7 @@ with tempfile.TemporaryDirectory(prefix="notex-native-tests-") as directory:
         for mode in ("ui-tabs", "ui-document-map", "ui-sidebar-hidden", "ui-toolbar", "ui-function", "ui-project", "ui-menu", "ui-split", "ui-search", "ui-preferences", "ui-shortcuts", "ui-language", "ui-theme"):
             log = work / f"{mode}.log"
             with log.open("w") as output:
-                process = subprocess.Popen([str(APP / "Contents/MacOS/NoteX"), "--self-test", mode],
+                process = subprocess.Popen([str(APP / "Contents/MacOS/NoteQu"), "--self-test", mode],
                     env=dict(os.environ, NOTEX_PROFILE=str(work / f"test-{mode}"), NOTEX_UI_DIAGNOSTIC=str(OUTPUT / f"{mode}-diagnostic.png")), stdout=output, stderr=subprocess.STDOUT)
                 try:
                     deadline = time.monotonic() + 30

@@ -1,4 +1,4 @@
-# Building and packaging NoteX
+# Building and packaging NoteQu
 
 For the separate native Apple Silicon target, see [macOS/README.md](macOS/README.md).
 The instructions below build the Windows edition.
@@ -20,7 +20,7 @@ local user profile, plugin DLL, or installed Notepad++ is needed.
 From the repository root:
 
 ```powershell
-& .\PowerEditor\Test\NoteX\build-release.ps1
+& .\PowerEditor\Test\NoteQu\build-release.ps1
 ```
 
 The script finds Visual Studio using `vswhere.exe`. Alternatively, pass
@@ -32,9 +32,9 @@ You may also open `PowerEditor/visual.net/notepadPlus.sln` and select Release/x6
 ## Create a fresh portable package
 
 ```powershell
-python .\PowerEditor\Packaging\NoteX\package.py --output .\dist\NoteX
-python .\PowerEditor\Packaging\NoteX\verify_package.py .\dist\NoteX
-python .\PowerEditor\Test\NoteX\smoke_release.py --binary .\dist\NoteX\NoteX.exe
+python .\PowerEditor\Packaging\NoteQu\package.py --output .\dist\NoteQu
+python .\PowerEditor\Packaging\NoteQu\verify_package.py .\dist\NoteQu
+python .\PowerEditor\Test\NoteQu\smoke_release.py --binary .\dist\NoteQu\NoteQu.exe
 ```
 
 The output must be a new or empty directory. The script never copies an active
@@ -43,13 +43,13 @@ adds licenses and source-access instructions, and writes a SHA-256 manifest.
 Do not use an existing user profile as a packaging input.
 English is the initial interface language; Turkish and Spanish are also included.
 Session snapshots and GDI rendering are enabled. The upstream automatic updater
-is disabled. NoteX's own background GitHub checks are enabled by default and can
+is disabled. NoteQu's own background GitHub checks are enabled by default and can
 be disabled independently; see [UPDATING.md](UPDATING.md).
 
 ## Modify and install your own build
 
 Edit the source and repeat the build and packaging commands. Extract your package
-to a new writable directory and run `NoteX.exe`. No activation key, signature
+to a new writable directory and run `NoteQu.exe`. No activation key, signature
 check, account, or installation lock is required for a modified build.
 The distributed build is not signed. Do not overwrite user settings, sessions,
 backups, documents, or `.notex` companion files during an upgrade.

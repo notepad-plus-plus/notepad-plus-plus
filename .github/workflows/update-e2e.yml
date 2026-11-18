@@ -1,6 +1,13 @@
 name: Published release updater E2E
 on:
   workflow_dispatch:
+    inputs:
+      from-version:
+        description: Published NoteQu version to install
+        required: true
+      to-version:
+        description: Latest compatible published NoteQu version
+        required: true
 permissions:
   contents: read
 jobs:
@@ -23,12 +30,15 @@ jobs:
             .e2e-venv/bin/python -m pip install -r updater/signing-requirements.txt
           fi
       - name: Native application update from actual public releases
+        env:
+          FROM_VERSION: ${{ inputs.from-version }}
+          TO_VERSION: ${{ inputs.to-version }}
         shell: bash
         run: |
           if [ -f .e2e-venv/Scripts/python.exe ]; then
-            .e2e-venv/Scripts/python.exe updater/e2e_release.py --output dist/update-e2e.json
+            .e2e-venv/Scripts/python.exe updater/e2e_release.py --from-version "$FROM_VERSION" --to-version "$TO_VERSION" --output dist/update-e2e.json
           else
-            .e2e-venv/bin/python updater/e2e_release.py --output dist/update-e2e.json
+            .e2e-venv/bin/python updater/e2e_release.py --from-version "$FROM_VERSION" --to-version "$TO_VERSION" --output dist/update-e2e.json
           fi
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         if: always()

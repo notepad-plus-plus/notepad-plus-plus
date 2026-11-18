@@ -1,6 +1,6 @@
-# Releasing NoteX
+# Releasing NoteQu
 
-Use only `berkkivircik/NoteX` for active development, trusted builds, release tags,
+Use only `berkkivircik/NoteQu` for active development, trusted builds, release tags,
 and GitHub Releases. It is the registered upstream fork. `NoteX_old` is a read-only
 historical archive; do not publish updates there. Run
 `python tools/verify_source_provenance.py` from a full clone before release.
@@ -15,7 +15,7 @@ historical archive; do not publish updates there. Run
    third-party plugin DLLs and the upstream updater. Do not add them without
    reviewing their licenses and providing any required matching source.
 4. Tag the exact source revision used for the build. Create a source archive
-   with `git archive --format=zip --prefix=NoteX-1.3.1/ -o NoteX-1.3.1-source.zip v1.3.1`.
+   with `git archive --format=zip --prefix=NoteQu-1.7.0/ -o NoteQu-1.7.0-source.zip v1.7.0`.
    Include the complete source archive alongside the portable ZIP in the release.
 5. Publish SHA256SUMS.txt and release notes identifying the source tag and commit,
    license, changes, prerequisites, validation scope, and unsigned status.

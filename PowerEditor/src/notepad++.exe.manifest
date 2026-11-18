@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Modified for NoteX by Berk Kivircik on 2026-11-18: application identity. -->
+<!-- Modified for NoteQu by Berk Kivircik on 2026-11-18: application identity. -->
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1"
                  manifestVersion="1.0">
 <assemblyIdentity
     version="1.0.0.0"
     processorArchitecture="*"
-    name="NoteX"
+    name="NoteQu"
     type="win32"
 />
-<description>NoteX Editor</description>
+<description>NoteQu</description>
 <dependency>
     <dependentAssembly>
         <assemblyIdentity

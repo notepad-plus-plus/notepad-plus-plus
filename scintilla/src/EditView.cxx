@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // Scintilla source code edit control
@@ -886,7 +886,7 @@ ColourRGBA TextBackground(const EditModel &model, const ViewStyle &vsDraw, const
 	}
     if (static_cast<unsigned>(styleMain) >= ViewStyle::richStyleBase) {
         const size_t format=(static_cast<unsigned>(styleMain)-ViewStyle::richStyleBase)/256+1;
-        if(format<vsDraw.richFormats.size() && (vsDraw.richFormats[format].mask & (NoteX::Back|NoteX::Highlight)))
+        if(format<vsDraw.richFormats.size() && (vsDraw.richFormats[format].mask & (NoteQu::Back|NoteQu::Highlight)))
             return vsDraw.RenderStyle(styleMain).back;
     }
 	if (background && (styleMain != StyleBraceLight) && (styleMain != StyleBraceBad)) {

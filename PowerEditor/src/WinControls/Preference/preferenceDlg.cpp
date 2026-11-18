@@ -1,6 +1,6 @@
-// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// Modified for NoteQu on 2026-11-18: authenticated updates and bundled-command privacy.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -3343,7 +3343,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ALOOWSIMLINKFAW, BM_SETCHECK, nppGUI._isFawSymlinkAllowed, 0);
 
             // The obsolete upstream setting is not an application update control.
-            // NoteX exposes its own opt-out under Help > Automatic Update Checks.
+            // NoteQu exposes its own opt-out under Help > Automatic Update Checks.
             ::ShowWindow(::GetDlgItem(_hSelf, IDC_AUTOUPDATE_STATIC), SW_HIDE);
             ::ShowWindow(::GetDlgItem(_hSelf, IDC_COMBO_AUTOUPDATE), SW_HIDE);
 

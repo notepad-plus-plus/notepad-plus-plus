@@ -30,7 +30,7 @@
     NSMutableArray *documents=[NSMutableArray new],*names=[NSMutableArray new];for(NSString *identifier in self.recentTabIDs)for(NXDocument *doc in self.documents)if([doc.identifier isEqual:identifier]){[documents addObject:doc];[names addObject:doc.title];}
     NSInteger selected=NXChoose(@"Recent Documents in This Window",names,self.window);if(selected>=0)[self activateDocument:documents[selected]];
 }
-- (void)debugInformation:(id)sender {Alert([NSString stringWithFormat:@"NoteX %@ (%@)\n%@\nNative Apple Silicon\nScintilla / Lexilla / AppKit\nGPL version 3",[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"],[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"],NSProcessInfo.processInfo.operatingSystemVersionString]);}
+- (void)debugInformation:(id)sender {Alert([NSString stringWithFormat:@"NoteQu %@ (%@)\n%@\nNative Apple Silicon\nScintilla / Lexilla / AppKit\nGPL version 3",[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"],[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"],NSProcessInfo.processInfo.operatingSystemVersionString]);}
 - (void)buildUtilityMenus {
     NSMenu *edit=[NSApp.mainMenu itemWithTitle:@"Edit"].submenu;NSArray *binary=@[@"Copy Binary Content",@"Cut Binary Content",@"Paste Binary Content"];for(NSInteger i=0;i<3;++i)[self item:edit title:binary[i] action:@selector(binaryClipboard:) key:@"" tag:i];
     [self item:edit title:@"Redact Selection" action:@selector(redactSelection:) key:@"" tag:0];[self item:edit title:@"Open Selected File" action:@selector(openSelectedPath:) key:@"" tag:0];[self item:edit title:@"Reveal Selected Path in Finder" action:@selector(openSelectedPath:) key:@"" tag:1];
@@ -39,6 +39,6 @@
     [self item:[NSApp.mainMenu itemWithTitle:@"File"].submenu title:@"Clear Read-Only for All Documents" action:@selector(readOnly:) key:@"" tag:2];
     [self item:[NSApp.mainMenu itemWithTitle:@"View"].submenu title:@"Recent Window Documents…" action:@selector(windowHistory:) key:@"" tag:0];
     [self item:[NSApp.mainMenu itemWithTitle:@"Help"].submenu title:@"Debug Information" action:@selector(debugInformation:) key:@"" tag:0];
-    [self item:[NSApp.mainMenu itemWithTitle:@"Format"].submenu title:@"Background Color…" action:@selector(pickColor:) key:@"" tag:NoteX::Back];
+    [self item:[NSApp.mainMenu itemWithTitle:@"Format"].submenu title:@"Background Color…" action:@selector(pickColor:) key:@"" tag:NoteQu::Back];
 }
 @end

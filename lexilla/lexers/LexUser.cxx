@@ -21,7 +21,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <map>
 #include <vector>
 #include <assert.h>
-// NoteX modification (2026-11-01): this lexer also builds on native macOS.
+// NoteQu modification (2026-11-01): this lexer also builds on native macOS.
 // Copyright (C) 2026 Berk Kivircik; original notices above are retained.
 #ifdef _WIN32
 #include <windows.h>

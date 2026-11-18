@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.0
+
+- Renamed the project and application from NoteX to NoteQu on Windows and macOS.
+- Updated executable and bundle metadata, menus, and the GitHub release source.
+- Added a manual transition from NoteX that keeps existing profiles and formatting companions readable.
+
 ## 1.6.2 — Consistent About dialog version
 
 - The Windows About dialog now uses the same version definition for its heading and license notice. The notice no longer shows an outdated application version or modification date.

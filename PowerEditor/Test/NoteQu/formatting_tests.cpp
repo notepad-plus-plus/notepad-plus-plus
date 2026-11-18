@@ -1,10 +1,10 @@
 // Copyright (C) 2026 Berk Kivircik.
 // SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX; publication date: 2026-10-28.
+// Created for NoteQu; publication date: 2026-10-28.
 
 #define NOMINMAX
-#include "NoteXFormat.h"
-#include "NoteXSidecar.h"
+#include "NoteQuFormat.h"
+#include "NoteQuSidecar.h"
 #include "MISC/Common/NppConstants.h"
 #include "Scintilla.h"
 #include <iostream>
@@ -41,7 +41,7 @@ int main() {
     auto instance = GetModuleHandle(nullptr);
     check(Scintilla_RegisterClasses(instance) != 0,
           "register native Scintilla");
-    HWND parent = CreateWindowExW(0, L"STATIC", L"NoteX integration tests",
+    HWND parent = CreateWindowExW(0, L"STATIC", L"NoteQu integration tests",
                                   WS_OVERLAPPEDWINDOW, 0, 0, 900, 500, nullptr,
                                   nullptr, instance, nullptr);
     HWND editor =
@@ -59,33 +59,33 @@ int main() {
       return s;
     };
     auto query = [&](int a, int b) {
-      NoteX::SelectionFormat q;
+      NoteQu::SelectionFormat q;
       q.start = a;
       q.end = b;
-      send(NoteX::GetFormat, 0, reinterpret_cast<LPARAM>(&q));
+      send(NoteQu::GetFormat, 0, reinterpret_cast<LPARAM>(&q));
       return q;
     };
-    auto apply = [&](int a, int b, NoteX::Format f, unsigned fields) {
-      NoteX::Change c;
+    auto apply = [&](int a, int b, NoteQu::Format f, unsigned fields) {
+      NoteQu::Change c;
       c.start = a;
       c.end = b;
       c.value = f;
       c.fields = fields;
-      return send(NoteX::ApplyFormat, 0, reinterpret_cast<LPARAM>(&c));
+      return send(NoteQu::ApplyFormat, 0, reinterpret_cast<LPARAM>(&c));
     };
     auto reset = [&](const char *s) {
       send(SCI_SETREADONLY, 0);
       send(SCI_SETTEXT, 0, reinterpret_cast<LPARAM>(s));
-      NoteX::Restore r;
-      send(NoteX::SetState, 0, reinterpret_cast<LPARAM>(&r));
+      NoteQu::Restore r;
+      send(NoteQu::SetState, 0, reinterpret_cast<LPARAM>(&r));
       send(SCI_EMPTYUNDOBUFFER);
       send(SCI_SETSAVEPOINT);
     };
     send(SCI_SETCODEPAGE, SC_CP_UTF8);
     send(SCI_SETMODEVENTMASK, NPP_SCINTILLA_MODEVENTMASK);
     reset("alpha beta\r\ngamma");
-    NoteX::Format f;
-    f.mask = NoteX::All;
+    NoteQu::Format f;
+    f.mask = NoteQu::All;
     f.bold = true;
     f.italic = true;
     f.underline = true;
@@ -95,7 +95,7 @@ int main() {
     f.fore = RGB(30, 140, 240);
     f.back = RGB(50, 60, 70);
     f.highlight = RGB(160, 120, 20);
-    check(apply(0, 5, f, NoteX::All), "apply complete combined format");
+    check(apply(0, 5, f, NoteQu::All), "apply complete combined format");
     check(query(0, 5).value == f, "all nine attributes round trip");
     check(text() == "alpha beta\r\ngamma", "formatting leaves text unchanged");
     check(send(SCI_GETMODIFY), "format action marks document dirty");
@@ -103,7 +103,7 @@ int main() {
           "application event mask delivers format changes to snapshot tracking");
     auto color = f;
     color.fore = RGB(180, 20, 40);
-    apply(0, 5, color, NoteX::Fore);
+    apply(0, 5, color, NoteQu::Fore);
     auto got = query(0, 5).value;
     f.fore = color.fore;
     check(got == f, "color preserves font and other styles");
@@ -127,8 +127,8 @@ int main() {
     check(text() == "alpha beta\r\ngamma" && query(0, 5).value == f,
           "undo replacement restores formatting");
     send(SCI_BEGINUNDOACTION);
-    apply(6, 10, f, NoteX::All);
-    apply(12, 17, f, NoteX::All);
+    apply(6, 10, f, NoteQu::All);
+    apply(12, 17, f, NoteQu::All);
     send(SCI_ENDUNDOACTION);
     send(SCI_UNDO);
     check(query(6, 10).value.mask == 0 && query(12, 17).value.mask == 0,
@@ -137,16 +137,16 @@ int main() {
     check(query(6, 10).value == f && query(12, 17).value == f,
           "grouped format redo");
     send(SCI_SETREADONLY, 1);
-    check(!apply(0, 5, NoteX::Format{}, NoteX::All),
+    check(!apply(0, 5, NoteQu::Format{}, NoteQu::All),
           "read-only format rejected");
     send(SCI_SETREADONLY, 0);
-    check(NoteX::saveSidecar(editor, fixture.c_str()), "atomic sidecar save");
-    NoteX::Restore empty;
-    send(NoteX::SetState, 0, reinterpret_cast<LPARAM>(&empty));
-    NoteX::loadSidecar(editor, fixture.c_str());
+    check(NoteQu::saveSidecar(editor, fixture.c_str()), "atomic sidecar save");
+    NoteQu::Restore empty;
+    send(NoteQu::SetState, 0, reinterpret_cast<LPARAM>(&empty));
+    NoteQu::loadSidecar(editor, fixture.c_str());
     check(query(0, 5).value == f, "sidecar restores combined format");
-    const auto newCompanion = NoteX::sidecarPath(fixture.c_str());
-    const auto oldCompanion = NoteX::previousSidecarPath(fixture.c_str());
+    const auto newCompanion = NoteQu::sidecarPath(fixture.c_str());
+    const auto oldCompanion = NoteQu::previousSidecarPath(fixture.c_str());
     auto readBytes = [](const std::wstring &path) {
       std::ifstream stream(std::filesystem::path(path), std::ios::binary);
       return std::string(std::istreambuf_iterator<char>(stream), {});
@@ -159,38 +159,38 @@ int main() {
     };
     auto oldBytes = readBytes(newCompanion);
     check(oldBytes.substr(0, 8) == "NOTEXSC1" && oldBytes.substr(40, 8) == std::string("NOTEX01\0", 8),
-          "new companion files use NoteX signatures");
+          "new companion files use NoteQu signatures");
     oldBytes.replace(0, 8, "NPPSIDE1");
-    oldBytes.replace(40, 8, std::string(NoteX::previousWireMagic, 8));
+    oldBytes.replace(40, 8, std::string(NoteQu::previousWireMagic, 8));
     check(writeBytes(oldCompanion, oldBytes) && DeleteFileW(newCompanion.c_str()),
           "prepare a previous-release companion fixture");
-    send(NoteX::SetState, 0, reinterpret_cast<LPARAM>(&empty));
-    NoteX::loadSidecar(editor, fixture.c_str());
+    send(NoteQu::SetState, 0, reinterpret_cast<LPARAM>(&empty));
+    NoteQu::loadSidecar(editor, fixture.c_str());
     check(query(0, 5).value == f && readBytes(newCompanion) == oldBytes,
           "previous companion restores all attributes with unchanged bytes");
     check(GetFileAttributesW(oldCompanion.c_str()) == INVALID_FILE_ATTRIBUTES,
-          "validated previous companion is renamed to the NoteX extension");
+          "validated previous companion is renamed to the NoteQu extension");
     check(writeBytes(oldCompanion, "unrelated companion content"), "prepare a companion collision fixture");
-    NoteX::loadSidecar(editor, fixture.c_str());
+    NoteQu::loadSidecar(editor, fixture.c_str());
     check(query(0, 5).value == f && readBytes(oldCompanion) == "unrelated companion content",
           "a current companion wins without overwriting a conflicting previous file");
     DeleteFileW(oldCompanion.c_str());
-    check(NoteX::saveSidecar(editor, fixture.c_str()) && readBytes(newCompanion).substr(0, 8) == "NOTEXSC1",
-          "saving an upgraded companion writes the new NoteX format");
-    NoteX::State state;
-    send(NoteX::GetState, 0, reinterpret_cast<LPARAM>(&state));
-    auto packed = NoteX::encode(state);
-    NoteX::State parsed;
-    check(NoteX::decode(packed, parsed, 17) && parsed.runs == state.runs,
+    check(NoteQu::saveSidecar(editor, fixture.c_str()) && readBytes(newCompanion).substr(0, 8) == "NOTEXSC1",
+          "saving an upgraded companion writes the new NoteQu format");
+    NoteQu::State state;
+    send(NoteQu::GetState, 0, reinterpret_cast<LPARAM>(&state));
+    auto packed = NoteQu::encode(state);
+    NoteQu::State parsed;
+    check(NoteQu::decode(packed, parsed, 17) && parsed.runs == state.runs,
           "wire roundtrip");
     auto previousPacked = packed;
-    previousPacked.replace(0, 8, std::string(NoteX::previousWireMagic, 8));
-    check(NoteX::decode(previousPacked, parsed, 17) && parsed.runs == state.runs,
+    previousPacked.replace(0, 8, std::string(NoteQu::previousWireMagic, 8));
+    check(NoteQu::decode(previousPacked, parsed, 17) && parsed.runs == state.runs,
           "previous wire version remains readable after the rename");
-    check(!NoteX::decode(packed.substr(0, packed.size() - 1), parsed, 17),
+    check(!NoteQu::decode(packed.substr(0, packed.size() - 1), parsed, 17),
           "truncated sidecar rejected");
     packed[8] = static_cast<char>(255);
-    check(!NoteX::decode(packed, parsed, 17), "invalid format count rejected");
+    check(!NoteQu::decode(packed, parsed, 17), "invalid format count rejected");
     send(SCI_SETSEL, 0, 5);
     send(SCI_COPY);
     send(SCI_SETSEL, 17, 17);
@@ -201,11 +201,11 @@ int main() {
     check(text() == "alpha beta\r\ngamma", "paste undo is one action");
     send(SCI_REDO);
     check(query(17, 22).value == f, "paste redo restores formatting");
-    NoteX::State oldClipboardState;
+    NoteQu::State oldClipboardState;
     oldClipboardState.formats.push_back(f);
     oldClipboardState.runs.push_back({0, 5, 1});
-    auto oldClipboardPayload = NoteX::encode(oldClipboardState);
-    oldClipboardPayload.replace(0, 8, std::string(NoteX::previousWireMagic, 8));
+    auto oldClipboardPayload = NoteQu::encode(oldClipboardState);
+    oldClipboardPayload.replace(0, 8, std::string(NoteQu::previousWireMagic, 8));
     check(OpenClipboard(editor) != FALSE, "open clipboard for previous-version fixture");
     EmptyClipboard();
     auto oldTextHandle = GlobalAlloc(GMEM_MOVEABLE, 6 * sizeof(wchar_t));
@@ -220,21 +220,21 @@ int main() {
     memcpy(oldFormatData + 8, oldClipboardPayload.data(), oldClipboardPayload.size());
     GlobalUnlock(oldFormatHandle);
     SetClipboardData(CF_UNICODETEXT, oldTextHandle);
-    SetClipboardData(RegisterClipboardFormatW(NoteX::previousClipboardName().c_str()), oldFormatHandle);
+    SetClipboardData(RegisterClipboardFormatW(NoteQu::previousClipboardName().c_str()), oldFormatHandle);
     CloseClipboard();
     reset("");
     send(SCI_PASTE);
     check(text() == "alpha" && query(0, 5).value == f,
           "previous-release rich clipboard preserves text and all formatting");
     reset("\xC4\xB0\xC4\x9F\xC3\xBC hello");
-    apply(0, 6, f, NoteX::All);
+    apply(0, 6, f, NoteQu::All);
     send(SCI_SETSEL, 0, 6);
     send(SCI_COPY);
     send(SCI_SETSEL, 12, 12);
     send(SCI_PASTE);
     check(query(12, 18).value == f, "Unicode byte positions survive clipboard");
     reset("one\r\ntwo");
-    apply(5, 8, f, NoteX::All);
+    apply(5, 8, f, NoteQu::All);
     send(SCI_SETSEL, 0, 8);
     send(SCI_COPY);
     reset("");
@@ -243,20 +243,20 @@ int main() {
     check(text() == "one\ntwo" && query(4, 7).value == f,
           "clipboard EOL conversion maps format positions");
     reset("abc");
-    apply(0, 3, f, NoteX::All);
+    apply(0, 3, f, NoteQu::All);
     send(SCI_UNDO);
     auto italic = f;
     italic.bold = false;
-    apply(0, 3, italic, NoteX::Italic);
+    apply(0, 3, italic, NoteQu::Italic);
     check(!send(SCI_CANREDO), "new format invalidates redo branch");
-    check(query(0, 3).value.mask == NoteX::Italic,
+    check(query(0, 3).value.mask == NoteQu::Italic,
           "branch does not resurrect previous style");
     // Exercise real layout and both rendering paths, including wrapping and
     // large fonts.
     send(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DIRECTWRITE);
     send(SCI_SETWRAPMODE, SC_WRAP_WORD);
     send(SCI_STYLESETFONT, STYLE_DEFAULT, reinterpret_cast<LPARAM>("Consolas"));
-    apply(0, 3, f, NoteX::All);
+    apply(0, 3, f, NoteQu::All);
     ShowWindow(parent, SW_SHOWNOACTIVATE);
     UpdateWindow(parent);
     UpdateWindow(editor);
@@ -267,19 +267,19 @@ int main() {
     UpdateWindow(editor);
     check(send(SCI_GETSTATUS) == 0, "GDI and DirectWrite rendering complete");
     auto largeHeight = send(SCI_TEXTHEIGHT, 0);
-    apply(0, 3, NoteX::Format{}, NoteX::All);
+    apply(0, 3, NoteQu::Format{}, NoteQu::All);
     check(send(SCI_TEXTHEIGHT, 0) < largeHeight,
           "clear format restores line height");
     reset("small\nBIG\nsmall\ntiny");
     send(SCI_SETWRAPMODE, SC_WRAP_NONE);
     send(SCI_STYLESETSIZE, STYLE_DEFAULT, 10);
     send(SCI_STYLECLEARALL);
-    NoteX::Format sized;
-    sized.mask = NoteX::Size;
+    NoteQu::Format sized;
+    sized.mask = NoteQu::Size;
     sized.size = 3000;
-    apply(6, 9, sized, NoteX::Size);
+    apply(6, 9, sized, NoteQu::Size);
     sized.size = 600;
-    apply(16, 20, sized, NoteX::Size);
+    apply(16, 20, sized, NoteQu::Size);
     auto heightSmall = send(SCI_TEXTHEIGHT, 0);
     auto heightBig = send(SCI_TEXTHEIGHT, 1);
     check(heightBig > heightSmall * 2 && send(SCI_TEXTHEIGHT, 2) == heightSmall,
@@ -337,10 +337,10 @@ int main() {
     check(send(SCI_TEXTHEIGHT, 1) == heightBig,
           "redo restores local row height");
     reset("small BIG small");
-    sized.size=3000;apply(6,9,sized,NoteX::Size);
+    sized.size=3000;apply(6,9,sized,NoteQu::Size);
     const auto mixedSmallCaret=caretHeight(1), mixedBigCaret=caretHeight(7);
     check(mixedBigCaret>mixedSmallCaret*2, "caret follows character font within one mixed-size row");
-    reset("small\nBIG\nsmall");apply(6,9,sized,NoteX::Size);
+    reset("small\nBIG\nsmall");apply(6,9,sized,NoteQu::Size);
     send(SCI_INSERTTEXT,0,reinterpret_cast<LPARAM>("prefix\n"));
     check(send(SCI_TEXTHEIGHT,2)>send(SCI_TEXTHEIGHT,1)*2, "inserting a line shifts local font metrics");
     send(SCI_UNDO);
@@ -349,7 +349,7 @@ int main() {
     wrapped += "\nsmall";
     reset(wrapped.c_str());
     sized.size = 3000;
-    apply(0, 90, sized, NoteX::Size);
+    apply(0, 90, sized, NoteQu::Size);
     MoveWindow(editor, 0, 0, 220, 250, TRUE);
     send(SCI_SETWRAPMODE, SC_WRAP_CHAR);
     InvalidateRect(editor, nullptr, FALSE);
@@ -370,7 +370,7 @@ int main() {
     reset("abcdef");
     send(SCI_STARTSTYLING, 0);
     send(SCI_SETSTYLING, 6, 7);
-    apply(0, 6, f, NoteX::All);
+    apply(0, 6, f, NoteQu::All);
     check(send(SCI_GETSTYLEAT, 2) == 7, "formatting preserves lexer style IDs");
     send(SCI_EMPTYUNDOBUFFER);
     send(SCI_INSERTTEXT, 3, reinterpret_cast<LPARAM>("X"));
@@ -379,9 +379,9 @@ int main() {
           "undo after clearing history preserves restored spans");
     auto invalid = f;
     invalid.size = 1000000;
-    check(!apply(0, 6, invalid, NoteX::Size), "invalid font size rejected");
+    check(!apply(0, 6, invalid, NoteQu::Size), "invalid font size rejected");
     reset("one two");
-    apply(0, 3, f, NoteX::All);
+    apply(0, 3, f, NoteQu::All);
     send(SCI_SETSEL, 0, 3);
     send(SCI_COPY);
     send(SCI_SETSEL, 4, 7);
@@ -394,7 +394,7 @@ int main() {
     reset("abcd");
     send(SCI_BEGINUNDOACTION);
     send(SCI_INSERTTEXT, 0, reinterpret_cast<LPARAM>("A"));
-    apply(0, 1, f, NoteX::All);
+    apply(0, 1, f, NoteQu::All);
     send(SCI_INSERTTEXT, 5, reinterpret_cast<LPARAM>("Z"));
     send(SCI_ENDUNDOACTION);
     send(SCI_UNDO);
@@ -404,7 +404,7 @@ int main() {
     check(text() == "AabcdZ" && query(0, 1).value == f,
           "mixed transaction redo");
     send(SCI_SETSAVEPOINT);
-    apply(1, 3, f, NoteX::Bold);
+    apply(1, 3, f, NoteQu::Bold);
     check(send(SCI_GETMODIFY), "format-only edit leaves save point");
     send(SCI_UNDO);
     check(!send(SCI_GETMODIFY), "undo format reaches save point");
@@ -413,10 +413,10 @@ int main() {
     HWND second = CreateWindowExW(0, L"Scintilla", L"", WS_CHILD, 0, 0, 100,
                                   100, parent, nullptr, instance, nullptr);
     SendMessage(second, SCI_SETDOCPOINTER, 0, send(SCI_GETDOCPOINTER));
-    NoteX::SelectionFormat shared;
+    NoteQu::SelectionFormat shared;
     shared.start = 0;
     shared.end = 1;
-    SendMessage(second, NoteX::GetFormat, 0,
+    SendMessage(second, NoteQu::GetFormat, 0,
                 reinterpret_cast<LPARAM>(&shared));
     check(shared.value == f, "split views share formatting");
     SendMessage(second, SCI_UNDO, 0, 0);
@@ -424,18 +424,18 @@ int main() {
     DestroyWindow(second);
     reset("left");
     send(SCI_GOTOPOS, 4);
-    NoteX::Format typing;
-    typing.mask = NoteX::All;
+    NoteQu::Format typing;
+    typing.mask = NoteQu::All;
     typing.bold = true; typing.size = 2800; typing.fore = RGB(130, 70, 190);
     typing.family = "Arial"; typing.underline = true; typing.strike = true;
     typing.back = RGB(40, 48, 54); typing.highlight = RGB(100, 90, 30);
     check(apply(4, 4, typing, typing.mask), "choose typing format without selection");
     check(!send(SCI_GETMODIFY) && !send(SCI_CANUNDO) && query(0, 4).value.mask == 0,
           "typing choice neither edits existing text nor creates undo action");
-    NoteX::Format italicTyping;
-    italicTyping.mask = NoteX::Italic; italicTyping.italic = true;
-    apply(4, 4, italicTyping, NoteX::Italic);
-    typing.merge(italicTyping, NoteX::Italic);
+    NoteQu::Format italicTyping;
+    italicTyping.mask = NoteQu::Italic; italicTyping.italic = true;
+    apply(4, 4, italicTyping, NoteQu::Italic);
+    typing.merge(italicTyping, NoteQu::Italic);
     check(query(4, 4).value == typing, "pending typing attributes merge and round trip");
     send(WM_CHAR, 'X'); send(WM_CHAR, 'Y');
     check(text() == "leftXY" && query(4, 6).value == typing && query(0, 4).value.mask == 0,
@@ -446,15 +446,15 @@ int main() {
     check(text() == "leftXY" && query(4, 6).value == typing, "redo restores typed formatting");
     send(SCI_GOTOPOS, 6);
     check(query(6, 6).value == typing, "end of line controls inherit preceding character");
-    apply(6, 6, NoteX::Format{}, NoteX::All);
+    apply(6, 6, NoteQu::Format{}, NoteQu::All);
     send(WM_CHAR, 'Z');
     check(query(6, 7).value.mask == 0 && query(4, 6).value == typing,
           "clear typing style leaves preceding formatted text intact");
-    apply(7, 7, typing, NoteX::All);
+    apply(7, 7, typing, NoteQu::All);
     send(SCI_GOTOPOS, 0); send(SCI_GOTOPOS, 7);
     check(query(7, 7).value.mask == 0, "moving caret clears pending typing choice");
     reset(""); send(SCI_GOTOPOS, 0);
-    apply(0, 0, typing, NoteX::All);
+    apply(0, 0, typing, NoteQu::All);
     send(WM_CHAR, 0x011f); // Turkish g-breve, encoded as two UTF-8 bytes
     check(text() == "\xc4\x9f" && query(0, 2).value == typing,
           "typing style supports empty documents and Unicode characters");
@@ -463,14 +463,14 @@ int main() {
           "typing choice continues across Enter");
     send(SCI_SETREADONLY, 1);
     const auto caret = static_cast<int>(send(SCI_GETCURRENTPOS));
-    check(!apply(caret, caret, NoteX::Format{}, NoteX::All), "read-only document rejects pending format");
+    check(!apply(caret, caret, NoteQu::Format{}, NoteQu::All), "read-only document rejects pending format");
     reset("ab"); send(SCI_GOTOPOS, 2);
-    apply(2, 2, typing, NoteX::All);
+    apply(2, 2, typing, NoteQu::All);
     send(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>("paste"));
     check(text() == "abpaste" && query(2, 7).value == typing,
           "replacement at empty caret uses typing choice");
     reset("plain "); send(SCI_GOTOPOS, 6);
-    apply(6, 6, typing, NoteX::All);
+    apply(6, 6, typing, NoteQu::All);
     check(OpenClipboard(parent) != 0, "open clipboard for external plain text fixture");
     EmptyClipboard();
     auto plainHandle = GlobalAlloc(GMEM_MOVEABLE, 12 * sizeof(wchar_t));
@@ -488,12 +488,12 @@ int main() {
     check(query(5, 5).value.mask == 0, "restoring document state clears typing choice");
 
     reset("snapshot text");
-    check(NoteX::saveSidecar(editor, fixture.c_str()), "save initial unformatted snapshot");
+    check(NoteQu::saveSidecar(editor, fixture.c_str()), "save initial unformatted snapshot");
     auto formatEvents = formatNotifications;
-    apply(0, 8, f, NoteX::All);
+    apply(0, 8, f, NoteQu::All);
     check(formatNotifications > formatEvents,
           "format-only change after snapshot emits backup notification");
-    check(NoteX::saveSidecar(editor, fixture.c_str()), "save format-only snapshot update");
+    check(NoteQu::saveSidecar(editor, fixture.c_str()), "save format-only snapshot update");
     formatEvents = formatNotifications;
     send(SCI_UNDO);
     check(formatNotifications > formatEvents && query(0, 8).value.mask == 0,
@@ -503,7 +503,7 @@ int main() {
     check(formatNotifications > formatEvents && query(0, 8).value == f,
           "format-only redo emits backup notification");
     reset("snapshot text");
-    NoteX::loadSidecar(editor, fixture.c_str());
+    NoteQu::loadSidecar(editor, fixture.c_str());
     check(query(0, 8).value == f, "snapshot reload restores format without text edits");
     formatEvents = formatNotifications;
     send(SCI_STARTSTYLING, 0);
@@ -511,8 +511,8 @@ int main() {
     check(formatNotifications == formatEvents,
           "ordinary lexer styling is not a persistent format change");
 
-    NoteX::Formatting model;
-    std::vector<NoteX::Format> reference(30);
+    NoteQu::Formatting model;
+    std::vector<NoteQu::Format> reference(30);
     std::mt19937 random(7301);
     bool matches = true;
     for (int step = 0; step < 500; ++step) {
@@ -520,7 +520,7 @@ int main() {
       int op = random() % 3;
       if (op == 0) {
         auto inherited =
-            reference.empty() ? NoteX::Format{} : reference[pos ? pos - 1 : 0];
+            reference.empty() ? NoteQu::Format{} : reference[pos ? pos - 1 : 0];
         model.insert(pos, 1);
         reference.insert(reference.begin() + pos, inherited);
       } else if (op == 1 && pos < reference.size()) {
@@ -528,17 +528,17 @@ int main() {
         reference.erase(reference.begin() + pos);
       } else if (pos < reference.size()) {
         size_t end = pos + 1 + random() % (reference.size() - pos);
-        NoteX::Change c;
+        NoteQu::Change c;
         c.start = pos;
         c.end = end;
-        c.fields = (random() % 2) ? NoteX::Bold : NoteX::Fore;
+        c.fields = (random() % 2) ? NoteQu::Bold : NoteQu::Fore;
         c.value.mask = c.fields;
         c.value.bold = true;
         c.value.fore = RGB(10, 40, 170);
         model.apply(c);
         for (size_t i = pos; i < end; ++i) {
           reference[i].mask |= c.fields;
-          if (c.fields == NoteX::Bold)
+          if (c.fields == NoteQu::Bold)
             reference[i].bold = true;
           else
             reference[i].fore = c.value.fore;

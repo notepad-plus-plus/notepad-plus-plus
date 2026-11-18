@@ -6,13 +6,13 @@ static void Check(bool condition, const char *name) {
     if (!condition) { fprintf(stderr, "FAIL: %s\n", name); fflush(stderr); exit(2); }
     ++checks; printf("PASS: %s\n", name); fflush(stdout);
 }
-static NSData *Sample() { return [@"NoteX — café, Türkçe, 日本語, 📝\nUnsaved recovery text.\n" dataUsingEncoding:NSUTF8StringEncoding]; }
+static NSData *Sample() { return [@"NoteQu — café, Türkçe, 日本語, 📝\nUnsaved recovery text.\n" dataUsingEncoding:NSUTF8StringEncoding]; }
 static void Bold24(ScintillaView *view) {
-    NoteX::Change change; change.end = Send(view, SCI_GETLENGTH); change.fields = NoteX::Bold | NoteX::Size;
+    NoteQu::Change change; change.end = Send(view, SCI_GETLENGTH); change.fields = NoteQu::Bold | NoteQu::Size;
     change.value.mask = change.fields; change.value.bold = true; change.value.size = 2400;
-    Send(view, NoteX::ApplyFormat, 0, reinterpret_cast<sptr_t>(&change));
-    NoteX::SelectionFormat query; query.end = change.end;
-    Send(view, NoteX::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
+    Send(view, NoteQu::ApplyFormat, 0, reinterpret_cast<sptr_t>(&change));
+    NoteQu::SelectionFormat query; query.end = change.end;
+    Send(view, NoteQu::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
     Check(query.value.bold && query.value.size == 2400 && !(query.mixed & change.fields), "apply shared 24-point bold format");
 }
 @implementation NXApp (Tests)
@@ -43,9 +43,9 @@ static void Bold24(ScintillaView *view) {
     if ([@[@"ui-tabs",@"ui-document-map",@"ui-sidebar-hidden",@"ui-toolbar",@"ui-split",@"ui-search",@"ui-preferences",@"ui-shortcuts",@"ui-language",@"ui-theme"] containsObject:mode]) { [self workbenchUI:mode]; return; }
     if ([mode hasPrefix:@"ui-"]) {
         NSString *path = [self.storage.directory stringByAppendingPathComponent:@"example.py"];
-        NSData *code = [@"# NoteX native workspace example\n\nclass Notebook:\n    def add_note(self, title):\n        return title.strip()\n\ndef main():\n    notebook = Notebook()\n    return notebook.add_note('Hello, NoteX')\n" dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *code = [@"# NoteQu native workspace example\n\nclass Notebook:\n    def add_note(self, title):\n        return title.strip()\n\ndef main():\n    notebook = Notebook()\n    return notebook.add_note('Hello, NoteQu')\n" dataUsingEncoding:NSUTF8StringEncoding];
         Check(NXWrite(code, path, &error) && [self openPath:path error:&error], "open synthetic panel example");
-        [self.workspace showPanel:1]; [self.workspace addProjectNamed:@"NoteX Examples"];
+        [self.workspace showPanel:1]; [self.workspace addProjectNamed:@"NoteQu Examples"];
         Check([self.workspace addPaths:@[path] toNode:self.workspace.projects[0][@"children"][0] error:&error], "populate native project panel");
         [self showPanel:TestCommand([mode isEqual:@"ui-project"] ? 1 : 0)];
         NSOutlineView *tree = [self.workspace valueForKey:@"tree"];
@@ -110,7 +110,7 @@ static void Bold24(ScintillaView *view) {
                 Check([self.workspace.projects[panel][@"children"][0][@"name"] isEqual:[NSString stringWithFormat:@"Recovery Project %ld", (long)panel + 1]], "restore independent project panel across process restart");
             Check([self.preferences[@"tabWidth"] isEqual:@2] && Send(doc.editor, SCI_GETTABWIDTH) == 2, "restore editor preferences");
             Check(self.macros.count == 1 && [self.macros[0][@"name"] isEqual:@"Recovery Macro"], "restore saved macro");
-            Check(!FindMenuCommand(NSApp.mainMenu, @selector(toggleFormat:), NoteX::Bold) && [[NSApp.mainMenu itemAtIndex:1].title isEqual:@"View"], "restore customized native menus");
+            Check(!FindMenuCommand(NSApp.mainMenu, @selector(toggleFormat:), NoteQu::Bold) && [[NSApp.mainMenu itemAtIndex:1].title isEqual:@"View"], "restore customized native menus");
             Check(Send(doc.editor, SCI_MARKERGET, 0) & 1, "restore bookmarks");
             [self verifyWorkbenchRestore];
         }
@@ -131,12 +131,12 @@ static void Bold24(ScintillaView *view) {
     Send(doc.editor, SCI_REDO);
     Check(State(doc.editor).runs.size() == 1, "formatting redo");
     NSData *sidecar = NXCompanion(Text(doc.editor), State(doc.editor));
-    NoteX::State decoded;
+    NoteQu::State decoded;
     Check(NXReadCompanion(sidecar, Sample(), decoded), "Windows-compatible companion round trip");
     Check(!NXReadCompanion(sidecar, [@"changed" dataUsingEncoding:NSUTF8StringEncoding], decoded), "reject companion for different text");
     NSMutableData *legacy = [sidecar mutableCopy];
     memcpy(legacy.mutableBytes, "NPPSIDE1", 8);
-    memcpy(static_cast<char *>(legacy.mutableBytes) + 40, NoteX::previousWireMagic, 8);
+    memcpy(static_cast<char *>(legacy.mutableBytes) + 40, NoteQu::previousWireMagic, 8);
     Check(NXReadCompanion(legacy, Sample(), decoded), "previous companion signature compatibility");
     Send(doc.editor, SCI_SETSEL, 0, Send(doc.editor, SCI_GETLENGTH));
     Send(doc.editor, SCI_COPY);

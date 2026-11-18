@@ -1,16 +1,16 @@
 # Native macOS feature comparison
 
-Release target: NoteX 1.5.0, native Apple Silicon, macOS 14 or later.
+Release target: NoteQu 1.5.0, native Apple Silicon, macOS 14 or later.
 Review date: November 1, 2026. Maintainer: Berk Kivircik.
 
-This comparison concerns the features of the NoteX Windows application. It does
+This comparison concerns the features of the NoteQu Windows application. It does
 not describe importing a Windows installation, profile, session, or personal data.
 Macro parity and Windows DLL plugins are excluded. Existing native macro records
 remain readable so an upgrade does not discard older profile data.
 
 `WINDOWS_COMMANDS.csv` inventories 478 distinct commands reachable from the shared
 Windows menu resource. Its entries are source mappings, not 478 independent test
-results. Runtime-generated NoteX formatting controls, native language catalogs,
+results. Runtime-generated NoteQu formatting controls, native language catalogs,
 and preferences are covered separately below. Similar command names alone are not
 evidence of equivalent behavior.
 
@@ -18,7 +18,7 @@ evidence of equivalent behavior.
 
 | Windows capability | Native macOS implementation | Behavioral verification |
 | --- | --- | --- |
-| Per-range fonts, sizes, colors, bold, italic, underline, strike, pending format, rich copy | Shared NoteX engine; native toolbar and Format menu | Format ranges, mixed selections, line height, clipboard, shared undo, `.notex` round trips in SelfTest and FeatureTests |
+| Per-range fonts, sizes, colors, bold, italic, underline, strike, pending format, rich copy | Shared NoteQu engine; native toolbar and Format menu | Format ranges, mixed selections, line height, clipboard, shared undo, `.notex` round trips in SelfTest and FeatureTests |
 | Bulleted and numbered lists | Toolbar/menu toggles and native Return handling | Typed prefixes, conversion, empty-item exit, indentation, middle-line splitting, LF/CRLF/CR, multiple carets, read-only, undo/redo in ParityTests |
 | Many open documents | Left-aligned wrapping tabs, at most four visible rows, vertical scrolling, previous/next, Control-Tab, searchable picker, drag order, pins, colors, group close | 100-document layout, selection preservation, wraparound, pin records; real AppKit screenshots |
 | File operations and recovery | Save/copy/rename/reload/all-save, Trash, recent/reopen, native session export/load, atomic snapshots outside the app | Collision protection, stale disk checks, encoding/format preservation, previous snapshot fallback, restart, replacement, forced termination after a completed snapshot |
@@ -36,7 +36,7 @@ evidence of equivalent behavior.
 | Menu and context menu customization | Stable command IDs, visibility/order, independent reset and protected recovery commands | Existing menu persistence/reset tests; native command catalog and context configuration validation |
 | Function List and project panels | Shared parser rules and Boost.Regex; three project panels plus folder workspace | Parser fixtures, asynchronous outline population, symbol navigation, XML workspace round trips, stale workspace protection |
 | Encoding and EOL | UTF-8/BOM, UTF-16 LE/BE, explicit single/multibyte legacy encodings, CR/LF/CRLF | All 256 entries in each of 42 shipped single-byte maps are checked for defined-scalar round trips or rejection; representative native legacy conversion and Unicode save tests |
-| Clipboard and text tools | RTF/HTML paste, binary clipboard, app-scoped history, redaction, dates, native Character Viewer | RTF Unicode/formatting and grouped undo; history is session-local and limited to NoteX clipboard actions |
+| Clipboard and text tools | RTF/HTML paste, binary clipboard, app-scoped history, redaction, dates, native Character Viewer | RTF Unicode/formatting and grouped undo; history is session-local and limited to NoteQu clipboard actions |
 | Document map and display | Clickable line overview; folding levels, whitespace/EOL/Unicode representations, RTL/LTR, fullscreen, focus and floating modes | Native document-map/tab screenshots; editor display preferences and layout tests |
 | Run and hashes | Explicit zsh command runner, native environment variables, stop/output limits, saved commands; MD5/SHA-1/SHA-256/SHA-512 | Literal Unicode environment values cannot become shell source; process-group stop; standard SHA-256 vector |
 | OS integration | Finder, Terminal, Trash, installed macOS browsers, AppKit print dialog/print-now | Source-reviewed native API paths; physical printers and third-party browser installations are environment-dependent and not exercised by hosted CI |
@@ -46,7 +46,7 @@ evidence of equivalent behavior.
 - Windows DLL loading, plugin administration, Windows file attributes, Internet
   Explorer, Windows shell commands, and Windows-specific command-line switches do
   not run on macOS. Corresponding native editor workflows use the APIs listed above.
-- Automatic upstream updates remain disabled, matching NoteX's distribution policy.
+- Automatic upstream updates remain disabled, matching NoteQu's distribution policy.
 - No Windows settings/data migration is added. Native configuration uses validated
   JSON. Native session exports contain document text and must be treated as private.
   Existing project XML and `.notex` compatibility are retained.

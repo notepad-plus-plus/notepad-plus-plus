@@ -6,10 +6,10 @@
 #include <filesystem>
 #include <fstream>
 
-inline void noteXUpdate(const wchar_t* mode)
+inline void noteQuUpdate(const wchar_t* mode)
 {
     const auto& p = NppParameters::getInstance();
-    const std::wstring helper = p.getNppPath() + L"\\NoteXUpdater.exe";
+    const std::wstring helper = p.getNppPath() + L"\\NoteQuUpdater.exe";
     std::wstring args = L"\"" + helper + L"\" -mode " + mode + L" -root \"" + p.getNppPath()
         + L"\" -profile \"" + p.getUserPath() + L"\" -version " NOTEX_UPDATE_VERSION_W
         + L" -parent " + std::to_wstring(GetCurrentProcessId());
@@ -19,12 +19,12 @@ inline void noteXUpdate(const wchar_t* mode)
         p.getNppPath().c_str(), &startup, &process))
     { CloseHandle(process.hThread); CloseHandle(process.hProcess); }
     else if (wcscmp(mode, L"auto") != 0)
-        MessageBoxW(nullptr, L"The NoteX updater could not be started. Reinstall the complete NoteX package.", L"NoteX Updates", MB_OK | MB_ICONERROR);
+        MessageBoxW(nullptr, L"The NoteQu updater could not be started. Reinstall the complete NoteQu package.", L"NoteQu Updates", MB_OK | MB_ICONERROR);
 }
-inline void noteXUpdateHealthy()
+inline void noteQuUpdateHealthy()
 {
     std::error_code ec;
-    auto dir = std::filesystem::path(NppParameters::getInstance().getNppPath()) / L".notex-update";
+    auto dir = std::filesystem::path(NppParameters::getInstance().getNppPath()) / L".notequ-update";
     std::filesystem::create_directories(dir, ec);
     if (!ec) { std::ofstream file(dir / L"healthy-" NOTEX_UPDATE_VERSION_W, std::ios::binary); file << NOTEX_UPDATE_VERSION; }
 }

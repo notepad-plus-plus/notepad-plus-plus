@@ -25,19 +25,19 @@ jobs:
           ./updater/build_windows.ps1
           if ($LASTEXITCODE -ne 0) { throw 'Updater build failed.' }
       - name: Native build and integration tests
-        run: ./PowerEditor/Test/NoteX/build-release.ps1 -LogDirectory dist/native-tests
+        run: ./PowerEditor/Test/NoteQu/build-release.ps1 -LogDirectory dist/native-tests
       - name: Function List and clean package verification
         run: |
-          python PowerEditor/Test/NoteX/smoke_release.py --output dist/function-list
+          python PowerEditor/Test/NoteQu/smoke_release.py --output dist/function-list
           if ($LASTEXITCODE -ne 0) { throw 'Function List tests failed.' }
-          python PowerEditor/Packaging/NoteX/package.py --output dist/NoteX
+          python PowerEditor/Packaging/NoteQu/package.py --output dist/NoteQu
           if ($LASTEXITCODE -ne 0) { throw 'Packaging failed.' }
-          python PowerEditor/Packaging/NoteX/verify_package.py dist/NoteX
+          python PowerEditor/Packaging/NoteQu/verify_package.py dist/NoteQu
           if ($LASTEXITCODE -ne 0) { throw 'Package verification failed.' }
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         with:
-          name: NoteX-windows-amd64
-          path: dist/NoteX/
+          name: NoteQu-windows-amd64
+          path: dist/NoteQu/
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         if: always()
         with:

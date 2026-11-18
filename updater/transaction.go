@@ -63,7 +63,7 @@ func stateDirectory(root string) string {
 	if platformName() == "darwin" {
 		return filepath.Join(filepath.Dir(root), "."+filepath.Base(root)+"-update")
 	}
-	return filepath.Join(root, ".notex-update")
+	return filepath.Join(root, ".notequ-update")
 }
 func receiptDirectory(root string) string { return stateDirectory(root) }
 func transactionTarget(root, p string) (string, error) {
@@ -171,7 +171,7 @@ func apply(root, staged, work string, next Signed) error {
 			continue
 		}
 		// Unknown existing non-binary files may be customized: preserve them instead of claiming ownership.
-		if exists && old == nil && p != "NoteX.exe" && p != "NoteXUpdater.exe" && platformName() == "windows" {
+		if exists && old == nil && p != "NoteQu.exe" && p != "NoteQuUpdater.exe" && platformName() == "windows" {
 			return fmt.Errorf("bootstrap needs a reviewed ownership inventory before replacing %s", p)
 		}
 		c := Change{Path: p, After: after, Existed: exists, Mode: uint32(mode)}

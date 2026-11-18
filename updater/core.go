@@ -1,5 +1,5 @@
 // Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX on 2026-11-18.
+// Created for NoteQu on 2026-11-18.
 package main
 
 import (
@@ -28,10 +28,10 @@ import (
 	"time"
 )
 
-const repository = "berkkivircik/NoteX"
+const repository = "berkkivircik/NoteQu"
 const downloadBase = "https://github.com/" + repository + "/releases/download/"
 const maxPackage = 256 << 20
-const receiptName = "notex-owned.json"
+const receiptName = "notequ-owned.json"
 
 var versionPattern = regexp.MustCompile(`^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$`)
 
@@ -101,7 +101,7 @@ func ownedPath(p, platform string) bool {
 		return strings.HasPrefix(p, "Contents/") && !strings.Contains(strings.ToLower(p), "/plugins/")
 	}
 	switch p {
-	case "NoteX.exe", "NoteXUpdater.exe", "LICENSE.txt", "README.md", "CHANGELOG.md", "MODIFICATIONS.md", "THIRD_PARTY_NOTICES.md", "BUILD.md", "SOURCE_CODE.txt", "UPDATING.md", "UPDATE-BOOTSTRAP.md":
+	case "NoteQu.exe", "NoteQuUpdater.exe", "LICENSE.txt", "README.md", "CHANGELOG.md", "MODIFICATIONS.md", "THIRD_PARTY_NOTICES.md", "BUILD.md", "SOURCE_CODE.txt", "UPDATING.md", "UPDATE-BOOTSTRAP.md":
 		return true
 	}
 	return strings.HasPrefix(p, "LICENSES/")
@@ -123,7 +123,7 @@ func verify(raw, sig, key []byte, platform, arch string) (Signed, error) {
 	if m.Schema != 1 || m.Repository != repository || m.Platform != platform || m.Architecture != arch || !versionPattern.MatchString(m.Version) || len(m.Source) != 40 || len(m.Files) == 0 || len(m.Files) > 8192 {
 		return out, errors.New("incompatible update manifest")
 	}
-	if m.URL != downloadBase+"v"+m.Version+"/NoteX-"+m.Version+"-"+platform+"-"+arch+"-update.zip" {
+	if m.URL != downloadBase+"v"+m.Version+"/NoteQu-"+m.Version+"-"+platform+"-"+arch+"-update.zip" {
 		return out, errors.New("unexpected package location")
 	}
 	seen := map[string]bool{}
@@ -142,11 +142,11 @@ func verify(raw, sig, key []byte, platform, arch string) (Signed, error) {
 			return out, errors.New("update too large")
 		}
 	}
-	entry := "NoteX.exe"
-	helper := "NoteXUpdater.exe"
+	entry := "NoteQu.exe"
+	helper := "NoteQuUpdater.exe"
 	if platform == "darwin" {
-		entry = "Contents/MacOS/NoteX"
-		helper = "Contents/MacOS/NoteXUpdater"
+		entry = "Contents/MacOS/NoteQu"
+		helper = "Contents/MacOS/NoteQuUpdater"
 	}
 	if _, ok := m.Files[entry]; !ok {
 		return out, errors.New("missing application")
@@ -180,7 +180,7 @@ func fetch(ctx context.Context, c *http.Client, address string, limit int64) ([]
 	if e != nil {
 		return nil, e
 	}
-	req.Header.Set("User-Agent", "NoteX-Updater")
+	req.Header.Set("User-Agent", "NoteQu-Updater")
 	req.Header.Set("Accept", "application/vnd.github+json")
 	res, e := c.Do(req)
 	if e != nil {
@@ -212,7 +212,7 @@ type Release struct {
 
 func candidates(rs []Release, current, platform, arch string) []Release {
 	var out []Release
-	name := "NoteX-update-" + platform + "-" + arch + ".json"
+	name := "NoteQu-update-" + platform + "-" + arch + ".json"
 	for _, r := range rs {
 		if r.Draft || r.Prerelease || !strings.HasPrefix(r.Tag, "v") || !newer(strings.TrimPrefix(r.Tag, "v"), current) {
 			continue
@@ -256,7 +256,7 @@ func discover(ctx context.Context, current string) (*Signed, error) {
 		return nil, nil
 	}
 	r := rs[0]
-	base := downloadBase + r.Tag + "/NoteX-update-" + runtime.GOOS + "-" + runtime.GOARCH + ".json"
+	base := downloadBase + r.Tag + "/NoteQu-update-" + runtime.GOOS + "-" + runtime.GOARCH + ".json"
 	raw, e := fetch(ctx, c, base, 2<<20)
 	if e != nil {
 		return nil, e

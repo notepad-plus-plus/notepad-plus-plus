@@ -377,7 +377,7 @@ BOOL NXWriteWorkspace(NSDictionary *root, NSString *path, NSError **error) {
 - (BOOL)saveWorkspace:(NSString *)path panel:(NSInteger)panel error:(NSError **)error {
     if (panel < 0 || panel >= 3) return NO;
     if ([_workspacePaths[panel] isEqual:path] && ![NXDigest([NSData dataWithContentsOfFile:path]) isEqual:_workspaceHashes[panel]]) {
-        if (error) *error = NXError(@"The workspace changed outside NoteX. Choose a new filename to avoid overwriting it."); return NO;
+        if (error) *error = NXError(@"The workspace changed outside NoteQu. Choose a new filename to avoid overwriting it."); return NO;
     }
     if (!NXWriteWorkspace(_projects[panel], path, error)) return NO;
     _workspacePaths[panel] = path; _workspaceHashes[panel] = NXDigest([NSData dataWithContentsOfFile:path]); _dirty[panel] = @NO;

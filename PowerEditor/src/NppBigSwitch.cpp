@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -791,7 +791,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				lParam = MAKELPARAM(rc.right - rc.left, rc.bottom - rc.top);
 
 			::MoveWindow(_rebarTop.getHSelf(), 0, 0, rc.right, _rebarTop.getHeight(), TRUE);
-			_noteXTools.resize(rc.right, _rebarTop.getHeight());
+			_noteQuTools.resize(rc.right, _rebarTop.getHeight());
 			_statusBar.adjustParts(rc.right);
 			::SendMessage(_statusBar.getHSelf(), WM_SIZE, wParam, lParam);
 
@@ -893,9 +893,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_COMMAND:
 		{
-			if (LOWORD(wParam) == NoteXMenu::Customize && HIWORD(wParam) == 0)
+			if (LOWORD(wParam) == NoteQuMenu::Customize && HIWORD(wParam) == 0)
 			{
-				_noteXMenu.customize([](HWND dialog) {
+				_noteQuMenu.customize([](HWND dialog) {
 					NppDarkMode::setDarkTitleBar(dialog);
 					NppDarkMode::autoSubclassAndThemeChildControls(dialog);
 				}, [](UINT message, WPARAM dc) -> INT_PTR {
@@ -2419,7 +2419,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// Invalidating them from SCN_PAINTED creates a repaint feedback loop.
 			if (notification->nmhdr.code == SCN_UPDATEUI || notification->nmhdr.code == SCN_MODIFIED ||
 				notification->nmhdr.code == SCN_FOCUSIN || notification->nmhdr.code == TCN_SELCHANGE)
-				_noteXTools.sync();
+				_noteQuTools.sync();
 			return notified;
 		}
 
@@ -3431,7 +3431,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._menuBarShow = !hide;
 			if (nppGUI._menuBarShow)
-				::SetMenu(hwnd, _noteXMenu.handle());
+				::SetMenu(hwnd, _noteQuMenu.handle());
 			else
 				::SetMenu(hwnd, NULL);
 
@@ -3902,17 +3902,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_INITMENUPOPUP:
 		{
-			_windowsMenu.initPopupMenu(_noteXMenu.canonical(reinterpret_cast<HMENU>(wParam)), _pDocTab);
-			_noteXMenu.popup(reinterpret_cast<HMENU>(wParam));
+			_windowsMenu.initPopupMenu(_noteQuMenu.canonical(reinterpret_cast<HMENU>(wParam)), _pDocTab);
+			_noteQuMenu.popup(reinterpret_cast<HMENU>(wParam));
 			return TRUE;
 		}
 
 		case WM_ENTERMENULOOP:
 		{
-			if (!wParam && !_sysMenuEntering) _noteXMenu.refresh();
+			if (!wParam && !_sysMenuEntering) _noteQuMenu.refresh();
 			const NppGUI & nppgui = nppParam.getNppGUI();
 			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
-				::SetMenu(hwnd, _noteXMenu.handle());
+				::SetMenu(hwnd, _noteQuMenu.handle());
 
 			return TRUE;
 		}
@@ -3930,7 +3930,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			const UINT dpi = LOWORD(wParam);
 			_toolBar.resizeIconsDpi(dpi);
-            _noteXTools.dpiChanged(dpi);
+            _noteQuTools.dpiChanged(dpi);
 
 			_mainDocTab.dpiManager().setDpi(dpi);
 			_subDocTab.dpiManager().setDpi(dpi);

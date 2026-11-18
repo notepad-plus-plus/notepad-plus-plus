@@ -14,7 +14,7 @@
 }
 - (void)clipboardHistoryCommand:(id)sender {
     if([sender tag]){[self.clipboardHistory removeAllObjects];return;}
-    if(!self.clipboardHistory.count){Alert(@"Clipboard history contains text copied, cut, or pasted in NoteX during this session.");return;}
+    if(!self.clipboardHistory.count){Alert(@"Clipboard history contains text copied, cut, or pasted in NoteQu during this session.");return;}
     NSMutableArray *titles=[NSMutableArray new];for(NSString *text in self.clipboardHistory)[titles addObject:[[text substringToIndex:MIN((NSUInteger)160,text.length)] stringByReplacingOccurrencesOfString:@"\n" withString:@" ↵ "]];NSInteger index=NXChoose(@"Clipboard History",titles,self.window);if(index>=0)NXReplaceRange(self.current.editor,Send(self.current.editor,SCI_GETSELECTIONSTART),Send(self.current.editor,SCI_GETSELECTIONEND),self.clipboardHistory[index]);
 }
 - (void)pasteRich:(id)sender {
@@ -24,11 +24,11 @@
     NSAttributedString *rich=[[NSAttributedString alloc]initWithRTF:data documentAttributes:nil];if(!rich){Alert(@"The clipboard's RTF data could not be read.");return;}
     auto start=Send(view,SCI_GETSELECTIONSTART),end=Send(view,SCI_GETSELECTIONEND);Send(view,SCI_BEGINUNDOACTION);NXReplaceRange(view,start,end,rich.string);
     [rich enumerateAttributesInRange:NSMakeRange(0,rich.length) options:0 usingBlock:^(NSDictionary *attributes,NSRange range,BOOL *stop){
-        NoteX::Change change;change.start=start+[[rich.string substringToIndex:range.location] lengthOfBytesUsingEncoding:NSUTF8StringEncoding];change.end=change.start+[[rich.string substringWithRange:range] lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-        NSFont *font=attributes[NSFontAttributeName];if(font){auto traits=[NSFontManager.sharedFontManager traitsOfFont:font];change.fields|=NoteX::Family|NoteX::Size|NoteX::Bold|NoteX::Italic;change.value.family=font.familyName.UTF8String;change.value.size=lround(std::clamp<double>(font.pointSize,6,96)*100);change.value.bold=(traits&NSBoldFontMask)!=0;change.value.italic=(traits&NSItalicFontMask)!=0;}
-        change.fields|=NoteX::Underline|NoteX::Strike;change.value.underline=[attributes[NSUnderlineStyleAttributeName] integerValue]!=0;change.value.strike=[attributes[NSStrikethroughStyleAttributeName] integerValue]!=0;
-        for(NSString *key in @[NSForegroundColorAttributeName,NSBackgroundColorAttributeName]){NSColor *color=[attributes[key] colorUsingColorSpace:NSColorSpace.sRGBColorSpace];if(color){unsigned rgb=(unsigned)lround(color.redComponent*255)|((unsigned)lround(color.greenComponent*255)<<8)|((unsigned)lround(color.blueComponent*255)<<16);if([key isEqual:NSForegroundColorAttributeName]){change.fields|=NoteX::Fore;change.value.fore=rgb;}else{change.fields|=NoteX::Highlight;change.value.highlight=rgb;}}}
-        change.value.mask=change.fields;Send(view,NoteX::ApplyFormat,0,reinterpret_cast<sptr_t>(&change));
+        NoteQu::Change change;change.start=start+[[rich.string substringToIndex:range.location] lengthOfBytesUsingEncoding:NSUTF8StringEncoding];change.end=change.start+[[rich.string substringWithRange:range] lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+        NSFont *font=attributes[NSFontAttributeName];if(font){auto traits=[NSFontManager.sharedFontManager traitsOfFont:font];change.fields|=NoteQu::Family|NoteQu::Size|NoteQu::Bold|NoteQu::Italic;change.value.family=font.familyName.UTF8String;change.value.size=lround(std::clamp<double>(font.pointSize,6,96)*100);change.value.bold=(traits&NSBoldFontMask)!=0;change.value.italic=(traits&NSItalicFontMask)!=0;}
+        change.fields|=NoteQu::Underline|NoteQu::Strike;change.value.underline=[attributes[NSUnderlineStyleAttributeName] integerValue]!=0;change.value.strike=[attributes[NSStrikethroughStyleAttributeName] integerValue]!=0;
+        for(NSString *key in @[NSForegroundColorAttributeName,NSBackgroundColorAttributeName]){NSColor *color=[attributes[key] colorUsingColorSpace:NSColorSpace.sRGBColorSpace];if(color){unsigned rgb=(unsigned)lround(color.redComponent*255)|((unsigned)lround(color.greenComponent*255)<<8)|((unsigned)lround(color.blueComponent*255)<<16);if([key isEqual:NSForegroundColorAttributeName]){change.fields|=NoteQu::Fore;change.value.fore=rgb;}else{change.fields|=NoteQu::Highlight;change.value.highlight=rgb;}}}
+        change.value.mask=change.fields;Send(view,NoteQu::ApplyFormat,0,reinterpret_cast<sptr_t>(&change));
     }];Send(view,SCI_ENDUNDOACTION);[self tick:nil];
 }
 - (void)customizeContextMenu:(id)sender {[self.contextLayout customizeForWindow:self.window];}

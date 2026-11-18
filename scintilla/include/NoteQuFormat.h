@@ -1,8 +1,8 @@
 // Copyright (C) 2026 Berk Kivircik.
 // SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX; publication date: 2026-10-28.
+// Created for NoteQu; publication date: 2026-10-28.
 
-// NoteX per-range formatting. Independent of lexer styles and file encoding.
+// NoteQu per-range formatting. Independent of lexer styles and file encoding.
 #pragma once
 #include <algorithm>
 #include <cstdint>
@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-namespace NoteX
+namespace NoteQu
 {
 // Previous release identifiers are read-only compatibility data, not output names.
 inline constexpr char previousWireMagic[8] = {78, 80, 80, 80, 82, 79, 49, 0};
@@ -356,4 +356,4 @@ class Formatting
         return q;
     }
 };
-} // namespace NoteX
+} // namespace NoteQu

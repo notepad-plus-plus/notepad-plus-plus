@@ -1,4 +1,4 @@
-# NoteX native integration tests
+# NoteQu native integration tests
 
 `build-release.ps1` performs a clean x64 Release build and then invokes `run.ps1`.
 The native tests link the application's Scintilla library. They exercise range

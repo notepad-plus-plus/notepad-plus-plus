@@ -14,9 +14,9 @@ def verify(manifest, signature, archive, platform, architecture, version):
     key = Ed25519PublicKey.from_public_bytes(base64.b64decode(re.search(r'trustedKey = "([^"]+)"', trust)[1]))
     key.verify(signature, manifest)
     m = json.loads(manifest)
-    assert m['repository'] == 'berkkivircik/NoteX' and m['schema'] == 1
+    assert m['repository'] == 'berkkivircik/NoteQu' and m['schema'] == 1
     assert (m['platform'], m['architecture'], m['version']) == (platform, architecture, version)
-    assert m['url'] == f'https://github.com/berkkivircik/NoteX/releases/download/v{version}/NoteX-{version}-{platform}-{architecture}-update.zip'
+    assert m['url'] == f'https://github.com/berkkivircik/NoteQu/releases/download/v{version}/NoteQu-{version}-{platform}-{architecture}-update.zip'
     with zipfile.ZipFile(archive) as z:
         assert set(z.namelist()) == set(m['files']) and len(z.namelist()) == len(m['files'])
         for name, spec in m['files'].items():

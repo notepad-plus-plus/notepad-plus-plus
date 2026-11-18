@@ -1,6 +1,6 @@
-// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// Modified for NoteQu on 2026-11-18: authenticated updates and bundled-command privacy.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -108,7 +108,7 @@ inline constexpr bool fold_collapse = false;
 
 inline constexpr int MODEVENTMASK_OFF = 0;
 
-// Persistent NoteX formatting uses tagged ChangeStyle notifications; without
+// Persistent NoteQu formatting uses tagged ChangeStyle notifications; without
 // these the snapshot tracker misses format-only edits after its previous save.
 inline constexpr unsigned long NPP_SCINTILLA_MODEVENTMASK = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT |
 	SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR | SC_MOD_CHANGESTYLE;

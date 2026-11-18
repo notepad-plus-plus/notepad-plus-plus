@@ -24,7 +24,7 @@ func establishOwnership(root, current string) error {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	base := downloadBase + "v" + current + "/NoteX-update-" + platformName() + "-" + architecture() + ".json"
+	base := downloadBase + "v" + current + "/NoteQu-update-" + platformName() + "-" + architecture() + ".json"
 	raw, e := fetch(ctx, client(), base, 2<<20)
 	if e != nil {
 		return e

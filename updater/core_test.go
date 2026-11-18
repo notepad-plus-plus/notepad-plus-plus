@@ -24,8 +24,8 @@ func fixture(t *testing.T) (Signed, ed25519.PublicKey, ed25519.PrivateKey) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	files := map[string]File{"NoteX.exe": {SHA256: digest([]byte("app")), Size: 3}, "NoteXUpdater.exe": {SHA256: digest([]byte("helper")), Size: 6}}
-	m := Manifest{Schema: 1, Repository: repository, Version: "1.6.1", Platform: "windows", Architecture: "amd64", Source: strings.Repeat("a", 40), URL: downloadBase + "v1.6.1/NoteX-1.6.1-windows-amd64-update.zip", Files: files}
+	files := map[string]File{"NoteQu.exe": {SHA256: digest([]byte("app")), Size: 3}, "NoteQuUpdater.exe": {SHA256: digest([]byte("helper")), Size: 6}}
+	m := Manifest{Schema: 1, Repository: repository, Version: "1.6.1", Platform: "windows", Architecture: "amd64", Source: strings.Repeat("a", 40), URL: downloadBase + "v1.6.1/NoteQu-1.6.1-windows-amd64-update.zip", Files: files}
 	b, _ := json.Marshal(m)
 	return Signed{Manifest: m, Bytes: b, Signature: ed25519.Sign(key, b)}, pub, key
 }
@@ -54,7 +54,7 @@ func TestSignedManifest(t *testing.T) {
 			}
 		})
 	}
-	for _, p := range []string{"../note.txt", "config.xml", "plugins/Fake.dll", "themes/mine.xml", "session.xml", "NoteX.exe:stream", "CON", "/NoteX.exe"} {
+	for _, p := range []string{"../note.txt", "config.xml", "plugins/Fake.dll", "themes/mine.xml", "session.xml", "NoteQu.exe:stream", "CON", "/NoteQu.exe"} {
 		m := s.Manifest
 		m.Files = map[string]File{}
 		for name, f := range s.Manifest.Files {
@@ -69,7 +69,7 @@ func TestSignedManifest(t *testing.T) {
 }
 func release(tag, platform, arch string) Release {
 	r := Release{Tag: tag}
-	name := "NoteX-update-" + platform + "-" + arch + ".json"
+	name := "NoteQu-update-" + platform + "-" + arch + ".json"
 	for _, n := range []string{name, name + ".sig"} {
 		r.Assets = append(r.Assets, struct {
 			Name string `json:"name"`
@@ -109,11 +109,11 @@ func archive(t *testing.T, names []string, contents []string) []byte {
 }
 func TestArchiveIntegrity(t *testing.T) {
 	s, _, _ := fixture(t)
-	valid := archive(t, []string{"NoteX.exe", "NoteXUpdater.exe"}, []string{"app", "helper"})
+	valid := archive(t, []string{"NoteQu.exe", "NoteQuUpdater.exe"}, []string{"app", "helper"})
 	if e := extract(valid, s, t.TempDir()); e != nil {
 		t.Fatal(e)
 	}
-	for name, b := range map[string][]byte{"truncated": valid[:len(valid)/2], "tampered": archive(t, []string{"NoteX.exe", "NoteXUpdater.exe"}, []string{"bad", "helper"}), "missing": archive(t, []string{"NoteX.exe"}, []string{"app"}), "traversal": archive(t, []string{"../NoteX.exe"}, []string{"app"}), "duplicate": archive(t, []string{"NoteX.exe", "NoteX.exe"}, []string{"app", "app"}), "unowned": archive(t, []string{"config.xml"}, []string{"x"})} {
+	for name, b := range map[string][]byte{"truncated": valid[:len(valid)/2], "tampered": archive(t, []string{"NoteQu.exe", "NoteQuUpdater.exe"}, []string{"bad", "helper"}), "missing": archive(t, []string{"NoteQu.exe"}, []string{"app"}), "traversal": archive(t, []string{"../NoteQu.exe"}, []string{"app"}), "duplicate": archive(t, []string{"NoteQu.exe", "NoteQu.exe"}, []string{"app", "app"}), "unowned": archive(t, []string{"config.xml"}, []string{"x"})} {
 		t.Run(name, func(t *testing.T) {
 			if e := extract(b, s, t.TempDir()); e == nil {
 				t.Fatal("invalid archive accepted")
@@ -158,10 +158,10 @@ func TestRecoveryPreservesData(t *testing.T) {
 		}
 	}
 	must(os.MkdirAll(stateDirectory(root), 0700))
-	appPath := "NoteX.exe"
+	appPath := "NoteQu.exe"
 	oldPath := "UPDATE-BOOTSTRAP.md"
 	if platformName() == "darwin" {
-		appPath = "Contents/MacOS/NoteX"
+		appPath = "Contents/MacOS/NoteQu"
 		oldPath = "Contents/Resources/UPDATE-BOOTSTRAP.md"
 	}
 	protected := []string{"session.xml", "backup/new-note", "config.xml", "shortcuts.xml", "themes/custom.xml", "userDefineLangs/custom.xml", "plugins/Test/Test.dll", "plugins/config/Test.ini", "my-notes.txt"}
@@ -195,9 +195,9 @@ func TestRecoveryPreservesData(t *testing.T) {
 }
 func TestRecoveryDoesNotOverwriteNewChanges(t *testing.T) {
 	root, work := t.TempDir(), t.TempDir()
-	p := "NoteX.exe"
+	p := "NoteQu.exe"
 	if platformName() == "darwin" {
-		p = "Contents/MacOS/NoteX"
+		p = "Contents/MacOS/NoteQu"
 	}
 	atomicWrite(filepath.Join(root, p), []byte("user changed later"), 0600)
 	atomicWrite(filepath.Join(work, "before", p), []byte("old"), 0600)

@@ -60,10 +60,10 @@ func TestInterruptedUpdateProcess(t *testing.T) {
 	if root := os.Getenv("NOTEX_TRANSACTION_CHILD"); root != "" {
 		work := filepath.Join(root, "transaction")
 		staged := filepath.Join(root, "stage")
-		app, helper := "NoteX.exe", "NoteXUpdater.exe"
+		app, helper := "NoteQu.exe", "NoteQuUpdater.exe"
 		if runtime.GOOS == "darwin" {
-			app = "Contents/MacOS/NoteX"
-			helper = "Contents/MacOS/NoteXUpdater"
+			app = "Contents/MacOS/NoteQu"
+			helper = "Contents/MacOS/NoteQuUpdater"
 		}
 		b := executableFixture(runtime.GOOS, runtime.GOARCH)
 		s := Signed{Manifest: Manifest{Version: "1.6.1", Platform: runtime.GOOS, Architecture: runtime.GOARCH, Files: map[string]File{app: {SHA256: digest(b), Size: int64(len(b)), Executable: true}, helper: {SHA256: digest(b), Size: int64(len(b)), Executable: true}}}}
@@ -90,10 +90,10 @@ func TestInterruptedUpdateProcess(t *testing.T) {
 	if e := os.MkdirAll(stateDirectory(root), 0700); e != nil {
 		t.Fatal(e)
 	}
-	app, helper := "NoteX.exe", "NoteXUpdater.exe"
+	app, helper := "NoteQu.exe", "NoteQuUpdater.exe"
 	if runtime.GOOS == "darwin" {
-		app = "Contents/MacOS/NoteX"
-		helper = "Contents/MacOS/NoteXUpdater"
+		app = "Contents/MacOS/NoteQu"
+		helper = "Contents/MacOS/NoteQuUpdater"
 	}
 	for _, p := range []string{app, helper} {
 		if e := atomicWrite(filepath.Join(root, p), []byte("old application: "+p), 0755); e != nil {

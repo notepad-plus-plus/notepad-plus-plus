@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX on 2026-11-18: use the current application version in the notice.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu on 2026-11-18: use the current application version in the notice.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -28,8 +28,8 @@
 #define LICENCE_TXT \
 NOTEPAD_PLUS_VERSION L" - modified by Berk Kivircik.\r\n\
 Based on Notepad++ 8.9.8.1 by Don HO and contributors.\r\n\
-NoteX modifications: Copyright (C) 2026 Berk Kivircik.\r\n\
-Corresponding source: https://github.com/berkkivircik/NoteX\r\n\
+NoteQu modifications: Copyright (C) 2026 Berk Kivircik.\r\n\
+Corresponding source: https://github.com/berkkivircik/NoteQu\r\n\
 License: GNU GPL version 3. See LICENSE.txt and THIRD_PARTY_NOTICES.md.\r\n\r\n\
 This program is free software; you can redistribute it and/or \
 modify it under the terms of the GNU General Public License \

@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -147,7 +147,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			//_pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v897-slava-ukraini/");
             
 			_pageLink.init(_hInst, _hSelf);
-			_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://github.com/berkkivircik/NoteX");
+			_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://github.com/berkkivircik/NoteQu");
 
 			return TRUE;
 		}

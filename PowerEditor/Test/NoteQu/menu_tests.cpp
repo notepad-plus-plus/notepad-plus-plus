@@ -1,8 +1,8 @@
 // Copyright (C) 2026 Berk Kivircik.
 // SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX; publication date: 2026-10-28.
+// Created for NoteQu; publication date: 2026-10-28.
 
-#include "NoteXMenu.h"
+#include "NoteQuMenu.h"
 #include <iostream>
 static int passed = 0, failed = 0;
 static void check(bool ok, const char *name) {
@@ -16,7 +16,7 @@ static std::wstring text(HMENU m, int pos) {
 }
 int main() {
   auto dir = std::filesystem::temp_directory_path() /
-             (L"NoteX-menu-tests-" + std::to_wstring(GetCurrentProcessId()));
+             (L"NoteQu-menu-tests-" + std::to_wstring(GetCurrentProcessId()));
   std::filesystem::create_directory(dir);
   auto cfg = dir / L"menu.cfg";
   HWND window = CreateWindowW(L"STATIC", L"Menu test", WS_OVERLAPPEDWINDOW, 0,
@@ -34,22 +34,22 @@ int main() {
   AppendMenuW(source, MF_POPUP, reinterpret_cast<UINT_PTR>(plugin),
               L"&Plugins");
   SetMenu(window, source);
-  NoteXMenu menu;
+  NoteQuMenu menu;
   cfg = dir / L"NoteX-menu.cfg";
-  const auto previousConfig = dir / (NoteX::previousBrand() + L"-menu.cfg");
+  const auto previousConfig = dir / (NoteQu::previousBrand() + L"-menu.cfg");
   { std::ofstream previous(previousConfig); previous << "NPPMENU1\nO r1\nO r0\nO r2\n"; }
   menu.init(window, source, cfg);
   check(std::filesystem::exists(cfg) && !std::filesystem::exists(previousConfig) &&
             menu.getSettings().order == std::vector<std::string>{"r1", "r0", "r2"},
         "previous menu filename and settings migrate without reset");
-  menu.save(NoteXMenu::Settings{});
+  menu.save(NoteQuMenu::Settings{});
   menu.load();
   menu.refresh();
   auto display = menu.handle();
   check(GetMenu(window) == display && display != source,
         "display copy attached");
   check(GetMenuItemCount(display) == 4 &&
-            GetMenuItemID(display, 3) == NoteXMenu::Customize,
+            GetMenuItemID(display, 3) == NoteQuMenu::Customize,
         "customizer always last");
   auto fileCopy = GetSubMenu(display, 0);
   check(fileCopy != file && menu.canonical(fileCopy) == file,
@@ -58,7 +58,7 @@ int main() {
         "disabled state copied");
   check(GetMenuState(GetSubMenu(display, 1), 42002, MF_BYCOMMAND) & MF_CHECKED,
         "checked state copied");
-  NoteXMenu::Settings custom{{"r1", "r0", "r2"}, {"r0/c41001", "r2"}};
+  NoteQuMenu::Settings custom{{"r1", "r0", "r2"}, {"r0/c41001", "r2"}};
   check(menu.save(custom) && menu.load() && menu.getSettings() == custom,
         "settings round trip");
   menu.refresh();
@@ -90,7 +90,7 @@ int main() {
   menu.load();
   menu.refresh();
   check(GetMenuItemCount(display) == 1 &&
-            GetMenuItemID(display, 0) == NoteXMenu::Customize,
+            GetMenuItemID(display, 0) == NoteQuMenu::Customize,
         "all menus hidden retains recovery icon");
   check(menu.save({}) && menu.load(), "reset persists");
   menu.refresh();
@@ -114,7 +114,7 @@ int main() {
     std::ofstream out(cfg);
     out << "NPPMENU1\nH r0\nBAD\n";
   }
-  check(!menu.load() && menu.getSettings() == NoteXMenu::Settings{},
+  check(!menu.load() && menu.getSettings() == NoteQuMenu::Settings{},
         "malformed settings fail to defaults atomically");
   menu.refresh();
   menu.destroy();

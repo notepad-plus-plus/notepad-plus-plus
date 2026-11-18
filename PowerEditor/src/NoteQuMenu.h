@@ -1,11 +1,11 @@
 // Copyright (C) 2026 Berk Kivircik.
 // SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX; publication date: 2026-10-28.
+// Created for NoteQu; publication date: 2026-10-28.
 
 #pragma once
 // clang-format off
 #include <windows.h>
-#include "NoteXFormat.h"
+#include "NoteQuFormat.h"
 #include <commctrl.h>
 // clang-format on
 #include <algorithm>
@@ -19,7 +19,7 @@
 // The application's canonical menu retains its positions and handles for
 // plugins, translations and native command updates. Only this owned display
 // copy is filtered.
-class NoteXMenu {
+class NoteQuMenu {
 public:
   static constexpr UINT Customize = 61090;
   struct Settings {
@@ -223,9 +223,9 @@ private:
     SetFocus(tree);
   }
   static INT_PTR CALLBACK dialogProc(HWND h, UINT message, WPARAM w, LPARAM l) {
-    auto self = reinterpret_cast<NoteXMenu *>(GetWindowLongPtrW(h, DWLP_USER));
+    auto self = reinterpret_cast<NoteQuMenu *>(GetWindowLongPtrW(h, DWLP_USER));
     if (message == WM_INITDIALOG) {
-      self = reinterpret_cast<NoteXMenu *>(l);
+      self = reinterpret_cast<NoteQuMenu *>(l);
       SetWindowLongPtrW(h, DWLP_USER, l);
       self->createControls(h);
       return TRUE;
@@ -257,7 +257,7 @@ private:
                       L"Men\u00fc ayarlar\u0131 kaydedilemedi. Ayar "
                       L"klas\u00f6r\u00fcn\u00fcn yaz\u0131labilir "
                       L"oldu\u011funu kontrol edin.",
-                      L"NoteX", MB_OK | MB_ICONERROR);
+                      L"NoteQu", MB_OK | MB_ICONERROR);
           return TRUE;
         }
         self->settings = self->draft;
@@ -364,7 +364,7 @@ public:
     path = file;
     std::error_code migrationError;
     if (path.filename() == L"NoteX-menu.cfg" && !std::filesystem::exists(path, migrationError) && !migrationError) {
-      const auto previous = path.parent_path() / (NoteX::previousBrand() + L"-menu.cfg");
+      const auto previous = path.parent_path() / (NoteQu::previousBrand() + L"-menu.cfg");
       MoveFileExW(previous.c_str(), path.c_str(), MOVEFILE_WRITE_THROUGH);
     }
     load();

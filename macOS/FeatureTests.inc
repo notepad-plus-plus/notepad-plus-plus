@@ -19,8 +19,8 @@ static NSMenuItem *FindMenuCommand(NSMenu *menu, SEL action, NSInteger tag) {
     NSError *error = nil;
     NSDictionary *layout = @{@"order":@{@"":@[@"/menu:View", @"/menu:File"]}, @"hidden":@[@"/menu:Format/toggleFormat::1"]};
     Check([self.menuLayout setLayout:layout error:&error], "persist customized menu layout");
-    Check([[NSApp.mainMenu itemAtIndex:0].title isEqual:@"NoteX"] && [[NSApp.mainMenu itemAtIndex:1].title isEqual:@"View"], "keep application menu first while reordering menus");
-    Check(!FindMenuCommand(NSApp.mainMenu, @selector(toggleFormat:), NoteX::Bold), "hide selected formatting command");
+    Check([[NSApp.mainMenu itemAtIndex:0].title isEqual:@"NoteQu"] && [[NSApp.mainMenu itemAtIndex:1].title isEqual:@"View"], "keep application menu first while reordering menus");
+    Check(!FindMenuCommand(NSApp.mainMenu, @selector(toggleFormat:), NoteQu::Bold), "hide selected formatting command");
     Check(FindMenuCommand(NSApp.mainMenu, @selector(customizeMenus:), 0) && FindMenuCommand(NSApp.mainMenu, @selector(terminate:), 0), "layout recovery and Quit remain accessible");
     NSDictionary *savedLayout = self.menuLayout.settings;
     NSTimer *cancelDialog = [NSTimer timerWithTimeInterval:0.1 repeats:NO block:^(NSTimer *timer) {
@@ -30,7 +30,7 @@ static NSMenuItem *FindMenuCommand(NSMenu *menu, SEL action, NSInteger tag) {
     [self.menuLayout customizeForWindow:self.window];
     Check([self.menuLayout.settings isEqual:savedLayout], "cancel native menu dialog leaves layout unchanged");
     [self.menuLayout reset];
-    Check(FindMenuCommand(NSApp.mainMenu, @selector(toggleFormat:), NoteX::Bold), "restore default menus");
+    Check(FindMenuCommand(NSApp.mainMenu, @selector(toggleFormat:), NoteQu::Bold), "restore default menus");
     error = nil;
     Check(![self.menuLayout setLayout:@{@"order":@[], @"hidden":@[@1]} error:&error], "reject malformed menu layout");
 

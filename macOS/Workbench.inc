@@ -151,7 +151,7 @@
         if(doc&&path.length&&!inMemory&&doc.dirty)reason=@"The open document has unsaved changes.";
         if(doc&&![NXDigest(Text(doc.primaryEditor)) isEqual:first[@"textHash"]])reason=@"The document changed after the preview.";
         NSString *companion=[path stringByAppendingString:@".notex"];NSData *sidecar=path.length&&!inMemory?[NSData dataWithContentsOfFile:companion]:nil;
-        if(sidecar){NoteX::State state;NSString *text=NXDecodeText(disk) ?: NXDecodeEncoding(disk,[first[@"encoding"] unsignedLongLongValue]);if(!text||!NXReadCompanion(sidecar,[text dataUsingEncoding:NSUTF8StringEncoding],state))reason=@"The formatting companion is invalid or belongs to different text.";}
+        if(sidecar){NoteQu::State state;NSString *text=NXDecodeText(disk) ?: NXDecodeEncoding(disk,[first[@"encoding"] unsignedLongLongValue]);if(!text||!NXReadCompanion(sidecar,[text dataUsingEncoding:NSUTF8StringEncoding],state))reason=@"The formatting companion is invalid or belongs to different text.";}
         NSString *prefix=[NSString stringWithFormat:@"%04lu-",(unsigned long)(changed+skipped)];
         if(!reason&&path.length&&!inMemory){if(!NXWrite(disk,[backup stringByAppendingPathComponent:[prefix stringByAppendingString:path.lastPathComponent]],&error)||(sidecar&&!NXWrite(sidecar,[backup stringByAppendingPathComponent:[[prefix stringByAppendingString:path.lastPathComponent] stringByAppendingString:@".notex"]],&error)))reason=error.localizedDescription;}
         if(!reason&&path.length&&!inMemory){

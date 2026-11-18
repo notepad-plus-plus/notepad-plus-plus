@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // Scintilla source code edit control
@@ -1464,9 +1464,9 @@ void Document::RichChanged() {
     change.token=0x4e505046;NotifyModified(change);
 }
 
-bool Document::ApplyRichFormat(const NoteX::Change& change) {
+bool Document::ApplyRichFormat(const NoteQu::Change& change) {
     CheckReadOnly();
-    if (change.fields > NoteX::All || change.value.mask > NoteX::All || change.value.family.size()>256 || change.value.size<600 || change.value.size>9600) return false;
+    if (change.fields > NoteQu::All || change.value.mask > NoteQu::All || change.value.family.size()>256 || change.value.size<600 || change.value.size>9600) return false;
     if (cb.IsReadOnly() || change.start < 0 || change.end > LengthNoExcept() || change.end <= change.start) return false;
     auto before = rich.state.runs;
     if (!rich.apply(change)) return false;
@@ -1482,7 +1482,7 @@ bool Document::ApplyRichFormat(const NoteX::Change& change) {
     return true;
 }
 
-bool Document::RestoreRichFormat(const NoteX::Restore& restore) {
+bool Document::RestoreRichFormat(const NoteQu::Restore& restore) {
     if (restore.state.formats.empty()) return false;
     Sci::Position previous = 0;
     for (const auto& r : restore.state.runs) {
@@ -1492,9 +1492,9 @@ bool Document::RestoreRichFormat(const NoteX::Restore& restore) {
     if (restore.undoable) {
         if (cb.IsReadOnly()) return false;
         cb.BeginUndoAction();
-        NoteX::Change clear; clear.end = LengthNoExcept(); ApplyRichFormat(clear);
+        NoteQu::Change clear; clear.end = LengthNoExcept(); ApplyRichFormat(clear);
         for (const auto& r : restore.state.runs) {
-            NoteX::Change c; c.start=r.start;c.end=r.end;c.value=restore.state.formats[r.style];ApplyRichFormat(c);
+            NoteQu::Change c; c.start=r.start;c.end=r.end;c.value=restore.state.formats[r.style];ApplyRichFormat(c);
         }
         cb.EndUndoAction();
     } else {
@@ -1553,7 +1553,7 @@ bool Document::DeleteChars(Sci::Position pos, Sci::Position len) {
 /**
  * Insert a string with a length.
  */
-Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci::Position insertLength, const NoteX::Format *typingFormat) {
+Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci::Position insertLength, const NoteQu::Format *typingFormat) {
 	if (insertLength <= 0) {
 		return 0;
 	}
@@ -1598,7 +1598,7 @@ Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci:
 	rich.insert(position, insertLength);
     // Include the chosen typing style in the text edit's existing undo record.
     if (typingFormat) {
-        NoteX::Change change;
+        NoteQu::Change change;
         change.start = position; change.end = position + insertLength;
         change.value = *typingFormat;
         rich.apply(change);
@@ -1620,7 +1620,7 @@ Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci:
 	return insertLength;
 }
 
-Sci::Position Document::InsertString(Sci::Position position, std::string_view sv, const NoteX::Format *typingFormat) {
+Sci::Position Document::InsertString(Sci::Position position, std::string_view sv, const NoteQu::Format *typingFormat) {
 	return InsertString(position, sv.data(), sv.length(), typingFormat);
 }
 

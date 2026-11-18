@@ -166,7 +166,7 @@ PowerEditor/src/MISC/md5/RCa06792
 *.db
 *.sln
 *.opendb
-# NoteX private/runtime data and generated publication artifacts
+# NoteQu private/runtime data and generated publication artifacts
 /dist/
 **/out/
 **/validation/
@@ -183,6 +183,7 @@ PowerEditor/src/MISC/md5/RCa06792
 *.[n][p][p][p][r][o]
 session.xml*
 NoteX-menu.cfg
+.notequ-update/
 backup/
 !PowerEditor/visual.net/notepadPlus.sln
 

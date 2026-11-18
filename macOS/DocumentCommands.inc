@@ -68,7 +68,7 @@
         if([NSFileManager.defaultManager fileExistsAtPath:destination]||[NSFileManager.defaultManager fileExistsAtPath:newCompanion]){Alert(@"Choose an unused filename. Rename does not replace existing documents or companions.");return;}
         if(![self snapshot:&error]){Alert(error.localizedDescription);return;}
         BOOL companion=[NSFileManager.defaultManager fileExistsAtPath:oldCompanion];
-        if(companion&&!NXOwnedCompanion([NSData dataWithContentsOfFile:oldCompanion])){Alert(@"The companion is not a NoteX file. Rename was canceled.");return;}
+        if(companion&&!NXOwnedCompanion([NSData dataWithContentsOfFile:oldCompanion])){Alert(@"The companion is not a NoteQu file. Rename was canceled.");return;}
         if(![NSFileManager.defaultManager moveItemAtPath:doc.path toPath:destination error:&error]){Alert(error.localizedDescription);return;}
         if(companion&&![NSFileManager.defaultManager moveItemAtPath:oldCompanion toPath:newCompanion error:&error]){NSError *rollback=nil;[NSFileManager.defaultManager moveItemAtPath:destination toPath:doc.path error:&rollback];Alert(rollback?[NSString stringWithFormat:@"Rename failed. The document is at %@; its companion is at %@.",destination,oldCompanion]:error.localizedDescription);if(rollback){doc.path=destination;doc.title=destination.lastPathComponent;}return;}
         doc.path=destination;doc.title=destination.lastPathComponent;[self tick:nil];

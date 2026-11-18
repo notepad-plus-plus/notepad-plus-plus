@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // Scintilla source code edit control
@@ -3144,7 +3144,7 @@ void ScintillaWin::Paste() {
 	bool isRectangular = false;
 	bool hasUnicodeText = false;
 	std::string putf;
-	NoteX::State pastedFormat;
+	NoteQu::State pastedFormat;
 	bool hasFormat=false;
 
 	{
@@ -3173,17 +3173,17 @@ void ScintillaWin::Paste() {
 			putf = EncodeWString(uptr);
             std::wstring_view unicode(uptr);
             HANDLE richData = ::GetClipboardData(RegisterClipboardFormatW(L"NoteX.RichText.v1"));
-            if (!richData) richData = ::GetClipboardData(RegisterClipboardFormatW(NoteX::previousClipboardName().c_str()));
+            if (!richData) richData = ::GetClipboardData(RegisterClipboardFormatW(NoteQu::previousClipboardName().c_str()));
             GlobalMemory formatted(richData);
             if(formatted && formatted.Size()<=64*1024*1024) {
                 std::string bytes(static_cast<const char*>(formatted.ptr),formatted.Size());
                 // GlobalAlloc can round up; the first 8 bytes contain the payload size.
                 std::uint64_t length=0;if(bytes.size()>=8)memcpy(&length,bytes.data(),8);
-                if(length<=bytes.size()-std::min<size_t>(8,bytes.size()) && length>0)hasFormat=NoteX::decode(bytes.substr(8,static_cast<size_t>(length)),pastedFormat,unicode.size());
+                if(length<=bytes.size()-std::min<size_t>(8,bytes.size()) && length>0)hasFormat=NoteQu::decode(bytes.substr(8,static_cast<size_t>(length)),pastedFormat,unicode.size());
                 formatted.Unlock();
             }
             if(hasFormat)for(auto& r:pastedFormat.runs){
-                auto offset=[&](NoteX::Position p){auto prefix=EncodeWString(unicode.substr(0,static_cast<size_t>(p)));if(convertPastes)prefix=Document::TransformLineEnds(prefix,pdoc->eolMode);return static_cast<NoteX::Position>(prefix.size());};
+                auto offset=[&](NoteQu::Position p){auto prefix=EncodeWString(unicode.substr(0,static_cast<size_t>(p)));if(convertPastes)prefix=Document::TransformLineEnds(prefix,pdoc->eolMode);return static_cast<NoteQu::Position>(prefix.size());};
                 r.start=offset(r.start);r.end=offset(r.end);
             }
             memUSelection.Unlock();
@@ -3198,8 +3198,8 @@ void ScintillaWin::Paste() {
         const bool simple=sel.Count()==1 && pasteShape==PasteShape::stream;
         InsertPasteShape(putf, pasteShape);
         if(hasFormat && simple && !pdoc->IsReadOnly()) {
-            NoteX::Change clear;clear.start=insertStart;clear.end=sel.MainCaret();pdoc->ApplyRichFormat(clear);
-            for(auto r:pastedFormat.runs){NoteX::Change c;c.start=insertStart+r.start;c.end=insertStart+r.end;c.value=pastedFormat.formats[r.style];pdoc->ApplyRichFormat(c);}
+            NoteQu::Change clear;clear.start=insertStart;clear.end=sel.MainCaret();pdoc->ApplyRichFormat(clear);
+            for(auto r:pastedFormat.runs){NoteQu::Change c;c.start=insertStart+r.start;c.end=insertStart+r.end;c.value=pastedFormat.formats[r.style];pdoc->ApplyRichFormat(c);}
         }
 	}
 	Redraw();
@@ -3658,7 +3658,7 @@ void ScintillaWin::CopyToClipboard(const SelectionText &selectedText) {
         auto state=selectedText.richSelection;
         const auto cp=IsUnicodeMode()?CP_UTF8:CodePageFromCharSet(selectedText.characterSet,selectedText.codePage);
         for(auto& r:state.runs){r.start=MultiByteToWideChar(cp,0,selectedText.Data(),static_cast<int>(r.start),nullptr,0);r.end=MultiByteToWideChar(cp,0,selectedText.Data(),static_cast<int>(r.end),nullptr,0);}
-        auto bytes=NoteX::encode(state);std::uint64_t size=bytes.size();
+        auto bytes=NoteQu::encode(state);std::uint64_t size=bytes.size();
         GlobalMemory format;format.Allocate(bytes.size()+8);
         if(format){memcpy(format.ptr,&size,8);memcpy(static_cast<char*>(format.ptr)+8,bytes.data(),bytes.size());format.SetClip(RegisterClipboardFormatW(L"NoteX.RichText.v1"));}
     }

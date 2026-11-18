@@ -46,7 +46,7 @@ func run() error {
 		}
 	}
 	if _, e := os.Stat(filepath.Join(state, "pending.json")); e == nil {
-		if !ask("An interrupted NoteX update needs recovery. Close NoteX normally after continuing. Only application files will be restored.") {
+		if !ask("An interrupted NoteQu update needs recovery. Close NoteQu normally after continuing. Only application files will be restored.") {
 			return nil
 		}
 		previous, e := os.ReadFile(filepath.Join(state, "pending.json"))
@@ -113,19 +113,19 @@ func run() error {
 	}
 	if s == nil {
 		if *mode == "manual" {
-			tell("You are using the latest stable NoteX version available for this platform.")
+			tell("You are using the latest stable NoteQu version available for this platform.")
 		}
 		return nil
 	}
 	event("discovered: " + s.Manifest.Version)
-	if !ask("NoteX " + s.Manifest.Version + " is available. Download and verify the update?") {
+	if !ask("NoteQu " + s.Manifest.Version + " is available. Download and verify the update?") {
 		return nil
 	}
 	if e = establishOwnership(*root, *current); e != nil {
 		tell("The installed application could not be matched to its signed release inventory. No files were changed. Reinstall the matching application files before updating.")
 		return e
 	}
-	dir, e := os.MkdirTemp("", "NoteX-update-")
+	dir, e := os.MkdirTemp("", "NoteQu-update-")
 	if e != nil {
 		return e
 	}
@@ -143,7 +143,7 @@ func run() error {
 		return e
 	}
 	event("verified: " + s.Manifest.Version)
-	if !ask("The update is verified. Install it after you close NoteX normally? Your documents, settings, and plugins will be preserved. NoteX will reopen after installation.") {
+	if !ask("The update is verified. Install it after you close NoteQu normally? Your documents, settings, and plugins will be preserved. NoteQu will reopen after installation.") {
 		return nil
 	}
 	self, e := os.Executable()
@@ -176,7 +176,7 @@ func install(root, profile, current string, parent int, work string, recovery bo
 		return e
 	}
 	if applicationRunning(root) {
-		return errors.New("another NoteX instance is still using this installation; staged update retained")
+		return errors.New("another NoteQu instance is still using this installation; staged update retained")
 	}
 	state := stateDirectory(root)
 	if e := os.MkdirAll(state, 0700); e != nil {
@@ -292,7 +292,7 @@ func install(root, profile, current string, parent int, work string, recovery bo
 		time.Sleep(time.Second)
 	}
 	if alive() {
-		tell("NoteX started, but startup verification is pending. Close NoteX normally before running recovery. Your personal files have not been rolled back.")
+		tell("NoteQu started, but startup verification is pending. Close NoteQu normally before running recovery. Your personal files have not been rolled back.")
 		return errors.New("startup confirmation missing; recovery retained")
 	}
 	if e = recoverTransaction(root, work); e != nil {

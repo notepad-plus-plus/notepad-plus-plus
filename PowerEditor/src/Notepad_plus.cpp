@@ -1,6 +1,6 @@
-// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// Modified for NoteQu on 2026-11-18: authenticated updates and bundled-command privacy.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -230,7 +230,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pNonDocTab = &_subDocTab;
 	_pNonEditView = &_subEditView;
 
-	NoteXTools::loadFonts();
+	NoteQuTools::loadFonts();
 	_mainEditView.init(_pPublicInterface->getHinst(), hwnd);
 	_subEditView.init(_pPublicInterface->getHinst(), hwnd);
 
@@ -513,9 +513,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	runMenuItems.attach(hRunMenu, runPosBase, IDM_SETTING_SHORTCUT_MAPPER_RUN, L"Modify Shortcut/Delete Command...");
 
-    // NoteX updates are independent of WinGUp and the legacy disable marker.
+    // NoteQu updates are independent of WinGUp and the legacy disable marker.
     ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING,
-        IDM_UPDATE_NPP, L"Check for NoteX Updates...");
+        IDM_UPDATE_NPP, L"Check for NoteQu Updates...");
     ::InsertMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING,
         IDM_NOTEX_UPDATE_SETTINGS, L"Automatic Update Checks...");
     if (!nppGUI._doesExistUpdater) ::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);
@@ -659,7 +659,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle);
-    ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING, IDM_UPDATE_NPP, L"Check for NoteX Updates...");
+    ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING, IDM_UPDATE_NPP, L"Check for NoteQu Updates...");
     ::ModifyMenuW(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND | MF_STRING, IDM_CONFUPDATERPROXY, L"Plugin Updater Proxy...");
 	::DrawMenuBar(hwnd);
 
@@ -741,7 +741,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_rebarBottom.init(_pPublicInterface->getHinst(), hwnd);
 	_toolBar.addToRebar(&_rebarTop);
 	_rebarTop.setIDVisible(REBAR_BAR_TOOLBAR, willBeShown);
-	_noteXTools.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
+	_noteQuTools.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 
 	checkMacroState();
 
@@ -891,7 +891,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
 
-	_noteXMenu.init(hwnd, _mainMenuHandle, std::filesystem::path(nppParam.getUserPath()) / L"NoteX-menu.cfg");
+	_noteQuMenu.init(hwnd, _mainMenuHandle, std::filesystem::path(nppParam.getUserPath()) / L"NoteX-menu.cfg");
 	_mainEditView.grabFocus();
 
 	return TRUE;
@@ -899,8 +899,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 void Notepad_plus::killAllChildren()
 {
-	_noteXMenu.destroy();
-	_noteXTools.destroy();
+	_noteQuMenu.destroy();
+	_noteQuTools.destroy();
 	_toolBar.destroy();
 	_rebarTop.destroy();
 	_rebarBottom.destroy();
@@ -4255,7 +4255,7 @@ void Notepad_plus::setTitle()
 		result += buf->getFullPathName();
 	}
 	result += L" - ";
-	result += L"NoteX";
+	result += L"NoteQu";
 
 	if (_isAdministrator)
 		result += L" [Administrator]";
@@ -4680,7 +4680,7 @@ void Notepad_plus::checkModifiedDocument(bool bCheckOnlyCurrentBuffer)
 void Notepad_plus::getMainClientRect(RECT &rc) const
 {
     _pPublicInterface->getClientRect(rc);
-	rc.top += _rebarTop.getHeight() + _noteXTools.height();
+	rc.top += _rebarTop.getHeight() + _noteQuTools.height();
 	rc.bottom -= rc.top + _rebarBottom.getHeight() + _statusBar.getHeight();
 }
 
@@ -7330,7 +7330,7 @@ bool Notepad_plus::reloadLang()
     nppParam.reloadContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
 
 	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle);
-    ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING, IDM_UPDATE_NPP, L"Check for NoteX Updates...");
+    ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING, IDM_UPDATE_NPP, L"Check for NoteQu Updates...");
     ::ModifyMenuW(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND | MF_STRING, IDM_CONFUPDATERPROXY, L"Plugin Updater Proxy...");
     ::DrawMenuBar(_pPublicInterface->getHSelf());
 
@@ -7449,7 +7449,7 @@ bool Notepad_plus::reloadLang()
 	}
 
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
-	_noteXMenu.refresh();
+	_noteQuMenu.refresh();
 	return true;
 }
 

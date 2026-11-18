@@ -1,5 +1,5 @@
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -20,7 +20,7 @@
 
 
 #include "Buffer.h"
-#include "NoteXSidecar.h"
+#include "NoteQuSidecar.h"
 
 #include <windows.h>
 
@@ -1382,7 +1382,7 @@ bool FileManager::backupCurrentBuffer()
 							::MoveFileEx(fullpathTemp.c_str(), fullpath, MOVEFILE_REPLACE_EXISTING);
 					}
 
-					if (!NoteX::saveSidecar(_pNotepadPlus->_pEditView->getHSelf(), fullpath)) return false;
+					if (!NoteQu::saveSidecar(_pNotepadPlus->_pEditView->getHSelf(), fullpath)) return false;
 					buffer->setTabCreatedTimeStringFromBakFile();
 
 					buffer->setModifiedStatus(false);
@@ -1597,7 +1597,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		}
 	}
 
-	if (!NoteX::saveSidecar(_pscratchTilla->getHSelf(), fullpath))
+	if (!NoteQu::saveSidecar(_pscratchTilla->getHSelf(), fullpath))
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 		buffer->setDirty(true);
@@ -2199,7 +2199,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 	}
 
 
-	if (success) NoteX::loadSidecar(_pscratchTilla->getHSelf(), filename);
+	if (success) NoteQu::loadSidecar(_pscratchTilla->getHSelf(), filename);
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);
 	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, true);

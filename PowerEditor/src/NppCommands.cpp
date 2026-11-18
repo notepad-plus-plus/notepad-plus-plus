@@ -1,7 +1,7 @@
-// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
-#include "NoteXUpdate.h"
-// NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// Modified for NoteQu on 2026-11-18: authenticated updates and bundled-command privacy.
+#include "NoteQuUpdate.h"
+// NoteQu modifications: Copyright (C) 2026 Berk Kivircik.
+// Modified for NoteQu; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -847,7 +847,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_SEARCHONINTERNET:
 		case IDM_EDIT_CHANGESEARCHENGINE:
-			// NoteX disables sending editor text to web search. Keep the IDs inert
+			// NoteQu disables sending editor text to web search. Keep the IDs inert
 			// for existing shortcuts, macros, context menus and plugin commands.
 			return;
 
@@ -3745,12 +3745,12 @@ void Notepad_plus::command(int id)
 
 		case IDM_HOMESWEETHOME :
 		{
-			::ShellExecute(NULL, L"open", L"https://github.com/berkkivircik/NoteX", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, L"open", L"https://github.com/berkkivircik/NoteQu", NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 		case IDM_PROJECTPAGE :
 		{
-			::ShellExecute(NULL, L"open", L"https://github.com/berkkivircik/NoteX", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, L"open", L"https://github.com/berkkivircik/NoteQu", NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
@@ -3773,14 +3773,14 @@ void Notepad_plus::command(int id)
 		}
 
         case IDM_UPDATE_NPP:
-            noteXUpdate(L"manual");
+            noteQuUpdate(L"manual");
             break;
         case IDM_NOTEX_UPDATE_SETTINGS:
-            noteXUpdate(L"settings");
+            noteQuUpdate(L"settings");
             break;
         case IDM_CONFUPDATERPROXY:
         {
-            // This option belongs to Plugins Admin only; it cannot update NoteX.
+            // This option belongs to Plugins Admin only; it cannot update NoteQu.
             const auto& params = NppParameters::getInstance();
             const std::wstring dir = params.getNppPath() + L"\\updater";
             const std::wstring exe = dir + L"\\gup.exe";

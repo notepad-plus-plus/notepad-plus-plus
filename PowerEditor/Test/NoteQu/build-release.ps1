@@ -1,6 +1,6 @@
 # Copyright (C) 2026 Berk Kivircik.
 # SPDX-License-Identifier: GPL-3.0-only
-# Created for NoteX; publication date: 2026-10-28.
+# Created for NoteQu; publication date: 2026-10-28.
 
 param(
     [string]$BuildTools = '',

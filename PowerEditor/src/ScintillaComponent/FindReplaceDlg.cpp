@@ -1,5 +1,5 @@
-﻿// Modified for NoteX on 2026-11-18: move the UTF-8 BOM before all source text.
-// Modified for NoteX on 2026-10-31: update the progress window class name.
+﻿// Modified for NoteQu on 2026-11-18: move the UTF-8 BOM before all source text.
+// Modified for NoteQu on 2026-10-31: update the progress window class name.
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -6691,7 +6691,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_pRebar->setGrayBackground(_rbBand.wID);
 }
 
-const wchar_t Progress::cClassName[] = L"NoteXProgressClass";
+const wchar_t Progress::cClassName[] = L"NoteQuProgressClass";
 const wchar_t Progress::cDefaultHeader[] = L"Operation progress...";
 const int Progress::cBackgroundColor = COLOR_3DFACE;
 const SIZE Progress::_szClient = { 565, 95 };

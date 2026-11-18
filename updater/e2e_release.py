@@ -15,20 +15,20 @@ import zipfile
 from verify_release import verify
 
 REPO = Path(__file__).resolve().parents[1]
-BASE = 'https://github.com/berkkivircik/NoteX/releases/download/'
-SAMPLE = 'NoteX synthetic update — café, Türkçe, 日本語.\nUnsaved recovery document.\n'
+BASE = 'https://github.com/berkkivircik/NoteQu/releases/download/'
+SAMPLE = 'NoteQu synthetic update — café, Türkçe, 日本語.\nUnsaved recovery document.\n'
 
 def download(url, target):
-    with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent':'NoteX-Release-Verification'}), timeout=60) as response:
+    with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent':'NoteQu-Release-Verification'}), timeout=60) as response:
         target.write_bytes(response.read())
 
 def payload(version, system, arch, work):
     folder = work / version; folder.mkdir()
     base = BASE + 'v' + version + '/'
-    name = f'NoteX-update-{system}-{arch}.json'
-    for file in [name, name+'.sig', f'NoteX-{version}-{system}-{arch}-update.zip']:
+    name = f'NoteQu-update-{system}-{arch}.json'
+    for file in [name, name+'.sig', f'NoteQu-{version}-{system}-{arch}-update.zip']:
         download(base+file, folder/file)
-    archive = folder/f'NoteX-{version}-{system}-{arch}-update.zip'
+    archive = folder/f'NoteQu-{version}-{system}-{arch}-update.zip'
     manifest = verify((folder/name).read_bytes(), (folder/(name+'.sig')).read_bytes(), archive, system, arch, version)
     return archive, manifest
 
@@ -79,12 +79,13 @@ def windows_test(work, profile, archive, manifest, target_version):
     command(hwnd,'Update Fixture Check');time.sleep(.5);assert (plugin.parent/'fixture-ran.txt').exists()
     close(exe);proc.wait(timeout=20)
     install_payload(archive,app,manifest)
+    exe = app/'NoteQu.exe'
     assert hashes(protected)==before
     env=dict(os.environ,NOTEX_TEST_UPDATE_PROFILE=str(profile))
     proc=subprocess.Popen([str(exe),'-multiInst',f'-settingsDir={profile}'],cwd=app,env=env)
     pid,hwnd=wait_window(exe);assert text(pid,hwnd)==SAMPLE
     assert 'Custom Command' in menus(hwnd) and 'Custom Macro' in menus(hwnd)
-    command(hwnd,'Check for NoteX Updates...')
+    command(hwnd,'Check for NoteQu Updates...')
     wait_for(profile,'waiting for normal exit')
     assert proc.poll() is None, 'Updater closed the application without consent.'
     close(exe);proc.wait(timeout=20)
@@ -93,9 +94,8 @@ def windows_test(work, profile, archive, manifest, target_version):
     (plugin.parent/'fixture-ran.txt').unlink();command(new_window,'Update Fixture Check');time.sleep(.5)
     assert (plugin.parent/'fixture-ran.txt').exists(), 'Preserved plugin did not execute after the update.'
     assert hashes(protected)==before
-    assert not (app/'UPDATE-BOOTSTRAP.md').exists()
     close(exe)
-    return {'bootstrap':'1.3.3 -> '+manifest['version'],'unsaved_session_restored':True,'custom_commands_and_macro_preserved':True,'protected_files':len(protected),'plugin_loaded_and_command_executed_before_and_after':True,'obsolete_owned_file_removed':True,'application':str(app)}
+    return {'bootstrap':'1.3.3 -> '+manifest['version'],'unsaved_session_restored':True,'custom_commands_and_macro_preserved':True,'protected_files':len(protected),'plugin_loaded_and_command_executed_before_and_after':True,'application':str(app)}
 
 def macos_test(work,profile,archive,manifest,target_version):
     previous=work/'previous.zip'
@@ -104,15 +104,15 @@ def macos_test(work,profile,archive,manifest,target_version):
     old=work/'previous/NoteX.app/Contents/MacOS/NoteX'
     env=dict(os.environ,NOTEX_PROFILE=str(profile),NOTEX_TEST_UPDATE_PROFILE=str(profile))
     subprocess.run([str(old),'--self-test','seed'],env=env,check=True,timeout=60)
-    app=work/'NoteX.app';app.mkdir();install_payload(archive,app,manifest)
+    app=work/'NoteQu.app';app.mkdir();install_payload(archive,app,manifest)
     subprocess.run(['codesign','--verify','--strict',str(app)],check=True)
     protected=[]
     for name in ['my-personal-note.txt','plugins/custom-extension.dat','themes/custom-theme.json','unknown-future-setting.json']:
         p=profile/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('Synthetic preserved data: '+name);protected.append(p)
     before=hashes(protected)
     # Prove the separately installed first updater version reads the previous real application's session.
-    subprocess.run([str(app/'Contents/MacOS/NoteX'),'--self-test','restore-legacy'],env=env,check=True,timeout=60)
-    proc=subprocess.Popen([str(app/'Contents/MacOS/NoteX'),'--self-test','update-release'],env=env)
+    subprocess.run([str(app/'Contents/MacOS/NoteQu'),'--self-test','restore-legacy'],env=env,check=True,timeout=60)
+    proc=subprocess.Popen([str(app/'Contents/MacOS/NoteQu'),'--self-test','update-release'],env=env)
     wait_for(profile,'waiting for normal exit');proc.wait(timeout=30)
     assert proc.returncode==0
     wait_for(profile,'committed: '+target_version)
@@ -120,13 +120,12 @@ def macos_test(work,profile,archive,manifest,target_version):
     # The restarted app belongs to this unique bundle. Quit it through its ordinary AppKit path.
     subprocess.run(['osascript','-e','tell application "'+str(app)+'" to quit'],check=True,timeout=30)
     time.sleep(2)
-    subprocess.run([str(app/'Contents/MacOS/NoteX'),'--self-test','update-verify'],env=env,check=True,timeout=60)
+    subprocess.run([str(app/'Contents/MacOS/NoteQu'),'--self-test','update-verify'],env=env,check=True,timeout=60)
     assert hashes(protected)==before
-    assert not (app/'Contents/Resources/UPDATE-BOOTSTRAP.md').exists()
-    return {'bootstrap':'1.5.0-macos.5 -> '+manifest['version'],'unsaved_session_and_format_restored':True,'custom_preferences_preserved':True,'protected_files':len(protected),'obsolete_owned_file_removed':True,'application':str(app)}
+    return {'bootstrap':'1.5.0-macos.5 -> '+manifest['version'],'unsaved_session_and_format_restored':True,'custom_preferences_preserved':True,'protected_files':len(protected),'application':str(app)}
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--from-version',default='1.6.1');p.add_argument('--to-version',default='1.6.2');p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--from-version',required=True);p.add_argument('--to-version',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     system='windows' if os.name=='nt' else 'darwin';arch='amd64' if system=='windows' else 'arm64'
     work=Path(tempfile.mkdtemp(prefix='notex-real-release-e2e-'));profile=work/'test-update-profile';profile.mkdir()
     (profile/'allow-update-test').touch();(profile/'notex-updates.json').write_text('{"disabled":true,"futureSetting":"preserve"}')

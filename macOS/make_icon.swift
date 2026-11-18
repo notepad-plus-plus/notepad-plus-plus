@@ -1,5 +1,5 @@
 // Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
-// Draw the native NoteX application icon using AppKit, without external assets.
+// Draw the native NoteQu application icon using AppKit, without external assets.
 import AppKit
 
 let folder = URL(fileURLWithPath: CommandLine.arguments[1], isDirectory: true)

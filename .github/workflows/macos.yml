@@ -24,30 +24,30 @@ jobs:
         run: python3 macOS/test.py
       - name: Package application
         run: |
-          ditto -c -k --sequesterRsrc --keepParent dist/macOS/NoteX.app dist/NoteX-1.6.2-macos-arm64.zip
+          ditto -c -k --sequesterRsrc --keepParent dist/macOS/NoteQu.app dist/NoteQu-1.7.0-macos-arm64.zip
           mkdir -p dist/dmg-stage
-          ditto dist/macOS/NoteX.app dist/dmg-stage/NoteX.app
+          ditto dist/macOS/NoteQu.app dist/dmg-stage/NoteQu.app
           ln -s /Applications dist/dmg-stage/Applications
-          hdiutil create -volname NoteX -srcfolder dist/dmg-stage -format UDZO dist/NoteX-1.6.2-macos-arm64.dmg
+          hdiutil create -volname NoteQu -srcfolder dist/dmg-stage -format UDZO dist/NoteQu-1.7.0-macos-arm64.dmg
           # DiskImages can briefly hold a newly created image busy on hosted runners.
           for attempt in 1 2 3 4 5; do
-            if hdiutil verify dist/NoteX-1.6.2-macos-arm64.dmg; then break; fi
+            if hdiutil verify dist/NoteQu-1.7.0-macos-arm64.dmg; then break; fi
             if [ "$attempt" = 5 ]; then exit 1; fi
             sleep 2
           done
           mkdir -p dist/dmg-check
-          hdiutil attach -readonly -nobrowse -mountpoint "$PWD/dist/dmg-check" dist/NoteX-1.6.2-macos-arm64.dmg
-          codesign --verify --strict dist/dmg-check/NoteX.app
-          diff -qr dist/macOS/NoteX.app dist/dmg-check/NoteX.app
+          hdiutil attach -readonly -nobrowse -mountpoint "$PWD/dist/dmg-check" dist/NoteQu-1.7.0-macos-arm64.dmg
+          codesign --verify --strict dist/dmg-check/NoteQu.app
+          diff -qr dist/macOS/NoteQu.app dist/dmg-check/NoteQu.app
           test "$(readlink dist/dmg-check/Applications)" = /Applications
           hdiutil detach "$PWD/dist/dmg-check"
-          shasum -a 256 dist/NoteX-1.6.2-macos-arm64.zip dist/NoteX-1.6.2-macos-arm64.dmg > dist/SHA256SUMS-macos.txt
+          shasum -a 256 dist/NoteQu-1.7.0-macos-arm64.zip dist/NoteQu-1.7.0-macos-arm64.dmg > dist/SHA256SUMS-macos.txt
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         with:
-          name: NoteX-macos-arm64
+          name: NoteQu-macos-arm64
           path: |
-            dist/NoteX-1.6.2-macos-arm64.zip
-            dist/NoteX-1.6.2-macos-arm64.dmg
+            dist/NoteQu-1.7.0-macos-arm64.zip
+            dist/NoteQu-1.7.0-macos-arm64.dmg
             dist/SHA256SUMS-macos.txt
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         if: always()
@@ -66,13 +66,13 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
         with:
-          name: NoteX-macos-arm64
+          name: NoteQu-macos-arm64
           path: dist
       - name: Verify the same application on newer macOS
         run: |
           mkdir -p dist/macOS
-          ditto -x -k dist/NoteX-1.6.2-macos-arm64.zip dist/macOS
-          codesign --verify --strict dist/macOS/NoteX.app
+          ditto -x -k dist/NoteQu-1.7.0-macos-arm64.zip dist/macOS
+          codesign --verify --strict dist/macOS/NoteQu.app
           python3 macOS/test.py
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         if: always()

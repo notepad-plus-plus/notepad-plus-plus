@@ -1,6 +1,6 @@
 # Copyright (C) 2026 Berk Kivircik.
 # SPDX-License-Identifier: GPL-3.0-only
-# Modified for NoteX on 2026-11-18: validate compiled application identity.
+# Modified for NoteQu on 2026-11-18: validate compiled application identity.
 """Validate the public package manifest, clean profile, and license inputs."""
 from binary_metadata import require_metadata
 
@@ -18,8 +18,8 @@ def main():
     args = parser.parse_args()
     root = args.package.resolve(strict=True)
     manifest = json.loads((root / 'release-manifest.json').read_text(encoding='utf-8'))
-    require_metadata(root / 'NoteX.exe', manifest['version'].removeprefix('NoteX '))
-    require_metadata(root / 'NoteXUpdater.exe', manifest['version'].removeprefix('NoteX '), updater=True)
+    require_metadata(root / 'NoteQu.exe', manifest['version'].removeprefix('NoteQu '))
+    require_metadata(root / 'NoteQuUpdater.exe', manifest['version'].removeprefix('NoteQu '), updater=True)
     expected = manifest['files']
     actual = {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file()}
     if actual != set(expected) | {'release-manifest.json'}:
@@ -34,7 +34,7 @@ def main():
         base = file.name.lower()
         if (parts & {'backup', 'plugins', 'updater', 'validation', '.git', '.claude-flow'}
                 or base.startswith('session.xml') or base.endswith(('.notex', '.bak', '.log', '.pdb'))
-                or base in {'notex-menu.cfg', 'notex-menu.cfg', 'shortcuts.xml', 'nativelang.xml'}):
+                or base in {'notex-menu.cfg', 'notequ-menu.cfg', 'notex-updates.json', 'shortcuts.xml', 'nativelang.xml'}):
             raise ValueError(f'Private or unreviewed runtime input: {name}')
     if {p.name for p in (root / 'localization').iterdir()} != {'english.xml', 'turkish.xml', 'spanish.xml'}:
         raise ValueError('Unexpected interface-language set.')

@@ -1,6 +1,6 @@
-// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
-// Modified for NoteX on 2026-10-31: migrate the previous theme name without overwriting user data.
-#include "NoteXFormat.h"
+// Modified for NoteQu on 2026-11-18: authenticated updates and bundled-command privacy.
+// Modified for NoteQu on 2026-10-31: migrate the previous theme name without overwriting user data.
+#include "NoteQuFormat.h"
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
@@ -7059,7 +7059,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			auto& darkThemeName = darkDefaults._xmlFileName;
 			auto& darkTbInfo = darkDefaults._tbIconInfo;
 			darkThemeName = string2wstring(NppXml::attribute(childNode, "darkThemeName", "DarkModeDefault.xml"));
-            if (darkThemeName == NoteX::previousBrand() + L".xml") {
+            if (darkThemeName == NoteQu::previousBrand() + L".xml") {
                 for (auto directory : {_nppPath, _userPath}) {
                     pathAppend(directory, L"themes\\");
                     auto previous = directory + darkThemeName;

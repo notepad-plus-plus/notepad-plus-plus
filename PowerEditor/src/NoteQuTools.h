@@ -1,12 +1,12 @@
 // Copyright (C) 2026 Berk Kivircik.
 // SPDX-License-Identifier: GPL-3.0-only
-// Created for NoteX; publication date: 2026-10-28.
+// Created for NoteQu; publication date: 2026-10-28.
 
-// Modified for NoteX: 2026-11-18; use the system UI font and avoid private Inter registration.
+// Modified for NoteQu: 2026-11-18; use the system UI font and avoid private Inter registration.
 
 #pragma once
 #include "NppDarkMode.h"
-#include "NoteXFormat.h"
+#include "NoteQuFormat.h"
 #include "ScintillaEditView.h"
 #include "dpiManagerV2.h"
 #include <cmath>
@@ -18,14 +18,14 @@
 #include <windows.h>
 
 // A native toolbar: commands always target the active Scintilla document.
-class NoteXTools {
+class NoteQuTools {
   HWND window = nullptr, owner = nullptr, tooltip = nullptr;
   ScintillaEditView **view = nullptr;
   HFONT font = nullptr;
   HBRUSH background = nullptr;
   std::vector<HWND> controls;
-  NoteX::SelectionFormat current;
-  NoteX::Format painter;
+  NoteQu::SelectionFormat current;
+  NoteQu::Format painter;
   bool hasPainter = false, updating = false;
   int panelHeight = 40, scale = 96, hovered = 0, listState = 0;
   bool mixedList = false;
@@ -90,7 +90,7 @@ class NoteXTools {
   }
   static LRESULT CALLBACK comboProc(HWND h, UINT m, WPARAM w, LPARAM l,
                                     UINT_PTR, DWORD_PTR data) {
-    auto self = reinterpret_cast<NoteXTools *>(data);
+    auto self = reinterpret_cast<NoteQuTools *>(data);
     if (m == WM_KEYDOWN && w == VK_RETURN) {
       int parentID = GetDlgCtrlID(GetParent(h));
       self->command(parentID == Size || parentID == Family ? parentID
@@ -105,7 +105,7 @@ class NoteXTools {
   }
   static LRESULT CALLBACK buttonProc(HWND h, UINT m, WPARAM w, LPARAM l,
                                      UINT_PTR, DWORD_PTR data) {
-    auto self = reinterpret_cast<NoteXTools *>(data);
+    auto self = reinterpret_cast<NoteQuTools *>(data);
     // Owner-drawn buttons paint their complete background in draw(). Do not
     // expose the standard button's white erase between notification bursts.
     if (m == WM_ERASEBKGND)
@@ -124,9 +124,9 @@ class NoteXTools {
   }
   static LRESULT CALLBACK proc(HWND h, UINT m, WPARAM w, LPARAM l) {
     auto self =
-        reinterpret_cast<NoteXTools *>(GetWindowLongPtr(h, GWLP_USERDATA));
+        reinterpret_cast<NoteQuTools *>(GetWindowLongPtr(h, GWLP_USERDATA));
     if (m == WM_NCCREATE) {
-      self = static_cast<NoteXTools *>(
+      self = static_cast<NoteQuTools *>(
           reinterpret_cast<CREATESTRUCT *>(l)->lpCreateParams);
       SetWindowLongPtr(h, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(self));
     }
@@ -199,19 +199,19 @@ class NoteXTools {
   unsigned field(int id) const {
     switch (id) {
     case Bold:
-      return NoteX::Bold;
+      return NoteQu::Bold;
     case Italic:
-      return NoteX::Italic;
+      return NoteQu::Italic;
     case Underline:
-      return NoteX::Underline;
+      return NoteQu::Underline;
     case Strike:
-      return NoteX::Strike;
+      return NoteQu::Strike;
     case Fore:
-      return NoteX::Fore;
+      return NoteQu::Fore;
     case Back:
-      return NoteX::Back;
+      return NoteQu::Back;
     case Highlight:
-      return NoteX::Highlight;
+      return NoteQu::Highlight;
     default:
       return 0;
     }
@@ -369,16 +369,16 @@ class NoteXTools {
     DeleteObject(pen);
     DeleteObject(brush);
   }
-  void apply(const NoteX::Format &f, unsigned fields) {
+  void apply(const NoteQu::Format &f, unsigned fields) {
     sci(SCI_BEGINUNDOACTION);
     auto count = sci(SCI_GETSELECTIONS);
     for (LRESULT i = 0; i < count; ++i) {
-      NoteX::Change c;
+      NoteQu::Change c;
       c.start = sci(SCI_GETSELECTIONNSTART, i);
       c.end = sci(SCI_GETSELECTIONNEND, i);
       c.value = f;
       c.fields = fields;
-      sci(NoteX::ApplyFormat, 0, reinterpret_cast<LPARAM>(&c));
+      sci(NoteQu::ApplyFormat, 0, reinterpret_cast<LPARAM>(&c));
     }
     sci(SCI_ENDUNDOACTION);
   }
@@ -468,8 +468,8 @@ class NoteXTools {
       if (!*text)
         return;
       f.family = utf8(text);
-      f.mask |= NoteX::Family;
-      apply(f, NoteX::Family);
+      f.mask |= NoteQu::Family;
+      apply(f, NoteQu::Family);
     } else if (id == Size) {
       GetWindowTextW(controls[Size - 1], text, 256);
       wchar_t *end = nullptr;
@@ -480,8 +480,8 @@ class NoteXTools {
         return;
       }
       f.size = static_cast<int>(size * 100);
-      f.mask |= NoteX::Size;
-      apply(f, NoteX::Size);
+      f.mask |= NoteQu::Size;
+      apply(f, NoteQu::Size);
     } else if (id >= Bold && id <= Strike) {
       bool on = (current.mixed & bit) || !checked(id);
       f.mask |= bit;
@@ -516,12 +516,12 @@ class NoteXTools {
       list(id == Numbers);
     else if (id == CopyFormat) {
       painter = current.value;
-      painter.mask = NoteX::All;
+      painter.mask = NoteQu::All;
       hasPainter = true;
     } else if (id == PasteFormat && hasPainter)
-      apply(painter, NoteX::All);
+      apply(painter, NoteQu::All);
     else if (id == Clear)
-      apply(NoteX::Format{}, NoteX::All);
+      apply(NoteQu::Format{}, NoteQu::All);
     SetFocus(editor());
     sync();
   }
@@ -549,7 +549,7 @@ public:
     WNDCLASSW wc{};
     wc.lpfnWndProc = proc;
     wc.hInstance = instance;
-    wc.lpszClassName = L"NoteXFormattingToolbar";
+    wc.lpszClassName = L"NoteQuFormattingToolbar";
     wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
     RegisterClassW(&wc);
     window = CreateWindowExW(0, wc.lpszClassName, L"Text formatting",
@@ -684,15 +684,15 @@ public:
     const bool previousMixedList = mixedList;
     current.start = sci(SCI_GETSELECTIONSTART);
     current.end = sci(SCI_GETSELECTIONEND);
-    sci(NoteX::GetFormat, 0, reinterpret_cast<LPARAM>(&current));
+    sci(NoteQu::GetFormat, 0, reinterpret_cast<LPARAM>(&current));
     for (LRESULT i = 1; i < sci(SCI_GETSELECTIONS); ++i) {
-      NoteX::SelectionFormat other;
+      NoteQu::SelectionFormat other;
       other.start = sci(SCI_GETSELECTIONNSTART, i);
       other.end = sci(SCI_GETSELECTIONNEND, i);
-      sci(NoteX::GetFormat, 0, reinterpret_cast<LPARAM>(&other));
+      sci(NoteQu::GetFormat, 0, reinterpret_cast<LPARAM>(&other));
       current.mixed |= other.mixed;
-      for (unsigned bit = 1; bit <= NoteX::Highlight; bit <<= 1) {
-        NoteX::Format a, b;
+      for (unsigned bit = 1; bit <= NoteQu::Highlight; bit <<= 1) {
+        NoteQu::Format a, b;
         a.merge(current.value, bit);
         b.merge(other.value, bit);
         if (!(a == b))
@@ -736,24 +736,24 @@ public:
     if (current.start == current.end && stylePosition > sci(SCI_POSITIONFROMLINE, first)) --stylePosition;
     auto style = sci(SCI_GETSTYLEAT, stylePosition);
     auto &f = current.value;
-    if (!(f.mask & NoteX::Bold))
+    if (!(f.mask & NoteQu::Bold))
       f.bold = sci(SCI_STYLEGETBOLD, style) != 0;
-    if (!(f.mask & NoteX::Italic))
+    if (!(f.mask & NoteQu::Italic))
       f.italic = sci(SCI_STYLEGETITALIC, style) != 0;
-    if (!(f.mask & NoteX::Underline))
+    if (!(f.mask & NoteQu::Underline))
       f.underline = sci(SCI_STYLEGETUNDERLINE, style) != 0;
-    if (!(f.mask & NoteX::Family)) {
+    if (!(f.mask & NoteQu::Family)) {
       char name[256]{};
       sci(SCI_STYLEGETFONT, style, reinterpret_cast<LPARAM>(name));
       f.family = name;
     }
-    if (!(f.mask & NoteX::Size))
+    if (!(f.mask & NoteQu::Size))
       f.size = static_cast<int>(sci(SCI_STYLEGETSIZEFRACTIONAL, style));
-    if (!(f.mask & NoteX::Fore))
+    if (!(f.mask & NoteQu::Fore))
       f.fore = static_cast<unsigned>(sci(SCI_STYLEGETFORE, style));
-    if (!(f.mask & NoteX::Back))
+    if (!(f.mask & NoteQu::Back))
       f.back = static_cast<unsigned>(sci(SCI_STYLEGETBACK, style));
-    if (!(f.mask & NoteX::Highlight))
+    if (!(f.mask & NoteQu::Highlight))
       f.highlight = f.back;
     auto name = wide(f.family);
     auto updateText = [](HWND control, const wchar_t *value) {
@@ -767,10 +767,10 @@ public:
       if (LOWORD(selection) != HIWORD(selection))
         SendMessageW(control, CB_SETEDITSEL, 0, MAKELPARAM(-1, 0));
     };
-    updateText(controls[0], (current.mixed & NoteX::Family) ? L"" : name.c_str());
+    updateText(controls[0], (current.mixed & NoteQu::Family) ? L"" : name.c_str());
     wchar_t size[40]{};
     swprintf_s(size, L"%g", f.size / 100.0);
-    updateText(controls[1], (current.mixed & NoteX::Size) ? L"" : size);
+    updateText(controls[1], (current.mixed & NoteQu::Size) ? L"" : size);
     const bool appearanceChanged = !(previousValue == current.value) ||
         previousMixed != current.mixed || previousList != listState || previousMixedList != mixedList;
     bool writable = !sci(SCI_GETREADONLY),

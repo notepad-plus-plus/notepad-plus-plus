@@ -1,12 +1,14 @@
 # Source provenance
 
-## Repository roles
+## One active repository
 
-- **Development and proposed signing source:** [berkkivircik/NoteX-source](https://github.com/berkkivircik/NoteX-source), a GitHub fork of [notepad-plus-plus/notepad-plus-plus](https://github.com/notepad-plus-plus/notepad-plus-plus).
-- **Canonical publication, downloads, issues, and updates:** [berkkivircik/NoteX](https://github.com/berkkivircik/NoteX). Its repository identity and existing releases are retained.
-- Both repositories use `main` for NoteX and must point to the same reviewed commit before a release. The source fork's inherited upstream branch is not a NoteX release branch.
+[berkkivircik/NoteX](https://github.com/berkkivircik/NoteX) is the single active repository for development, signing preparation, issue tracking, tags, downloads, and updates. It is a registered GitHub fork of [notepad-plus-plus/notepad-plus-plus](https://github.com/notepad-plus-plus/notepad-plus-plus). Its GitHub repository ID is `1462906809`, and its NoteX development branch is `main`. The inherited upstream branch is not a NoteX release branch.
 
-The updater continues to use only `berkkivircik/NoteX`. Creating the source fork does not change update URLs, move existing releases, or authorize signing.
+The original standalone repository (ID `1436883386`) is retained as the read-only [NoteX_old archive](https://github.com/berkkivircik/NoteX_old). It is not maintained as a second development or release repository. The fork was initially created under a temporary source-repository name, then renamed to NoteX during consolidation on November 18, 2026.
+
+All 11 existing NoteX releases and their 50 uploaded assets were reproduced in the active fork. Original tag objects, source commits, release titles and notes, prerelease flags, filenames, file bytes, and hashes were preserved. GitHub assigns new release/asset IDs, publication timestamps, and download counters when records are recreated; the archive retains the original records. The current stable release is still v1.6.1. This repository migration is not a new application version or a retroactive signing operation.
+
+The updater continues to use only `berkkivircik/NoteX`. Its signed manifests already bind that exact repository and download URL, so the migration preserves the existing signatures and trust key. No runtime or private-profile change is required. Historic uploaded source ZIP files remain byte-identical to the originals.
 
 ## Transparent history transition
 
@@ -28,24 +30,23 @@ This is an explicit present-day import, not a claim that the older NoteX commits
 Use a full clone, not a shallow clone:
 
 ```sh
-git clone https://github.com/berkkivircik/NoteX-source.git
-cd NoteX-source
+git clone https://github.com/berkkivircik/NoteX.git
+cd NoteX
 python tools/verify_source_provenance.py
-git ls-remote https://github.com/berkkivircik/NoteX-source.git refs/heads/main
 git ls-remote https://github.com/berkkivircik/NoteX.git refs/heads/main
 ```
 
-The last two commands must print the same commit. The verification script checks ancestry, exact import and merge parents, tree equality, full history, and the absence of replacement refs. The GitHub fork relationship is independently visible on the source fork's homepage and in `GET /repos/berkkivircik/NoteX-source` (`fork: true`, parent `notepad-plus-plus/notepad-plus-plus`).
+The verification script checks ancestry, exact import and merge parents, tree equality, full history, and the absence of replacement refs. The GitHub fork relationship is independently visible on the source fork's homepage and in `GET /repos/berkkivircik/NoteX` (`fork: true`, parent `notepad-plus-plus/notepad-plus-plus`).
 
 ## Future changes and signing
 
-1. Develop and review changes on the source fork. Review upstream code changes and build/signing changes before release. A history check does not substitute for code review.
-2. Fast-forward both `main` branches to the same reviewed commit. Never mirror-push private repositories or force-update old release tags.
+1. Develop and review changes in `berkkivircik/NoteX`. Review upstream code changes and build/signing changes before release. A history check does not substitute for code review.
+2. Use the reviewed `main` branch and exact release commit. Never mirror-push private repositories or force-update old release tags. Do not synchronize new changes into the archived repository.
 3. Require the provenance check and the native Windows/macOS workflows at that commit. Build signing inputs in the provider-approved source fork's trusted hosted CI, not from workstation binaries.
 4. After SignPath approves the project and configuration, require manual signing approval. Verify returned signatures before generating final packages, update manifests, and checksums.
-5. Publish a new version only in the canonical publication repository with matching source revision and archives. Keep historical artifacts unchanged.
+5. Publish each new version in the same NoteX repository with its matching source revision and archives. Keep historical artifacts unchanged.
 
-Do not run the updater end-to-end publication workflow against releases on the source fork: its release API intentionally targets the canonical publication repository. Native build/test artifacts on the fork are validation outputs, not replacement releases.
+The updater end-to-end workflow and release API now refer to this same active fork under the NoteX name. Run that workflow against actual NoteX releases. CI build artifacts alone do not constitute a published release.
 
 ## Provider review still required
 

@@ -5,11 +5,10 @@ It adds visual text formatting, a redesigned
 toolbar, customizable menus, and formatting-aware session recovery.
 This is an independent modified distribution maintained by Berk Kivircik.
 
-Development and signing source: [NoteX-source, a GitHub fork of Notepad++](https://github.com/berkkivircik/NoteX-source).
-The [NoteX publication repository](https://github.com/berkkivircik/NoteX) remains
-the canonical download, issue, and update location. Both
-repositories track the same NoteX `main` commit. See [source provenance](SOURCE_PROVENANCE.md)
-for the upstream base, the transparent history transition, and verification steps.
+[NoteX](https://github.com/berkkivircik/NoteX) is a GitHub fork of Notepad++ and
+the single active repository for development, signing preparation, issues, and
+releases. See [source provenance](SOURCE_PROVENANCE.md) for the upstream base,
+the transparent history transition, and verification steps.
 
 ## Download and run
 

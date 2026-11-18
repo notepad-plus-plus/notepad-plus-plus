@@ -1,5 +1,12 @@
 # NoteX modification notice
 
+## 2026-11-18 — Single-repository consolidation
+
+Consolidated development, signing preparation, issues, and releases in the upstream
+fork named NoteX. Preserved the former standalone repository as NoteX_old. Copied
+all existing NoteX release tags and uploaded files without changing their contents.
+Updated repository and enrollment documentation; application code is unchanged.
+
 ## 2026-11-18 — Public source provenance transition
 
 Established a visible Notepad++ source fork and joined the verified upstream history

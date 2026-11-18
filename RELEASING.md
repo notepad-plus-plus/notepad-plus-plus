@@ -1,5 +1,10 @@
 # Releasing NoteX
 
+Use only `berkkivircik/NoteX` for active development, trusted builds, release tags,
+and GitHub Releases. It is the registered upstream fork. `NoteX_old` is a read-only
+historical archive; do not publish updates there. Run
+`python tools/verify_source_provenance.py` from a full clone before release.
+
 1. Update the version, changelog, and dated modification notices. Commit the
    complete source, embedded libraries, tests, build scripts, packaging inputs,
    and notices. Run the clean Release build and native tests.

@@ -18,14 +18,18 @@ jobs:
         run: |
           python3 -m venv .e2e-venv
           if [ -f .e2e-venv/Scripts/python.exe ]; then
-            echo "$PWD/.e2e-venv/Scripts" >> "$GITHUB_PATH"
             .e2e-venv/Scripts/python.exe -m pip install -r updater/signing-requirements.txt
           else
-            echo "$PWD/.e2e-venv/bin" >> "$GITHUB_PATH"
             .e2e-venv/bin/python -m pip install -r updater/signing-requirements.txt
           fi
       - name: Native application update from actual public releases
-        run: python updater/e2e_release.py --output dist/update-e2e.json
+        shell: bash
+        run: |
+          if [ -f .e2e-venv/Scripts/python.exe ]; then
+            .e2e-venv/Scripts/python.exe updater/e2e_release.py --output dist/update-e2e.json
+          else
+            .e2e-venv/bin/python updater/e2e_release.py --output dist/update-e2e.json
+          fi
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         if: always()
         with:

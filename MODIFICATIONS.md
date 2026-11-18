@@ -1,7 +1,7 @@
 # NoteX modification notice
 
-Modified distributions: NoteX 1.3.1 for Windows and 1.5.0 macOS Preview 5.
-Modifier: Berk Kivircik. Latest modification date: November 1, 2026.
+Modified distributions: NoteX 1.3.2 for Windows and 1.5.0 macOS Preview 5.
+Modifier: Berk Kivircik. Latest modification date: November 18, 2026.
 NoteX modifications: Copyright (C) 2026 Berk Kivircik.
 The modified work as a whole is distributed under GNU GPL version 3.
 Original copyright, license, and warranty notices remain in place.
@@ -138,3 +138,14 @@ instances, and native application integrations. The macOS workflow packages and
 checks matching DMG and ZIP applications. See macOS/FEATURE_PARITY.md for scope and
 macOS/WINDOWS_COMMANDS.csv for the reviewed Windows command inventory. Original
 shared-engine and language-data copyrights and license notices are retained.
+
+## Windows font compatibility fix - November 18, 2026
+
+Document tabs and formatting controls now use the Windows UI font. NoteX no
+longer registers its bundled Inter font automatically, preventing the reported
+garbled tab labels even when an older portable installation retains Inter.ttf.
+The editor does not rewrite document text, formatting records, or session data
+as part of this change.
+
+FindReplaceDlg.cpp also moves a misplaced UTF-8 byte-order mark to the start
+of the file so the reviewed source builds cleanly with MSVC.

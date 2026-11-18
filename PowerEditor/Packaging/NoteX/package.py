@@ -1,6 +1,6 @@
 # Copyright (C) 2026 Berk Kivircik.
 # SPDX-License-Identifier: GPL-3.0-only
-# Modified for NoteX publication: 2026-10-28.
+# Modified for NoteX publication: 2026-11-18.
 """Build a fresh NoteX portable package from reviewed source-tree inputs."""
 import argparse
 import datetime
@@ -63,18 +63,18 @@ def main():
         shutil.copy2(repo / name, target / name)
     shutil.copytree(repo / 'LICENSES', target / 'LICENSES')
     (target / 'SOURCE_CODE.txt').write_text(
-        'NoteX 1.3.1 - corresponding source\n\n'
+        'NoteX 1.3.2 - corresponding source\n\n'
         f'This package was prepared from source commit: {source_ref}\n'
         f'Browse: https://github.com/berkkivircik/NoteX/tree/{source_ref}\n'
         f'Download: https://github.com/berkkivircik/NoteX/archive/{source_ref}.zip\n'
-        'Release source: https://github.com/berkkivircik/NoteX/releases/tag/v1.3.1\n\n'
+        'Release source: https://github.com/berkkivircik/NoteX/releases/tag/v1.3.2\n\n'
         'The matching source includes the modified editor, embedded libraries, tests,\n'
         'build scripts, packaging inputs, and licenses. See BUILD.md to compile and\n'
         'install modified versions. Source is available without an additional charge.\n'
         'NoteX is distributed under GNU GPL version 3, without warranty.\n'
         'Original component and font notices are included in LICENSES and fonts.\n', encoding='utf-8')
     manifest = {
-        'version': 'NoteX 1.3.1',
+        'version': 'NoteX 1.3.2',
         'configuration': 'Release',
         'architecture': 'x64',
         'created_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),

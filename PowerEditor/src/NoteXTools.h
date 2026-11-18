@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Created for NoteX; publication date: 2026-10-28.
 
-// Modified for NoteX: 2026-10-29; clear inactive font-combo selections.
+// Modified for NoteX: 2026-11-18; use the system UI font and avoid private Inter registration.
 
 #pragma once
 #include "NppDarkMode.h"
@@ -532,7 +532,9 @@ public:
     GetModuleFileNameW(nullptr, path, MAX_PATH);
     std::wstring base = path;
     base.resize(base.find_last_of(L"\\/") + 1);
-    for (auto name : {L"Inter.ttf", L"JetBrainsMono.ttf"})
+    // Do not register Inter: its private font caused garbled UI glyphs on some PCs.
+    // Keep this independent of old font files left behind by portable upgrades.
+    for (auto name : {L"JetBrainsMono.ttf"})
       AddFontResourceExW((base + L"fonts\\" + name).c_str(), FR_PRIVATE,
                          nullptr);
   }
@@ -541,9 +543,9 @@ public:
     view = active;
     scale = static_cast<int>(DPIManagerV2::getDpiForWindow(parent));
     background = CreateSolidBrush(RGB(28, 33, 38));
-    font = CreateFontW(-px(13), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-                       DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                       CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Inter");
+    auto uiFont = DPIManagerV2::getDefaultGUIFontForDpi(static_cast<UINT>(scale));
+    uiFont.lfHeight = -px(13);
+    font = CreateFontIndirectW(&uiFont);
     WNDCLASSW wc{};
     wc.lpfnWndProc = proc;
     wc.hInstance = instance;
@@ -654,9 +656,9 @@ public:
   void dpiChanged(UINT dpi) {
     scale = static_cast<int>(dpi);
     auto old = font;
-    font = CreateFontW(-px(13), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-                       DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                       CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Inter");
+    auto uiFont = DPIManagerV2::getDefaultGUIFontForDpi(static_cast<UINT>(scale));
+    uiFont.lfHeight = -px(13);
+    font = CreateFontIndirectW(&uiFont);
     for (auto h : controls)
       SendMessage(h, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
     if (old)

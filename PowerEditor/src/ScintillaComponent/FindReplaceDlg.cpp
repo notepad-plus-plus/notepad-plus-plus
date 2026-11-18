@@ -1,5 +1,6 @@
+﻿// Modified for NoteX on 2026-11-18: move the UTF-8 BOM before all source text.
 // Modified for NoteX on 2026-10-31: update the progress window class name.
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify

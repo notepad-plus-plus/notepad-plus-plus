@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.2 Windows - 2026-11-18
+
+- Fix garbled document-tab labels reported on Windows 11 when the bundled Inter font is enabled, including names of new, unsaved tabs.
+- Use the Windows UI font for document tabs and formatting controls, including after DPI changes.
+- Stop automatically registering the bundled Inter font. Existing portable installations can retain the old font file without reactivating the issue.
+- Preserve document content, formatting records, settings, and session recovery during an executable-only update.
+
 ## 1.5.0 macOS Preview 5 - 2026-11-01
 
 - Continue and exit typed or toolbar-created lists with Return, preserving indentation and grouped undo.

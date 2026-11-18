@@ -1,5 +1,5 @@
 // NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// Modified for NoteX; latest publication changes: 2026-11-18.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -390,7 +390,6 @@ void TabBar::setFont()
 	TabBar::destroyFonts();
 
 	LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_dpiManager.getDpi()) };
-    wcscpy_s(lf.lfFaceName,L"Inter");
     lf.lfHeight=-_dpiManager.scale(13);
 	LOGFONT lfVer{ lf };
 

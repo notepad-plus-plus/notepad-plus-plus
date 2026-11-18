@@ -1,3 +1,4 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
 // NoteX modifications: Copyright (C) 2026 Berk Kivircik.
 // Modified for NoteX; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
@@ -454,12 +455,8 @@ inline constexpr const char SHORTCUT_XML_CONTENT[] = "\
 	</Macros>\r\n\
 	<UserDefinedCommands>\r\n\
 		<!--\r\n\
-		<Command name=\"Get PHP help\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"112\" FolderName=\"Help on Internet\">https://www.php.net/$(CURRENT_WORD)</Command>\r\n\
-		<Command name=\"Wikipedia Search\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"114\" FolderName=\"Help on Internet\">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>\r\n\
 		<Command name=\"Open selected file path in new instance\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"117\">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>\r\n\
 		-->\r\n\
-		<Command name=\"Get PHP help\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"112\">https://www.php.net/$(CURRENT_WORD)</Command>\r\n\
-		<Command name=\"Wikipedia Search\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"114\">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>\r\n\
 		<Command name=\"Open selected file path in new instance\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"117\">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>\r\n\
 	</UserDefinedCommands>\r\n\
 	<PluginCommands />\r\n\

@@ -1,5 +1,10 @@
 # NoteX modification notice
 
+## 2026-11-18 — NoteX update infrastructure
+
+Modified the Windows startup, Help menu, command defaults and loader, obsolete update preferences, packaging, and version resources. Added an independent signed updater shared with native macOS, native entry points, recovery tests, offline signing tools, and release documentation. Original component copyright and license notices remain intact.
+
+
 Modified distributions: NoteX 1.3.3 for Windows and 1.5.0 macOS Preview 5.
 Modifier: Berk Kivircik. Latest modification date: November 18, 2026.
 NoteX modifications: Copyright (C) 2026 Berk Kivircik.

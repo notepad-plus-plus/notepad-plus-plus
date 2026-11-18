@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.0 — Authenticated updates
+
+- Add a platform-specific GitHub updater with signed file inventories, normal-shutdown installation, and application-only recovery.
+- Disable the upstream editor updater in code while preserving plugin administration.
+- Remove the bundled PHP-help and Wikipedia-selection commands, including their default shortcuts.
+- Keep Windows profile and plugin files outside the update payload, and keep native macOS profile data outside the application bundle.
+- Separate update authentication from Windows publisher signing and Apple notarization.
+
+
 ## 1.3.3 Windows - 2026-11-18
 
 - Use NoteX consistently in the executable's internal name and embedded application manifest, alongside the existing NoteX product name and file description.

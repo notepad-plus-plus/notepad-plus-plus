@@ -1,3 +1,4 @@
+#import "Update.h"
 #include "ColumnNumbers.h"
 // Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
 // Native NoteX application, created 2026-11-01.
@@ -373,6 +374,8 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     NSMenu *root = [NSMenu new];
     NSMenu *app = [self menu:@"NoteX" parent:root];
     [self item:app title:@"About NoteX" action:@selector(about:) key:@"" tag:0];
+    [self item:app title:@"Check for Updates…" action:@selector(checkUpdates:) key:@"" tag:0];
+    [self item:app title:@"Automatic Update Checks…" action:@selector(updateSettings:) key:@"" tag:0];
     [app addItem:NSMenuItem.separatorItem];
     NSMenuItem *hide = [[NSMenuItem alloc] initWithTitle:@"Hide NoteX" action:@selector(hide:) keyEquivalent:@"h"];
     [app addItem:hide];
@@ -586,6 +589,8 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
         if (![self openPath:path error:&openError]) Alert(openError.localizedDescription);
     }
     self.pendingFiles = nil;
+    NXUpdateHealthy();
+    if (![NSProcessInfo.processInfo.arguments containsObject:@"--self-test"]) NXUpdate(@"auto",self.storage.directory);
     NSArray *arguments = NSProcessInfo.processInfo.arguments;
     NSUInteger index = [arguments indexOfObject:@"--self-test"];
     if (index != NSNotFound && index + 1 < arguments.count) {
@@ -756,6 +761,8 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     [self refreshFunctions];
     [self updateUserSyntax];
 }
+- (void)checkUpdates:(id)sender { NXUpdate(@"manual",self.storage.directory); }
+- (void)updateSettings:(id)sender { NXUpdate(@"settings",self.storage.directory); }
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app {
     NSError *error = nil;
     if (![self snapshot:&error]) { Alert(error.localizedDescription); return NSTerminateCancel; }

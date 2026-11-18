@@ -1,0 +1,24 @@
+name: Published release updater E2E
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  update:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, macos-15, macos-26]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Install independent signature verifier
+        run: python3 -m pip install -r updater/signing-requirements.txt
+      - name: Native application update from actual public releases
+        run: python3 updater/e2e_release.py --output dist/update-e2e.json
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        if: always()
+        with:
+          name: updater-e2e-${{ matrix.os }}
+          path: dist/update-e2e.json

@@ -22,6 +22,24 @@ static void Bold24(ScintillaView *view) {
     if([mode isEqual:@"suite"])Check(!self.sidebarVisible&&self.workspace.view.superview==nil,"new profiles start with the sidebar hidden");
     NSError *error = nil;
     if([mode isEqual:@"instance-verify"]){Check([Text(self.current.editor) isEqual:Sample()],"independent process restores the exact unsaved Unicode document");Check(!State(self.current.editor).runs.empty(),"independent process restores inline formatting");Check([self snapshot:&error],"independent profile remains recoverable");exit(0);}
+    if ([mode isEqual:@"update-release"]) {
+        SetText(self.current.editor,Sample()); Bold24(self.current.editor);
+        self.preferences[@"tabWidth"]=@7;
+        Check([self snapshot:&error],"snapshot before real release update");
+        [self checkUpdates:nil];
+        [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer *timer) {
+            NSString *events=[NSString stringWithContentsOfFile:[self.storage.directory stringByAppendingPathComponent:@"update-events.jsonl"] encoding:NSUTF8StringEncoding error:nil];
+            if ([events containsString:@"waiting for normal exit"]) { [timer invalidate]; [NSApp terminate:nil]; }
+        }];
+        return;
+    }
+    if ([mode isEqual:@"update-verify"]) {
+        Check([Text(self.current.editor) isEqual:Sample()],"real release preserves unsaved Unicode document");
+        Check(!State(self.current.editor).runs.empty(),"real release preserves inline formatting");
+        Check([self.preferences[@"tabWidth"] integerValue]==7,"real release preserves custom preferences");
+        Check([self snapshot:&error],"updated session remains writable");
+        [NSApp terminate:nil];return;
+    }
     if ([@[@"ui-tabs",@"ui-document-map",@"ui-sidebar-hidden",@"ui-toolbar",@"ui-split",@"ui-search",@"ui-preferences",@"ui-shortcuts",@"ui-language",@"ui-theme"] containsObject:mode]) { [self workbenchUI:mode]; return; }
     if ([mode hasPrefix:@"ui-"]) {
         NSString *path = [self.storage.directory stringByAppendingPathComponent:@"example.py"];

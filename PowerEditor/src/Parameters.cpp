@@ -1,3 +1,4 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
 // Modified for NoteX on 2026-10-31: migrate the previous theme name without overwriting user data.
 #include "NoteXFormat.h"
 // This file is part of Notepad++ project
@@ -4174,6 +4175,12 @@ void NppParameters::feedUserCmds(const NppXml::Element& element)
 				const char* cmdStr = NppXml::getValue(aNode);
 				if (cmdStr)
 				{
+                    // Remove only the two bundled selection-upload commands, including migrated profiles.
+                    // A user command with the same name but a different destination is preserved.
+                    const std::string_view name(sc.getName()), command(cmdStr);
+                    if ((name == "Get PHP help" && command == "https://www.php.net/$(CURRENT_WORD)") ||
+                        (name == "Wikipedia Search" && command == "https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)"))
+                        continue;
 					const auto cmdID = ID_USER_CMD + static_cast<int>(_userCommands.size());
 					_userCommands.emplace_back(sc, cmdStr, cmdID);
 					_runMenuItems.emplace_back(cmdID, string2wstring(sc.getName()), string2wstring(fdnm));

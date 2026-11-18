@@ -53,3 +53,7 @@ Theme XML files and fonts are separate data resources bundled with the GPLv3
 editor executable. Their licenses are not replaced by the editor license.
 The upstream DansLeRuSH-Dark theme is excluded because its header also includes
 noncommercial terms. The public package does not impose those terms on NoteX.
+
+## Go runtime and standard library
+
+The NoteX updater is built with Go and includes its runtime and standard library. Copyright The Go Authors. BSD-style license: LICENSES/Go.txt. The offline release signing tool additionally requires Python cryptography; it is a development dependency and is not embedded in NoteX.

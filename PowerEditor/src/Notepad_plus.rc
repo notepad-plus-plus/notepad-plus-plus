@@ -1,3 +1,4 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
 // NoteX modifications: Copyright (C) 2026 Berk Kivircik.
 // Modified for NoteX; latest publication changes: 2026-11-18.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
@@ -1355,8 +1356,8 @@ BEGIN
         MENUITEM "Notepad++ Online User Manual",   IDM_ONLINEDOCUMENT
         MENUITEM "Notepad++ Community (Forum)",    IDM_FORUM
         MENUITEM SEPARATOR
-        MENUITEM "Update Notepad++",               IDM_UPDATE_NPP
-        MENUITEM "Set Updater Proxy...",           IDM_CONFUPDATERPROXY
+        MENUITEM "Check for NoteX Updates...",               IDM_UPDATE_NPP
+        MENUITEM "Plugin Updater Proxy...",           IDM_CONFUPDATERPROXY
         MENUITEM SEPARATOR
         MENUITEM "Debug Info...",                  IDM_DEBUGINFO
         MENUITEM "About NoteX",                IDM_ABOUT

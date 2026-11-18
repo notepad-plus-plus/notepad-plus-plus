@@ -15,8 +15,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.5.0"
-BUILD = "5"
+VERSION = "1.6.0"
+BUILD = "1"
 
 def main():
     if sys.platform != "darwin":
@@ -78,7 +78,7 @@ def main():
     iconset = output / "NoteX.iconset"
     subprocess.run(["xcrun", "swift", str(ROOT / "macOS/make_icon.swift"), str(iconset)], check=True)
     subprocess.run(["iconutil", "-c", "icns", str(iconset), "-o", str(resources / "NoteX.icns")], check=True)
-    for name in ["LICENSE", "THIRD_PARTY_NOTICES.md", "MODIFICATIONS.md"]:
+    for name in ["LICENSE", "THIRD_PARTY_NOTICES.md", "MODIFICATIONS.md", "UPDATING.md", "UPDATE-BOOTSTRAP.md"]:
         shutil.copy2(ROOT / name, resources / name)
     shutil.copytree(ROOT / "LICENSES", resources / "LICENSES")
     shutil.copytree(ROOT / "PowerEditor/installer/functionList", resources / "functionList")
@@ -100,6 +100,8 @@ def main():
         f"NoteX {VERSION} native macOS preview {BUILD}\nSource revision: {revision}\n"
         f"https://github.com/berkkivircik/NoteX/tree/{revision}\n"
         "Build: python3 macOS/build.py\nLicense: GNU GPL version 3\n", encoding="utf-8")
+    subprocess.run(["go", "build", "-trimpath", "-ldflags=-s -w", "-o", str(bundle / "MacOS/NoteXUpdater"), "."], cwd=ROOT / "updater", check=True)
+    subprocess.run(["codesign", "--force", "--sign", "-", str(bundle / "MacOS/NoteXUpdater")], check=True)
     subprocess.run(["codesign", "--force", "--sign", "-", str(bundle.parent)], check=True)
     subprocess.run(["codesign", "--verify", "--strict", str(bundle.parent)], check=True)
     subprocess.run(["file", str(binary)], check=True)

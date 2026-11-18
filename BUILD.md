@@ -57,3 +57,7 @@ to compile the binary, including the build and packaging inputs. Compiler tools
 and Windows system libraries are external prerequisites. A matching source
 revision does not imply byte-for-byte reproducibility: compiler versions and
 embedded build timestamps can affect the executable.
+
+## Authenticated updater
+
+Install Go 1.27.4. Before Windows packaging, run `go -C updater build -trimpath "-ldflags=-s -w" -o ../dist/NoteXUpdater.exe .`. Native macOS builds compile the helper automatically. Run `go -C updater test ./...` and `python -m unittest discover -s updater -p test_migration.py`. See UPDATING.md for offline manifest signing and publication. Trusted platform signatures must be applied before creating update inventories.

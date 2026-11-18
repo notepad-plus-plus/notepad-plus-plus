@@ -1,3 +1,4 @@
+// Modified for NoteX on 2026-11-18: authenticated updates and bundled-command privacy.
 // NoteX modifications: Copyright (C) 2026 Berk Kivircik.
 // Modified for NoteX; latest publication changes: 2026-10-28.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
@@ -512,16 +513,14 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	runMenuItems.attach(hRunMenu, runPosBase, IDM_SETTING_SHORTCUT_MAPPER_RUN, L"Modify Shortcut/Delete Command...");
 
-	// Updater menu item
-	if (!nppGUI._doesExistUpdater || nppParam.isNppAutoUpdateDisabled())
-	{
-		::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
-		::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);
-		HMENU hHelpMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_HELP);
-		if (hHelpMenu)
-			::DeleteMenu(hHelpMenu, 7, MF_BYPOSITION); // SEPARATOR
-		::DrawMenuBar(hwnd);
-	}
+    // NoteX updates are independent of WinGUp and the legacy disable marker.
+    ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING,
+        IDM_UPDATE_NPP, L"Check for NoteX Updates...");
+    ::InsertMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING,
+        IDM_NOTEX_UPDATE_SETTINGS, L"Automatic Update Checks...");
+    if (!nppGUI._doesExistUpdater) ::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);
+    else ::ModifyMenuW(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND | MF_STRING,
+        IDM_CONFUPDATERPROXY, L"Plugin Updater Proxy...");
 	//Languages Menu
 	HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 
@@ -660,6 +659,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle);
+    ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING, IDM_UPDATE_NPP, L"Check for NoteX Updates...");
+    ::ModifyMenuW(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND | MF_STRING, IDM_CONFUPDATERPROXY, L"Plugin Updater Proxy...");
 	::DrawMenuBar(hwnd);
 
 
@@ -7329,6 +7330,8 @@ bool Notepad_plus::reloadLang()
     nppParam.reloadContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
 
 	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle);
+    ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING, IDM_UPDATE_NPP, L"Check for NoteX Updates...");
+    ::ModifyMenuW(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND | MF_STRING, IDM_CONFUPDATERPROXY, L"Plugin Updater Proxy...");
     ::DrawMenuBar(_pPublicInterface->getHSelf());
 
 	// Update scintilla context menu strings

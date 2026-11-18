@@ -66,7 +66,7 @@ static NSMenuItem *FindMenuCommand(NSMenu *menu, SEL action, NSInteger tag) {
     Check(NXWrite([@"<!DOCTYPE NotepadPlus [<!ENTITY x SYSTEM 'file:///etc/passwd'>]><NotepadPlus><Project name='x'>&x;</Project></NotepadPlus>" dataUsingEncoding:NSUTF8StringEncoding], badXML, &error), "create synthetic unsafe workspace XML");
     error = nil; Check(!NXReadWorkspace(badXML, &error), "reject workspace external entities");
 
-    NSString *source = NSProcessInfo.processInfo.environment[@"NOTEX_TEST_SOURCE"];
+    NSString *source = NSProcessInfo.processInfo.environment[@"NOTEQU_TEST_SOURCE"];
     Check(source.length > 0, "explicit source directory for upstream fixtures");
     BOOL allFunctionFixturesMatch = YES; NSUInteger fixtureCount = 0;
     NSArray *languages = [[NSFileManager.defaultManager contentsOfDirectoryAtPath:[source stringByAppendingPathComponent:@"PowerEditor/Test/FunctionList"] error:nil] sortedArrayUsingSelector:@selector(compare:)];

@@ -38,9 +38,12 @@ static NSData *Sample();
     NSStringEncoding turkish=CFStringConvertEncodingToNSStringEncoding(CFStringConvertWindowsCodepageToEncoding(1254));NSData *encoded=[@"Türkçe İstanbul" dataUsingEncoding:turkish allowLossyConversion:NO];Check([[[NSString alloc]initWithData:encoded encoding:turkish] isEqual:@"Türkçe İstanbul"],"Turkish legacy encoding round trip is lossless");
     Check([@"📝" dataUsingEncoding:turkish allowLossyConversion:NO]==nil,"unrepresentable legacy characters reject conversion");
     SetText(view,[@"Rich café" dataUsingEncoding:NSUTF8StringEncoding]);Bold24(view);Send(view,SCI_SETSEL,0,Send(view,SCI_GETLENGTH));[self copyRichText:nil];SetText(view,NSData.data);[self pasteRich:TestCommand(0)];Check([view.string isEqual:@"Rich café"]&&!State(view).runs.empty(),"RTF paste preserves Unicode and inline formatting");Send(view,SCI_UNDO);Check(Text(view).length==0,"RTF text and formatting undo together");
-        NXRunTool *runner=[NXRunTool new];Check([runner launchCommand:@"printf '%s' \"$NOTEX_SELECTION\"" environment:@{@"NOTEX_SELECTION":@"$(not-a-command); café"} error:&error],"launch explicit synthetic native command");
+    NXRunTool *runner=[NXRunTool new];
+    Check([runner launchCommand:@"printf '%s|%s' \"$NOTEQU_SELECTION\" \"$NOTEX_SELECTION\""
+                    environment:@{@"NOTEQU_SELECTION":@"$(not-a-command); café"} error:&error],
+          "launch explicit synthetic native command");
     NSTimeInterval deadline=NSProcessInfo.processInfo.systemUptime+5;while((runner.task.running||!runner.output.length)&&NSProcessInfo.processInfo.systemUptime<deadline)[NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
-    Check([runner.output isEqual:@"$(not-a-command); café"],"document environment is passed as data without shell interpolation");
+    Check([runner.output isEqual:@"$(not-a-command); café|$(not-a-command); café"],"current and legacy document variables are passed as data without shell interpolation");
     // Every defined byte in the shipped legacy code-page maps must round trip.
     for(NSDictionary *codec in NXSingleByteEncodings())for(unsigned i=0;i<256;++i){unsigned char byte=i;NSData *bytes=[NSData dataWithBytes:&byte length:1];NSStringEncoding encoding=[codec[@"encoding"] unsignedLongLongValue];NSString *text=NXDecodeEncoding(bytes,encoding);if([codec[@"mapping"][i] integerValue]<0)Check(text==nil,"undefined legacy byte rejects decoding");else Check([NXDecodeEncoding(NXEncodeText(text,encoding),encoding) isEqual:text],"legacy code page scalar round trip");}
     std::vector<std::string> sequence;Check(NXColumnNumbers(-2,2,2,16,3,5,sequence)&&sequence==std::vector<std::string>({"-002","-002","000","000","002"}),"numeric columns preserve sign, base, width, and repeat");Check(!NXColumnNumbers(INT64_MAX,1,1,10,0,2,sequence)&&sequence.empty(),"numeric column overflow rejects the complete edit");

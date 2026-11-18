@@ -27,6 +27,12 @@
 #import "Codecs.h"
 #import <CommonCrypto/CommonDigest.h>
 
+static NSString *ProfileOverride() {
+    NSDictionary<NSString *, NSString *> *environment = NSProcessInfo.processInfo.environment;
+    NSString *profile = environment[@"NOTEQU_PROFILE"];
+    return profile.length ? profile : environment[@"NOTEX_PROFILE"];
+}
+
 static sptr_t Send(ScintillaView *view, unsigned message, uptr_t w = 0, sptr_t l = 0) {
     return [view message:message wParam:w lParam:l];
 }
@@ -537,7 +543,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
     self.searchOptions=[@{@"matchCase":@NO,@"wholeWord":@NO,@"regex":@NO,@"engine":@"boost",@"selection":@NO} mutableCopy];
     self.dark = YES; self.wrap = YES; self.restoring = YES;
     NSError *error = nil;
-    NSString *profile = NSProcessInfo.processInfo.environment[@"NOTEX_PROFILE"];
+    NSString *profile = ProfileOverride();
     if (!profile.length) {
         NSString *support = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support"];
         NSString *current = [support stringByAppendingPathComponent:@"NoteQu"];
@@ -969,7 +975,7 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
 - (void)runToolCommand:(id)sender {
     if(!self.runTool){self.runTool=[NXRunTool new];self.runTool.commands=self.configuration[@"runCommands"] ?: @[];__weak NXApp *owner=self;
         self.runTool.saveCommands=^BOOL(NSArray *commands){NSMutableDictionary *configuration=[owner.configuration mutableCopy];configuration[@"runCommands"]=commands;return [owner commitConfiguration:configuration];};
-        self.runTool.documentEnvironment=^NSDictionary *{NXApp *app=owner;NSString *selection=app.current.editor.selectedString;return @{@"NOTEX_FILE":app.current.path ?: @"",@"NOTEX_DIRECTORY":app.current.path.length?app.current.path.stringByDeletingLastPathComponent:NSHomeDirectory(),@"NOTEX_SELECTION":selection,@"NOTEX_LINE":[NSString stringWithFormat:@"%ld",(long)Send(app.current.editor,SCI_LINEFROMPOSITION,Send(app.current.editor,SCI_GETCURRENTPOS))+1]};};
+        self.runTool.documentEnvironment=^NSDictionary *{NXApp *app=owner;NSString *selection=app.current.editor.selectedString;return @{@"NOTEQU_FILE":app.current.path ?: @"",@"NOTEQU_DIRECTORY":app.current.path.length?app.current.path.stringByDeletingLastPathComponent:NSHomeDirectory(),@"NOTEQU_SELECTION":selection,@"NOTEQU_LINE":[NSString stringWithFormat:@"%ld",(long)Send(app.current.editor,SCI_LINEFROMPOSITION,Send(app.current.editor,SCI_GETCURRENTPOS))+1]};};
     }[self.runTool showForWindow:self.window];
 }
 - (void)showSession:(id)sender { [NSWorkspace.sharedWorkspace openURL:[NSURL fileURLWithPath:self.storage.directory]]; }
@@ -1003,9 +1009,9 @@ static NSDictionary *NXBuiltIn(NSString *identifier);
 int main(int argc, const char *argv[]) {
     @autoreleasepool {
         if ([NSProcessInfo.processInfo.arguments containsObject:@"--self-test"]) {
-            NSString *profile = NSProcessInfo.processInfo.environment[@"NOTEX_PROFILE"];
+            NSString *profile = ProfileOverride();
             if (!profile.isAbsolutePath || ![profile.lastPathComponent hasPrefix:@"test-"]) {
-                fprintf(stderr, "Self-tests require an absolute isolated NOTEX_PROFILE named test-*.\n");
+                fprintf(stderr, "Self-tests require an absolute isolated NOTEQU_PROFILE named test-*.\n");
                 return 2;
             }
         }

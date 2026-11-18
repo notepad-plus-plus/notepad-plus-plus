@@ -36,7 +36,7 @@ func verifyPlatform(root string) error {
 }
 func launchApplication(root, profile string) (*os.Process, error) {
 	c := exec.Command(filepath.Join(root, "Contents/MacOS/NoteQu"))
-	c.Env = append(os.Environ(), "NOTEX_PROFILE="+profile)
+	c.Env = append(os.Environ(), "NOTEQU_PROFILE="+profile, "NOTEX_PROFILE="+profile)
 	detach(c)
 	if e := c.Start(); e != nil {
 		return nil, e

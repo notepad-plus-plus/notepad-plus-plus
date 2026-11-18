@@ -1,6 +1,6 @@
 // Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
 // Native integration checks. Only enabled by an explicit command-line argument
-// and an isolated NOTEX_PROFILE directory supplied by the test driver.
+// and an isolated NOTEQU_PROFILE directory supplied by the test driver.
 static unsigned checks = 0;
 static void Check(bool condition, const char *name) {
     if (!condition) { fprintf(stderr, "FAIL: %s\n", name); fflush(stderr); exit(2); }
@@ -18,7 +18,7 @@ static void Bold24(ScintillaView *view) {
 }
 @implementation NXApp (Tests)
 - (void)selfTest:(NSString *)mode {
-    Check(NSProcessInfo.processInfo.environment[@"NOTEX_PROFILE"].length > 0, "explicit isolated test profile");
+    Check(ProfileOverride().length > 0, "explicit isolated test profile");
     Check([self.storage.directory.lastPathComponent hasPrefix:@"test-"], "test profile guard");
     if([mode isEqual:@"suite"])Check(!self.sidebarVisible&&self.workspace.view.superview==nil,"new profiles start with the sidebar hidden");
     NSError *error = nil;
@@ -210,7 +210,7 @@ static void Bold24(ScintillaView *view) {
     NSBitmapImageRep *bitmap = [self.window.contentView bitmapImageRepForCachingDisplayInRect:self.window.contentView.bounds];
     [self.window.contentView cacheDisplayInRect:self.window.contentView.bounds toBitmapImageRep:bitmap];
     Check(bitmap.pixelsWide > 800 && bitmap.pixelsHigh > 400, "native view rendered at expected dimensions");
-    NSString *imagePath = NSProcessInfo.processInfo.environment[@"NOTEX_TEST_IMAGE"];
+    NSString *imagePath = NSProcessInfo.processInfo.environment[@"NOTEQU_TEST_IMAGE"];
     if (imagePath.length) [[bitmap representationUsingType:NSBitmapImageFileTypePNG properties:@{}] writeToFile:imagePath atomically:YES];
     [self featureTests];
     [self workbenchTests];

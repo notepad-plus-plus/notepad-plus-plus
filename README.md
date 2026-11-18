@@ -1,7 +1,5 @@
 # NoteQu
 
-NoteQu was previously released as NoteX.
-
 NoteQu is a portable Windows text and code editor based on Notepad++ 8.9.8.1.
 It adds visual text formatting, a redesigned
 toolbar, customizable menus, and formatting-aware session recovery.
@@ -12,12 +10,11 @@ the single active repository for development, signing preparation, issues, and
 releases. See [source provenance](SOURCE_PROVENANCE.md) for the upstream base,
 the transparent history transition, and verification steps.
 
-## See [Downloads](DOWNLOADS.md) for published binaries. A NoteQu Windows build
-runs as `NoteQu.exe` on Windows x64 from a writable folder, without an installer.
-The portable package starts with a fresh profile and no documents or session history.
+## Download and run
 
-See the [download guide](DOWNLOADS.md), [Code signing policy](CODE_SIGNING.md),
-and [privacy policy](PRIVACY.md) before first launch. Automatic GitHub update
+See [Downloads](DOWNLOADS.md) for the Windows portable ZIP and native Apple Silicon packages. On Windows x64, extract the ZIP to a writable folder and run `NoteQu.exe`. A clean package starts with a fresh profile.
+
+See the [code signing policy](CODE_SIGNING.md) and [privacy policy](PRIVACY.md) before first launch. Automatic GitHub update
 checks are enabled by default and can be disabled in the application's
 **Automatic Update Checks** menu.
 
@@ -53,9 +50,7 @@ public release. They are not required for the editor's built-in features.
 
 The repository includes the modified editor, Scintilla, Lexilla, Boost.Regex,
 build scripts, tests, and portable packaging inputs. See [BUILD.md](BUILD.md).
-Each public release identifies its matching source tag and archive.
-The historical 1.6.2 binaries use the `v1.6.2` tag and
-`NoteX-1.6.2-source.zip`. Use the exact source revision for the binary you redistribute.
+Each public release identifies its matching source tag and archive. Use the exact source revision for any binary you redistribute.
 
 ## License and attribution
 
@@ -78,7 +73,7 @@ retained in the `UPSTREAM_*.md` files for reference.
 
 ## Upgrading an existing portable installation
 
-The first upgrade from NoteX to NoteQu is manual. See [Updating NoteQu](UPDATING.md#from-notex-to-notequ).
+The first upgrade from a release before 1.7.0 is manual. See [Updating NoteQu](UPDATING.md#from-notex-to-notequ).
 
 Close the application normally and back up the complete existing directory.
 Keep the same installation path. Preserve `config.xml`, `session.xml*`, `backup/`,

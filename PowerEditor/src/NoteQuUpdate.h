@@ -11,7 +11,7 @@ inline void noteQuUpdate(const wchar_t* mode)
     const auto& p = NppParameters::getInstance();
     const std::wstring helper = p.getNppPath() + L"\\NoteQuUpdater.exe";
     std::wstring args = L"\"" + helper + L"\" -mode " + mode + L" -root \"" + p.getNppPath()
-        + L"\" -profile \"" + p.getUserPath() + L"\" -version " NOTEX_UPDATE_VERSION_W
+        + L"\" -profile \"" + p.getUserPath() + L"\" -version " NOTEQU_UPDATE_VERSION_W
         + L" -parent " + std::to_wstring(GetCurrentProcessId());
     STARTUPINFOW startup{}; startup.cb = sizeof(startup);
     PROCESS_INFORMATION process{};
@@ -26,5 +26,5 @@ inline void noteQuUpdateHealthy()
     std::error_code ec;
     auto dir = std::filesystem::path(NppParameters::getInstance().getNppPath()) / L".notequ-update";
     std::filesystem::create_directories(dir, ec);
-    if (!ec) { std::ofstream file(dir / L"healthy-" NOTEX_UPDATE_VERSION_W, std::ios::binary); file << NOTEX_UPDATE_VERSION; }
+    if (!ec) { std::ofstream file(dir / L"healthy-" NOTEQU_UPDATE_VERSION_W, std::ios::binary); file << NOTEQU_UPDATE_VERSION; }
 }

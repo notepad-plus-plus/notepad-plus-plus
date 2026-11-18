@@ -57,7 +57,7 @@ func TestExecutableArchitecture(t *testing.T) {
 	}
 }
 func TestInterruptedUpdateProcess(t *testing.T) {
-	if root := os.Getenv("NOTEX_TRANSACTION_CHILD"); root != "" {
+	if root := os.Getenv("NOTEQU_TRANSACTION_CHILD"); root != "" {
 		work := filepath.Join(root, "transaction")
 		staged := filepath.Join(root, "stage")
 		app, helper := "NoteQu.exe", "NoteQuUpdater.exe"
@@ -101,7 +101,7 @@ func TestInterruptedUpdateProcess(t *testing.T) {
 		}
 	}
 	cmd := exec.Command(os.Args[0], "-test.run=^TestInterruptedUpdateProcess$")
-	cmd.Env = append(os.Environ(), "NOTEX_TRANSACTION_CHILD="+root)
+	cmd.Env = append(os.Environ(), "NOTEQU_TRANSACTION_CHILD="+root)
 	if e := cmd.Start(); e != nil {
 		t.Fatal(e)
 	}

@@ -279,7 +279,7 @@ func atomicWrite(p string, b []byte, mode os.FileMode) error {
 	if e := os.MkdirAll(filepath.Dir(p), 0700); e != nil {
 		return e
 	}
-	f, e := os.CreateTemp(filepath.Dir(p), ".notex-write-")
+	f, e := os.CreateTemp(filepath.Dir(p), ".notequ-write-")
 	if e != nil {
 		return e
 	}

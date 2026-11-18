@@ -517,7 +517,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
     ::ModifyMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING,
         IDM_UPDATE_NPP, L"Check for NoteQu Updates...");
     ::InsertMenuW(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND | MF_STRING,
-        IDM_NOTEX_UPDATE_SETTINGS, L"Automatic Update Checks...");
+        IDM_NOTEQU_UPDATE_SETTINGS, L"Automatic Update Checks...");
     if (!nppGUI._doesExistUpdater) ::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);
     else ::ModifyMenuW(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND | MF_STRING,
         IDM_CONFUPDATERPROXY, L"Plugin Updater Proxy...");

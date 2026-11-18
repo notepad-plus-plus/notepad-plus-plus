@@ -127,7 +127,7 @@ def macos_test(work,profile,archive,manifest,target_version):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--from-version',required=True);p.add_argument('--to-version',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     system='windows' if os.name=='nt' else 'darwin';arch='amd64' if system=='windows' else 'arm64'
-    work=Path(tempfile.mkdtemp(prefix='notex-real-release-e2e-'));profile=work/'test-update-profile';profile.mkdir()
+    work=Path(tempfile.mkdtemp(prefix='notequ-real-release-e2e-'));profile=work/'test-update-profile';profile.mkdir()
     (profile/'allow-update-test').touch();(profile/'notex-updates.json').write_text('{"disabled":true,"futureSetting":"preserve"}')
     archive,manifest=payload(a.from_version,system,arch,work)
     _,target=payload(a.to_version,system,arch,work)

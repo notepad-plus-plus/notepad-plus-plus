@@ -26,6 +26,12 @@
     for(NSString *key in environment)if([key containsString:@"="]||[environment[key] lengthOfBytesUsingEncoding:NSUTF8StringEncoding]>131000||[environment[key] rangeOfString:[NSString stringWithFormat:@"%C",(unichar)0]].location!=NSNotFound){if(error)*error=NXError(@"Document variables contain a null byte or exceed the environment size limit. Narrow the selection before running.");return NO;}
     self.captured=[NSMutableData new];self.output=@"";
     NSMutableDictionary *variables=[NSProcessInfo.processInfo.environment mutableCopy];[variables addEntriesFromDictionary:environment ?: @{}];
+    // Saved commands and scripts can still read the document variables used by earlier builds.
+    for (NSString *suffix in @[@"FILE", @"DIRECTORY", @"SELECTION", @"LINE"]) {
+        NSString *current = [@"NOTEQU_" stringByAppendingString:suffix];
+        NSString *legacy = [@"NOTEX_" stringByAppendingString:suffix];
+        if (NSString *value = environment[current]) variables[legacy] = value;
+    }
     std::vector<std::string> storage;for(NSString *key in variables)storage.push_back(std::string(key.UTF8String)+"="+[variables[key] UTF8String]);
     std::vector<char *> env;for(auto &entry:storage)env.push_back(entry.data());env.push_back(nullptr);
     std::string executable="/bin/zsh",option="-lc",script=command.UTF8String;char *arguments[]={executable.data(),option.data(),script.data(),nullptr};
@@ -33,7 +39,8 @@
     posix_spawn_file_actions_t actions;posix_spawn_file_actions_init(&actions);
     posix_spawn_file_actions_adddup2(&actions,descriptors[1],STDOUT_FILENO);posix_spawn_file_actions_adddup2(&actions,descriptors[1],STDERR_FILENO);
     posix_spawn_file_actions_addclose(&actions,descriptors[0]);posix_spawn_file_actions_addclose(&actions,descriptors[1]);posix_spawn_file_actions_addopen(&actions,STDIN_FILENO,"/dev/null",O_RDONLY,0);
-    if([environment[@"NOTEX_DIRECTORY"] length])posix_spawn_file_actions_addchdir_np(&actions,[environment[@"NOTEX_DIRECTORY"] fileSystemRepresentation]);
+    NSString *directory = environment[@"NOTEQU_DIRECTORY"];
+    if (directory.length) posix_spawn_file_actions_addchdir_np(&actions, directory.fileSystemRepresentation);
     posix_spawnattr_t attributes;posix_spawnattr_init(&attributes);posix_spawnattr_setflags(&attributes,POSIX_SPAWN_SETPGROUP);posix_spawnattr_setpgroup(&attributes,0);
     pid_t pid=0;int failure=posix_spawn(&pid,executable.c_str(),&actions,&attributes,arguments,env.data());posix_spawn_file_actions_destroy(&actions);posix_spawnattr_destroy(&attributes);close(descriptors[1]);
     if(failure){close(descriptors[0]);if(error)*error=[NSError errorWithDomain:NSPOSIXErrorDomain code:failure userInfo:nil];return NO;}
@@ -73,7 +80,7 @@
         _saved=[[NSPopUpButton alloc]initWithFrame:NSMakeRect(16,432,688,28) pullsDown:NO];_saved.target=self;_saved.action=@selector(select:);[self.window.contentView addSubview:_saved];
         _name=[[NSTextField alloc]initWithFrame:NSMakeRect(16,394,688,26)];_name.placeholderString=@"Command name";[self.window.contentView addSubview:_name];
         _command=[[NSTextField alloc]initWithFrame:NSMakeRect(16,356,688,26)];_command.placeholderString=@"Shell command (zsh)";[self.window.contentView addSubview:_command];
-        NSTextField *help=[NSTextField wrappingLabelWithString:@"Commands run in zsh. Use quoted environment variables such as \"$NOTEX_FILE\", \"$NOTEX_DIRECTORY\", \"$NOTEX_SELECTION\", and \"$NOTEX_LINE\". Selecting or saving a command does not run it."];help.frame=NSMakeRect(16,290,688,56);[self.window.contentView addSubview:help];
+        NSTextField *help=[NSTextField wrappingLabelWithString:@"Commands run in zsh. Use quoted environment variables such as \"$NOTEQU_FILE\", \"$NOTEQU_DIRECTORY\", \"$NOTEQU_SELECTION\", and \"$NOTEQU_LINE\". Selecting or saving a command does not run it."];help.frame=NSMakeRect(16,290,688,56);[self.window.contentView addSubview:help];
         NSArray *names=@[@"Run",@"Stop",@"Save Command",@"Delete Command"];SEL actions[]={@selector(run:),@selector(stop:),@selector(save:),@selector(remove:)};
         for(NSUInteger i=0;i<names.count;++i){NSButton *button=[NSButton buttonWithTitle:names[i] target:self action:actions[i]];button.frame=NSMakeRect(16+i*170,250,160,32);[self.window.contentView addSubview:button];if(i==0)_run=button;if(i==1){_stop=button;button.enabled=NO;}}
         NSScrollView *scroll=[[NSScrollView alloc]initWithFrame:NSMakeRect(16,48,688,190)];scroll.hasVerticalScroller=YES;_outputView=[[NSTextView alloc]initWithFrame:scroll.bounds];_outputView.editable=NO;_outputView.font=[NSFont monospacedSystemFontOfSize:12 weight:NSFontWeightRegular];scroll.documentView=_outputView;[self.window.contentView addSubview:scroll];

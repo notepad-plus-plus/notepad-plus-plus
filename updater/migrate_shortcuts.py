@@ -92,7 +92,7 @@ def main():
         if new_config != old_config:
             with args.backup.with_name(args.backup.name + '.config').open('xb') as backup:
                 backup.write(old_config)
-    fd, temporary = tempfile.mkstemp(prefix='.notex-shortcuts-', dir=args.shortcuts.parent)
+    fd, temporary = tempfile.mkstemp(prefix='.notequ-shortcuts-', dir=args.shortcuts.parent)
     try:
         with os.fdopen(fd, 'wb') as output:
             output.write(changed)
@@ -106,7 +106,7 @@ def main():
                 # The app must remain closed throughout migration. Restore the original shortcut bytes.
                 args.shortcuts.write_bytes(original)
                 raise RuntimeError('Configuration changed during migration; shortcut removal was rolled back.')
-            fd, temporary_config = tempfile.mkstemp(prefix='.notex-config-', dir=args.config.parent)
+            fd, temporary_config = tempfile.mkstemp(prefix='.notequ-config-', dir=args.config.parent)
             try:
                 with os.fdopen(fd, 'wb') as output:
                     output.write(new_config); output.flush(); os.fsync(output.fileno())

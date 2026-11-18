@@ -1,4 +1,8 @@
-# NoteX modification notice
+# NoteQu modification notice
+
+## 2026-11-19 — Naming cleanup
+
+Corrected the download guide and source paths. New native session exports and documented command variables use the current name. The native application still accepts existing profile overrides, saved commands, and session files.
 
 ## 2026-11-18 — NoteQu application and repository identity
 
@@ -87,7 +91,7 @@ Original notices in both files are retained. The macOS port uses the same
 NoteX editing engine but does not include every Windows-specific feature;
 the platform guide lists the current boundary.
 
-These files contain dated NoteX notices in addition to their original notices:
+These files contain dated modification notices in addition to their original notices:
 
 - `PowerEditor/src/MISC/Common/NppConstants.h`
 - `PowerEditor/src/Notepad_plus.cpp`
@@ -130,12 +134,12 @@ These files contain dated NoteX notices in addition to their original notices:
 
 ## Added implementation and support files
 
-- `PowerEditor/src/NoteXMenu.h`: menu customization and persistence.
-- `PowerEditor/src/NoteXSidecar.h`: formatting companion-file persistence.
-- `PowerEditor/src/NoteXTools.h`: formatting controls and editing commands.
-- `scintilla/include/NoteXFormat.h`: formatting model and serialization.
-- `PowerEditor/Test/NoteX/`: native tests, clean build, and smoke scripts.
-- `PowerEditor/Packaging/NoteX/`: clean package recipe and reviewed runtime assets.
+- `PowerEditor/src/NoteQuMenu.h`: menu customization and persistence.
+- `PowerEditor/src/NoteQuSidecar.h`: formatting companion-file persistence.
+- `PowerEditor/src/NoteQuTools.h`: formatting controls and editing commands.
+- `scintilla/include/NoteQuFormat.h`: formatting model and serialization.
+- `PowerEditor/Test/NoteQu/`: native tests, clean build, and smoke scripts.
+- `PowerEditor/Packaging/NoteQu/`: clean package recipe and reviewed runtime assets.
 - Root documentation, licenses, release instructions, and privacy exclusions.
 
 Modified source files identify this publication date. Earlier individual edit
@@ -144,9 +148,9 @@ dates are not asserted. Unchanged upstream components retain their original term
 Upstream CI/release automation and redundant update-reference source ZIPs are
 excluded. The optional LuaScript DLLs used only by upstream URL-detection tests
 are omitted; those upstream tests require their own separately obtained tools.
-The embedded libraries used to build NoteX remain included in full.
+The embedded libraries used to build NoteQu remain included in full.
 
-The NoteX palette theme carries restored DarkModeDefault/Zenburn attribution
+The NoteQu palette theme carries restored DarkModeDefault/Zenburn attribution
 and the original GPLv2 resource license. The upstream DansLeRuSH-Dark theme is
 omitted because its header includes noncommercial terms. Markdown UDLs retain
 their Edditoria attribution and include the complete MIT license.

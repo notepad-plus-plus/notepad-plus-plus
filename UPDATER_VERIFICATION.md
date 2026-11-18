@@ -1,8 +1,8 @@
-# NoteX 1.6.1 update verification
+# Historical updater verification (1.6.1 to 1.6.2)
 
 The released application packages and source archive correspond to commit `c336ef2a802927710a24b63c5fed753f338dbcc4`. Later CI-only changes select the verifier's virtual-environment Python explicitly; they do not change the released application or verification key.
 
-Historical CI links below point to the preserved NoteX_old archive. The results cover the original NoteX binaries. NoteQu uses the renamed active fork and requires a separate first installation before testing updates between NoteQu releases.
+The CI links below point to the archived repository. These results cover the binaries published before the rename. NoteQu uses the renamed active fork and requires a separate first installation before testing updates between NoteQu releases.
 
 ## Build and package checks
 

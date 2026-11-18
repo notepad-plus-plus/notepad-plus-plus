@@ -244,8 +244,8 @@ concurrent writers to the same profile are blocked. Keep the entire Application
 Support directory when updating.
 
 Run Command executes an explicitly entered or selected command only after Run is
-pressed. It uses zsh with quoted `$NOTEX_FILE`, `$NOTEX_DIRECTORY`, `$NOTEX_SELECTION`,
-and `$NOTEX_LINE` environment variables. Document values are passed as data, not
+pressed. It uses zsh with quoted `$NOTEQU_FILE`, `$NOTEQU_DIRECTORY`, `$NOTEQU_SELECTION`,
+and `$NOTEQU_LINE` environment variables. The former `NOTEX_…` names remain aliases for saved commands. Document values are passed as data, not
 substituted into shell source. Output is limited to 1 MB; Stop sends termination to
 the process group. Commands requiring interactive terminal input should be opened
 in Terminal instead. Saved commands remain local. Hash tools support text,

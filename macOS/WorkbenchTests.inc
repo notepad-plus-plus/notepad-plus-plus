@@ -136,7 +136,7 @@ static void CancelNextDialog(void) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,2*NSEC_PER_SEC),dispatch_get_main_queue(),^{
         if([mode isEqual:@"ui-sidebar-hidden"]||[mode isEqual:@"ui-toolbar"]){
             printf("Layout: content=%s stack=%s outer=%s editor=%s tabs=%s status=%s\n",NSStringFromRect(self.window.contentView.bounds).UTF8String,NSStringFromRect(self.split.superview.frame).UTF8String,NSStringFromRect(self.split.frame).UTF8String,NSStringFromRect(self.editorSplit.frame).UTF8String,NSStringFromRect(self.tabs.frame).UTF8String,NSStringFromRect(self.status.frame).UTF8String);fflush(stdout);
-            NSString *imagePath=NSProcessInfo.processInfo.environment[@"NOTEX_UI_DIAGNOSTIC"];
+            NSString *imagePath=NSProcessInfo.processInfo.environment[@"NOTEQU_UI_DIAGNOSTIC"];
             if(imagePath.length){NSBitmapImageRep *bitmap=[self.window.contentView bitmapImageRepForCachingDisplayInRect:self.window.contentView.bounds];[self.window.contentView cacheDisplayInRect:self.window.contentView.bounds toBitmapImageRep:bitmap];[[bitmap representationUsingType:NSBitmapImageFileTypePNG properties:@{}] writeToFile:imagePath atomically:YES];}
             Check(self.editorSplit.frame.size.height>self.window.contentView.bounds.size.height*0.75,"hidden-sidebar editor fills the available window height");
         }

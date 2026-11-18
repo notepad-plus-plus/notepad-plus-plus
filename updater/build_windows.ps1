@@ -3,7 +3,7 @@ param([string]$Go='go')
 $ErrorActionPreference='Stop'
 Push-Location $PSScriptRoot
 try {
-    $version = [regex]::Match((Get-Content -LiteralPath Version.h -Raw), '#define NOTEX_UPDATE_VERSION "([^" ]+)"').Groups[1].Value
+    $version = [regex]::Match((Get-Content -LiteralPath Version.h -Raw), '#define NOTEQU_UPDATE_VERSION "([^" ]+)"').Groups[1].Value
     if (!$version) { throw 'Missing updater version.' }
     & $Go run github.com/tc-hib/go-winres@v0.3.3 make --in windows.json --arch amd64 --out version --file-version "$version.0" --product-version "$version.0"
     if ($LASTEXITCODE -ne 0) { throw 'Updater resource generation failed.' }

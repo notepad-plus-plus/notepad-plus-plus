@@ -4,7 +4,7 @@
 - (void)sessionFile:(id)sender {
     NSError *error=nil;
     if(![sender tag]){
-        NSSavePanel *panel=[NSSavePanel savePanel];panel.nameFieldStringValue=@"Workspace.notexsession";panel.message=@"This session includes the text of open documents, including unsaved changes.";if([panel runModal]!=NSModalResponseOK)return;
+        NSSavePanel *panel=[NSSavePanel savePanel];panel.nameFieldStringValue=@"Workspace.notequsession";panel.message=@"This session includes the text of open documents, including unsaved changes.";if([panel runModal]!=NSModalResponseOK)return;
         if(![self snapshot:&error]){Alert(error.localizedDescription);return;}
         NSMutableDictionary *session=[self.lastSnapshot mutableCopy];[session removeObjectForKey:@"macros"];
         NSData *data=[NSPropertyListSerialization dataWithPropertyList:session format:NSPropertyListBinaryFormat_v1_0 options:0 error:&error];if(!data||!NXWrite(data,panel.URL.path,&error))Alert(error.localizedDescription);

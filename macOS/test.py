@@ -31,8 +31,11 @@ for key, value in expected_identity.items():
 results = [{"macOS": platform.mac_ver()[0], "architecture": platform.machine(),
             "identity": expected_identity}]
 
-def run(app, mode, profile, executable="NoteQu"):
-    env = dict(os.environ, NOTEX_PROFILE=str(profile), NOTEX_TEST_SOURCE=str(ROOT), NOTEX_TEST_IMAGE=str(OUTPUT / "native-preview.png"))
+def run(app, mode, profile, executable="NoteQu", profile_variable="NOTEQU_PROFILE"):
+    env = dict(os.environ, NOTEQU_TEST_SOURCE=str(ROOT), NOTEQU_TEST_IMAGE=str(OUTPUT / "native-preview.png"))
+    env.pop("NOTEQU_PROFILE", None)
+    env.pop("NOTEX_PROFILE", None)
+    env[profile_variable] = str(profile)
     try:
         result = subprocess.run([str(app / "Contents/MacOS" / executable), "--self-test", mode],
                                 env=env, capture_output=True, text=True, timeout=90)
@@ -48,7 +51,7 @@ def run(app, mode, profile, executable="NoteQu"):
     if result.returncode:
         raise SystemExit(f"Native test failed: {mode}")
 
-with tempfile.TemporaryDirectory(prefix="notex-native-tests-") as directory:
+with tempfile.TemporaryDirectory(prefix="notequ-native-tests-") as directory:
     work = Path(directory)
     run(APP, "suite", work / "test-suite")
     run(APP, "seed", work / "test-restart")
@@ -56,7 +59,7 @@ with tempfile.TemporaryDirectory(prefix="notex-native-tests-") as directory:
     replacement = work / "Replacement/NoteQu.app"
     replacement.parent.mkdir()
     shutil.copytree(APP, replacement)
-    run(replacement, "restore", work / "test-restart")
+    run(replacement, "restore", work / "test-restart", profile_variable="NOTEX_PROFILE")
     if os.environ.get("CI"):
         # Upgrade profiles created by both previously published native binaries.
         releases = [
@@ -71,13 +74,13 @@ with tempfile.TemporaryDirectory(prefix="notex-native-tests-") as directory:
             assert hashlib.sha256(old_zip.read_bytes()).hexdigest() == digest
             previous = work / f"Previous-{version}"
             subprocess.run(["ditto", "-x", "-k", str(old_zip), str(previous)], check=True)
-            run(previous / "NoteX.app", "seed", work / f"test-upgrade-{version}", executable="NoteX")
+            run(previous / "NoteX.app", "seed", work / f"test-upgrade-{version}", executable="NoteX", profile_variable="NOTEX_PROFILE")
             run(APP, "restore-legacy", work / f"test-upgrade-{version}")
     # Kill only the child launched here, after the ordinary autosnapshot timer.
     log = work / "crash.log"
     with log.open("w") as output:
         process = subprocess.Popen([str(APP / "Contents/MacOS/NoteQu"), "--self-test", "crash-seed"],
-            env=dict(os.environ, NOTEX_PROFILE=str(work / "test-crash")), stdout=output, stderr=subprocess.STDOUT)
+            env=dict(os.environ, NOTEQU_PROFILE=str(work / "test-crash")), stdout=output, stderr=subprocess.STDOUT)
         try:
             deadline = time.monotonic() + 60
             while "READY" not in log.read_text():
@@ -97,7 +100,7 @@ with tempfile.TemporaryDirectory(prefix="notex-native-tests-") as directory:
             log = work / f"{mode}.log"
             with log.open("w") as output:
                 process = subprocess.Popen([str(APP / "Contents/MacOS/NoteQu"), "--self-test", mode],
-                    env=dict(os.environ, NOTEX_PROFILE=str(work / f"test-{mode}"), NOTEX_UI_DIAGNOSTIC=str(OUTPUT / f"{mode}-diagnostic.png")), stdout=output, stderr=subprocess.STDOUT)
+                    env=dict(os.environ, NOTEQU_PROFILE=str(work / f"test-{mode}"), NOTEQU_UI_DIAGNOSTIC=str(OUTPUT / f"{mode}-diagnostic.png")), stdout=output, stderr=subprocess.STDOUT)
                 try:
                     deadline = time.monotonic() + 30
                     while "READY" not in log.read_text():

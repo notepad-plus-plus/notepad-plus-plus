@@ -6,7 +6,8 @@ toolbar, customizable menus, and formatting-aware session recovery.
 This is an independent modified distribution maintained by Berk Kivircik.
 
 Development and signing source: [NoteX-source, a GitHub fork of Notepad++](https://github.com/berkkivircik/NoteX-source).
-This repository remains the canonical download, issue, and update location. Both
+The [NoteX publication repository](https://github.com/berkkivircik/NoteX) remains
+the canonical download, issue, and update location. Both
 repositories track the same NoteX `main` commit. See [source provenance](SOURCE_PROVENANCE.md)
 for the upstream base, the transparent history transition, and verification steps.
 
@@ -77,7 +78,7 @@ from the NoteX maintainer is required. The software is provided without warranty
 Separate components and fonts retain their own license terms.
 
 NoteX is not an official Notepad++ release and is not endorsed by the upstream
-project. Report NoteX issues in this repository. Upstream documentation is
+project. Report NoteX issues in the [canonical issue tracker](https://github.com/berkkivircik/NoteX/issues). Upstream documentation is
 retained in the `UPSTREAM_*.md` files for reference.
 
 ## Upgrading an existing portable installation

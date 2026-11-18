@@ -6,7 +6,8 @@ static void Check(bool condition, const char *name) {
     if (!condition) { fprintf(stderr, "FAIL: %s\n", name); fflush(stderr); exit(2); }
     ++checks; printf("PASS: %s\n", name); fflush(stdout);
 }
-static NSData *Sample() { return [@"NoteQu — café, Türkçe, 日本語, 📝\nUnsaved recovery text.\n" dataUsingEncoding:NSUTF8StringEncoding]; }
+// Published legacy builds seed this exact text for the restore-legacy test.
+static NSData *Sample() { return [@"NoteX — café, Türkçe, 日本語, 📝\nUnsaved recovery text.\n" dataUsingEncoding:NSUTF8StringEncoding]; }
 static void Bold24(ScintillaView *view) {
     NoteQu::Change change; change.end = Send(view, SCI_GETLENGTH); change.fields = NoteQu::Bold | NoteQu::Size;
     change.value.mask = change.fields; change.value.bold = true; change.value.size = 2400;

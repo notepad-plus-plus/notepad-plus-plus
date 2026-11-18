@@ -1,5 +1,5 @@
 // NoteX modifications: Copyright (C) 2026 Berk Kivircik.
-// Modified for NoteX; latest publication changes: 2026-10-28.
+// Modified for NoteX on 2026-11-18: use the current application version in the notice.
 // See MODIFICATIONS.md. Original copyright and license notices are preserved.
 
 // This file is part of Notepad++ project
@@ -26,7 +26,7 @@
 #include "StaticDialog.h"
 
 #define LICENCE_TXT \
-L"NoteX 1.3.1 - modified by Berk Kivircik, October 31, 2026.\r\n\
+NOTEPAD_PLUS_VERSION L" - modified by Berk Kivircik.\r\n\
 Based on Notepad++ 8.9.8.1 by Don HO and contributors.\r\n\
 NoteX modifications: Copyright (C) 2026 Berk Kivircik.\r\n\
 Corresponding source: https://github.com/berkkivircik/NoteX\r\n\

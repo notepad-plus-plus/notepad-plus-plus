@@ -24,14 +24,14 @@
 
 //************ Notepad++ version **************************
 
-#define NOTEPAD_PLUS_VERSION L"NoteX v1.6.1"
+#define NOTEPAD_PLUS_VERSION L"NoteX v1.6.2"
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE L"5.63\0"
 #define VERSION_INTERNAL_VALUE L"8.981\0"
 
-#define VERSION_PRODUCT_VALUE L"1.6.1.0\0"
-#define VERSION_DIGITALVALUE 1, 6, 1, 0
+#define VERSION_PRODUCT_VALUE L"1.6.2.0\0"
+#define VERSION_DIGITALVALUE 1, 6, 2, 0
 
 //**********************************************************
 

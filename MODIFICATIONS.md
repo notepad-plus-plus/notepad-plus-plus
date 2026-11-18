@@ -1,5 +1,9 @@
 # NoteX modification notice
 
+## 2026-11-18 — NoteX 1.6.2 About dialog maintenance
+
+Modified the Windows About dialog notice to use NOTEPAD_PLUS_VERSION instead of a separately hard-coded product version and date. Updated release metadata and packaging to 1.6.2. Original copyright and license notices remain intact.
+
 ## 2026-11-18 — Single-repository consolidation
 
 Consolidated development, signing preparation, issues, and releases in the upstream

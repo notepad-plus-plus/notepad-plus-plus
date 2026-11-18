@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.2 — Consistent About dialog version
+
+- The Windows About dialog now uses the same version definition for its heading and license notice. The notice no longer shows an outdated application version or modification date.
+- Preserve upstream attribution, copyright notices, and the GNU GPL version 3 license text.
+- Windows and native Apple Silicon macOS packages share the 1.6.2 release version.
+
 ## 1.6.1 — Update verification and Windows helper identity
 
 - Add explicit NoteX product, version, and executable metadata to the Windows update helper.

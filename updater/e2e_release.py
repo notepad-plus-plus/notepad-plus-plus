@@ -126,7 +126,7 @@ def macos_test(work,profile,archive,manifest,target_version):
     return {'bootstrap':'1.5.0-macos.5 -> '+manifest['version'],'unsaved_session_and_format_restored':True,'custom_preferences_preserved':True,'protected_files':len(protected),'obsolete_owned_file_removed':True,'application':str(app)}
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--from-version',default='1.6.0');p.add_argument('--to-version',default='1.6.1');p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--from-version',default='1.6.1');p.add_argument('--to-version',default='1.6.2');p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     system='windows' if os.name=='nt' else 'darwin';arch='amd64' if system=='windows' else 'arm64'
     work=Path(tempfile.mkdtemp(prefix='notex-real-release-e2e-'));profile=work/'test-update-profile';profile.mkdir()
     (profile/'allow-update-test').touch();(profile/'notex-updates.json').write_text('{"disabled":true,"futureSetting":"preserve"}')

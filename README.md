@@ -12,8 +12,8 @@ the transparent history transition, and verification steps.
 
 ## Download and run
 
-Download `NoteX-1.6.1-portable-x64.zip` from the
-[1.6.1 release](https://github.com/berkkivircik/NoteX/releases/tag/v1.6.1),
+Download `NoteX-1.6.2-portable-x64.zip` from the
+[1.6.2 release](https://github.com/berkkivircik/NoteX/releases/tag/v1.6.2),
 extract it to a writable folder, and run `NoteX.exe`. No installer is required.
 The public package starts with a fresh profile and no documents or session history.
 Windows x64 is required. This release is unsigned.
@@ -30,8 +30,8 @@ is your current `NoteX.exe`. Updating the EXE does not rename existing shortcuts
 ### Native macOS
 
 The native Apple Silicon edition is available separately as
-`NoteX-1.6.1-macos-arm64.dmg` or `NoteX-1.6.1-macos-arm64.zip` in the
-[unified release](https://github.com/berkkivircik/NoteX/releases/tag/v1.6.1).
+`NoteX-1.6.2-macos-arm64.dmg` or `NoteX-1.6.2-macos-arm64.zip` in the
+[unified release](https://github.com/berkkivircik/NoteX/releases/tag/v1.6.2).
 It uses AppKit and Cocoa Scintilla, without Wine or Rosetta. Requires macOS 14
 or later. See [the macOS guide](macOS/README.md) for installation, recovery,
 build instructions, native workbench features, and platform compatibility.
@@ -57,7 +57,7 @@ public release. They are not required for the editor's built-in features.
 
 The repository includes the modified editor, Scintilla, Lexilla, Boost.Regex,
 build scripts, tests, and portable packaging inputs. See [BUILD.md](BUILD.md).
-The `v1.6.1` tag and `NoteX-1.6.1-source.zip` release asset identify the source
+The `v1.6.2` tag and `NoteX-1.6.2-source.zip` release asset identify the source
 for the matching portable binary. Do not substitute upstream Notepad++ source
 or a different NoteX revision when redistributing this binary.
 

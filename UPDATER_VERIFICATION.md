@@ -2,6 +2,8 @@
 
 The released application packages and source archive correspond to commit `c336ef2a802927710a24b63c5fed753f338dbcc4`. Later CI-only changes select the verifier's virtual-environment Python explicitly; they do not change the released application or verification key.
 
+Historical CI links below point to the preserved NoteX_old archive. Application downloads and new validation runs use the active NoteX fork.
+
 ## Build and package checks
 
 - Windows: 101 native formatting checks, 22 menu checks, Function List fixtures, updater tests, and selective shortcut migration tests passed. Clean-package verification checked 142 files and the compiled identity of both executables.
@@ -9,7 +11,7 @@ The released application packages and source archive correspond to commit `c336e
 - The DMG was verified, mounted read-only, and compared with the ZIP application. Both bundles passed strict ad-hoc signature verification. This is not Apple notarization.
 - All 11 public release assets were downloaded again without GitHub credentials. Their checksums, both Ed25519 manifest signatures, every inventoried update file, and the corresponding source revision were verified.
 
-Build evidence: [Windows](https://github.com/berkkivircik/NoteX/actions/runs/44307703714), [macOS 15 and 26](https://github.com/berkkivircik/NoteX/actions/runs/44307703763).
+Build evidence: [Windows](https://github.com/berkkivircik/NoteX_old/actions/runs/44307703714), [macOS 15 and 26](https://github.com/berkkivircik/NoteX_old/actions/runs/44307703763).
 
 ## Actual public-release update
 
@@ -23,7 +25,7 @@ The test installs published 1.6.0 application files into an isolated installatio
 
 Each successful run discovered the compatible release, downloaded and verified its real package, waited for normal shutdown, replaced only application-owned files, restarted the new version, and removed the unchanged obsolete bootstrap notice. Synthetic unsaved text and settings survived. macOS additionally verified restored inline formatting. Windows preserved custom commands and a macro, and loaded and executed a genuine synthetic DLL plugin both before and after updating. This demonstrates compatibility for that fixture, not every third-party plugin.
 
-Per-platform evidence is in the `updater-e2e-*` artifacts: [macOS 15 successful first run](https://github.com/berkkivircik/NoteX/actions/runs/44310251876), [Windows and macOS 26 successful jobs](https://github.com/berkkivircik/NoteX/actions/runs/44310607909). Other attempts received GitHub HTTP 403 during discovery and stopped without replacing application files. Such attempts are failures, not successful updates; no token or alternate release endpoint was used to make them pass. The first Windows CI attempt failed because the harness selected a Python interpreter without the verifier dependency; the workflow correction fixed that test-environment issue.
+Per-platform evidence is in the `updater-e2e-*` artifacts: [macOS 15 successful first run](https://github.com/berkkivircik/NoteX_old/actions/runs/44310251876), [Windows and macOS 26 successful jobs](https://github.com/berkkivircik/NoteX_old/actions/runs/44310607909). Other attempts received GitHub HTTP 403 during discovery and stopped without replacing application files. Such attempts are failures, not successful updates; no token or alternate release endpoint was used to make them pass. The first Windows CI attempt failed because the harness selected a Python interpreter without the verifier dependency; the workflow correction fixed that test-environment issue.
 
 ## Failure and preservation coverage
 

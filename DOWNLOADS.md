@@ -2,7 +2,11 @@
 
 NoteQu is an independent text and code editor with inline formatting and recovery for unsaved documents. The Windows edition is based on Notepad++; the native Apple Silicon edition uses AppKit and Cocoa Scintilla.
 
-Get published packages from [GitHub Releases](https://github.com/berkkivircik/NoteQu/releases/latest). The final release under the NoteX name was [1.6.2](https://github.com/berkkivircik/NoteQu/releases/tag/v1.6.2). Its original packages are:
+Get the current build from [GitHub Releases](https://github.com/berkkivircik/NoteQu/releases/latest). The Windows portable ZIP launches as `NoteQu.exe` and the Apple Silicon DMG or ZIP contains `NoteQu.app`.
+
+## Historical NoteX packages
+
+The final release under the NoteX name was [1.6.2](https://github.com/berkkivircik/NoteQu/releases/tag/v1.6.2). Its original packages are:
 
 - Windows x64: `NoteX-1.6.2-portable-x64.zip`. Extract to a new writable directory and run `NoteX.exe`.
 - macOS Apple Silicon: `NoteX-1.6.2-macos-arm64.dmg` or the matching ZIP. Copy `NoteX.app` to Applications. macOS 14 or later is required.

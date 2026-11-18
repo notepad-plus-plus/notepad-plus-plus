@@ -29,17 +29,19 @@ bind(k, 'WriteProcessMemory', w.BOOL, [w.HANDLE, w.LPVOID, w.LPCVOID, c.c_size_t
 bind(k, 'ReadProcessMemory', w.BOOL, [w.HANDLE, w.LPCVOID, w.LPVOID, c.c_size_t, w.LPVOID])
 
 def windows(exe):
+    exe = Path(exe).resolve()
+    window_class = 'NoteX' if exe.name.casefold() == 'notex.exe' else 'NoteQu'
     found = []
     @Callback
     def visit(hwnd, unused):
         cls = c.create_unicode_buffer(100); u.GetClassNameW(hwnd, cls, 100)
-        if cls.value != 'NoteQu': return True
+        if cls.value != window_class: return True
         pid = w.DWORD(); u.GetWindowThreadProcessId(hwnd, c.byref(pid))
         handle = k.OpenProcess(0x1000, False, pid.value)
         if handle:
             buf = c.create_unicode_buffer(32768); count = w.DWORD(len(buf))
             ok = k.QueryFullProcessImageNameW(handle, 0, buf, c.byref(count)); k.CloseHandle(handle)
-            if ok and Path(buf.value).resolve() == Path(exe).resolve(): found.append((pid.value, hwnd))
+            if ok and Path(buf.value).resolve() == exe: found.append((pid.value, hwnd))
         return True
     u.EnumWindows(visit, 0); return found
 
@@ -50,7 +52,7 @@ def wait_window(exe, timeout=30):
         if found:
             time.sleep(1); return found[0]
         time.sleep(.1)
-    raise RuntimeError('The isolated NoteQu window did not open.')
+    raise RuntimeError(f'The isolated window for {Path(exe).name} did not open.')
 
 def editor(hwnd):
     found = []

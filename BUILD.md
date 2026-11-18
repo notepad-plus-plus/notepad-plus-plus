@@ -8,7 +8,9 @@ The instructions below build the Windows edition.
 - Windows x64.
 - Visual Studio 2022 or Build Tools 2022 with MSVC v143, C++ desktop tools,
   and a Windows SDK. The release build uses C++20 and the static MSVC runtime.
-- PowerShell and Python 3.9 or later. Python scripts use only the standard library.
+- PowerShell and Python 3.9 or later for packaging. Basic packaging scripts use
+  the standard library; offline update signing and independent signature
+  verification additionally require `updater/signing-requirements.txt`.
 
 All editor and embedded library sources are in this repository. No private SDK,
 local user profile, plugin DLL, or installed Notepad++ is needed.
@@ -40,7 +42,9 @@ installation. It copies only reviewed source-tree assets and fresh defaults,
 adds licenses and source-access instructions, and writes a SHA-256 manifest.
 Do not use an existing user profile as a packaging input.
 English is the initial interface language; Turkish and Spanish are also included.
-Session snapshots and GDI rendering are enabled. Automatic updates are disabled.
+Session snapshots and GDI rendering are enabled. The upstream automatic updater
+is disabled. NoteX's own background GitHub checks are enabled by default and can
+be disabled independently; see [UPDATING.md](UPDATING.md).
 
 ## Modify and install your own build
 

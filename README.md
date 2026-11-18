@@ -13,6 +13,11 @@ extract it to a writable folder, and run `NoteX.exe`. No installer is required.
 The public package starts with a fresh profile and no documents or session history.
 Windows x64 is required. This release is unsigned.
 
+See the [download guide](DOWNLOADS.md), [Code signing policy](CODE_SIGNING.md),
+and [privacy policy](PRIVACY.md) before first launch. Automatic GitHub update
+checks are enabled by default and can be disabled in the application's
+**Automatic Update Checks** menu.
+
 Windows shortcuts have their own display names. If a shortcut still shows an
 older application name, rename the shortcut to `NoteX` and verify that its target
 is your current `NoteX.exe`. Updating the EXE does not rename existing shortcuts.

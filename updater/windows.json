@@ -1,0 +1,27 @@
+{
+  "RT_MANIFEST": {
+    "#1": {
+      "0409": "windows.manifest"
+    }
+  },
+  "RT_VERSION": {
+    "#1": {
+      "0000": {
+        "fixed": {
+          "file_version": "1.6.1.0",
+          "product_version": "1.6.1.0"
+        },
+        "info": {
+          "0409": {
+            "CompanyName": "NoteX contributors",
+            "FileDescription": "NoteX Updater",
+            "InternalName": "NoteXUpdater.exe",
+            "OriginalFilename": "NoteXUpdater.exe",
+            "ProductName": "NoteX",
+            "LegalCopyright": "Copyright (C) 2026 Berk Kivircik. GPLv3."
+          }
+        }
+      }
+    }
+  }
+}

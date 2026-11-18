@@ -60,4 +60,6 @@ embedded build timestamps can affect the executable.
 
 ## Authenticated updater
 
-Install Go 1.27.4. Before Windows packaging, run `go -C updater build -trimpath "-ldflags=-s -w" -o ../dist/NoteXUpdater.exe .`. Native macOS builds compile the helper automatically. Run `go -C updater test ./...` and `python -m unittest discover -s updater -p test_migration.py`. See UPDATING.md for offline manifest signing and publication. Trusted platform signatures must be applied before creating update inventories.
+Install Go 1.27.4. Before Windows packaging, run `./updater/build_windows.ps1`. Native macOS builds compile the helper automatically. Run `go -C updater test ./...` and `python -m unittest discover -s updater -p test_migration.py`. See UPDATING.md for offline manifest signing and publication. Trusted platform signatures must be applied before creating update inventories.
+
+The Windows updater build uses the pinned `github.com/tc-hib/go-winres@v0.3.3` build tool to generate its PE resources. The tool is downloaded through Go module verification and is not linked into the updater. The updater itself uses only the Go standard library.

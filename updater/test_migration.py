@@ -1,6 +1,8 @@
 # Copyright (C) 2026 Berk Kivircik. SPDX-License-Identifier: GPL-3.0-only
 import unittest
-from migrate_shortcuts import migrate
+import hmac
+import hashlib
+from migrate_shortcuts import migrate, migrate_validation
 
 class MigrationTests(unittest.TestCase):
     def test_preserves_unknown_fields_and_custom_commands(self):
@@ -14,6 +16,14 @@ class MigrationTests(unittest.TestCase):
     def test_comments_are_untouched(self):
         data = b'<NotepadPlus><!-- <UserDefinedCommands><Command name="Get PHP help">https://www.php.net/$(CURRENT_WORD)</Command></UserDefinedCommands> --></NotepadPlus>'
         self.assertEqual(migrate(data), (data, 0))
+
+    def test_preserves_existing_trust_without_validating_changed_commands(self):
+        old, new, key = b'original fixture', b'migrated fixture', b'synthetic machine key'
+        digest = hmac.new(key, old, hashlib.sha256).hexdigest().encode()
+        replacement = hmac.new(key, new, hashlib.sha256).hexdigest().encode()
+        config = b'<NotepadPlus unknown="keep"><GUIConfigs><GUIConfig name="shortcutsXmlHMAC" future="keep" value="'+digest+b'"/><GUIConfig name="Other" custom="keep"/></GUIConfigs></NotepadPlus>'
+        self.assertEqual(migrate_validation(config, old, new, key), config.replace(digest,replacement))
+        self.assertEqual(migrate_validation(config, b'untrusted modification', new, key), config)
 
 if __name__ == '__main__':
     unittest.main()

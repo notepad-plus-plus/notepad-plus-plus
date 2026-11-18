@@ -15,7 +15,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.6.0"
+VERSION = "1.6.1"
 BUILD = "1"
 
 def main():
@@ -78,7 +78,7 @@ def main():
     iconset = output / "NoteX.iconset"
     subprocess.run(["xcrun", "swift", str(ROOT / "macOS/make_icon.swift"), str(iconset)], check=True)
     subprocess.run(["iconutil", "-c", "icns", str(iconset), "-o", str(resources / "NoteX.icns")], check=True)
-    for name in ["LICENSE", "THIRD_PARTY_NOTICES.md", "MODIFICATIONS.md", "UPDATING.md", "UPDATE-BOOTSTRAP.md"]:
+    for name in ["LICENSE", "THIRD_PARTY_NOTICES.md", "MODIFICATIONS.md", "UPDATING.md", "CODE_SIGNING.md"]:
         shutil.copy2(ROOT / name, resources / name)
     shutil.copytree(ROOT / "LICENSES", resources / "LICENSES")
     shutil.copytree(ROOT / "PowerEditor/installer/functionList", resources / "functionList")

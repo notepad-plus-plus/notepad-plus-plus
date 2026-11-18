@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.1 — Update verification and Windows helper identity
+
+- Add explicit NoteX product, version, and executable metadata to the Windows update helper.
+- Extend interruption, binary architecture, and migration validation.
+- Retire the bootstrap-only distribution notice while preserving unowned and customized files.
+- Keep public-trust Windows signing and Apple notarization status separate from signed update inventories.
+
+
 ## 1.6.0 — Authenticated updates
 
 - Add a platform-specific GitHub updater with signed file inventories, normal-shutdown installation, and application-only recovery.

@@ -10,7 +10,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 
-def require_metadata(file: Path, version: str):
+def require_metadata(file: Path, version: str, *, updater=False):
     if sys.platform != 'win32':
         raise RuntimeError('Validate Windows executable metadata on Windows.')
     if not re.fullmatch(r'\d+\.\d+\.\d+', version):
@@ -48,8 +48,11 @@ def require_metadata(file: Path, version: str):
     if not length or length % 4:
         raise ValueError('Invalid executable translation table.')
     pairs = C.cast(translations, C.POINTER(W.WORD))
-    expected = {'FileDescription': 'NoteX Editor', 'ProductName': 'NoteX',
-                'InternalName': 'NoteX.exe', 'OriginalFilename': 'NoteX.exe',
+    description_name = 'NoteX Updater' if updater else 'NoteX Editor'
+    file_name = 'NoteXUpdater.exe' if updater else 'NoteX.exe'
+    identity_name = 'NoteX.Updater' if updater else 'NoteX'
+    expected = {'FileDescription': description_name, 'ProductName': 'NoteX',
+                'InternalName': file_name, 'OriginalFilename': file_name,
                 'FileVersion': version + '.0', 'ProductVersion': version + '.0'}
     for i in range(0, length // 2, 2):
         table = f'{pairs[i]:04x}{pairs[i + 1]:04x}'
@@ -88,9 +91,9 @@ def require_metadata(file: Path, version: str):
         namespace = '{urn:schemas-microsoft-com:asm.v1}'
         identity = manifest.find(namespace + 'assemblyIdentity')
         description = manifest.find(namespace + 'description')
-        if identity is None or identity.get('name') != 'NoteX':
+        if identity is None or identity.get('name') != identity_name:
             raise ValueError('Embedded application identity must be NoteX.')
-        if description is None or description.text != 'NoteX Editor':
+        if description is None or description.text != description_name:
             raise ValueError('Embedded application description must be NoteX Editor.')
     finally:
         kernel.FreeLibrary(module)

@@ -19,6 +19,7 @@ def main():
     root = args.package.resolve(strict=True)
     manifest = json.loads((root / 'release-manifest.json').read_text(encoding='utf-8'))
     require_metadata(root / 'NoteX.exe', manifest['version'].removeprefix('NoteX '))
+    require_metadata(root / 'NoteXUpdater.exe', manifest['version'].removeprefix('NoteX '), updater=True)
     expected = manifest['files']
     actual = {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file()}
     if actual != set(expected) | {'release-manifest.json'}:

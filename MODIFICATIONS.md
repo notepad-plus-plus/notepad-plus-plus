@@ -1,5 +1,10 @@
 # NoteX modification notice
 
+## 2026-11-18 — NoteX 1.6.1 maintenance
+
+Added Windows updater version resources, compiled metadata checks, a real transaction-worker interruption test, binary architecture tests, and byte-preserving shortcut validation migration. Retired the bootstrap-only installed notice. No user profile files are added to update ownership.
+
+
 ## 2026-11-18 — NoteX update infrastructure
 
 Modified the Windows startup, Help menu, command defaults and loader, obsolete update preferences, packaging, and version resources. Added an independent signed updater shared with native macOS, native entry points, recovery tests, offline signing tools, and release documentation. Original component copyright and license notices remain intact.

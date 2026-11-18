@@ -9,6 +9,8 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
+import plistlib
 import zipfile
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat, PublicFormat, NoEncryption
@@ -76,6 +78,17 @@ def main():
         raise RuntimeError('Source revision differs from the reviewed checkout.')
     if subprocess.check_output(['git', 'status', '--porcelain'], cwd=repo, text=True).strip():
         raise RuntimeError('Commit and review all public source changes before signing.')
+    if args.platform == 'windows':
+        sys.path.insert(0, str(repo / 'PowerEditor/Packaging/NoteX'))
+        from binary_metadata import require_metadata
+        require_metadata(args.root / 'NoteX.exe', args.version)
+        require_metadata(args.root / 'NoteXUpdater.exe', args.version, updater=True)
+        if args.source not in (args.root / 'SOURCE_CODE.txt').read_text():
+            raise RuntimeError('Windows package source revision mismatch.')
+    else:
+        info = plistlib.loads((args.root / 'Contents/Info.plist').read_bytes())
+        if info['CFBundleShortVersionString'] != args.version or args.source not in (args.root / 'Contents/Resources/SOURCE.txt').read_text():
+            raise RuntimeError('macOS package version or source revision mismatch.')
     allowed = {'NoteX.exe', 'NoteXUpdater.exe', 'LICENSE.txt', 'README.md', 'CHANGELOG.md', 'MODIFICATIONS.md',
                'THIRD_PARTY_NOTICES.md', 'BUILD.md', 'SOURCE_CODE.txt', 'UPDATING.md', 'UPDATE-BOOTSTRAP.md'}
     files = {}

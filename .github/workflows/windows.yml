@@ -22,7 +22,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Updater tests failed.' }
           python -m unittest discover -s updater -p test_migration.py
           if ($LASTEXITCODE -ne 0) { throw 'Migration tests failed.' }
-          go -C updater build -trimpath '-ldflags=-s -w' -o ../dist/NoteXUpdater.exe .
+          ./updater/build_windows.ps1
           if ($LASTEXITCODE -ne 0) { throw 'Updater build failed.' }
       - name: Native build and integration tests
         run: ./PowerEditor/Test/NoteX/build-release.ps1 -LogDirectory dist/native-tests

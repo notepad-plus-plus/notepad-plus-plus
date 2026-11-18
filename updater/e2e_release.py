@@ -63,7 +63,7 @@ def windows_test(work, profile, archive, manifest, target_version):
     shutil.copy2(app/'config.xml',profile/'config.xml')
     protected=[]
     for name in ['themes/My Theme.xml','userDefineLangs/my-language.xml','plugins/config/Test.ini','my-personal-note.txt']:
-        p=app/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('Synthetic preserved data: '+name);protected.append(p)
+        p=app/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('<NotepadPlus><LexerStyles/><GlobalStyles/></NotepadPlus>' if name.endswith('.xml') else 'Synthetic preserved data: '+name);protected.append(p)
     shortcuts=b'<NotepadPlus future="preserve"><Macros><Macro name="Custom Macro" Ctrl="yes" Alt="no" Shift="yes" Key="90"/></Macros><UserDefinedCommands><Command name="Custom Command" Ctrl="no" Alt="yes" Shift="no" Key="115">cmd /c echo fixture</Command></UserDefinedCommands><Unknown keep="yes"/></NotepadPlus>'
     (profile/'shortcuts.xml').write_bytes(shortcuts);protected.append(profile/'shortcuts.xml')
     # Compile a genuine, minimal plugin and exercise its command before and after updating.

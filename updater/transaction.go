@@ -10,6 +10,9 @@ import (
 	"sort"
 )
 
+// Unit tests can stop a worker at an actual durable-write boundary. No runtime flag exposes this hook.
+var transactionCheckpoint = func() {}
+
 type Change struct {
 	Path    string
 	Before  string
@@ -234,6 +237,7 @@ func apply(root, staged, work string, next Signed) error {
 		if e != nil {
 			return e
 		}
+		transactionCheckpoint()
 	}
 	if e = validateInstalled(root, next); e != nil {
 		return e

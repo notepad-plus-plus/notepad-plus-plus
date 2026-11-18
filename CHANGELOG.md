@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.3 Windows - 2026-11-18
+
+- Use NoteX consistently in the executable's internal name and embedded application manifest, alongside the existing NoteX product name and file description.
+- Validate the compiled executable's numeric version, all version-string translations, and manifest before packaging and when verifying a release.
+- Retain the Windows font compatibility fix and previous-format recovery support.
+- Windows shortcut labels are independent of EXE metadata. Rename a shortcut created under an older name to NoteX, or create a new shortcut to the updated NoteX.exe.
+
 ## 1.3.2 Windows - 2026-11-18
 
 - Fix garbled document-tab labels reported on Windows 11 when the bundled Inter font is enabled, including names of new, unsaved tabs.

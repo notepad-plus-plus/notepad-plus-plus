@@ -1,6 +1,6 @@
 # NoteX modification notice
 
-Modified distributions: NoteX 1.3.2 for Windows and 1.5.0 macOS Preview 5.
+Modified distributions: NoteX 1.3.3 for Windows and 1.5.0 macOS Preview 5.
 Modifier: Berk Kivircik. Latest modification date: November 18, 2026.
 NoteX modifications: Copyright (C) 2026 Berk Kivircik.
 The modified work as a whole is distributed under GNU GPL version 3.
@@ -149,3 +149,10 @@ as part of this change.
 
 FindReplaceDlg.cpp also moves a misplaced UTF-8 byte-order mark to the start
 of the file so the reviewed source builds cleanly with MSVC.
+
+## Windows application identity - November 18, 2026
+
+Notepad_plus.rc and notepad++.exe.manifest now use NoteX for the application
+identity and internal executable name. Packaging validates actual compiled
+version resources and the embedded manifest. Original upstream copyright and
+license notices and readers for previous document formats remain intact.

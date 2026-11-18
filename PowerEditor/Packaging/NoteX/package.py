@@ -2,6 +2,8 @@
 # SPDX-License-Identifier: GPL-3.0-only
 # Modified for NoteX publication: 2026-11-18.
 """Build a fresh NoteX portable package from reviewed source-tree inputs."""
+from binary_metadata import require_metadata
+
 import argparse
 import datetime
 import hashlib
@@ -36,6 +38,7 @@ def main():
     if target.exists() and (not target.is_dir() or any(target.iterdir())):
         parser.error('Output must be a new or empty directory. Never overwrite an active profile.')
     require_x64(binary)
+    require_metadata(binary, "1.3.3")
     source_ref = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip()
     if subprocess.run(['git', 'diff', '--quiet', 'HEAD', '--'], cwd=repo).returncode:
         parser.error('Commit source changes before packaging so the source reference is accurate.')
@@ -63,18 +66,18 @@ def main():
         shutil.copy2(repo / name, target / name)
     shutil.copytree(repo / 'LICENSES', target / 'LICENSES')
     (target / 'SOURCE_CODE.txt').write_text(
-        'NoteX 1.3.2 - corresponding source\n\n'
+        'NoteX 1.3.3 - corresponding source\n\n'
         f'This package was prepared from source commit: {source_ref}\n'
         f'Browse: https://github.com/berkkivircik/NoteX/tree/{source_ref}\n'
         f'Download: https://github.com/berkkivircik/NoteX/archive/{source_ref}.zip\n'
-        'Release source: https://github.com/berkkivircik/NoteX/releases/tag/v1.3.2\n\n'
+        'Release source: https://github.com/berkkivircik/NoteX/releases/tag/v1.3.3\n\n'
         'The matching source includes the modified editor, embedded libraries, tests,\n'
         'build scripts, packaging inputs, and licenses. See BUILD.md to compile and\n'
         'install modified versions. Source is available without an additional charge.\n'
         'NoteX is distributed under GNU GPL version 3, without warranty.\n'
         'Original component and font notices are included in LICENSES and fonts.\n', encoding='utf-8')
     manifest = {
-        'version': 'NoteX 1.3.2',
+        'version': 'NoteX 1.3.3',
         'configuration': 'Release',
         'architecture': 'x64',
         'created_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),

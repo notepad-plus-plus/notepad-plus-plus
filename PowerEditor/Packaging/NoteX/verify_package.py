@@ -1,7 +1,9 @@
 # Copyright (C) 2026 Berk Kivircik.
 # SPDX-License-Identifier: GPL-3.0-only
-# Added for NoteX publication: 2026-10-28.
+# Modified for NoteX on 2026-11-18: validate compiled application identity.
 """Validate the public package manifest, clean profile, and license inputs."""
+from binary_metadata import require_metadata
+
 import argparse
 import hashlib
 import json
@@ -16,6 +18,7 @@ def main():
     args = parser.parse_args()
     root = args.package.resolve(strict=True)
     manifest = json.loads((root / 'release-manifest.json').read_text(encoding='utf-8'))
+    require_metadata(root / 'NoteX.exe', manifest['version'].removeprefix('NoteX '))
     expected = manifest['files']
     actual = {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file()}
     if actual != set(expected) | {'release-manifest.json'}:

@@ -7,11 +7,15 @@ This is an independent modified distribution maintained by Berk Kivircik.
 
 ## Download and run
 
-Download `NoteX-1.3.2-portable-x64.zip` from the
-[1.3.2 release](https://github.com/berkkivircik/NoteX/releases/tag/v1.3.2),
+Download `NoteX-1.3.3-portable-x64.zip` from the
+[1.3.3 release](https://github.com/berkkivircik/NoteX/releases/tag/v1.3.3),
 extract it to a writable folder, and run `NoteX.exe`. No installer is required.
 The public package starts with a fresh profile and no documents or session history.
 Windows x64 is required. This release is unsigned.
+
+Windows shortcuts have their own display names. If a shortcut still shows an
+older application name, rename the shortcut to `NoteX` and verify that its target
+is your current `NoteX.exe`. Updating the EXE does not rename existing shortcuts.
 
 ### Native macOS preview
 
@@ -43,7 +47,7 @@ public release. They are not required for the editor's built-in features.
 
 The repository includes the modified editor, Scintilla, Lexilla, Boost.Regex,
 build scripts, tests, and portable packaging inputs. See [BUILD.md](BUILD.md).
-The `v1.3.2` tag and `NoteX-1.3.2-source.zip` release asset identify the source
+The `v1.3.3` tag and `NoteX-1.3.3-source.zip` release asset identify the source
 for the matching portable binary. Do not substitute upstream Notepad++ source
 or a different NoteX revision when redistributing this binary.
 

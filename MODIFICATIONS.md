@@ -1,5 +1,11 @@
 # NoteX modification notice
 
+## 2026-11-18 — Public source provenance transition
+
+Established a visible Notepad++ source fork and joined the verified upstream history
+with the existing public NoteX history through a tree-identical import. No runtime
+code, historical release, or release tag was changed. See [Source provenance](SOURCE_PROVENANCE.md).
+
 ## 2026-11-18 — NoteX 1.6.1 maintenance
 
 Added Windows updater version resources, compiled metadata checks, a real transaction-worker interruption test, binary architecture tests, and byte-preserving shortcut validation migration. Retired the bootstrap-only installed notice. No user profile files are added to update ownership.
@@ -23,9 +29,10 @@ Original copyright, license, and warranty notices remain in place.
 - Repository: https://github.com/notepad-plus-plus/notepad-plus-plus
 - Base commit: `dd40fe45598791e9aa38f3aeb200e10fb3d6338a`.
 
-This repository starts with a reviewed source snapshot. It does not include the
-maintainer's local Git history or personal workspace. Upstream authorship is
-preserved through the original files, notices, and the exact base reference.
+The original NoteX history started with a reviewed source snapshot. The November 18,
+2026 provenance transition additionally connects the full public upstream history.
+Neither the maintainer's private Git history nor personal workspace is included.
+Original authorship, copyright, and license notices remain intact.
 
 ## Changes from the upstream base
 

@@ -1,6 +1,6 @@
 # NoteQu modification notice
 
-## 2026-11-19 — Naming cleanup
+## 2026-11-19 — NoteQu 1.7.1 naming cleanup
 
 Corrected the download guide and source paths. New native session exports and documented command variables use the current name. The native application still accepts existing profile overrides, saved commands, and session files.
 

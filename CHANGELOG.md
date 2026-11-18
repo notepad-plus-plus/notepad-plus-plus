@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.7.1
 
 - Fix the current download guide and source paths in the modification notice.
 - Use the current naming for macOS command variables and new session export filenames. Existing commands and session files remain compatible.

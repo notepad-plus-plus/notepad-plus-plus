@@ -13,6 +13,7 @@
 <p align="center">
   <a href="https://github.com/berkkivircik/NoteQu/releases/latest"><img src="https://img.shields.io/github/v/release/berkkivircik/NoteQu?style=flat-square&amp;label=stable&amp;color=176B80" alt="Latest stable release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-536071?style=flat-square" alt="License: GPLv3"></a>
+  <a href="https://www.linkedin.com/in/berkkivircik/"><img src="https://img.shields.io/badge/LinkedIn-Berk%20Kivircik-0A66C2?style=flat-square" alt="Berk Kivircik on LinkedIn"></a>
 </p>
 
 <p align="center">

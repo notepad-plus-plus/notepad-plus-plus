@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.7.2
 
 - On Windows, customize the formatting toolbar to show, hide, reorder, and
   restore its items. The layout persists across restarts.

@@ -15,7 +15,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.7.1"
+VERSION = "1.7.2"
 BUILD = "1"
 
 def main():

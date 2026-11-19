@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.3
+
+- Redesigned the Windows menu bar customization dialog with visibility switches,
+  command checkboxes, inline ordering controls, and light and dark palettes.
+- Added Turkish-aware search, a live menu bar preview, and a change counter.
+  Apply is enabled when the draft differs from the saved settings. Existing menu
+  settings remain compatible.
+
 ## 1.7.2
 
 - On Windows, customize the formatting toolbar to show, hide, reorder, and

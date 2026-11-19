@@ -895,14 +895,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (LOWORD(wParam) == NoteQuMenu::Customize && HIWORD(wParam) == 0)
 			{
-				_noteQuMenu.customize([](HWND dialog) {
+				_noteQuMenu.customize(NppDarkMode::isEnabled(), [](HWND dialog, HWND tree) {
 					NppDarkMode::setDarkTitleBar(dialog);
-					NppDarkMode::autoSubclassAndThemeChildControls(dialog);
-				}, [](UINT message, WPARAM dc) -> INT_PTR {
-					if (message == WM_CTLCOLORDLG) return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(dc));
-					if (message == WM_CTLCOLORSTATIC) return NppDarkMode::onCtlColorDlgStaticText(reinterpret_cast<HDC>(dc), true);
-					return 0;
-				});
+					NppDarkMode::setDarkScrollBar(tree);
+				}, DPIManagerV2::getDpiForWindow);
 				return TRUE;
 			}
 			if (HIWORD(wParam) == SCEN_SETFOCUS)

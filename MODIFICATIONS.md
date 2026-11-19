@@ -1,5 +1,11 @@
 # NoteQu modification notice
 
+## 2026-11-20 — Windows menu bar customization
+
+Redesigned the native Windows menu customization dialog. Added Turkish-aware
+search, a live preview, a draft change counter, and keyboard controls. The
+existing menu settings format remains compatible.
+
 ## 2026-11-19 — Windows formatting toolbar customization
 
 Added a native dialog to show, hide, reorder, and reset formatting toolbar items,

@@ -34,7 +34,9 @@ def main():
         base = file.name.lower()
         if (parts & {'backup', 'plugins', 'updater', 'validation', '.git', '.claude-flow'}
                 or base.startswith('session.xml') or base.endswith(('.notex', '.bak', '.log', '.pdb'))
-                or base in {'notex-menu.cfg', 'notequ-menu.cfg', 'notex-updates.json', 'shortcuts.xml', 'nativelang.xml'}):
+                or base in {'notex-menu.cfg', 'notequ-menu.cfg', 'notequ-format-toolbar.cfg',
+                            'notex-updates.json', 'shortcuts.xml', 'nativelang.xml'}
+                or base.startswith('notequ-format-toolbar.cfg.tmp-')):
             raise ValueError(f'Private or unreviewed runtime input: {name}')
     if {p.name for p in (root / 'localization').iterdir()} != {'english.xml', 'turkish.xml', 'spanish.xml'}:
         raise ValueError('Unexpected interface-language set.')

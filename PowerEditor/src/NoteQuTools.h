@@ -7,8 +7,11 @@
 #pragma once
 #include "NppDarkMode.h"
 #include "NoteQuFormat.h"
+#include "NoteQuToolbarLayout.h"
 #include "ScintillaEditView.h"
 #include "dpiManagerV2.h"
+#include "localization.h"
+#include "resource.h"
 #include <cmath>
 #include <commctrl.h>
 #include <commdlg.h>
@@ -20,32 +23,24 @@
 // A native toolbar: commands always target the active Scintilla document.
 class NoteQuTools {
   HWND window = nullptr, owner = nullptr, tooltip = nullptr;
+  HWND customizeButton = nullptr;
   ScintillaEditView **view = nullptr;
+  const NativeLangSpeaker *language = nullptr;
   HFONT font = nullptr;
   HBRUSH background = nullptr;
   std::vector<HWND> controls;
+  std::vector<POINT> separators;
+  std::filesystem::path layoutPath;
+  std::filesystem::path localizationDir;
+  NoteQuToolbar::Layout layout = NoteQuToolbar::defaults();
+  std::wstring customizeLabel;
   NoteQu::SelectionFormat current;
   NoteQu::Format painter;
   bool hasPainter = false, updating = false;
   int panelHeight = 40, scale = 96, hovered = 0, listState = 0;
   bool mixedList = false;
-  enum {
-    Family = 1,
-    Size,
-    Bold,
-    Italic,
-    Underline,
-    Strike,
-    Fore,
-    Back,
-    Highlight,
-    Bullets,
-    Numbers,
-    CopyFormat,
-    PasteFormat,
-    Clear,
-    Find
-  };
+  using enum NoteQuToolbar::Item;
+  static constexpr int Customize = Find + 1;
   int px(int n) const { return MulDiv(n, scale, 96); }
   HWND editor() const { return view && *view ? (*view)->getHSelf() : nullptr; }
   LRESULT sci(UINT m, WPARAM w = 0, LPARAM l = 0) const {
@@ -151,18 +146,10 @@ class NoteQuTools {
       auto dc = BeginPaint(h, &paint);
       auto pen = CreatePen(PS_SOLID, 1, RGB(50, 58, 66));
       auto old = SelectObject(dc, pen);
-      for (int index : {2, 6, 9, 11})
-        if (self->controls.size() > static_cast<size_t>(index)) {
-          RECT current{}, previous{};
-          GetWindowRect(self->controls[index], &current);
-          GetWindowRect(self->controls[index - 1], &previous);
-          if (current.top == previous.top) {
-            POINT pt{current.left, current.top};
-            ScreenToClient(h, &pt);
-            MoveToEx(dc, pt.x - self->px(6), pt.y + self->px(5), nullptr);
-            LineTo(dc, pt.x - self->px(6), pt.y + self->px(25));
-          }
-        }
+      for (const auto &pt : self->separators) {
+        MoveToEx(dc, pt.x, pt.y + self->px(5), nullptr);
+        LineTo(dc, pt.x, pt.y + self->px(25));
+      }
       SelectObject(dc, old);
       DeleteObject(pen);
       EndPaint(h, &paint);
@@ -175,6 +162,10 @@ class NoteQuTools {
       SetBkColor(reinterpret_cast<HDC>(w), RGB(28, 33, 38));
       return reinterpret_cast<LRESULT>(self->background);
     case WM_COMMAND:
+      if (LOWORD(w) == Customize && HIWORD(w) == BN_CLICKED) {
+        self->customize();
+        return 0;
+      }
       if (!self->updating &&
           (HIWORD(w) == BN_CLICKED || HIWORD(w) == CBN_SELENDOK)) {
         if (HIWORD(w) == CBN_SELENDOK) {
@@ -275,7 +266,10 @@ class NoteQuTools {
     SetBkMode(dc, TRANSPARENT);
     SetTextColor(dc, ink);
     SelectObject(dc, font);
-    if (id == Bold || id == Italic || id == Strike || id == Fore) {
+    if (id == Customize) {
+      RECT text = d.rcItem;
+      DrawTextW(dc, L"\u2026", 1, &text, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+    } else if (id == Bold || id == Italic || id == Strike || id == Fore) {
       LOGFONTW lf{};
       GetObjectW(font, sizeof(lf), &lf);
       lf.lfHeight = -px(17);
@@ -526,6 +520,153 @@ class NoteQuTools {
     sync();
   }
 
+  const NativeLangSpeaker &toolbarLanguage(NppXml::NewDocument &document,
+                                           NativeLangSpeaker &bundled) const {
+    const auto dialog = NppXml::firstChildElement(language->getNativeLang(), "Dialog");
+    if (dialog && NativeLangSpeaker::searchDlgNode(dialog, "NoteQuFormattingToolbar"))
+      return *language;
+    const char *file = language->getFileName();
+    if (file && (_stricmp(file, "turkish.xml") == 0 || _stricmp(file, "spanish.xml") == 0)) {
+      const auto path = localizationDir / file;
+      if (NppXml::loadFileNativeLang(&document, path.c_str())) {
+        bundled.init(&document);
+        return bundled;
+      }
+    }
+    return *language;
+  }
+
+  struct ToolbarDialog {
+    NoteQuTools &toolbar;
+    NoteQuToolbar::Layout draft;
+    const NativeLangSpeaker &language;
+
+    void populate(HWND list, int selected) const {
+      ListView_DeleteAllItems(list);
+      for (int i = 0; i < static_cast<int>(draft.size()); ++i) {
+        const auto &choice = draft[i];
+        const auto &tool = NoteQuToolbar::tools[choice.id - Family];
+        const auto key = "notequ-toolbar-" + std::string(tool.key);
+        auto label = language.getLocalizedStrFromID(key.c_str(), tool.name);
+        LVITEMW item{};
+        item.mask = LVIF_TEXT;
+        item.iItem = i;
+        item.pszText = label.data();
+        ListView_InsertItem(list, &item);
+        ListView_SetCheckState(list, i, choice.visible);
+      }
+      ListView_SetItemState(list, selected, LVIS_SELECTED | LVIS_FOCUSED,
+                           LVIS_SELECTED | LVIS_FOCUSED);
+      ListView_EnsureVisible(list, selected, FALSE);
+    }
+
+    void readChecks(HWND list) {
+      for (int i = 0; i < static_cast<int>(draft.size()); ++i)
+        draft[i].visible = ListView_GetCheckState(list, i) != FALSE;
+    }
+
+    void updateButtons(HWND dialog, HWND list) const {
+      const int selected = ListView_GetNextItem(list, -1, LVNI_SELECTED);
+      EnableWindow(GetDlgItem(dialog, IDC_NOTEQU_FORMAT_TOOLBAR_UP), selected > 0);
+      EnableWindow(GetDlgItem(dialog, IDC_NOTEQU_FORMAT_TOOLBAR_DOWN),
+                   selected >= 0 && selected + 1 < static_cast<int>(draft.size()));
+    }
+  };
+
+  static INT_PTR CALLBACK dialogProc(HWND dialog, UINT message, WPARAM w,
+                                     LPARAM l) {
+    if (message == WM_INITDIALOG)
+      SetWindowLongPtrW(dialog, DWLP_USER, l);
+    auto state = reinterpret_cast<ToolbarDialog *>(GetWindowLongPtrW(dialog, DWLP_USER));
+    if (!state)
+      return FALSE;
+    const HWND list = GetDlgItem(dialog, IDC_NOTEQU_FORMAT_TOOLBAR_LIST);
+    switch (message) {
+    case WM_INITDIALOG: {
+      state->language.changeDlgLang(dialog, "NoteQuFormattingToolbar");
+      NppDarkMode::autoSubclassAndThemeChildControls(dialog);
+      ListView_SetExtendedListViewStyle(list, LVS_EX_CHECKBOXES | LVS_EX_FULLROWSELECT);
+      RECT rect{};
+      GetClientRect(list, &rect);
+      LVCOLUMNW column{};
+      column.mask = LVCF_WIDTH;
+      column.cx = rect.right - GetSystemMetrics(SM_CXVSCROLL);
+      ListView_InsertColumn(list, 0, &column);
+      state->populate(list, 0);
+      state->updateButtons(dialog, list);
+      SetFocus(list);
+      return FALSE;
+    }
+    case WM_NOTIFY: {
+      const auto *notify = reinterpret_cast<const NMHDR *>(l);
+      if (notify->hwndFrom == list && notify->code == LVN_ITEMCHANGED)
+        state->updateButtons(dialog, list);
+      return FALSE;
+    }
+    case WM_COMMAND:
+      switch (LOWORD(w)) {
+      case IDC_NOTEQU_FORMAT_TOOLBAR_UP:
+      case IDC_NOTEQU_FORMAT_TOOLBAR_DOWN: {
+        const int selected = ListView_GetNextItem(list, -1, LVNI_SELECTED);
+        const int target = selected + (LOWORD(w) == IDC_NOTEQU_FORMAT_TOOLBAR_UP ? -1 : 1);
+        if (selected >= 0 && target >= 0 && target < static_cast<int>(state->draft.size())) {
+          state->readChecks(list);
+          std::swap(state->draft[selected], state->draft[target]);
+          state->populate(list, target);
+          SetFocus(list);
+        }
+        return TRUE;
+      }
+      case IDC_NOTEQU_FORMAT_TOOLBAR_RESET:
+        state->draft = NoteQuToolbar::defaults();
+        state->populate(list, 0);
+        SetFocus(list);
+        return TRUE;
+      case IDOK:
+        state->readChecks(list);
+        if (NoteQuToolbar::save(state->toolbar.layoutPath, state->draft)) {
+          EndDialog(dialog, IDOK);
+        } else {
+          const auto error = state->language.getLocalizedStrFromID(
+              "notequ-toolbar-save-error", L"Could not save the formatting toolbar settings.");
+          MessageBoxW(dialog, error.c_str(), state->toolbar.customizeLabel.c_str(),
+                      MB_OK | MB_ICONERROR);
+        }
+        return TRUE;
+      case IDCANCEL:
+        EndDialog(dialog, IDCANCEL);
+        return TRUE;
+      }
+      return FALSE;
+    case WM_CTLCOLORDLG:
+      return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(w));
+    case WM_CTLCOLORSTATIC:
+      return NppDarkMode::onCtlColorDlgStaticText(reinterpret_cast<HDC>(w), true);
+    }
+    return FALSE;
+  }
+
+  void customize() {
+    NppXml::NewDocument document;
+    NativeLangSpeaker bundled;
+    ToolbarDialog state{*this, layout, toolbarLanguage(document, bundled)};
+    const auto instance = reinterpret_cast<HINSTANCE>(GetWindowLongPtrW(window, GWLP_HINSTANCE));
+    if (DialogBoxParamW(instance, MAKEINTRESOURCEW(IDD_NOTEQU_FORMAT_TOOLBAR),
+                        owner, dialogProc, reinterpret_cast<LPARAM>(&state)) == IDOK) {
+      layout = state.draft;
+      SendMessageW(owner, WM_SIZE, IsZoomed(owner) ? SIZE_MAXIMIZED : SIZE_RESTORED, 0);
+    }
+  }
+
+  void addTooltip(HWND control, const wchar_t *text) const {
+    TOOLINFOW ti{sizeof(ti)};
+    ti.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
+    ti.hwnd = window;
+    ti.uId = reinterpret_cast<UINT_PTR>(control);
+    ti.lpszText = const_cast<wchar_t *>(text);
+    SendMessageW(tooltip, TTM_ADDTOOLW, 0, reinterpret_cast<LPARAM>(&ti));
+  }
+
 public:
   static void loadFonts() {
     wchar_t path[MAX_PATH]{};
@@ -538,9 +679,15 @@ public:
       AddFontResourceExW((base + L"fonts\\" + name).c_str(), FR_PRIVATE,
                          nullptr);
   }
-  void init(HINSTANCE instance, HWND parent, ScintillaEditView **active) {
+  void init(HINSTANCE instance, HWND parent, ScintillaEditView **active,
+            const std::filesystem::path &profile, const std::filesystem::path &install,
+            const NativeLangSpeaker &speaker) {
     owner = parent;
     view = active;
+    language = &speaker;
+    layoutPath = profile / L"notequ-format-toolbar.cfg";
+    localizationDir = install / L"localization";
+    layout = NoteQuToolbar::load(layoutPath);
     scale = static_cast<int>(DPIManagerV2::getDpiForWindow(parent));
     background = CreateSolidBrush(RGB(28, 33, 38));
     auto uiFont = DPIManagerV2::getDefaultGUIFontForDpi(static_cast<UINT>(scale));
@@ -608,13 +755,19 @@ public:
         SendMessage(h, EM_LIMITTEXT, 255, 0);
       } else if (!combo)
         SetWindowSubclass(h, buttonProc, 1, reinterpret_cast<DWORD_PTR>(this));
-      TOOLINFOW ti{sizeof(ti)};
-      ti.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
-      ti.hwnd = window;
-      ti.uId = reinterpret_cast<UINT_PTR>(h);
-      ti.lpszText = const_cast<wchar_t *>(tips[id - 1]);
-      SendMessageW(tooltip, TTM_ADDTOOLW, 0, reinterpret_cast<LPARAM>(&ti));
+      addTooltip(h, tips[id - 1]);
     }
+    NppXml::NewDocument document;
+    NativeLangSpeaker bundled;
+    customizeLabel = toolbarLanguage(document, bundled).getLocalizedStrFromID(
+        "notequ-toolbar-customize", L"Customize Formatting Toolbar");
+    customizeButton = CreateWindowExW(
+        0, L"BUTTON", customizeLabel.c_str(), WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_OWNERDRAW,
+        0, 0, 1, 1, window, reinterpret_cast<HMENU>(static_cast<INT_PTR>(Customize)),
+        instance, nullptr);
+    SendMessageW(customizeButton, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
+    SetWindowSubclass(customizeButton, buttonProc, 1, reinterpret_cast<DWORD_PTR>(this));
+    addTooltip(customizeButton, customizeLabel.c_str());
     std::set<std::wstring> names;
     LOGFONTW lf{};
     lf.lfCharSet = DEFAULT_CHARSET;
@@ -633,24 +786,46 @@ public:
   void resize(int width, int top) {
     if (!window)
       return;
-    int x = px(10), y = px(8);
-    int widths[] = {160, 56, 30, 30, 30, 30, 34, 34,
-                    34,  30, 30, 30, 30, 30, 240};
-    for (size_t i = 0; i < controls.size(); ++i) {
-      if (i == 2 || i == 6 || i == 9 || i == 11 || i == 14)
-        x += px(10);
-      int w = std::min(px(widths[i]), std::max(px(20), width - px(20)));
-      if (x + w > width - px(10) && x > px(10)) {
-        x = px(10);
-        y += px(36);
+    const int margin = px(10), firstRow = px(8);
+    const int buttonWidth = px(28), buttonX = std::max(0, width - margin - buttonWidth);
+    const int right = width - margin;
+    int x = margin, y = firstRow, rowEnd = buttonX - px(4), previousGroup = -1;
+    HWND previous = HWND_TOP;
+    separators.clear();
+    const auto last = std::find_if(layout.rbegin(), layout.rend(),
+                                  [](const auto &choice) { return choice.visible; });
+    const bool alignFindRight = last != layout.rend() && last->id == Find;
+    for (const auto &choice : layout) {
+      const auto control = controls[choice.id - Family];
+      if (!choice.visible) {
+        ShowWindow(control, SW_HIDE);
+        continue;
       }
-      if (i == 14 && x + w < width - px(10))
-        x = width - px(10) - w;
-      MoveWindow(controls[i], x, y, w, i < 2 ? px(260) : px(30), TRUE);
+      const auto &tool = NoteQuToolbar::tools[choice.id - Family];
+      const int w = std::min(px(tool.width), std::max(1, right - margin));
+      int gap = previousGroup >= 0 && previousGroup != tool.group ? px(10) : 0;
+      if (x + gap + w > rowEnd) {
+        x = margin;
+        y += px(36);
+        rowEnd = right;
+        gap = 0;
+      }
+      x += gap;
+      if (choice.id == Find && alignFindRight)
+        x = std::max(x, rowEnd - w);
+      if (gap && choice.id != Find)
+        separators.push_back({x - px(6), y});
+      SetWindowPos(control, previous, x, y, w, choice.id <= Size ? px(260) : px(30),
+                   SWP_NOACTIVATE | SWP_SHOWWINDOW);
+      previous = control;
       x += w + px(2);
+      previousGroup = tool.group;
     }
+    SetWindowPos(customizeButton, previous, buttonX, firstRow, buttonWidth, px(30),
+                 SWP_NOACTIVATE);
     panelHeight = y + px(36);
     MoveWindow(window, 0, top, width, panelHeight, TRUE);
+    InvalidateRect(window, nullptr, TRUE);
   }
   int height() const { return window ? panelHeight : 0; }
   void dpiChanged(UINT dpi) {
@@ -661,6 +836,7 @@ public:
     font = CreateFontIndirectW(&uiFont);
     for (auto h : controls)
       SendMessage(h, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
+    SendMessageW(customizeButton, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
     if (old)
       DeleteObject(old);
     RECT r{};
@@ -672,7 +848,7 @@ public:
     resize(r.right, pt.y);
   }
   void sync() {
-    if (!window || controls.size() != 15 || !editor() || updating)
+    if (!window || controls.size() != NoteQuToolbar::tools.size() || !editor() || updating)
       return;
     HWND focus = GetFocus();
     if (focus && IsChild(window, focus))

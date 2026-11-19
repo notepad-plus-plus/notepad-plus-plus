@@ -5,6 +5,7 @@
 #define NOMINMAX
 #include "NoteQuFormat.h"
 #include "NoteQuSidecar.h"
+#include "NoteQuToolbarLayout.h"
 #include "MISC/Common/NppConstants.h"
 #include "Scintilla.h"
 #include <iostream>
@@ -31,12 +32,43 @@ void check(bool condition, const char *name) {
     throw std::runtime_error(name);
   std::cout << "PASS " << name << std::endl;
 }
+void testToolbarLayout(const std::filesystem::path &path) {
+  using namespace NoteQuToolbar;
+  const auto original = defaults();
+  check(load(path) == original, "missing toolbar preference uses defaults");
+  auto customized = original;
+  std::rotate(customized.begin(), customized.end() - 1, customized.end());
+  customized[1].visible = false;
+  check(save(path, customized) && load(path) == customized,
+        "toolbar item order and visibility round trip");
+  for (auto &choice : customized)
+    choice.visible = false;
+  check(save(path, customized) && load(path) == customized,
+        "toolbar allows every item to be hidden");
+  {
+    std::ofstream out(path);
+    out << "NOTEQUTOOLBAR1\n0 bold\n1 future-button\n0 bold\n";
+  }
+  check(load(path) == original, "duplicate toolbar items fall back to defaults");
+  {
+    std::ofstream out(path);
+    out << "NOTEQUTOOLBAR1\n0 bold\n1 future-button\n";
+  }
+  const auto updated = load(path);
+  check(updated.front() == Choice{Bold, false} && updated[1] == Choice{Family, true},
+        "toolbar retains saved items and appends any missing ones");
+  check(save(path, original) && load(path) == original,
+        "restoring the toolbar defaults persists");
+  std::filesystem::remove(path);
+}
 int main() {
   try {
     wchar_t executable[MAX_PATH]{};
     GetModuleFileNameW(nullptr, executable, MAX_PATH);
     std::wstring fixture = executable;
     fixture.resize(fixture.find_last_of(L"\\/") + 1);
+    testToolbarLayout(fixture + L"toolbar-layout-" +
+                      std::to_wstring(GetCurrentProcessId()) + L".cfg");
     fixture += L"native-sidecar-fixture.txt";
     auto instance = GetModuleHandle(nullptr);
     check(Scintilla_RegisterClasses(instance) != 0,

@@ -50,6 +50,8 @@ The Windows portable edition includes a redesigned toolbar and the following edi
 - Set the format for text you type next, copy formatting, and create lists.
 - Use line and caret heights that follow the formatting on each line.
 - Reorder and hide menu items with persistent menu customization.
+- On Windows, use the ellipsis on the formatting toolbar to show, hide, reorder,
+  or restore its items. NoteQu saves the layout in your profile.
 - Recover unsaved text and formatting through session snapshots.
 - Use English, Turkish, or Spanish interface translations; syntax highlighting
   support is independent of the interface language.

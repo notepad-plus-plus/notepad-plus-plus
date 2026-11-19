@@ -309,6 +309,7 @@
     <ClInclude Include="..\src\MISC\Exception\MiniDumper.h" />
     <ClInclude Include="..\src\Notepad_plus.h" />
     <ClInclude Include="..\src\NoteQuTools.h" />
+    <ClInclude Include="..\src\NoteQuToolbarLayout.h" />
     <ClInclude Include="..\src\NoteQuMenu.h" />
     <ClInclude Include="..\src\NoteQuSidecar.h" />
     <ClInclude Include="..\..\scintilla\include\NoteQuFormat.h" />

@@ -1485,6 +1485,14 @@ Load anyway?"/>
 				<Item id="1752" name="&amp;Copy debug info to clipboard"/>
 				<Item id="1" name="OK"/>
 			</DebugInfo>
+			<NoteQuFormattingToolbar title="Customize Formatting Toolbar">
+				<Item id="61093" name="Check the items to show. Select an item to change its position."/>
+				<Item id="61094" name="Move &amp;Up"/>
+				<Item id="61095" name="Move &amp;Down"/>
+				<Item id="61096" name="&amp;Restore Defaults"/>
+				<Item id="1" name="Apply"/>
+				<Item id="2" name="Cancel"/>
+			</NoteQuFormattingToolbar>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1755,6 +1763,23 @@ Proceed only if you understand the risks."/>
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
+			<notequ-toolbar-customize value="Customize Formatting Toolbar"/>
+			<notequ-toolbar-save-error value="Could not save the formatting toolbar settings."/>
+			<notequ-toolbar-font-family value="Font family"/>
+			<notequ-toolbar-font-size value="Font size"/>
+			<notequ-toolbar-bold value="Bold"/>
+			<notequ-toolbar-italic value="Italic"/>
+			<notequ-toolbar-underline value="Underline"/>
+			<notequ-toolbar-strikethrough value="Strikethrough"/>
+			<notequ-toolbar-font-color value="Font color"/>
+			<notequ-toolbar-text-background value="Text background color"/>
+			<notequ-toolbar-highlight value="Highlight color"/>
+			<notequ-toolbar-bullets value="Bullet list"/>
+			<notequ-toolbar-numbering value="Numbered list"/>
+			<notequ-toolbar-copy-style value="Copy formatting"/>
+			<notequ-toolbar-paste-style value="Apply copied formatting"/>
+			<notequ-toolbar-clear-style value="Clear formatting"/>
+			<notequ-toolbar-find value="Find in document"/>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 

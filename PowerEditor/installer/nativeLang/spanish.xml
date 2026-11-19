@@ -1485,6 +1485,14 @@ Al cargar, Windows se autenticará automáticamente en ese servidor, lo que podr
 				<Item id="1752" name="&amp;Copiar información al Portapapeles"/>
 				<Item id="1" name="Aceptar"/>
 			</DebugInfo>
+			<NoteQuFormattingToolbar title="Personalizar la barra de formato">
+				<Item id="61093" name="Marca los elementos que quieras mostrar. Selecciona un elemento para moverlo."/>
+				<Item id="61094" name="&amp;Subir"/>
+				<Item id="61095" name="&amp;Bajar"/>
+				<Item id="61096" name="&amp;Restaurar valores"/>
+				<Item id="1" name="Aplicar"/>
+				<Item id="2" name="Cancelar"/>
+			</NoteQuFormattingToolbar>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1755,6 +1763,23 @@ Continúe solo si comprende los riesgos."/>
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
+			<notequ-toolbar-customize value="Personalizar la barra de formato"/>
+			<notequ-toolbar-save-error value="No se pudo guardar la configuración de la barra de formato."/>
+			<notequ-toolbar-font-family value="Tipo de letra"/>
+			<notequ-toolbar-font-size value="Tamaño de letra"/>
+			<notequ-toolbar-bold value="Negrita"/>
+			<notequ-toolbar-italic value="Cursiva"/>
+			<notequ-toolbar-underline value="Subrayado"/>
+			<notequ-toolbar-strikethrough value="Tachado"/>
+			<notequ-toolbar-font-color value="Color del texto"/>
+			<notequ-toolbar-text-background value="Color de fondo del texto"/>
+			<notequ-toolbar-highlight value="Color de resaltado"/>
+			<notequ-toolbar-bullets value="Lista con viñetas"/>
+			<notequ-toolbar-numbering value="Lista numerada"/>
+			<notequ-toolbar-copy-style value="Copiar formato"/>
+			<notequ-toolbar-paste-style value="Aplicar el formato copiado"/>
+			<notequ-toolbar-clear-style value="Borrar formato"/>
+			<notequ-toolbar-find value="Buscar en el documento"/>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<word-chars-list-tip value="Esto le permite incluir caracteres adicionales en los caracteres de la palabra actual al hacer doble clic para seleccionar o buscar con la opción &quot;Solo palabras completas&quot; marcada."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 

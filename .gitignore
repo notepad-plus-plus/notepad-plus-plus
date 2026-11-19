@@ -183,6 +183,8 @@ PowerEditor/src/MISC/md5/RCa06792
 *.[n][p][p][p][r][o]
 session.xml*
 NoteX-menu.cfg
+notequ-format-toolbar.cfg
+notequ-format-toolbar.cfg.tmp-*
 .notequ-update/
 backup/
 !PowerEditor/visual.net/notepadPlus.sln

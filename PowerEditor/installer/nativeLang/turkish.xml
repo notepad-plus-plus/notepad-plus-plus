@@ -1488,6 +1488,14 @@ Yine de yüklensin mi?"/>
 				<Item id="1752" name="Hata ayıklama bilgisini panoya kopyala"/>
 				<Item id="1" name="Tamam"/>
 			</DebugInfo>
+			<NoteQuFormattingToolbar title="Biçimlendirme Araç Çubuğunu Özelleştir">
+				<Item id="61093" name="Görünecek öğeleri işaretle. Yerini değiştirmek istediğin öğeyi seç."/>
+				<Item id="61094" name="&amp;Yukarı Taşı"/>
+				<Item id="61095" name="&amp;Aşağı Taşı"/>
+				<Item id="61096" name="&amp;Varsayılana Dön"/>
+				<Item id="1" name="Uygula"/>
+				<Item id="2" name="İptal"/>
+			</NoteQuFormattingToolbar>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ ve $STR_REPLACE$ birer yer tutucudur, bu yer tutucuları çevirmeyin. -->
@@ -1750,6 +1758,23 @@ Güvenlik dolayısıyla, açılan shortcuts.xml dosyasını gözden geçirin. E�
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
+			<notequ-toolbar-customize value="Biçimlendirme Araç Çubuğunu Özelleştir"/>
+			<notequ-toolbar-save-error value="Biçimlendirme araç çubuğu ayarları kaydedilemedi."/>
+			<notequ-toolbar-font-family value="Yazı tipi"/>
+			<notequ-toolbar-font-size value="Yazı boyutu"/>
+			<notequ-toolbar-bold value="Kalın"/>
+			<notequ-toolbar-italic value="İtalik"/>
+			<notequ-toolbar-underline value="Altı çizili"/>
+			<notequ-toolbar-strikethrough value="Üstü çizili"/>
+			<notequ-toolbar-font-color value="Yazı rengi"/>
+			<notequ-toolbar-text-background value="Metin arka plan rengi"/>
+			<notequ-toolbar-highlight value="Vurgu rengi"/>
+			<notequ-toolbar-bullets value="Madde işaretli liste"/>
+			<notequ-toolbar-numbering value="Numaralı liste"/>
+			<notequ-toolbar-copy-style value="Biçimi kopyala"/>
+			<notequ-toolbar-paste-style value="Kopyalanan biçimi uygula"/>
+			<notequ-toolbar-clear-style value="Biçimlendirmeyi temizle"/>
+			<notequ-toolbar-find value="Belgede ara"/>
 			<!-- $INT_REPLACE$ ve $STR_REPLACE$ birer yer tutucudur, bu yer tutucuları çevirmeyin. -->
 			<word-chars-list-tip value="Bu, şu anki karakterlere yeni karakter eklemenizi sağlar. Bunun için seçime çift tıklayabilir ya da &quot;Sadece tam sözcükleri eşleştir&quot; seçili olarak arama yaparken kullanabilirsiniz."/>
 

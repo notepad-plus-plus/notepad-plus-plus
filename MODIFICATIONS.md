@@ -1,5 +1,10 @@
 # NoteQu modification notice
 
+## 2026-11-19 — Windows formatting toolbar customization
+
+Added a native dialog to show, hide, reorder, and reset formatting toolbar items,
+with the layout saved in the user profile.
+
 ## 2026-11-19 — NoteQu 1.7.1 naming cleanup
 
 Corrected the download guide and source paths. New native session exports and documented command variables use the current name. The native application still accepts existing profile overrides, saved commands, and session files.

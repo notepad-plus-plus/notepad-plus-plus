@@ -31,7 +31,6 @@ class NoteQuTools {
   std::vector<HWND> controls;
   std::vector<POINT> separators;
   std::filesystem::path layoutPath;
-  std::filesystem::path localizationDir;
   NoteQuToolbar::Layout layout = NoteQuToolbar::defaults();
   std::wstring customizeLabel;
   NoteQu::SelectionFormat current;
@@ -526,14 +525,22 @@ class NoteQuTools {
     if (dialog && NativeLangSpeaker::searchDlgNode(dialog, "NoteQuFormattingToolbar"))
       return *language;
     const char *file = language->getFileName();
-    if (file && (_stricmp(file, "turkish.xml") == 0 || _stricmp(file, "spanish.xml") == 0)) {
-      const auto path = localizationDir / file;
-      if (NppXml::loadFileNativeLang(&document, path.c_str())) {
-        bundled.init(&document);
-        return bundled;
-      }
-    }
-    return *language;
+    if (!file)
+      return *language;
+    int resourceId;
+    if (_stricmp(file, "turkish.xml") == 0)
+      resourceId = IDR_NOTEQU_TOOLBAR_TURKISH;
+    else if (_stricmp(file, "spanish.xml") == 0)
+      resourceId = IDR_NOTEQU_TOOLBAR_SPANISH;
+    else
+      return *language;
+    const auto instance = reinterpret_cast<HINSTANCE>(GetWindowLongPtrW(window, GWLP_HINSTANCE));
+    const auto resource = FindResourceW(instance, MAKEINTRESOURCEW(resourceId), RT_RCDATA);
+    const auto data = resource ? LockResource(LoadResource(instance, resource)) : nullptr;
+    if (!data || !document.load_buffer(data, SizeofResource(instance, resource)))
+      return *language;
+    bundled.init(&document);
+    return bundled;
   }
 
   struct ToolbarDialog {
@@ -680,13 +687,11 @@ public:
                          nullptr);
   }
   void init(HINSTANCE instance, HWND parent, ScintillaEditView **active,
-            const std::filesystem::path &profile, const std::filesystem::path &install,
-            const NativeLangSpeaker &speaker) {
+            const std::filesystem::path &profile, const NativeLangSpeaker &speaker) {
     owner = parent;
     view = active;
     language = &speaker;
     layoutPath = profile / L"notequ-format-toolbar.cfg";
-    localizationDir = install / L"localization";
     layout = NoteQuToolbar::load(layoutPath);
     scale = static_cast<int>(DPIManagerV2::getDpiForWindow(parent));
     background = CreateSolidBrush(RGB(28, 33, 38));

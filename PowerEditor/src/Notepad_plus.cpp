@@ -742,7 +742,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_toolBar.addToRebar(&_rebarTop);
 	_rebarTop.setIDVisible(REBAR_BAR_TOOLBAR, willBeShown);
 	_noteQuTools.init(_pPublicInterface->getHinst(), hwnd, &_pEditView,
-	                  nppParam.getUserPath(), nppParam.getNppPath(), _nativeLangSpeaker);
+	                  nppParam.getUserPath(), _nativeLangSpeaker);
 
 	checkMacroState();
 

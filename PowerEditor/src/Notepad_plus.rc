@@ -1498,6 +1498,10 @@ BEGIN
     PUSHBUTTON      "+",IDC_RESTORE_BUTTON,0,0,12,10
 END
 
+// The signed updater preserves the localization files in existing installs.
+IDR_NOTEQU_TOOLBAR_TURKISH RCDATA "../installer/nativeLang/turkish.xml"
+IDR_NOTEQU_TOOLBAR_SPANISH RCDATA "../installer/nativeLang/spanish.xml"
+
 IDD_NOTEQU_FORMAT_TOOLBAR DIALOGEX 0, 0, 298, 222
 STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Customize Formatting Toolbar"

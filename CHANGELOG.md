@@ -2,14 +2,15 @@
 
 ## 1.7.1
 
-- Fix the current download guide and source paths in the modification notice.
-- Use the current naming for macOS command variables and new session export filenames. Existing commands and session files remain compatible.
+- Corrected the download instructions and the source paths in the modification notice.
+- Updated the macOS Run Command help to show `NOTEQU_*` variables and made `.notequsession` the default extension for new session exports. Existing commands, profile overrides, and session files remain compatible.
+- Published the Windows x64 portable ZIP and Apple Silicon macOS DMG and ZIP from the same source revision, with a matching source archive, SHA-256 checksums, and signed update inventories for both platforms.
+- Verified the in-app update from 1.7.0 on Windows, macOS 15, and macOS 26. The Windows test recovered an unsaved session and retained custom commands and a macro. The macOS tests recovered unsaved text and inline formatting and retained custom preferences.
 
 ## 1.7.0
 
-- Renamed the project and application from NoteX to NoteQu on Windows and macOS.
-- Updated executable and bundle metadata, menus, and the GitHub release source.
-- Added a manual transition from NoteX that keeps existing profiles and formatting companions readable.
+- Renamed the project and the Windows and macOS apps to NoteQu. Updated system metadata, menus, executable and bundle names, and the GitHub release source.
+- Added a [manual transition from NoteX](UPDATING.md#from-notex-to-notequ) to preserve existing profiles, settings, and `.notex` formatting companions.
 
 ## 1.6.2 — Consistent About dialog version
 

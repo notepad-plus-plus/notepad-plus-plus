@@ -1,36 +1,49 @@
-# NoteQu
+<p align="center">
+  <img src="docs/assets/notequ-icon.png" alt="" width="80" height="80">
+</p>
 
-NoteQu is a portable Windows text and code editor based on Notepad++ 8.9.8.1.
-It adds visual text formatting, a redesigned
-toolbar, customizable menus, and formatting-aware session recovery.
-This is an independent modified distribution maintained by Berk Kivircik.
+<h1 align="center">NoteQu</h1>
 
-[NoteQu](https://github.com/berkkivircik/NoteQu) is a GitHub fork of Notepad++ and
-the single active repository for development, signing preparation, issues, and
-releases. See [source provenance](SOURCE_PROVENANCE.md) for the upstream base,
-the transparent history transition, and verification steps.
+<p align="center"><strong>A text and code editor for Windows and macOS</strong></p>
+
+<p align="center">
+  Customize your menus, format text in place, and pick up where you left off with session recovery.
+</p>
+
+<p align="center">
+  <a href="https://github.com/berkkivircik/NoteQu/releases/latest"><img src="https://img.shields.io/github/v/release/berkkivircik/NoteQu?style=flat-square&amp;label=stable&amp;color=176B80" alt="Latest stable release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-536071?style=flat-square" alt="License: GPLv3"></a>
+</p>
+
+<p align="center">
+  <strong><a href="#download-and-run">Download NoteQu</a></strong> &nbsp;·&nbsp;
+  <a href="#features">Features</a> &nbsp;·&nbsp;
+  <a href="CHANGELOG.md">Changelog</a> &nbsp;·&nbsp;
+  <a href="BUILD.md">Build from source</a>
+</p>
 
 ## Download and run
 
-See [Downloads](DOWNLOADS.md) for the Windows portable ZIP and native Apple Silicon packages. On Windows x64, extract the ZIP to a writable folder and run `NoteQu.exe`. A clean package starts with a fresh profile.
+Get the latest stable version from [GitHub Releases](https://github.com/berkkivircik/NoteQu/releases/latest).
+See the [download guide](DOWNLOADS.md) for package details and checksums.
+If you're upgrading from NoteX, follow the [manual transition guide](UPDATING.md#from-notex-to-notequ)
+to preserve your profile and formatting companions.
 
-See the [code signing policy](CODE_SIGNING.md) and [privacy policy](PRIVACY.md) before first launch. Automatic GitHub update
-checks are enabled by default and can be disabled in the application's
-**Automatic Update Checks** menu.
+### Windows portable
 
-Windows shortcuts have their own display names. If a shortcut still shows an
-older application name, rename the shortcut to `NoteQu` and verify that its target
-is your current `NoteQu.exe`. Updating the EXE does not rename existing shortcuts.
+On Windows x64, extract the ZIP to a writable folder and run `NoteQu.exe`. A clean
+package starts with a fresh profile. The Windows binaries are unsigned.
 
 ### Native macOS
 
-The native Apple Silicon edition runs as `NoteQu.app`.
-It uses AppKit and Cocoa Scintilla, without Wine or Rosetta. Requires macOS 14
-or later. See [the macOS guide](macOS/README.md) for installation, recovery,
-build instructions, native workbench features, and platform compatibility.
-This edition is ad-hoc signed and is not notarized by Apple.
+On Apple Silicon Macs running macOS 14 or later, open the DMG or extract the ZIP,
+then copy `NoteQu.app` to Applications. The native app uses AppKit and Cocoa
+Scintilla. It is ad hoc signed and has no Apple notarization. See the [macOS guide](macOS/README.md)
+for native features and [compatibility limits](macOS/README.md#compatibility-limits).
 
 ## Features
+
+The Windows portable edition includes a redesigned toolbar and the following editing features. See the [macOS guide](macOS/README.md) for native workflows and settings.
 
 - Apply fonts, sizes, bold, italic, underline, strikethrough, and colors to text ranges.
 - Set the format for text you type next, copy formatting, and create lists.
@@ -42,11 +55,14 @@ This edition is ad-hoc signed and is not notarized by Apple.
 
 Formatting is stored separately in `.notex` companion files. Previous portable-release companions and menu settings are migrated without
 resetting document formatting or menu preferences.
-The package uses GDI rendering and disables upstream automatic updates.
-Optional third-party plugins and the upstream updater are not bundled in this
-public release. They are not required for the editor's built-in features.
+The Windows package uses GDI rendering and ships with the NoteQu updater. The upstream Notepad++ updater and optional third-party plugins are excluded from the clean package.
 
 ## Source and build
+
+NoteQu is an independent fork of Notepad++ 8.9.8.1 maintained by Berk Kivircik.
+This is the active repository for development, issues, signing preparation, and
+releases. See [source provenance](SOURCE_PROVENANCE.md) for the upstream base
+and verification steps.
 
 The repository includes the modified editor, Scintilla, Lexilla, Boost.Regex,
 build scripts, tests, and portable packaging inputs. See [BUILD.md](BUILD.md).
@@ -73,7 +89,9 @@ retained in the `UPSTREAM_*.md` files for reference.
 
 ## Upgrading an existing portable installation
 
-The first upgrade from a release before 1.7.0 is manual. See [Updating NoteQu](UPDATING.md#from-notex-to-notequ).
+The first upgrade from NoteX (before 1.7.0) is manual on both platforms. See [From NoteX to NoteQu](UPDATING.md#from-notex-to-notequ) for the platform-specific steps.
+
+On Windows, follow these steps to preserve your existing portable profile.
 
 Close the application normally and back up the complete existing directory.
 Keep the same installation path. Preserve `config.xml`, `session.xml*`, `backup/`,
@@ -84,6 +102,11 @@ configuration with those defaults. Earlier companion filenames are accepted
 and migrated when the corresponding document is loaded. A current companion is
 preferred when both versions exist; conflicting files are never overwritten.
 
+If an existing Windows shortcut still shows the old name, rename it to `NoteQu`
+and confirm that it points to the current `NoteQu.exe`.
+
 ## Updates and code signing
 
-See [Updating NoteQu](UPDATING.md) for authenticated updates, first-install migration, data preservation, and recovery. See the [Code signing policy](https://github.com/berkkivircik/NoteQu/blob/main/CODE_SIGNING.md) for the separate Windows publisher and macOS signing status.
+NoteQu checks GitHub for updates automatically by default. Use **Automatic Update Checks** in the Windows Help menu or macOS NoteQu menu to turn off background checks. Manual checks remain available on both platforms.
+
+The updater verifies a signed inventory before installing application files and preserves user profiles and documents. See [Updating NoteQu](UPDATING.md) for installation and recovery, the [code signing policy](CODE_SIGNING.md) for platform signing status, and the [privacy policy](PRIVACY.md) for network and local storage behavior.

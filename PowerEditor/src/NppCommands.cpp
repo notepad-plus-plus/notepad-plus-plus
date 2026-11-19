@@ -1424,8 +1424,13 @@ void Notepad_plus::command(int id)
 			tciShift.cchTextMax = strSizeMax;
 
 			::SendMessage(_pDocTab->getHSelf(), TCM_GETITEM, currentTabIndex, reinterpret_cast<LPARAM>(&tciMove));
-
 			::SendMessage(_pDocTab->getHSelf(), TCM_GETITEM, newTabIndex, reinterpret_cast<LPARAM>(&tciShift));
+
+			Buffer* chosenBuf = reinterpret_cast<Buffer*>(tciMove.lParam);
+			Buffer* shiftBuf = reinterpret_cast<Buffer*>(tciShift.lParam);
+			if (chosenBuf->isPinned() != shiftBuf->isPinned())
+				return;
+
 			::SendMessage(_pDocTab->getHSelf(), TCM_SETITEM, currentTabIndex, reinterpret_cast<LPARAM>(&tciShift));
 
 			::SendMessage(_pDocTab->getHSelf(), TCM_SETITEM, newTabIndex, reinterpret_cast<LPARAM>(&tciMove));

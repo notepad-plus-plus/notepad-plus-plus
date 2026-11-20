@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 08.11.2026, basiert auf english.xml 8.9.8 vom 07.11.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 20.11.2026, basiert auf english.xml 8.9.8 vom 20.11.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1657,6 +1657,7 @@ Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' durchsehen. W
 			<SymlinkLoadingWarning title="Warnung: Laden von symbolischen Links kann zum Einfrieren führen" message="Das Aktivieren des Ladens symbolischer Links in 'Ordner als Arbeitsbereich' kann dazu führen, dass Notepad++ in eine Endlosschleife gerät und einfriert.
 Dies kann geschehen, wenn symbolische Links von Verzeichnissen auf übergeordnete Ordner verweisen oder zirkuläre Verweise bilden.
 Nur fortfahren, wenn man sich dieser Risiken bewusst ist."/>
+			<UnPin2Sort title="Frage zur Tab-Sortierung" message="Angeheftete Dateien können nicht sortiert werden. Sollen zuerst alle Dateien gelöst werden?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

@@ -16,10 +16,107 @@ static void Bold24(ScintillaView *view) {
     Send(view, NoteQu::GetFormat, 0, reinterpret_cast<sptr_t>(&query));
     Check(query.value.bold && query.value.size == 2400 && !(query.mixed & change.fields), "apply shared 24-point bold format");
 }
+// Sample a small, flat patch of the real AppKit renderer in editor coordinates.
+static NSColor *EditorPixel(ScintillaView *editor, CGFloat x, CGFloat y) {
+    NSView *content = editor.content;
+    NSRect patch = NSMakeRect(x - 1, y - 1, 3, 3);
+    if (!NSContainsRect(content.visibleRect, patch)) return nil;
+    NSBitmapImageRep *bitmap = [content bitmapImageRepForCachingDisplayInRect:patch];
+    if (!bitmap) return nil;
+    [content cacheDisplayInRect:patch toBitmapImageRep:bitmap];
+    return [[bitmap colorAtX:bitmap.pixelsWide / 2 y:bitmap.pixelsHigh / 2]
+        colorUsingColorSpace:NSColorSpace.sRGBColorSpace];
+}
+static bool SameEditorColor(NSColor *first, NSColor *second) {
+    return first && second && std::abs(first.redComponent - second.redComponent) < 0.02 &&
+        std::abs(first.greenComponent - second.greenComponent) < 0.02 &&
+        std::abs(first.blueComponent - second.blueComponent) < 0.02;
+}
+static void CaptureEditor(NSWindow *window, NSString *name) {
+    NSString *folder = NSProcessInfo.processInfo.environment[@"NOTEQU_TEST_RENDER_DIR"];
+    if (!folder.length) return;
+    NSView *content = window.contentView;
+    [window display];
+    NSBitmapImageRep *bitmap = [content bitmapImageRepForCachingDisplayInRect:content.bounds];
+    [content cacheDisplayInRect:content.bounds toBitmapImageRep:bitmap];
+    NSString *path = [folder stringByAppendingPathComponent:[NSString stringWithFormat:@"editor-render-%@.png", name]];
+    Check([[bitmap representationUsingType:NSBitmapImageFileTypePNG properties:@{}] writeToFile:path atomically:YES],
+          "capture native editor pixels");
+}
 @implementation NXApp (Tests)
+- (void)testEditorRendering {
+    ScintillaView *editor = self.current.editor;
+    Check(Text(editor).length == 0, "rendering fixture starts in an empty document");
+    if (!self.dark) [self toggleDark:nil];
+    self.preferences[@"highlightLine"] = @YES;
+    [self refreshEditorSettings];
+    [self.window.contentView layoutSubtreeIfNeeded];
+    [self.window makeFirstResponder:editor];
+    [editor insertText:@"deneme\n"];
+    [editor insertText:@"deneme2   \n"];
+    [editor insertText:@"deneme3\n"];
+    Check([editor.string isEqualToString:@"deneme\ndeneme2   \ndeneme3\n"],
+          "Cocoa text input retains all typed lines");
+    Check(Send(editor, SCI_GETMARGINMASKN, 3) == SC_MASK_HISTORY &&
+          Send(editor, SCI_GETMARGINWIDTHN, 3) > 0, "change history owns a visible margin");
+    for (int line = 0; line < 3; ++line)
+        Check(Send(editor, SCI_MARKERGET, line) & SC_MASK_HISTORY, "typing still records change history");
+
+    const CGFloat lineHeight = Send(editor, SCI_TEXTHEIGHT, 0);
+    const CGFloat farX = NSMidX([editor content].visibleRect);
+    auto at = [&](int row, CGFloat x) { return EditorPixel(editor, x, (row + 0.5) * lineHeight); };
+    [self.window display];
+    NSColor *darkBackground = at(6, farX);
+    Check(darkBackground && darkBackground.redComponent < 0.25, "dark editor background is visible");
+    for (int line = 0; line < 3; ++line)
+        Check(SameEditorColor(at(line, farX), darkBackground), "edited dark line uses the editor background");
+    NSColor *caretLine = at(3, farX);
+    Check(caretLine && !SameEditorColor(caretLine, darkBackground), "current line retains its highlight");
+    CaptureEditor(self.window, @"dark");
+
+    const auto historyWidth = Send(editor, SCI_GETMARGINWIDTHN, 3);
+    Send(editor, SCI_SETMARGINWIDTHN, 3, 0);
+    [self.window display];
+    NSColor *oldBackground = at(1, farX);
+    Check(oldBackground && !SameEditorColor(oldBackground, darkBackground) &&
+          SameEditorColor(at(3, farX), caretLine), "previous margin setup reproduces the overwritten row background");
+    CaptureEditor(self.window, @"previous-margin");
+    Send(editor, SCI_SETMARGINWIDTHN, 3, historyWidth);
+
+    NSEvent *selectAll = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSZeroPoint
+        modifierFlags:NSEventModifierFlagCommand timestamp:0 windowNumber:self.window.windowNumber
+        context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
+    Check([NSApp.mainMenu performKeyEquivalent:selectAll] && Send(editor, SCI_GETSELECTIONSTART) == 0 &&
+          Send(editor, SCI_GETSELECTIONEND) == Send(editor, SCI_GETLENGTH),
+          "Command+A selects the complete document through the native menu");
+    [self.window display];
+    const auto trailingSpace = Send(editor, SCI_GETLINEENDPOSITION, 1) - 2;
+    const CGFloat selectedX = Send(editor, SCI_POINTXFROMPOSITION, 0, trailingSpace) + 2;
+    NSColor *selected = at(1, selectedX);
+    Check(SameEditorColor(at(1, farX), darkBackground) && selected &&
+          selected.blueComponent > selected.redComponent && !SameEditorColor(selected, darkBackground),
+          "selection stays visible while the rest of the line keeps its dark background");
+    CaptureEditor(self.window, @"dark-command-a");
+
+    Send(editor, SCI_GOTOPOS, Send(editor, SCI_GETLENGTH));
+    if (self.dark) [self toggleDark:nil];
+    self.preferences[@"lineNumbers"] = @NO;
+    [self refreshEditorSettings];
+    [self.window display];
+    NSColor *lightBackground = at(6, farX);
+    Check(lightBackground && lightBackground.redComponent > 0.9 &&
+          SameEditorColor(at(1, farX), lightBackground) &&
+          !SameEditorColor(at(3, farX), lightBackground), "light theme renders edited and caret lines with line numbers hidden");
+    CaptureEditor(self.window, @"light");
+}
 - (void)selfTest:(NSString *)mode {
     Check(ProfileOverride().length > 0, "explicit isolated test profile");
     Check([self.storage.directory.lastPathComponent hasPrefix:@"test-"], "test profile guard");
+    if ([mode isEqual:@"editor-rendering"]) {
+        [self testEditorRendering];
+        [NSApp terminate:nil];
+        return;
+    }
     if([mode isEqual:@"suite"])Check(!self.sidebarVisible&&self.workspace.view.superview==nil,"new profiles start with the sidebar hidden");
     NSError *error = nil;
     if([mode isEqual:@"instance-verify"]){Check([Text(self.current.editor) isEqual:Sample()],"independent process restores the exact unsaved Unicode document");Check(!State(self.current.editor).runs.empty(),"independent process restores inline formatting");Check([self snapshot:&error],"independent profile remains recoverable");exit(0);}

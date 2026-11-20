@@ -131,6 +131,10 @@ static BOOL StringMacroMessage(unsigned message) {
     Send(doc.editor, SCI_MARKERDEFINE, 0, SC_MARK_CIRCLE); Send(doc.editor, SCI_MARKERSETBACK, 0, 0x60b9ff);
     Send(doc.editor, SCI_SETMARGINTYPEN, 2, SC_MARGIN_SYMBOL); Send(doc.editor, SCI_SETMARGINMASKN, 2, SC_MASK_FOLDERS);
     Send(doc.editor, SCI_SETMARGINWIDTHN, 2, 14); Send(doc.editor, SCI_SETMARGINSENSITIVEN, 2, 1);
+    // Scintilla uses history markers as line backgrounds when no visible margin owns them.
+    Send(doc.editor, SCI_SETMARGINTYPEN, 3, SC_MARGIN_BACK);
+    Send(doc.editor, SCI_SETMARGINMASKN, 3, SC_MASK_HISTORY);
+    Send(doc.editor, SCI_SETMARGINWIDTHN, 3, 4);
     Send(doc.editor, SCI_MARKERDEFINE, SC_MARKNUM_FOLDER, SC_MARK_BOXPLUS); Send(doc.editor, SCI_MARKERDEFINE, SC_MARKNUM_FOLDEROPEN, SC_MARK_BOXMINUS);
     for (int marker : {SC_MARKNUM_FOLDEREND, SC_MARKNUM_FOLDERMIDTAIL, SC_MARKNUM_FOLDEROPENMID, SC_MARKNUM_FOLDERSUB, SC_MARKNUM_FOLDERTAIL}) Send(doc.editor, SCI_MARKERDEFINE, marker, SC_MARK_EMPTY);
     Send(doc.editor, SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_SHOW | SC_AUTOMATICFOLD_CHANGE);

@@ -161,6 +161,7 @@ Translation note:
 					<Item id="42072" name="&amp;sLUmpmäSSiGt SkifTLÄge"/>
 					<Item id="42073" name="Öppna fil"/>
 					<Item id="42074" name="Öppna innehållande mapp i utforskaren"/>
+					<Item id="42106" name="Maskera markering █ (Shift: ●)"/>
 					<Item id="42075" name="Sök på internet"/>
 					<Item id="42076" name="Ändra sökmotor..."/>
 					<Item id="42090" name="Ignorera skiftläge och hela ord"/>
@@ -1039,6 +1040,7 @@ Translation note:
 					<Item id="6239" name="Behåll markering när man klickar utanför markeringen"/>
 					<Item id="6245" name="Aktivera virtuellt utrymme"/>
 					<Item id="6214" name="Kopiera/klipp ut aktuell rad när ingenting är markerat"/>
+					<Item id="6266" name="Inaktivera drag-och-släpp för markerad text"/>
 					<Item id="6225" name="Tillämpa anpassad förgrundsfärg på markerad text"/>
 					<Item id="6651" name="Indikator för aktuell rad"/>
 					<Item id="6652" name="Ingen"/>
@@ -1480,7 +1482,6 @@ Vill du läsa in den ändå?"/>
 				<Item id="7" name="Hoppa &amp;alltid över "/>
 				<Item id="4" name="Läs alltid in &amp;nätverkssökvägar"/>
 			</NetworkPathWarning>
-
 			<DebugInfo title="Felsökningsinformation">
 				<Item id="1752" name="&amp;Kopiera felsökningsinfo till urklipp"/>
 				<Item id="1" name="OK"/>
@@ -1610,12 +1611,6 @@ Vill du fortsätta?"/>
 			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer att ändras vid nästa uppstart."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Osparade ändringar håller på att ignoreras!
 Vill du spara dina ändringar innan du byter tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilitet för makron och körbara kommandon" message="Dina makron och körbara kommandon som har sparats i Notepad++ v.8.5.2 (eller äldre) kanske inte är kompatibla med den aktuella versionen av Notepad++.
-Var god testa dessa kommandon och redigera dem vid behov.
-
-Annars kan du nedgradera till Notepad++ v8.5.2 och återställa din föregående data.
-Notepad++ kommer att säkerhetskopiera din gamla &quot;shortcuts.xml&quot; och spara den som &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Byt namn på &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; så bör dina kommandon återställas och fungera ordentligt."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Misslyckades att spara" message="Kan inte spara filen.
 Det fullständiga skrivskyddet i Notepad++ förbjuder sparning och förhindrade filen från att sparas."/>
 			<NotEnoughRoom4Saving title="Misslyckades att spara" message="Misslyckades att spara filen.
@@ -1761,7 +1756,7 @@ Fortsätt endast om du förstår riskerna."/>
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
-			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders.  -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att markera eller söker med alternativet &quot;Matcha hela ord&quot; markerat."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->

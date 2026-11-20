@@ -1625,6 +1625,7 @@ $STR_REPLACE$
 			<SymlinkLoadingWarning title="警告：載入符號連結可能導致程式凍結" message="啟用「資料夾工作區」中的符號連結載入功能可能會使 Notepad++ 進入無限循環並造成程式凍結。
 當目錄符號連結指向父層資料夾或形成循環引用時，就可能發生此問題。
 請在充分了解風險後再繼續操作。"/>
+			<UnPin2Sort title="分頁排序問題" message="無法排序已釘選的檔案。是否移除所有釘選？"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿紀錄"/>

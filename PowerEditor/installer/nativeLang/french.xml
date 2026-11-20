@@ -1651,6 +1651,7 @@ Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le men
 			<SymlinkLoadingWarning title="Avertissement : le chargement des liens symboliques peut provoquer un blocage" message="Activer le chargement des liens symboliques dans « Dossier en tant qu’espace de travail » peut entraîner une boucle infinie et provoquer le blocage de Notepad++.
 Ce problème peut survenir lorsque des liens symboliques de répertoires se résolvent vers des dossiers parents ou créent des références circulaires.
 N’avancez que si vous comprenez les risques."/>
+			<UnPin2Sort title="Question de tri des onglets" message="Impossible de trier les fichiers épinglés. Désépingler d'abord tous les fichiers épinglés ?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

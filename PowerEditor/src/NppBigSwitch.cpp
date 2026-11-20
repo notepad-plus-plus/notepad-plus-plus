@@ -4561,11 +4561,33 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						if (nmdlg->nItems != _pDocTab->nbItem())	//sanity check, if mismatch just abort
 							break;
 
+						bool askedRemovePinned = false;
+
 						//Collect all buffers
 						std::vector<BufferID> tempBufs;
 						for (unsigned int i = 0; i < nmdlg->nItems; ++i)
 						{
-							tempBufs.push_back(_pDocTab->getBufferByIndex(i));
+							BufferID buf = _pDocTab->getBufferByIndex(i);
+							if (buf->isPinned())
+							{
+								if (!askedRemovePinned)
+								{
+									askedRemovePinned = true;
+
+									if (_nativeLangSpeaker.messageBox("UnPin2Sort",
+										_pPublicInterface->getHSelf(),
+										L"Cannot sort pinned files. Unpin all pinned files firstly?",
+										L"Sort tabs question",
+										MB_YESNO | MB_ICONQUESTION) == IDNO)
+									{
+										return TRUE;
+									}
+								}
+
+								//Unpin the buffer
+								buf->setPinned(false);
+							}
+							tempBufs.push_back(buf);
 						}
 						//Reset buffers
 						for (unsigned int i = 0; i < nmdlg->nItems; ++i)

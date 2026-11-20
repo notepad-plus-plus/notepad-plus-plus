@@ -1648,6 +1648,7 @@ For security reasons, please review the opened shortcuts.xml. If the file conten
 			<SymlinkLoadingWarning title="Warning: Symlink Loading May Cause Freeze" message="Enabling symlink loading in Folder as Workspace may cause Notepad++ to enter an infinite loop and freeze.
 This can happen when directory symlinks resolve to parent folders or form circular references.
 Proceed only if you understand the risks."/>
+			<UnPin2Sort title="Sort tabs question" message="Cannot sort pinned files. Unpin all pinned files firstly?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

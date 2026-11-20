@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.5
+
+- Fixed update discovery when the anonymous GitHub API returns HTTP 403 or
+  429. The updater can find a compatible update through the public GitHub
+  release link and verifies the same signed inventory before installation.
+
 ## 1.7.4
 
 - Fixed a macOS rendering issue that made edited lines hard to read in dark

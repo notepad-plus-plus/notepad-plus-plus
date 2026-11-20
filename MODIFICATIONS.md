@@ -1,5 +1,11 @@
 # NoteQu modification notice
 
+## 2026-11-20 — GitHub update discovery fallback
+
+Added a public release link fallback when GitHub denies or throttles REST
+release listings. Both discovery routes verify the signed inventory and use
+the existing application-only update transaction.
+
 ## 2026-11-20 — macOS editor line backgrounds
 
 Assigned Scintilla change-history markers to a dedicated margin so edited lines

@@ -38,8 +38,8 @@ def main():
     if target.exists() and (not target.is_dir() or any(target.iterdir())):
         parser.error('Output must be a new or empty directory. Never overwrite an active profile.')
     require_x64(binary)
-    require_metadata(binary, "1.7.4")
-    require_metadata(repo / "dist/NoteQuUpdater.exe", "1.7.4", updater=True)
+    require_metadata(binary, "1.7.5")
+    require_metadata(repo / "dist/NoteQuUpdater.exe", "1.7.5", updater=True)
     source_ref = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip()
     if subprocess.run(['git', 'diff', '--quiet', 'HEAD', '--'], cwd=repo).returncode:
         parser.error('Commit source changes before packaging so the source reference is accurate.')
@@ -70,7 +70,7 @@ def main():
         shutil.copy2(repo / name, target / name)
     shutil.copytree(repo / 'LICENSES', target / 'LICENSES')
     (target / 'SOURCE_CODE.txt').write_text(
-        'NoteQu 1.7.4 - corresponding source\n\n'
+        'NoteQu 1.7.5 - corresponding source\n\n'
         f'This package was prepared from source commit: {source_ref}\n'
         f'Browse: https://github.com/berkkivircik/NoteQu/tree/{source_ref}\n'
         f'Download: https://github.com/berkkivircik/NoteQu/archive/{source_ref}.zip\n'
@@ -81,7 +81,7 @@ def main():
         'NoteQu is distributed under GNU GPL version 3, without warranty.\n'
         'Original component and font notices are included in LICENSES and fonts.\n', encoding='utf-8')
     manifest = {
-        'version': 'NoteQu 1.7.4',
+        'version': 'NoteQu 1.7.5',
         'configuration': 'Release',
         'architecture': 'x64',
         'created_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),

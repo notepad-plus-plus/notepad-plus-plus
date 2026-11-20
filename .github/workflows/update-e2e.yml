@@ -6,16 +6,21 @@ on:
         description: Published NoteQu version to install
         required: true
       to-version:
-        description: Latest compatible published NoteQu version
+        description: Target published version or signed draft version
         required: true
       candidate-updater:
         description: Run the candidate macOS updater beside the original signed installation
+        type: boolean
+        default: false
+      staged-macos-403:
+        description: Validate an unpublished signed target with an HTTP 403 fixture on macOS 15
         type: boolean
         default: false
 permissions:
   contents: read
 jobs:
   update:
+    if: ${{ !inputs.staged-macos-403 }}
     strategy:
       fail-fast: false
       matrix:
@@ -79,4 +84,49 @@ jobs:
         if: always()
         with:
           name: updater-e2e-${{ matrix.os }}
+          path: dist/update-e2e.json
+
+  staged-macos-403:
+    if: inputs.staged-macos-403
+    runs-on: macos-15
+    timeout-minutes: 15
+    permissions:
+      # GitHub requires repository push access to list draft releases.
+      contents: write
+    env:
+      FROM_VERSION: ${{ inputs.from-version }}
+      TO_VERSION: ${{ inputs.to-version }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.27.4'
+          cache: false
+      - name: Download signed macOS draft assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          draft=$(gh release view "v$TO_VERSION" --json isDraft,targetCommitish)
+          jq -e --arg source "$GITHUB_SHA" '.isDraft and .targetCommitish == $source' <<< "$draft"
+          gh release download "v$TO_VERSION" \
+            --pattern 'NoteQu-update-darwin-arm64.json*' \
+            --pattern "NoteQu-$TO_VERSION-darwin-arm64-update.zip" \
+            --dir "$RUNNER_TEMP/notequ-staged-assets"
+      - name: Verify macOS upgrade with a controlled HTTP 403
+        run: |
+          sw_vers
+          python3 -m venv .e2e-venv
+          .e2e-venv/bin/python -m pip install -r updater/signing-requirements.txt
+          python3 updater/build_staged_update_fixture.py --version "$TO_VERSION" \
+            --assets "$RUNNER_TEMP/notequ-staged-assets" --output "$RUNNER_TEMP/NoteQuUpdater"
+          .e2e-venv/bin/python updater/e2e_release.py \
+            --from-version "$FROM_VERSION" --to-version "$TO_VERSION" \
+            --candidate-updater "$RUNNER_TEMP/NoteQuUpdater" \
+            --staged-target "$RUNNER_TEMP/notequ-staged-assets" --output dist/update-e2e.json
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        if: always()
+        with:
+          name: updater-staged-403-macos-15
           path: dist/update-e2e.json

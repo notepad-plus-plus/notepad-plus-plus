@@ -22,13 +22,17 @@ def download(url, target):
     with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent':'NoteQu-Release-Verification'}), timeout=60) as response:
         target.write_bytes(response.read())
 
-def payload(version, system, arch, work):
-    folder = work / version; folder.mkdir()
-    base = BASE + 'v' + version + '/'
+def payload(version, system, arch, work, staged=None):
     name = f'NoteQu-update-{system}-{arch}.json'
-    for file in [name, name+'.sig', f'NoteQu-{version}-{system}-{arch}-update.zip']:
-        download(base+file, folder/file)
-    archive = folder/f'NoteQu-{version}-{system}-{arch}-update.zip'
+    archive_name = f'NoteQu-{version}-{system}-{arch}-update.zip'
+    folder = staged
+    if folder is None:
+        folder = work / version
+        folder.mkdir()
+        base = BASE + 'v' + version + '/'
+        for file in (name, name + '.sig', archive_name):
+            download(base + file, folder / file)
+    archive = folder / archive_name
     manifest = verify((folder/name).read_bytes(), (folder/(name+'.sig')).read_bytes(), archive, system, arch, version)
     return archive, manifest
 
@@ -177,15 +181,18 @@ def main():
     p.add_argument('--to-version', required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--candidate-updater', type=Path, help='macOS updater built from the candidate source')
+    p.add_argument('--staged-target', type=Path, help='signed macOS draft assets for the HTTP 403 integration test')
     a = p.parse_args()
     system='windows' if os.name=='nt' else 'darwin';arch='amd64' if system=='windows' else 'arm64'
     if a.candidate_updater is not None and (system != 'darwin' or not a.candidate_updater.is_file()):
         p.error('--candidate-updater must point to a macOS helper')
     candidate = a.candidate_updater.resolve() if a.candidate_updater is not None else None
+    if a.staged_target is not None and (candidate is None or not a.staged_target.is_dir()):
+        p.error('--staged-target requires the macOS fixture updater and a signed draft asset directory')
     work=Path(tempfile.mkdtemp(prefix='notequ-real-release-e2e-'));profile=work/'test-update-profile';profile.mkdir()
     (profile/'allow-update-test').touch();(profile/'notex-updates.json').write_text('{"disabled":true,"futureSetting":"preserve"}')
     archive,manifest=payload(a.from_version,system,arch,work)
-    _,target=payload(a.to_version,system,arch,work)
+    target_archive, target = payload(a.to_version, system, arch, work, a.staged_target)
     if system == 'windows':
         result = windows_test(work, profile, archive, manifest, a.to_version)
     else:
@@ -193,8 +200,13 @@ def main():
     assert json.loads((profile/'notex-updates.json').read_text())['futureSetting']=='preserve'
     installed=Path(result.pop('application'))
     for name,spec in target['files'].items(): assert hashlib.sha256((installed/name).read_bytes()).hexdigest()==spec['sha256']
+    if a.staged_target is not None:
+        assert result['discovery_fallback'] == 'release API HTTP 403; using public release link'
     result.update(passed=True,platform=system,architecture=arch,from_version=a.from_version,to_version=a.to_version,
-                  source=target['source'],real_public_release=True,version_and_signature_checks_enabled=True,
+                  source=target['source'],real_public_release=a.staged_target is None,
+                  staged_target=a.staged_target is not None,
+                  target_archive_sha256=hashlib.sha256(target_archive.read_bytes()).hexdigest(),
+                  version_and_signature_checks_enabled=True,
                   consent_dialogs_automated=True,normal_shutdown=True,new_application_started=True)
     a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(result,indent=2),encoding='utf-8');print(json.dumps(result))
     # Keep synthetic evidence and transaction backups until independently reviewed.

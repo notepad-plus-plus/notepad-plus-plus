@@ -8,6 +8,10 @@ on:
       to-version:
         description: Latest compatible published NoteQu version
         required: true
+      candidate-updater:
+        description: Run the candidate macOS updater beside the original signed installation
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -20,6 +24,17 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        if: inputs.candidate-updater && runner.os == 'macOS'
+        with:
+          go-version: '1.27.4'
+          cache: false
+      - name: Build the candidate macOS updater
+        if: inputs.candidate-updater && runner.os == 'macOS'
+        shell: bash
+        run: |
+          go -C updater build -trimpath -o "$RUNNER_TEMP/NoteQuUpdater" .
+          codesign --force --sign - "$RUNNER_TEMP/NoteQuUpdater"
       - name: Install independent signature verifier
         shell: bash
         run: |
@@ -33,13 +48,16 @@ jobs:
         env:
           FROM_VERSION: ${{ inputs.from-version }}
           TO_VERSION: ${{ inputs.to-version }}
+          USE_CANDIDATE: ${{ inputs.candidate-updater }}
         shell: bash
         run: |
-          if [ -f .e2e-venv/Scripts/python.exe ]; then
-            .e2e-venv/Scripts/python.exe updater/e2e_release.py --from-version "$FROM_VERSION" --to-version "$TO_VERSION" --output dist/update-e2e.json
-          else
-            .e2e-venv/bin/python updater/e2e_release.py --from-version "$FROM_VERSION" --to-version "$TO_VERSION" --output dist/update-e2e.json
+          python=.e2e-venv/bin/python
+          if [ -f .e2e-venv/Scripts/python.exe ]; then python=.e2e-venv/Scripts/python.exe; fi
+          args=(--from-version "$FROM_VERSION" --to-version "$TO_VERSION" --output dist/update-e2e.json)
+          if [ "$RUNNER_OS" = macOS ] && [ "$USE_CANDIDATE" = true ]; then
+            args+=(--candidate-updater "$RUNNER_TEMP/NoteQuUpdater")
           fi
+          "$python" updater/e2e_release.py "${args[@]}"
       - name: Diagnose anonymous GitHub access after a macOS test failure
         if: failure() && runner.os == 'macOS'
         shell: bash
@@ -51,7 +69,9 @@ jobs:
             'https://api.github.com/repos/berkkivircik/NoteQu/releases?per_page=100&page=1') || exit 0
           printf 'Anonymous releases API status: %s\n' "$status"
           grep -iE '^(x-ratelimit-(limit|remaining|reset|resource):|retry-after:)' "$headers" || true
-          if [ "$status" = 403 ] || [ "$status" = 429 ]; then jq -r '.message // empty' "$body"; fi
+          if jq -e '(.message // "") | startswith("API rate limit exceeded")' "$body" >/dev/null; then
+            printf 'GitHub reported that the anonymous API rate limit was exceeded.\n'
+          fi
           curl --silent --show-error --location --max-time 15 --output /dev/null \
             --write-out 'Public macOS manifest status: %{http_code}\n' \
             'https://github.com/berkkivircik/NoteQu/releases/latest/download/NoteQu-update-darwin-arm64.json'

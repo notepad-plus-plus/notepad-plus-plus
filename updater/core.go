@@ -29,7 +29,8 @@ import (
 )
 
 const repository = "berkkivircik/NoteQu"
-const downloadBase = "https://github.com/" + repository + "/releases/download/"
+const releaseBase = "https://github.com/" + repository + "/releases/"
+const downloadBase = releaseBase + "download/"
 const maxPackage = 256 << 20
 const receiptName = "notequ-owned.json"
 
@@ -171,7 +172,12 @@ func client() *http.Client {
 		return errors.New("unexpected download host")
 	}}
 }
-func fetch(ctx context.Context, c *http.Client, address string, limit int64) ([]byte, error) {
+
+type githubHTTPError int
+
+func (e githubHTTPError) Error() string { return fmt.Sprintf("GitHub returned HTTP %d", e) }
+
+func requestGitHub(ctx context.Context, c *http.Client, address string) (*http.Response, error) {
 	u, e := url.Parse(address)
 	if e != nil || u.Scheme != "https" || u.User != nil {
 		return nil, errors.New("invalid HTTPS URL")
@@ -182,13 +188,17 @@ func fetch(ctx context.Context, c *http.Client, address string, limit int64) ([]
 	}
 	req.Header.Set("User-Agent", "NoteQu-Updater")
 	req.Header.Set("Accept", "application/vnd.github+json")
-	res, e := c.Do(req)
+	return c.Do(req)
+}
+
+func fetch(ctx context.Context, c *http.Client, address string, limit int64) ([]byte, error) {
+	res, e := requestGitHub(ctx, c, address)
 	if e != nil {
 		return nil, e
 	}
 	defer res.Body.Close()
 	if res.StatusCode != 200 {
-		return nil, fmt.Errorf("GitHub returned HTTP %d", res.StatusCode)
+		return nil, githubHTTPError(res.StatusCode)
 	}
 	if res.ContentLength > limit {
 		return nil, errors.New("download exceeds limit")
@@ -231,32 +241,87 @@ func candidates(rs []Release, current, platform, arch string) []Release {
 	return out
 }
 func discover(ctx context.Context, current string) (*Signed, error) {
-	c := client()
+	return discoverFor(ctx, client(), current, runtime.GOOS, runtime.GOARCH, publicKey())
+}
+
+func discoverFor(ctx context.Context, c *http.Client, current, platform, arch string, key []byte) (*Signed, error) {
+	name := "NoteQu-update-" + platform + "-" + arch + ".json"
+	tag, e := newestReleaseTag(ctx, c, current, platform, arch)
+	if e != nil {
+		var status githubHTTPError
+		if !errors.As(e, &status) || (status != http.StatusForbidden && status != http.StatusTooManyRequests) {
+			return nil, e
+		}
+		var fallbackErr error
+		tag, fallbackErr = latestDownloadTag(ctx, c, name)
+		if fallbackErr != nil {
+			return nil, errors.Join(e, fallbackErr)
+		}
+		event(fmt.Sprintf("release API HTTP %d; using public release link", status))
+		if !newer(tag[1:], current) {
+			return nil, nil
+		}
+	}
+	if tag == "" {
+		return nil, nil
+	}
+	return readSignedRelease(ctx, c, tag, name, platform, arch, key)
+}
+
+func newestReleaseTag(ctx context.Context, c *http.Client, current, platform, arch string) (string, error) {
 	var all []Release
 	// Paginate the release list: a newer release for another platform must not mask ours.
 	for page := 1; page <= 20; page++ {
 		b, e := fetch(ctx, c, fmt.Sprintf("https://api.github.com/repos/%s/releases?per_page=100&page=%d", repository, page), 8<<20)
 		if e != nil {
-			return nil, e
+			return "", fmt.Errorf("GitHub releases API: %w", e)
 		}
 		var rs []Release
 		if e = json.Unmarshal(b, &rs); e != nil {
-			return nil, e
+			return "", e
 		}
 		all = append(all, rs...)
 		if len(rs) < 100 {
 			break
 		}
 		if page == 20 {
-			return nil, errors.New("release history exceeds supported limit")
+			return "", errors.New("release history exceeds supported limit")
 		}
 	}
-	rs := candidates(all, current, runtime.GOOS, runtime.GOARCH)
+	rs := candidates(all, current, platform, arch)
 	if len(rs) == 0 {
-		return nil, nil
+		return "", nil
 	}
-	r := rs[0]
-	base := downloadBase + r.Tag + "/NoteQu-update-" + runtime.GOOS + "-" + runtime.GOARCH + ".json"
+	return rs[0].Tag, nil
+}
+
+// Resolve the public latest-download alias without following it. Both signed
+// files must come from the same pinned tag even if a release is published mid-check.
+func latestDownloadTag(ctx context.Context, c *http.Client, name string) (string, error) {
+	aliasClient := *c
+	aliasClient.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+	res, e := requestGitHub(ctx, &aliasClient, releaseBase+"latest/download/"+name)
+	if e != nil {
+		return "", e
+	}
+	defer res.Body.Close()
+	if res.StatusCode != http.StatusFound {
+		return "", fmt.Errorf("public release link: %w", githubHTTPError(res.StatusCode))
+	}
+	location, e := res.Location()
+	if e != nil {
+		return "", e
+	}
+	relative, inRepository := strings.CutPrefix(location.String(), downloadBase+"v")
+	version, asset, split := strings.Cut(relative, "/")
+	if !inRepository || !split || asset != name || !versionPattern.MatchString(version) {
+		return "", errors.New("unexpected public release location")
+	}
+	return "v" + version, nil
+}
+
+func readSignedRelease(ctx context.Context, c *http.Client, tag, name, platform, arch string, key []byte) (*Signed, error) {
+	base := downloadBase + tag + "/" + name
 	raw, e := fetch(ctx, c, base, 2<<20)
 	if e != nil {
 		return nil, e
@@ -265,11 +330,11 @@ func discover(ctx context.Context, current string) (*Signed, error) {
 	if e != nil {
 		return nil, e
 	}
-	s, e := verify(raw, sig, publicKey(), runtime.GOOS, runtime.GOARCH)
+	s, e := verify(raw, sig, key, platform, arch)
 	if e != nil {
 		return nil, e
 	}
-	if s.Manifest.Version != r.Tag[1:] {
+	if s.Manifest.Version != tag[1:] {
 		return nil, errors.New("release version mismatch")
 	}
 	return &s, nil

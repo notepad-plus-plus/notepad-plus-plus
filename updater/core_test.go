@@ -9,6 +9,7 @@ import (
 	"crypto/rand"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -91,6 +92,79 @@ func TestPlatformSelection(t *testing.T) {
 		t.Fatal("foreign asset accepted")
 	}
 }
+
+type testHTTPTransport func(*http.Request) (*http.Response, error)
+
+func (f testHTTPTransport) RoundTrip(r *http.Request) (*http.Response, error) { return f(r) }
+
+func TestReleaseDiscoveryWithRESTLimits(t *testing.T) {
+	s, pub, _ := fixture(t)
+	name := "NoteQu-update-windows-amd64.json"
+	pinned := downloadBase + "v1.6.1/" + name
+	api := "https://api.github.com/repos/" + repository + "/releases?per_page=100&page=1"
+	alias := releaseBase + "latest/download/" + name
+	for _, c := range []struct {
+		name, current, location        string
+		apiStatus, aliasStatus         int
+		corrupt, wantSigned, wantError bool
+	}{
+		{name: "normal discovery", current: "1.6.0", apiStatus: 200, wantSigned: true},
+		{name: "forbidden API", current: "1.6.0", apiStatus: 403, aliasStatus: 302, location: pinned, wantSigned: true},
+		{name: "too many API requests", current: "1.6.0", apiStatus: 429, aliasStatus: 302, location: pinned, wantSigned: true},
+		{name: "already current", current: "1.6.1", apiStatus: 403, aliasStatus: 302, location: pinned},
+		{name: "no downgrade", current: "1.7.0", apiStatus: 403, aliasStatus: 302, location: pinned},
+		{name: "other platform published", current: "1.6.0", apiStatus: 403, aliasStatus: 404, wantError: true},
+		{name: "untrusted redirect", current: "1.6.0", apiStatus: 403, aliasStatus: 302, location: "https://example.com/" + name, wantError: true},
+		{name: "different asset", current: "1.6.0", apiStatus: 403, aliasStatus: 302, location: pinned + ".sig", wantError: true},
+		{name: "prerelease tag", current: "1.6.0", apiStatus: 403, aliasStatus: 302, location: downloadBase + "v1.7.0-rc/" + name, wantError: true},
+		{name: "signature damaged", current: "1.6.0", apiStatus: 403, aliasStatus: 302, location: pinned, corrupt: true, wantError: true},
+		{name: "signed version differs from tag", current: "1.6.0", apiStatus: 403, aliasStatus: 302, location: downloadBase + "v1.7.0/" + name, wantError: true},
+		{name: "ordinary server failure", current: "1.6.0", apiStatus: 503, wantError: true},
+	} {
+		t.Run(c.name, func(t *testing.T) {
+			var requested []string
+			client := &http.Client{Transport: testHTTPTransport(func(req *http.Request) (*http.Response, error) {
+				u := req.URL.String()
+				requested = append(requested, u)
+				if req.Method != http.MethodGet || req.Header.Get("Authorization") != "" {
+					t.Errorf("unexpected metadata request: %s", req.Method)
+				}
+				res := &http.Response{StatusCode: 200, Header: make(http.Header)}
+				var body []byte
+				switch u {
+				case api:
+					res.StatusCode = c.apiStatus
+					body, _ = json.Marshal([]Release{release("v1.6.1", "windows", "amd64"), release("v1.8.0", "darwin", "arm64")})
+				case alias:
+					if c.aliasStatus == 0 {
+						t.Fatal("public release link requested without API throttling")
+					}
+					res.StatusCode = c.aliasStatus
+					res.Header.Set("Location", c.location)
+				case pinned, downloadBase + "v1.7.0/" + name:
+					body = s.Bytes
+				case pinned + ".sig", downloadBase + "v1.7.0/" + name + ".sig":
+					body = s.Signature
+					if c.corrupt {
+						body = make([]byte, ed25519.SignatureSize)
+					}
+				default:
+					t.Fatalf("unexpected URL: %s", u)
+				}
+				res.Body = io.NopCloser(bytes.NewReader(body))
+				return res, nil
+			})}
+			found, err := discoverFor(context.Background(), client, c.current, "windows", "amd64", pub)
+			if (err != nil) != c.wantError || (found != nil) != c.wantSigned {
+				t.Fatalf("discovery = %v, %v; wanted signed=%v error=%v", found, err, c.wantSigned, c.wantError)
+			}
+			if found != nil && (found.Manifest.Version != "1.6.1" || requested[len(requested)-1] != pinned+".sig") {
+				t.Fatalf("unexpected release or unpinned signature: %v", requested)
+			}
+		})
+	}
+}
+
 func archive(t *testing.T, names []string, contents []string) []byte {
 	t.Helper()
 	var b bytes.Buffer

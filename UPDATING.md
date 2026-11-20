@@ -2,7 +2,7 @@
 
 NoteQu checks only public releases in `berkkivircik/NoteQu`. Checks run outside the editor process, at most once every 24 hours per profile. Use **Check for NoteQu Updates** (Windows Help menu) or **Check for Updates** (macOS NoteQu menu) to check immediately. **Automatic Update Checks** enables or disables background checks. Existing upstream Notepad++ update settings do not control this updater.
 
-The updater selects the newest stable release with a signed manifest for its own operating system and processor architecture. Drafts, prereleases, equal versions, older versions, and other platforms are excluded. A newer macOS-only release does not hide an available Windows release. Network failures leave the editor usable. Public downloads do not require a GitHub account or token.
+The updater selects the newest stable release with a signed manifest for its own operating system and processor architecture. Drafts, prereleases, equal versions, older versions, and other platforms are excluded. A newer macOS-only release does not hide an available Windows release. Network failures leave the editor usable. Public downloads do not require a GitHub account or token. If the release listing returns HTTP 403 or 429, NoteQu checks the public latest-release download for its platform. The fallback uses the same signed manifest and requires a compatible update in that release.
 
 Only standard HTTPS requests for public release metadata and assets are sent. They contain a fixed updater user agent, not document contents, selected text, file paths, session data, or preferences. GitHub and its download infrastructure necessarily receive connection information such as the client's IP address. General Run commands, plugin tools, and links that the user explicitly invokes remain separate network-capable features.
 
@@ -44,7 +44,7 @@ Publish application packages, update ZIPs, the matching JSON manifests and detac
 
 ## Integration tests
 
-Updater unit tests run with `cd updater && go test ./...` on Windows and macOS. Real-release integration tests start the actual native application in a synthetic temporary profile. Supply two published NoteQu versions, with the target set to the latest compatible release. Test consent automation requires an explicitly named `test-update-*` profile under the operating system's temporary directory, an `allow-update-test` marker, and an exact `NOTEX_TEST_UPDATE_PROFILE` match. It answers consent dialogs only. It does not alter the release source, version comparison, signature verification, platform validation, shutdown wait, or installation checks.
+Updater unit tests run with `cd updater && go test ./...` on Windows and macOS. Real-release integration tests start the actual native application in a synthetic temporary profile. Supply two published NoteQu versions, with the target set to the latest compatible release. Test consent automation requires an explicitly named `test-update-*` profile under the operating system's temporary directory, an `allow-update-test` marker, and an exact `NOTEX_TEST_UPDATE_PROFILE` match. It answers consent dialogs only. It does not alter the release source, version comparison, signature verification, platform validation, shutdown wait, or installation checks. The macOS test can run a candidate updater with `--candidate-updater`, leaving the starting bundle intact and downloading the same public signed release assets.
 
 ## Platform signing status
 

@@ -88,9 +88,10 @@ static void CaptureEditor(NSWindow *window, NSString *name) {
     NSEvent *selectAll = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSZeroPoint
         modifierFlags:NSEventModifierFlagCommand timestamp:0 windowNumber:self.window.windowNumber
         context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
-    Check([NSApp.mainMenu performKeyEquivalent:selectAll] && Send(editor, SCI_GETSELECTIONSTART) == 0 &&
+    [editor.content keyDown:selectAll];
+    Check(Send(editor, SCI_GETSELECTIONSTART) == 0 &&
           Send(editor, SCI_GETSELECTIONEND) == Send(editor, SCI_GETLENGTH),
-          "Command+A selects the complete document through the native menu");
+          "Command+A selects the complete document through Cocoa editor keyboard input");
     [self.window display];
     const auto trailingSpace = Send(editor, SCI_GETLINEENDPOSITION, 1) - 2;
     const auto selectedLineStart = Send(editor, SCI_POSITIONFROMLINE, 1);

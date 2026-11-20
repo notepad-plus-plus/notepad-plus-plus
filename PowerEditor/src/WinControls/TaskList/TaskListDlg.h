@@ -29,21 +29,21 @@
 #define	TASKLIST_USER    (WM_USER + 8000)
 #define WM_GETTASKLISTINFO (TASKLIST_USER + 01)
 
-struct TaskLstFnStatus {
+struct OpenedDocInfo {
 	int _iView = -1;
 	int _docIndex = 0;
-	std::wstring _fn;
+	std::wstring _fullPathName;
 	int _status = 0;
 	void *_bufID = nullptr;
 	int _docColor = -1;
-	TaskLstFnStatus(const std::wstring& str, int status) : _fn(str), _status(status) {}
-	TaskLstFnStatus(int iView, int docIndex, std::wstring str, int status, void* bufID, int docColor)
-		: _iView(iView), _docIndex(docIndex), _fn(str), _status(status), _bufID(bufID), _docColor(docColor)
+	OpenedDocInfo(const std::wstring& str, int status) : _fullPathName(str), _status(status) {}
+	OpenedDocInfo(int iView, int docIndex, std::wstring str, int status, void* bufID, int docColor)
+		: _iView(iView), _docIndex(docIndex), _fullPathName(str), _status(status), _bufID(bufID), _docColor(docColor)
 	{}
 };
 
 struct TaskListInfo {
-	std::vector<TaskLstFnStatus> _tlfsLst;
+	std::vector<OpenedDocInfo> _openedDocInfoList;
 	int _currentIndex = -1;
 };
 

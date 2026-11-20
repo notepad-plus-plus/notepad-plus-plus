@@ -93,7 +93,7 @@ struct SortTaskListPred final
 		_views[SUB_VIEW] = &s;
 	}
 
-	bool operator()(const TaskLstFnStatus &l, const TaskLstFnStatus &r) const {
+	bool operator()(const OpenedDocInfo &l, const OpenedDocInfo &r) const {
 		BufferID lID = _views[l._iView]->getBufferByIndex(l._docIndex);
 		BufferID rID = _views[r._iView]->getBufferByIndex(r._docIndex);
 		Buffer * bufL = MainFileManager.getBufferByID(lID);
@@ -1361,10 +1361,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			if (lParam != 0)
 			{
-				for (size_t idx = 0; idx < tli->_tlfsLst.size(); ++idx)
+				for (size_t idx = 0; idx < tli->_openedDocInfoList.size(); ++idx)
 				{
-					if (tli->_tlfsLst[idx]._iView == currentView() &&
-						tli->_tlfsLst[idx]._docIndex == _pDocTab->getCurrentTabIndex())
+					if (tli->_openedDocInfoList[idx]._iView == currentView() &&
+						tli->_openedDocInfoList[idx]._docIndex == _pDocTab->getCurrentTabIndex())
 					{
 						tli->_currentIndex = static_cast<int>(idx);
 						break;
@@ -1376,14 +1376,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (nppParam.getNppGUI()._styleMRU)
 			{
 				tli->_currentIndex = 0;
-				std::sort(tli->_tlfsLst.begin(),tli->_tlfsLst.end(),SortTaskListPred(_mainDocTab,_subDocTab));
+				std::sort(tli->_openedDocInfoList.begin(),tli->_openedDocInfoList.end(),SortTaskListPred(_mainDocTab,_subDocTab));
 			}
 			else
 			{
-				for (size_t idx = 0; idx < tli->_tlfsLst.size(); ++idx)
+				for (size_t idx = 0; idx < tli->_openedDocInfoList.size(); ++idx)
 				{
-					if (tli->_tlfsLst[idx]._iView == currentView() &&
-					    tli->_tlfsLst[idx]._docIndex == _pDocTab->getCurrentTabIndex())
+					if (tli->_openedDocInfoList[idx]._iView == currentView() &&
+					    tli->_openedDocInfoList[idx]._docIndex == _pDocTab->getCurrentTabIndex())
 					{
 						tli->_currentIndex = static_cast<int>(idx);
 						break;

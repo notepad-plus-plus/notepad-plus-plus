@@ -5010,10 +5010,10 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 				// After closing a file choose the file to activate based on MRU list and not just last file in the list.
 				TaskListInfo taskListInfo;
 				::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), 0);
-				size_t i, n = taskListInfo._tlfsLst.size();
+				size_t i, n = taskListInfo._openedDocInfoList.size();
 				for (i = 0; i < n; i++)
 				{
-					const TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
+					const OpenedDocInfo& tfs = taskListInfo._openedDocInfoList[i];
 					if (tfs._iView != whichOne || tfs._bufID == id)
 						continue;
 					toActivate = tfs._docIndex >= active ? tfs._docIndex - 1 : tfs._docIndex;
@@ -6017,7 +6017,7 @@ bool Notepad_plus::switchToFile(BufferID id)
 	return false;
 }
 
-void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
+void Notepad_plus::getTaskListInfo(TaskListInfo* tli)
 {
 	int currentNbDoc = static_cast<int32_t>(_pDocTab->nbItem());
 	int nonCurrentNbDoc = static_cast<int32_t>(_pNonDocTab->nbItem());
@@ -6032,14 +6032,15 @@ void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 		BufferID bufID = _pDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager.getBufferByID(bufID);
 		int status = b->isMonitoringOn()?tb_monitored:(b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved));
-		tli->_tlfsLst.push_back(TaskLstFnStatus(currentView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
+		tli->_openedDocInfoList.push_back(OpenedDocInfo(currentView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
 	}
+
 	for (int i = 0 ; i < nonCurrentNbDoc ; ++i)
 	{
 		BufferID bufID = _pNonDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager.getBufferByID(bufID);
 		int status = b->isMonitoringOn()?tb_monitored:(b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved));
-		tli->_tlfsLst.push_back(TaskLstFnStatus(otherView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
+		tli->_openedDocInfoList.push_back(OpenedDocInfo(otherView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
 	}
 }
 

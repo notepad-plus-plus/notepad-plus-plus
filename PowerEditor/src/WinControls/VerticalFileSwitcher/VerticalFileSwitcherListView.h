@@ -89,6 +89,18 @@ public:
 		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::listview);
 	}
 
+	OpenedDocInfo* getOpenedDocInfo(size_t index) const {
+		LVITEM item{};
+		item.mask = LVIF_PARAM;
+		item.iItem = static_cast<int>(index);
+		ListView_GetItem(_hSelf, &item);
+		return reinterpret_cast<OpenedDocInfo*>(item.lParam);
+	}
+
+	int getDocColor(size_t index) const {
+		return getOpenedDocInfo(index)->_docColor;
+	}
+
 protected:
 	HIMAGELIST _hImaLst = nullptr;
 

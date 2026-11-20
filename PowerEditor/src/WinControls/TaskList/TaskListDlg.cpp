@@ -77,7 +77,7 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			::SendMessage(_hParent, WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&_taskListInfo), 0);
-			const int nbTotal = static_cast<int>(_taskListInfo._tlfsLst.size());
+			const int nbTotal = static_cast<int>(_taskListInfo._openedDocInfoList.size());
 
 			int i2set = _taskListInfo._currentIndex + (_initDir == dirDown?1:-1);
 			
@@ -166,9 +166,9 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 				{
 					auto& lvItem = reinterpret_cast<NMLVDISPINFOW*>(lParam)->item;
 
-					TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[lvItem.iItem];
+					OpenedDocInfo & fileNameStatus = _taskListInfo._openedDocInfoList[lvItem.iItem];
 
-					lvItem.pszText = fileNameStatus._fn.data();
+					lvItem.pszText = fileNameStatus._fullPathName.data();
 					lvItem.iImage = fileNameStatus._status;
 
 					return TRUE;
@@ -194,8 +194,8 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 				case ID_PICKEDUP :
 				{
 					auto listIndex = lParam;
-					int view2set = _taskListInfo._tlfsLst[listIndex]._iView;
-					int index2Switch = _taskListInfo._tlfsLst[listIndex]._docIndex;
+					int view2set = _taskListInfo._openedDocInfoList[listIndex]._iView;
+					int index2Switch = _taskListInfo._openedDocInfoList[listIndex]._docIndex;
 					::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
 					::EndDialog(_hSelf, -1);
 					return TRUE;
@@ -225,8 +225,8 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	RECT rect = lpDrawItemStruct->rcItem;
 	HDC hDC = lpDrawItemStruct->hDC;
 	int nItem = lpDrawItemStruct->itemID;
-	const wchar_t *label = _taskListInfo._tlfsLst[nItem]._fn.c_str();
-	int iImage = _taskListInfo._tlfsLst[nItem]._status;
+	const wchar_t *label = _taskListInfo._openedDocInfoList[nItem]._fullPathName.c_str();
+	int iImage = _taskListInfo._openedDocInfoList[nItem]._status;
 
 	const int aSpaceWidth = ListView_GetStringWidth(_taskList.getHSelf(), L" ");
 

@@ -116,7 +116,7 @@ void VerticalFileSwitcher::startColumnSort()
 	updateHeaderArrow();
 }
 
-LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, const VerticalFileSwitcherListView& flv)
 {
 	auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
 
@@ -145,7 +145,7 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 			const bool isSelected = ListView_GetItemState(hList, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
 			const bool isHot = (lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT;
 
-			const int colorID = reinterpret_cast<TaskLstFnStatus*>(lplvcd->nmcd.lItemlParam)->_docColor;
+			const int colorID = flv.getDocColor(lplvcd->nmcd.dwItemSpec);
 
 			COLORREF bgColor = 0xFFFFFF;
 			bool applyColor = false;
@@ -250,9 +250,9 @@ LRESULT CALLBACK VerticalFileSwitcher::FileSwitcherNotifySubclass(
 			{
 				case NM_CUSTOMDRAW:
 				{
-					if (nmhdr->hwndFrom == vfs->_fileListView.getHSelf())
+					if (nmhdr->idFrom == IDC_LIST_DOCLIST)
 					{
-						return VerticalFileSwitcher::listViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam);
+						return VerticalFileSwitcher::listViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, vfs->_fileListView);
 					}
 					break;
 				}
@@ -308,14 +308,10 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					if (hitInfo.iItem != -1)
 					{
 						// Get the actual item info from the ID
-						LVITEM item{};
-						item.mask = LVIF_PARAM;
-						item.iItem = hitInfo.iItem;
-						ListView_GetItem(_fileListView.getHSelf(), &item);
-						auto* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
+						auto odi = _fileListView.getOpenedDocInfo(static_cast<size_t>(hitInfo.iItem));
 
 						// Close the document
-						closeDoc(tlfs);
+						closeDoc(odi);
 
 						return TRUE;
 					}
@@ -358,13 +354,8 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					if (i == -1 || i >= nbItem)
 						return TRUE;
 
-					LVITEM item{};
-					item.mask = LVIF_PARAM;
-					item.iItem = i;
-					ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
-					auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
-
-					activateDoc(tlfs);
+					auto odi = _fileListView.getOpenedDocInfo(static_cast<size_t>(i));
+					activateDoc(odi);
 					return TRUE;
 				}
 
@@ -387,13 +378,8 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 						if (i == -1 || i >= nbItem)
 							return TRUE;
 
-						LVITEM item{};
-						item.mask = LVIF_PARAM;
-						item.iItem = i;
-						ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
-						auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
-
-						activateDoc(tlfs);
+						auto odi = _fileListView.getOpenedDocInfo(static_cast<size_t>(i));
+						activateDoc(odi);
 					}
 
 					if (nbSelectedFiles() >= 1)
@@ -468,12 +454,8 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 							if (i == -1)
 								return TRUE;
 
-							LVITEM item{};
-							item.mask = LVIF_PARAM;
-							item.iItem = i;	
-							ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
-							auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
-							activateDoc(tlfs);
+							auto odi = _fileListView.getOpenedDocInfo(static_cast<size_t>(i));
+							activateDoc(odi);
 							return TRUE;
 						}
 						default:
@@ -587,10 +569,10 @@ void VerticalFileSwitcher::display(bool toShow) const
 	_fileListView.ensureVisibleCurrentItem();	// without this call the current item may stay above visible area after the program startup
 }
 
-void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
+void VerticalFileSwitcher::activateDoc(OpenedDocInfo *odi) const
 {
-	int view = tlfs->_iView;
-	BufferID bufferID = static_cast<BufferID>(tlfs->_bufID);
+	int view = odi->_iView;
+	BufferID bufferID = static_cast<BufferID>(odi->_bufID);
 	
 	auto currentView = ::SendMessage(_hParent, NPPM_GETCURRENTVIEW, 0, 0);
 	BufferID currentBufID = reinterpret_cast<BufferID>(::SendMessage(_hParent, NPPM_GETCURRENTBUFFERID, 0, 0));
@@ -605,10 +587,10 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 	::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
 }
 
-void VerticalFileSwitcher::closeDoc(TaskLstFnStatus *tlfs) const
+void VerticalFileSwitcher::closeDoc(OpenedDocInfo *odi) const
 {
-	int view = tlfs->_iView;
-	BufferID bufferID = static_cast<BufferID>(tlfs->_bufID);
+	int view = odi->_iView;
+	BufferID bufferID = static_cast<BufferID>(odi->_bufID);
 		
 	const auto docPosInfo = static_cast<int>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, reinterpret_cast<WPARAM>(bufferID), view));
 	int view2set = docPosInfo >> 30;

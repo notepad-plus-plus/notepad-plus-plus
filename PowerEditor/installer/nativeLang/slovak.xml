@@ -1645,6 +1645,7 @@ Z bezpečnostných dôvodov skontrolujte otvorený súbor shortcuts.xml. Ak je o
 			<SymlinkLoadingWarning title="Upozornenie: Načítavanie symbolických odkazov môže spôsobiť zamrznutie systému" message="Povolenie načítavania symbolických odkazov v režime Priečinok ako pracovný priestor môže spôsobiť, že sa Notepad++zacyklí a zamrzne.
 K tomu môže dôjsť, ak sa symbolické odkazy na priečinky smerujú do nadradených priečinkov alebo vytvárajú cyklické odkazy.
 Pokračujte len vtedy, ak rozumiete rizikám."/>
+			<UnPin2Sort title="Otázka na zoradenie kariet" message="Pripnuté súbory nie je možné zoradiť. Najprv odopnúť všetky pripnuté súbory?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

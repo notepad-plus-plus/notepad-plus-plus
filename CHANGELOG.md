@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.4
+
+- Fixed a macOS rendering issue that made edited lines hard to read in dark
+  mode. Change history is shown in the editor margin, preserving current-line
+  highlighting and text selection.
+
 ## 1.7.3
 
 - Redesigned the Windows menu bar customization dialog with visibility switches,

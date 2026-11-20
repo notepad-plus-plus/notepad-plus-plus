@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 07 Nov 2026 for 8.9.9+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 20 Nov 2026 for 8.9.9.1+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1648,6 +1648,7 @@ Por motivos de segurança, revise o arquivo aberto shortcuts.xml. Se o conteúdo
 		<SymlinkLoadingWarning title="Aviso: Carga de Link Simbólico Pode Provocar Travamento" message="A ativação de carga de links simbólicos em Pasta como Espaço de Trabalho Pode fazer o Notepad++ entrar em um loop infinito e travar.
 Isto pode acontecer quando os links simbólicos apontam para pastas pais ou formam referências circulares.
 Continue apenas se você compreender os riscos."/>
+		<UnPin2Sort title="Pergunta sobre classificação de abas" message="Não é possível classificar abas afixadas. Desafixar todas as abas afixadas antes?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

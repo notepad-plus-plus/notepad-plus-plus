@@ -450,6 +450,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 
 	if (nppParams.doPrintAndExit())
 		::SendMessage(_hSelf, NPPM_INTERNAL_PRNTANDQUIT, 0, 0);
+
+	// -systemtray only affects the launch, afterwards the "System tray" preference applies
+	_isPrelaunch = false;
 }
 
 

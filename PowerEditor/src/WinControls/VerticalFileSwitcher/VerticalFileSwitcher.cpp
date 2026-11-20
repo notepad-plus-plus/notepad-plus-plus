@@ -116,7 +116,7 @@ void VerticalFileSwitcher::startColumnSort()
 	updateHeaderArrow();
 }
 
-LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, const VerticalFileSwitcherListView& flv)
 {
 	auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
 
@@ -145,7 +145,7 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 			const bool isSelected = ListView_GetItemState(hList, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
 			const bool isHot = (lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT;
 
-			const int colorID = reinterpret_cast<TaskLstFnStatus*>(lplvcd->nmcd.lItemlParam)->_docColor;
+			const int colorID = flv.getDocColor(lplvcd->nmcd.dwItemSpec);
 
 			COLORREF bgColor = 0xFFFFFF;
 			bool applyColor = false;
@@ -250,9 +250,9 @@ LRESULT CALLBACK VerticalFileSwitcher::FileSwitcherNotifySubclass(
 			{
 				case NM_CUSTOMDRAW:
 				{
-					if (nmhdr->hwndFrom == vfs->_fileListView.getHSelf())
+					if (nmhdr->idFrom == IDC_LIST_DOCLIST)
 					{
-						return VerticalFileSwitcher::listViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam);
+						return VerticalFileSwitcher::listViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, vfs->_fileListView);
 					}
 					break;
 				}
@@ -308,11 +308,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					if (hitInfo.iItem != -1)
 					{
 						// Get the actual item info from the ID
-						LVITEM item{};
-						item.mask = LVIF_PARAM;
-						item.iItem = hitInfo.iItem;
-						ListView_GetItem(_fileListView.getHSelf(), &item);
-						auto* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
+						auto tlfs = _fileListView.getTlfs(static_cast<size_t>(hitInfo.iItem));
 
 						// Close the document
 						closeDoc(tlfs);
@@ -358,12 +354,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					if (i == -1 || i >= nbItem)
 						return TRUE;
 
-					LVITEM item{};
-					item.mask = LVIF_PARAM;
-					item.iItem = i;
-					ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
-					auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
-
+					auto tlfs = _fileListView.getTlfs(static_cast<size_t>(i));
 					activateDoc(tlfs);
 					return TRUE;
 				}
@@ -387,12 +378,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 						if (i == -1 || i >= nbItem)
 							return TRUE;
 
-						LVITEM item{};
-						item.mask = LVIF_PARAM;
-						item.iItem = i;
-						ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
-						auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
-
+						auto tlfs = _fileListView.getTlfs(static_cast<size_t>(i));
 						activateDoc(tlfs);
 					}
 
@@ -468,11 +454,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 							if (i == -1)
 								return TRUE;
 
-							LVITEM item{};
-							item.mask = LVIF_PARAM;
-							item.iItem = i;	
-							ListView_GetItem(reinterpret_cast<LPNMHDR>(lParam)->hwndFrom, &item);
-							auto tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
+							auto tlfs = _fileListView.getTlfs(static_cast<size_t>(i));
 							activateDoc(tlfs);
 							return TRUE;
 						}

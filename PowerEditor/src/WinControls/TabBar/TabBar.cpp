@@ -19,8 +19,9 @@
 
 #include <windows.h>
 
+#include <windowsx.h>
+
 #include <cassert>
-#include <cstdint>
 #include <cstdlib>
 #include <cwchar>
 #include <stdexcept>
@@ -105,7 +106,7 @@ int TabBar::insertAtEnd(const wchar_t *subTabName)
 		index = 0;
 	tie.iImage = index;
 	tie.pszText = const_cast<wchar_t*>(subTabName);
-	return int(::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie)));
+	return static_cast<int>(::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie)));
 }
 
 
@@ -498,6 +499,7 @@ void TabBarPlus::tabToStart(int index)
 			break;
 		}
 	}
+	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, i);
 	setActiveTab(i);
 }
 
@@ -514,6 +516,7 @@ void TabBarPlus::tabToEnd(int index)
 		if (!exchangeTabItemData(i, j, false))
 			break;
 	}
+	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, i);
 	setActiveTab(i);
 }
 
@@ -747,7 +750,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 			else if ((wParam & MK_SHIFT) && doDragNDrop)
 			{
-				int oldTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+				const int oldTabIndex = static_cast<int>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 				int newTabIndex = oldTabIndex + (isForward ? 1 : -1);
 
 				if (newTabIndex < 0)
@@ -766,7 +769,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 			else if (wParam & (MK_CONTROL | MK_SHIFT))
 			{
-				int tabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isForward ? 1 : -1));
+				int tabIndex = static_cast<int>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isForward ? 1 : -1));
 				if (tabIndex < 0)
 				{
 					if (wParam & MK_CONTROL)
@@ -793,7 +796,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				TC_HITTESTINFO hti{};
 				LONG xy = _dpiManager.scale(12); // an arbitrary coordinate inside the first visible tab
 				hti.pt = { xy, xy };
-				int scrollTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti)));
+				int scrollTabIndex = static_cast<int>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti)));
 
 				if (scrollTabIndex < 1 && (isVertical ? rcLastTab.bottom < rcTabCtrl.bottom : rcLastTab.right < rcTabCtrl.right)) // nothing to scroll
 					return 0;
@@ -830,13 +833,13 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONDOWN :
 		{
-			int xPos = LOWORD(lParam);
-			int yPos = HIWORD(lParam);
+			const int xPos = GET_X_LPARAM(lParam);
+			const int yPos = GET_Y_LPARAM(lParam);
 
 			int nTab = getTabIndexAt(xPos, yPos);
 			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 			{
-				if (nTab != -1 && nTab != static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
+				if (nTab != -1 && nTab != static_cast<int>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
 				{
 					setActiveTab(nTab);
 				}
@@ -875,7 +878,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			const auto resVal = ::DefSubclassProc(hwnd, Message, wParam, lParam);
-			int currentTabOn = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+			const int currentTabOn = static_cast<int>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
 			if (wParam == 2)
 				return resVal;
@@ -896,8 +899,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			// TCS_BUTTONS doesn't select the tab
 			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 			{
-				int nTab = getTabIndexAt(LOWORD(lParam), HIWORD(lParam));
-				if (nTab != -1 && nTab != static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
+				const int nTab = getTabIndexAt(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+				if (nTab != -1 && nTab != static_cast<int>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
 				{
 					setActiveTab(nTab);
 				}
@@ -919,7 +922,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 				else if (++_dragCount > 2)
 				{
-					int tabSelected = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+					const int tabSelected = static_cast<int>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
 					if (tabSelected >= 0)
 					{
@@ -937,8 +940,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			POINT p{};
-			p.x = LOWORD(lParam);
-			p.y = HIWORD(lParam);
+			p.x = GET_X_LPARAM(lParam);
+			p.y = GET_Y_LPARAM(lParam);
 
 			if (_isDragging)
 			{
@@ -1101,8 +1104,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			_mightBeDragging = false;
 			_dragCount = 0;
 
-			int xPos = LOWORD(lParam);
-			int yPos = HIWORD(lParam);
+			const int xPos = GET_X_LPARAM(lParam);
+			const int yPos = GET_Y_LPARAM(lParam);
 			int currentTabOn = getTabIndexAt(xPos, yPos);
 			if (_isDragging)
 			{
@@ -1115,6 +1118,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					_isDragging = false;
 				}
 
+				::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, currentTabOn);
 				notify(_isDraggingInside?TCN_TABDROPPED:TCN_TABDROPPEDOUTSIDE, currentTabOn);
 				return 0;
 			}
@@ -1204,8 +1208,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_MBUTTONUP:
 		{
-			int xPos = LOWORD(lParam);
-			int yPos = HIWORD(lParam);
+			const int xPos = GET_X_LPARAM(lParam);
+			const int yPos = GET_Y_LPARAM(lParam);
 			int currentTabOn = getTabIndexAt(xPos, yPos);
 			if (currentTabOn != -1)
 				notify(TCN_TABDELETE, currentTabOn);
@@ -1220,8 +1224,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
 			bool isDbClk2Close = nppGUI._tabStatus & TAB_DBCLK2CLOSE;
 
-			int xPos = LOWORD(lParam);
-			int yPos = HIWORD(lParam);
+			const int xPos = GET_X_LPARAM(lParam);
+			const int yPos = GET_Y_LPARAM(lParam);
 			int currentTabOn = getTabIndexAt(xPos, yPos);
 
 			if (currentTabOn != -1)
@@ -1895,7 +1899,7 @@ bool TabBarPlus::exchangeTabItemData(int oldTab, int newTab, bool setToActive/* 
 	//1. shift their data, and insert the source
 	TCITEM itemData_nDraggedTab{}, itemData_shift{};
 	itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
-	const int stringSize = 256;
+	static constexpr int stringSize = 256;
 	wchar_t str1[stringSize] = { '\0' };
 	wchar_t str2[stringSize] = { '\0' };
 
@@ -1934,12 +1938,17 @@ bool TabBarPlus::exchangeTabItemData(int oldTab, int newTab, bool setToActive/* 
 
 	::SendMessage(_hSelf, TCM_SETITEM, newTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 
-	// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
-	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
-
-	//2. set to focus
 	if (setToActive)
+	{
+		// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
+		if (!_isDragging)
+		{
+			::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
+		}
+
+		// 2. set to focus
 		setActiveTab(newTab);
+	}
 
 	return true;
 }

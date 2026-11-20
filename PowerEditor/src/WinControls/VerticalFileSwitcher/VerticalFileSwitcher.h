@@ -155,7 +155,7 @@ protected:
 
 private:
 	bool colHeaderRClick = false;
-	int _lastSortingColumn = 0;
+	int _lastSortingColumn = -1;
 	SortDirection _lastSortingDirection = SortDirection::NONE;
 	VerticalFileSwitcherListView _fileListView;
 	HIMAGELIST _hImaLst = nullptr;
@@ -163,7 +163,7 @@ private:
 	using DockingDlgInterface::init;
 
 	static COLORREF _bgColor;
-	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, const VerticalFileSwitcherListView& flv);
 	static LRESULT CALLBACK FileSwitcherNotifySubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 	static LRESULT CALLBACK ListViewParentNotifyProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 

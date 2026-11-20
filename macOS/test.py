@@ -33,6 +33,7 @@ results = [{"macOS": platform.mac_ver()[0], "architecture": platform.machine(),
 
 def run(app, mode, profile, executable="NoteQu", profile_variable="NOTEQU_PROFILE"):
     env = dict(os.environ, NOTEQU_TEST_SOURCE=str(ROOT), NOTEQU_TEST_IMAGE=str(OUTPUT / "native-preview.png"))
+    env["NOTEQU_TEST_RENDER_DIR"] = str(OUTPUT)
     env.pop("NOTEQU_PROFILE", None)
     env.pop("NOTEX_PROFILE", None)
     env[profile_variable] = str(profile)
@@ -53,6 +54,7 @@ def run(app, mode, profile, executable="NoteQu", profile_variable="NOTEQU_PROFIL
 
 with tempfile.TemporaryDirectory(prefix="notequ-native-tests-") as directory:
     work = Path(directory)
+    run(APP, "editor-rendering", work / "test-editor-rendering")
     run(APP, "suite", work / "test-suite")
     run(APP, "seed", work / "test-restart")
     run(APP, "restore", work / "test-restart")
@@ -61,7 +63,20 @@ with tempfile.TemporaryDirectory(prefix="notequ-native-tests-") as directory:
     shutil.copytree(APP, replacement)
     run(replacement, "restore", work / "test-restart", profile_variable="NOTEX_PROFILE")
     if os.environ.get("CI"):
-        # Upgrade profiles created by both previously published native binaries.
+        # Open a profile made by the last public release with the candidate application.
+        version = "1.7.3"
+        old_zip = work / f"notequ-{version}.zip"
+        urllib.request.urlretrieve(
+            f"https://github.com/berkkivircik/NoteQu/releases/download/v{version}/NoteQu-{version}-macos-arm64.zip",
+            old_zip,
+        )
+        assert hashlib.sha256(old_zip.read_bytes()).hexdigest() == "dfa1bc983450e39816c06b2e769471cd828389589d150649ec8391f5ece1a9eb"
+        previous = work / "Previous-NoteQu"
+        subprocess.run(["ditto", "-x", "-k", str(old_zip), str(previous)], check=True)
+        upgrade_profile = work / f"test-upgrade-{version}"
+        run(previous / "NoteQu.app", "seed", upgrade_profile)
+        run(APP, "restore", upgrade_profile)
+        # Also check profiles made by the older native NoteX binaries.
         releases = [
             ("v1.4.1-macos.4", "1.4.1", "ef18adf9ffeffb8e7998f0d0f523e043b8d868a018be9019a6f4e68777653071"),
             ("v1.3.2-macos.1", "1.3.2", "93b4170c541a96dcca15a60c06a2528b492613b0704acb386af0ecec808a9748"),

@@ -1,5 +1,11 @@
 # NoteQu modification notice
 
+## 2026-11-20 — macOS editor line backgrounds
+
+Assigned Scintilla change-history markers to a dedicated margin so edited lines
+keep the theme background. Added native rendering checks for typing, Command+A,
+and the light and dark palettes, plus a profile upgrade test from NoteQu 1.7.3.
+
 ## 2026-11-20 — Windows menu bar customization
 
 Redesigned the native Windows menu customization dialog. Added Turkish-aware

@@ -51,7 +51,9 @@ static void CaptureEditor(NSWindow *window, NSString *name) {
     self.preferences[@"highlightLine"] = @YES;
     [self refreshEditorSettings];
     [self.window.contentView layoutSubtreeIfNeeded];
-    [self.window makeFirstResponder:editor];
+    Check([self.window makeFirstResponder:editor.content], "native text view accepts keyboard focus");
+    // Hosted AppKit sessions can leave the foreground activation pending.
+    if (!Send(editor, SCI_GETFOCUS)) Send(editor, SCI_SETFOCUS, 1);
     [editor insertText:@"deneme\n"];
     [editor insertText:@"deneme2   \n"];
     [editor insertText:@"deneme3\n"];
@@ -66,21 +68,21 @@ static void CaptureEditor(NSWindow *window, NSString *name) {
     const CGFloat farX = NSMidX([editor content].visibleRect);
     auto at = [&](int row, CGFloat x) { return EditorPixel(editor, x, (row + 0.5) * lineHeight); };
     [self.window display];
+    CaptureEditor(self.window, @"dark");
     NSColor *darkBackground = at(6, farX);
     Check(darkBackground && darkBackground.redComponent < 0.25, "dark editor background is visible");
     for (int line = 0; line < 3; ++line)
         Check(SameEditorColor(at(line, farX), darkBackground), "edited dark line uses the editor background");
     NSColor *caretLine = at(3, farX);
     Check(caretLine && !SameEditorColor(caretLine, darkBackground), "current line retains its highlight");
-    CaptureEditor(self.window, @"dark");
 
     const auto historyWidth = Send(editor, SCI_GETMARGINWIDTHN, 3);
     Send(editor, SCI_SETMARGINWIDTHN, 3, 0);
     [self.window display];
+    CaptureEditor(self.window, @"previous-margin");
     NSColor *oldBackground = at(1, farX);
     Check(oldBackground && !SameEditorColor(oldBackground, darkBackground) &&
           SameEditorColor(at(3, farX), caretLine), "previous margin setup reproduces the overwritten row background");
-    CaptureEditor(self.window, @"previous-margin");
     Send(editor, SCI_SETMARGINWIDTHN, 3, historyWidth);
 
     NSEvent *selectAll = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSZeroPoint
@@ -91,23 +93,25 @@ static void CaptureEditor(NSWindow *window, NSString *name) {
           "Command+A selects the complete document through the native menu");
     [self.window display];
     const auto trailingSpace = Send(editor, SCI_GETLINEENDPOSITION, 1) - 2;
-    const CGFloat selectedX = Send(editor, SCI_POINTXFROMPOSITION, 0, trailingSpace) + 2;
+    const auto selectedLineStart = Send(editor, SCI_POSITIONFROMLINE, 1);
+    const CGFloat selectedX = Send(editor, SCI_POINTXFROMPOSITION, 0, trailingSpace) -
+        Send(editor, SCI_POINTXFROMPOSITION, 0, selectedLineStart) + Send(editor, SCI_GETMARGINLEFT) + 2;
+    CaptureEditor(self.window, @"dark-command-a");
     NSColor *selected = at(1, selectedX);
     Check(SameEditorColor(at(1, farX), darkBackground) && selected &&
           selected.blueComponent > selected.redComponent && !SameEditorColor(selected, darkBackground),
           "selection stays visible while the rest of the line keeps its dark background");
-    CaptureEditor(self.window, @"dark-command-a");
 
     Send(editor, SCI_GOTOPOS, Send(editor, SCI_GETLENGTH));
     if (self.dark) [self toggleDark:nil];
     self.preferences[@"lineNumbers"] = @NO;
     [self refreshEditorSettings];
     [self.window display];
+    CaptureEditor(self.window, @"light");
     NSColor *lightBackground = at(6, farX);
     Check(lightBackground && lightBackground.redComponent > 0.9 &&
           SameEditorColor(at(1, farX), lightBackground) &&
           !SameEditorColor(at(3, farX), lightBackground), "light theme renders edited and caret lines with line numbers hidden");
-    CaptureEditor(self.window, @"light");
 }
 - (void)selfTest:(NSString *)mode {
     Check(ProfileOverride().length > 0, "explicit isolated test profile");

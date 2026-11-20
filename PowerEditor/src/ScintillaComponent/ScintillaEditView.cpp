@@ -2385,6 +2385,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	const std::vector<size_t> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);
 
+	// the word wrap of the document has to be set before the position is restored
+	wrap(newBuf->isWordWrap());
+
 	restoreCurrentPosPreStep();
 	restoreHiddenLines();
 	setCRLF();

@@ -73,8 +73,13 @@ void DocumentMap::reloadMap()
 		(*_ppEditView)->getCurrentFoldStates(lineStateVector);
 		_pMapView->syncFoldStateWith(lineStateVector);
 
-		// Wrapping
-		if ((*_ppEditView)->isWrap() && needToRecomputeWith())
+		// Wrapping (each document has its own word wrap)
+		if ((*_ppEditView)->isWrap() != _pMapView->isWrap())
+		{
+			initWrapMap();
+			wrapMap();
+		}
+		else if ((*_ppEditView)->isWrap() && needToRecomputeWith())
 		{
 			wrapMap();
 		}

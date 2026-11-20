@@ -3633,6 +3633,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 					sfi._individualTabColour = NppXml::intAttribute(childNode, "tabColourId", -1);
 					sfi._isRTL = getBoolAttribute(childNode, "RTL");
+					sfi._isWordWrap = getBoolAttribute(childNode, "wordWrap", _svp._doWrap);
 
 					for (NppXml::Element markNode = NppXml::firstChildElement(childNode, "Mark");
 						markNode;
@@ -4909,6 +4910,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestampHigh", vsFile._originalFileLastModifTimestamp.dwHighDateTime);
 				NppXml::setAttribute(fileNameNode, "tabColourId", vsFile._individualTabColour);
 				setBoolAttribute(fileNameNode, "RTL", vsFile._isRTL);
+				setBoolAttribute(fileNameNode, "wordWrap", vsFile._isWordWrap);
 				setBoolAttribute(fileNameNode, "tabPinned", vsFile._isPinned);
 
 				// Save this info only when it's an untitled entry

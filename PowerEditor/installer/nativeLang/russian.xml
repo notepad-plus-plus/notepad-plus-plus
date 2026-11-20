@@ -4,7 +4,7 @@ Updated to :
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.9.8">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9.9">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1256,7 +1256,7 @@ Updated to :
 					<Item id="6910" name="Миним. размер для автоматич. установки 'В выделенном'"/>
 					<Item id="6913" name="Заполнять поле поиска в Папке на основе текущего документа"/>
 					<Item id="6916" name=": Макс. кол-во символов из Выделенного для Авто-заполнения поля Поиска"/>
-					<Item id="6917" name="Найти в файлах: Предпочтительнее использовать содержимое файлов на диске, а не буферные изменения."/>
+					<Item id="6917" name="Найти в файлах: Предпочт. использ. содержимое файлов на диске, а не буферные изменения"/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
@@ -1786,6 +1786,7 @@ $STR_REPLACE$
 			<find-in-files-dir-from-active-doc-tip value="Заполнять поле Папки на основе текущего документа"/>
 			<find-status-end-reached value="Поиск: Достигнут конец. Найдено первое совпадение сверху."/>
 			<find-status-top-reached value="Поиск: Достигнуто начало. Найдено первое совпадение снизу."/>
+			<find-highlight-mode-tip value="Подсветка всех совпадений текущего поиска в активном документе по мере ввода текста"/>
 			<find-status-replaceinfiles-1-replaced value="Замена в файлах: заменено 1 совпадение"/>
 			<find-status-replaceinfiles-nb-replaced value="Замена в файлах: заменено $INT_REPLACE$ совпадений"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Замена в открытых файлах: заменено 1 совпадение"/>

@@ -846,6 +846,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						else
 						{
 							::SendMessage(hWinParent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, reinterpret_cast<LPARAM>(hWin));
+
+							// Before sending the COPYDATA message, we need to add the digest of the file being dragged & dropped.
+							// This ensures that the receiving Notepad++ instance can verify the integrity of the file being transferred.
+							_dragNdropIpcDigests.clear();
+							NppDigest d;
+							if (nppCopyDataDigest(fileNamesData.dwData, fileNamesData.lpData, fileNamesData.cbData, d))
+								_dragNdropIpcDigests.push_back(d);
+
 							::SendMessage(hWinParent, WM_COPYDATA, reinterpret_cast<WPARAM>(_pPublicInterface->getHSelf()), reinterpret_cast<LPARAM>(&fileNamesData));
 							if (!isInCtrlStat)
 							{

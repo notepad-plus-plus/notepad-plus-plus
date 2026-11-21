@@ -873,6 +873,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
+		// The algorithm to protect against malicious COPYDATA messages is as follows:
+		// 1. Verify the sender's HWND belongs to a trusted process (another Notepad++ instance with the same binary path and at least Medium integrity level).
+		// 2. To prevent tampering, compute a digest of the received data and send a confirmation message back to the sender.
+		// 3. Wait for a response from the sender confirming the integrity of the data.
+		// 4. If the confirmation is received and valid, process the data; otherwise, reject it.
 		case WM_COPYDATA:
 		{
 			if (lParam == 0)
@@ -888,15 +893,42 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (pCopyData->lpData == nullptr || pCopyData->cbData == 0)
 				return TRUE; // invalid
 
+			//----------------------------------------------------------------------------------------//
+			// If we receive a confirmation request,
+			// from another instance of Notepad++ that we previously sent an IPC message to:
+			// When Drag & Drop is performed from this instance to another one,
+			// the target instance sends a integrity confirmation request back to the source instance
+			//----------------------------------------------------------------------------------------//
 			if (pCopyData->dwData == NPP_COPYDATA_CONFIRM)
+			{
+				// Check if the message is a confirmation of a previously sent IPC message
+				if (pCopyData->cbData == sizeof(NppDigest))
+				{
+					// Find the digest matches any of the pending IPC digests
+					if (_dragNdropIpcDigests.size() == 1) // We only expect one pending digest at a time for drag & drop operations between 2 instances of Notepad++
+					{
+						// If the digest matches, remove it from the pending list and return a confirmation code
+						if (memcmp(_dragNdropIpcDigests[0].data(), pCopyData->lpData, sizeof(NppDigest)) == 0)
+						{
+							_dragNdropIpcDigests.erase(_dragNdropIpcDigests.begin());
+							return NPP_CONFIRM_MAGIC;
+						}
+					}
+				}
 				return TRUE;
+			}
+
+			//----------------------------------------------------------------------------------------//
+			// Otherwise: we received a normal IPC message from another instance of Notepad++
+			// (Usually via NppShell or command line with parameters)
+			//----------------------------------------------------------------------------------------//
 
 			// Ensure the data integrity via digest check
 			NppDigest dg;
 			if (!nppCopyDataDigest(pCopyData->dwData, pCopyData->lpData, pCopyData->cbData, dg))
 				return TRUE;
 
-			// Send back a confirmation message to the sender, so it can verify the integrity of the data
+			// Send back a confirmation request to the sender, so it can verify the integrity of the data
 			// Note: we will wait for the response NPP_CONFIRM_MAGIC for 1 second, then we will give up and ignore the data
 			COPYDATASTRUCT q { NPP_COPYDATA_CONFIRM, static_cast<DWORD>(dg.size()), dg.data() };
 			DWORD_PTR res = 0;

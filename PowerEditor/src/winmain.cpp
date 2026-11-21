@@ -889,6 +889,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	//Only after loading all the file paths set the working directory
 	::SetCurrentDirectory(NppParameters::getInstance().getNppPath().c_str());	//force working directory to path of module, preventing lock
 
+	// While using Explorer context menu "Edit with Notepad++" to open files into an existing Notepad++ instance
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);

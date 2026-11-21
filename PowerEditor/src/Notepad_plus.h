@@ -709,4 +709,6 @@ private:
 	int getIcoID(DockingDlgInterface* panel);
 	void loadPanelIcon(HINSTANCE hInst, DockingDlgInterface* panel, HICON* phIcon);
 	void refreshPanelIcon(HINSTANCE hInst, DockingDlgInterface* panel);
+
+	std::vector<NppDigest> _dragNdropIpcDigests;
 };

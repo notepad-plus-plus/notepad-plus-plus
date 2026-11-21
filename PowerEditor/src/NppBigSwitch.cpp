@@ -888,8 +888,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (pCopyData->lpData == nullptr || pCopyData->cbData == 0)
 				return TRUE; // invalid
 
-			if (pCopyData->dwData == NPP_COPYDATA_CONFIRM)
+			if (pCopyData->dwData == NPP_COPYDATA_CONFIRM) // happens when the other instance sends us a confirmation of our previously sent IPC message
+			{
+				// Check if the message is a confirmation of a previously sent IPC message
+				if (pCopyData->cbData == sizeof(NppDigest))
+				{
+					// Find the digest matches any of the pending IPC digests
+					if (_dragNdropIpcDigests.size() == 1)
+					{
+						// If the digest matches, remove it from the pending list and return a confirmation code
+						if (memcmp(_dragNdropIpcDigests[0].data(), pCopyData->lpData, sizeof(NppDigest)) == 0)
+						{
+							_dragNdropIpcDigests.erase(_dragNdropIpcDigests.begin());     // one-shot: a confirmation can't be replayed
+							return NPP_CONFIRM_MAGIC;
+						}
+					}
+				}
 				return TRUE;
+			}
 
 			// Ensure the data integrity via digest check
 			NppDigest dg;

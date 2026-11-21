@@ -89,6 +89,18 @@ public:
 		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::listview);
 	}
 
+	TaskLstFnStatus* getTlfs(size_t index) const {
+		LVITEM item{};
+		item.mask = LVIF_PARAM;
+		item.iItem = static_cast<int>(index);
+		ListView_GetItem(_hSelf, &item);
+		return reinterpret_cast<TaskLstFnStatus*>(item.lParam);
+	}
+
+	int getDocColor(size_t index) const {
+		return getTlfs(index)->_docColor;
+	}
+
 protected:
 	HIMAGELIST _hImaLst = nullptr;
 

@@ -252,8 +252,8 @@ struct CmdLineParamsDTO
 		dto._pos2go = params._pos2go;
 
 		dto._langType = params._langType;
-		wcsncpy(dto._udlName, params._udlName.c_str(), MAX_PATH);
-		wcsncpy(dto._pluginMessage, params._pluginMessage.c_str(), 2048);
+		::wcsncpy_s(dto._udlName, MAX_PATH, params._udlName.c_str(), _TRUNCATE);
+		::wcsncpy_s(dto._pluginMessage, 2048, params._pluginMessage.c_str(), _TRUNCATE);
 		return dto;
 	}
 };

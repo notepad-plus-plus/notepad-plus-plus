@@ -6878,16 +6878,19 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._openSaveDir = getRangeDefaultAttribute(childNode, "value", dir_followCurrent, dir_userDef, _nppGUI._openSaveDir);
 
 			const std::wstring path = string2wstring(NppXml::attribute(childNode, "defaultDirPath", ""));
+
 			if (!path.empty())
 			{
-				std::wcsncpy(_nppGUI._defaultDir, path.c_str(), MAX_PATH);
-				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
+				::wcsncpy_s(_nppGUI._defaultDir, MAX_PATH, path.c_str(), _TRUNCATE);
+				DWORD n = ::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
+				if (n == 0 || n > MAX_PATH)
+					_nppGUI._defaultDirExp[0] = L'\0';
 			}
 
 			const std::wstring lastPath = string2wstring(NppXml::attribute(childNode, "lastUsedDirPath", ""));
 			if (!lastPath.empty())
 			{
-				std::wcsncpy(_nppGUI._lastUsedDir, lastPath.c_str(), MAX_PATH);
+				::wcsncpy_s(_nppGUI._lastUsedDir, MAX_PATH, lastPath.c_str(), _TRUNCATE);
 			}
 		}
 		// <GUIConfig name="titleBar" short="no" />

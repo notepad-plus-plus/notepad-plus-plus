@@ -197,7 +197,7 @@ std::wstring NativeLangSpeaker::getSubMenuEntryName(const char* nodeName) const
 		if (idName)
 		{
 			const char* name = NppXml::attribute(childNode, "name");
-			if (std::strcmp(idName, nodeName) == 0)
+			if (name && std::strcmp(idName, nodeName) == 0)
 			{
 				return string2wstring(name, _nativeLangEncoding);
 			}
@@ -405,6 +405,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle) const
 			if (menuPos._x != -1)
 			{
 				const char* name = NppXml::attribute(childNode, "name");
+				if (!name) continue;
 				const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::ModifyMenu(menuHandle, menuPos._x, MF_BYPOSITION, 0, nameW);
 			}
@@ -418,6 +419,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle) const
 	{
 		const int id = NppXml::intAttribute(childNode, "id", 0);
 		const char* name = NppXml::attribute(childNode, "name");
+		if (!name) continue;
 
 		const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 		::ModifyMenu(menuHandle, id, MF_BYCOMMAND, id, nameW);
@@ -432,7 +434,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle) const
 		const char* subMenuIdStr = NppXml::attribute(childNode, "subMenuId");
 		const char* name = NppXml::attribute(childNode, "name");
 
-		if (nullptr == subMenuIdStr || nullptr == name)
+		if (!subMenuIdStr || !name)
 			continue;
 
 		const MenuPosition& menuPos = MenuPosition::getMenuPosition(subMenuIdStr);
@@ -504,6 +506,7 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM) const
 						continue;
 
 					const char* pName = NppXml::attribute(childNode, "name");
+					if (!pName) continue;
 					const wchar_t* pNameW = wmc.char2wchar(pName, _nativeLangEncoding);
 
 					if (cmd > nbSubEntry) // menu item CMD

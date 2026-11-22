@@ -394,7 +394,7 @@ bool ProjectPanel::openWorkSpace(const wchar_t* projectFileName, bool force)
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Project"))
 	{
-		const char* itemName = NppXml::attribute(childNode, "name");
+		const char* itemName = NppXml::attribute(childNode, "name", "");
 		HTREEITEM projectItem = _treeView.addItem(string2wstring(itemName).c_str(), rootItem, INDEX_PROJECT);
 		buildTreeFrom(childNode, projectItem);
 	}
@@ -570,7 +570,7 @@ bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM h
 		const char* nodeName = NppXml::getName(childNode);
 		if (std::strcmp(nodeName, "Folder") == 0)
 		{
-			const char* itemName = NppXml::attribute(childNode, "name");
+			const char* itemName = NppXml::attribute(childNode, "name", "");
 			HTREEITEM addedItem = _treeView.addItem(string2wstring(itemName).c_str(), hParentItem, INDEX_CLOSED_NODE);
 			if (NppXml::firstChild(childNode))
 			{
@@ -581,7 +581,7 @@ bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM h
 		}
 		else if (std::strcmp(nodeName, "File") == 0)
 		{
-			const std::wstring strValue = string2wstring(NppXml::attribute(childNode, "name"));
+			const std::wstring strValue = string2wstring(NppXml::attribute(childNode, "name", ""));
 			const std::wstring fullPath = getAbsoluteFilePath(strValue.c_str());
 
 			if (isUncPath(fullPath))

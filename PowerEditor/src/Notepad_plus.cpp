@@ -1004,12 +1004,8 @@ bool Notepad_plus::saveGUIParams()
 
 	if (_findReplaceDlg.getHSelf() != NULL)
 	{
-		::GetWindowPlacement(_findReplaceDlg.getHSelf(), &posInfo);
-
-		nppGUI._findWindowPos.left = posInfo.rcNormalPosition.left;
-		nppGUI._findWindowPos.top = posInfo.rcNormalPosition.top;
-		nppGUI._findWindowPos.right = posInfo.rcNormalPosition.right;
-		nppGUI._findWindowPos.bottom = posInfo.rcNormalPosition.bottom;
+		// Screen coordinates, as expected by SetWindowPos in FindReplaceDlg::doDialog
+		::GetWindowRect(_findReplaceDlg.getHSelf(), &nppGUI._findWindowPos);
 	}
 
 	saveDockingParams();

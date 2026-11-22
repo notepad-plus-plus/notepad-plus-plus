@@ -9068,6 +9068,93 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 	size_t start_comment_length = start_comment.length();
 	size_t end_comment_length = end_comment.length();
 
+	//-- SCFIND_WORDSTART for a comment symbol starting with a word character (e.g. "begin" of a UDL), so it is not found inside a longer word.
+	//   A symbol starting with another character (e.g. "<!--" or "/*") is searched without it: the word start rejects such a symbol right
+	//   after another punctuation character, e.g. the '=' in 'a=<!-- b -->'.
+	const size_t wordCharsLength = static_cast<size_t>(_pEditView->execute(SCI_GETWORDCHARS));
+	std::string wordChars(wordCharsLength + 1, '\0');
+	_pEditView->execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(wordChars.data()));
+	wordChars.resize(wordCharsLength);
+	const int startCommentFlags = (wordChars.find(start_comment[0]) != std::string::npos) ? SCFIND_WORDSTART : SCFIND_NONE;
+	const int endCommentFlags = (wordChars.find(end_comment[0]) != std::string::npos) ? SCFIND_WORDSTART : SCFIND_NONE;
+
+	//-- A punctuation symbol the word start would also find is taken as before. Any other one is taken only where the lexer's styling
+	//   shows a comment symbol: all its characters have one style which the lexer tags as "comment", and the style changes right before
+	//   a start symbol or right after an end symbol (or the document ends there). So a '/*' inside a string ('./*.js', `${dir}/*.js`)
+	//   or inside a comment ('//****') is skipped, and with a lexer which does not tag its styles the word start search is kept.
+	//   Either way, a symbol overlapping the other symbol which begins before it is skipped (the earlier symbol wins: the '/*' of
+	//   '*/*', the '*/' of '/*/', the '-->' of '<!--->').
+	auto searchSymbol = [this](const std::string& symbol, int flags, bool isStartSymbol, const std::string& otherSymbol, int otherFlags, intptr_t fromPos, intptr_t toPos)
+	{
+		const bool isForward = fromPos <= toPos;
+		const intptr_t symbolLength = static_cast<intptr_t>(symbol.length());
+		const intptr_t otherLength = static_cast<intptr_t>(otherSymbol.length());
+		const intptr_t docLength = _pEditView->execute(SCI_GETLENGTH);
+		while (true)
+		{
+			_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
+			const intptr_t pos = _pEditView->searchInTarget(symbol, fromPos, toPos);
+			if (pos == -1)
+				return pos;
+
+			bool isSkipped = false;
+			if (flags == SCFIND_NONE)
+			{
+				_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_WORDSTART);
+				if (_pEditView->searchInTarget(symbol, pos, pos + symbolLength) == -1)
+				{
+					const intptr_t edgePos = isStartSymbol ? pos - 1 : pos + symbolLength;
+					isSkipped = (edgePos < 0);
+					if (!isSkipped)
+					{
+						//-- Style from the line where the styling stopped, as Scintilla does, up to the character after the symbol
+						const intptr_t styledTo = std::min<intptr_t>(std::max<intptr_t>(edgePos, pos + symbolLength - 1) + 1, docLength);
+						const intptr_t endStyled = _pEditView->execute(SCI_GETENDSTYLED);
+						if (endStyled < styledTo)
+							_pEditView->execute(SCI_COLOURISE, _pEditView->execute(SCI_POSITIONFROMLINE, _pEditView->execute(SCI_LINEFROMPOSITION, endStyled)), styledTo);
+
+						const auto symbolStyle = _pEditView->execute(SCI_GETSTYLEINDEXAT, pos);
+						for (intptr_t i = pos + 1; i < pos + symbolLength && !isSkipped; ++i)
+							isSkipped = (_pEditView->execute(SCI_GETSTYLEINDEXAT, i) != symbolStyle);
+						if (!isSkipped && edgePos < docLength)
+							isSkipped = (_pEditView->execute(SCI_GETSTYLEINDEXAT, edgePos) == symbolStyle);
+						if (!isSkipped)
+						{
+							const size_t tagsLength = static_cast<size_t>(_pEditView->execute(SCI_TAGSOFSTYLE, symbolStyle, 0));
+							std::string tags(tagsLength + 1, '\0');
+							_pEditView->execute(SCI_TAGSOFSTYLE, symbolStyle, reinterpret_cast<LPARAM>(tags.data()));
+							tags.resize(tagsLength);
+							isSkipped = (" " + tags + " ").find(" comment ") == std::string::npos;
+						}
+					}
+				}
+			}
+			if (!isSkipped && otherLength > 1)
+			{
+				_pEditView->execute(SCI_SETSEARCHFLAGS, otherFlags);
+				const intptr_t otherFrom = std::max<intptr_t>(pos - otherLength + 1, 0);
+				const intptr_t otherTo = std::min<intptr_t>(pos + otherLength - 1, docLength);
+				const intptr_t otherPos = _pEditView->searchInTarget(otherSymbol, otherFrom, otherTo);
+				isSkipped = (otherPos != -1 && otherPos < pos);
+			}
+			if (!isSkipped)
+				return pos;
+
+			//-- Skip this match and search on in the same direction
+			fromPos = isForward ? pos + 1 : pos + symbolLength - 1;
+			if (isForward ? (fromPos > toPos) : (fromPos - toPos < symbolLength))
+				return static_cast<intptr_t>(-1);
+		}
+	};
+	auto searchStartComment = [&](intptr_t fromPos, intptr_t toPos)
+	{
+		return searchSymbol(start_comment, startCommentFlags, true, end_comment, endCommentFlags, fromPos, toPos);
+	};
+	auto searchEndComment = [&](intptr_t fromPos, intptr_t toPos)
+	{
+		return searchSymbol(end_comment, endCommentFlags, false, start_comment, startCommentFlags, fromPos, toPos);
+	};
+
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
 	// do as long as stream-comments are within selection
@@ -9090,24 +9177,21 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		bool blnStartCommentBefore[N_CMNT], blnEndCommentBefore[N_CMNT], blnStartCommentAfter[N_CMNT], blnEndCommentAfter[N_CMNT];
 		intptr_t posStartComment, posEndComment;
 		intptr_t selectionStartMove, selectionEndMove;
-		int flags;
 
 		//-- Directly use Scintilla-Functions
 		//   rather than _findReplaceDlg.processFindNext()which does not return the find-position and is not quiet!
-		flags = SCFIND_WORDSTART;
-		_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 		//-- Find all start- and end-comments before and after the selectionStart position.
 		//-- When searching upwards the start-position for searching must be moved one after the current position
 		//   to find a search-string just starting before the current position!
 		//-- Direction DIR_UP ---
-		posStartCommentBefore[iSelStart] = _pEditView->searchInTarget(start_comment, selectionStart, 0);
+		posStartCommentBefore[iSelStart] = searchStartComment(selectionStart, 0);
 		(posStartCommentBefore[iSelStart] == -1 ? blnStartCommentBefore[iSelStart] = false : blnStartCommentBefore[iSelStart] = true);
-		posEndCommentBefore[iSelStart] = _pEditView->searchInTarget(end_comment, selectionStart, 0);
+		posEndCommentBefore[iSelStart] = searchEndComment(selectionStart, 0);
 		(posEndCommentBefore[iSelStart] == -1 ? blnEndCommentBefore[iSelStart] = false : blnEndCommentBefore[iSelStart] = true);
 		//-- Direction DIR_DOWN ---
-		posStartCommentAfter[iSelStart] = _pEditView->searchInTarget(start_comment, selectionStart, docLength);
+		posStartCommentAfter[iSelStart] = searchStartComment(selectionStart, docLength);
 		(posStartCommentAfter[iSelStart] == -1 ? blnStartCommentAfter[iSelStart] = false : blnStartCommentAfter[iSelStart] = true);
-		posEndCommentAfter[iSelStart] = _pEditView->searchInTarget(end_comment, selectionStart, docLength);
+		posEndCommentAfter[iSelStart] = searchEndComment(selectionStart, docLength);
 		(posEndCommentAfter[iSelStart] == -1 ? blnEndCommentAfter[iSelStart] = false : blnEndCommentAfter[iSelStart] = true);
 
 		//-- Check, if selectionStart or selectionEnd is within a stream comment -----
@@ -9125,14 +9209,14 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		{
 			//-- Find all start- and end-comments before and after the selectionEnd position.
 			//-- Direction DIR_UP ---
-			posStartCommentBefore[iSelEnd] = _pEditView->searchInTarget(start_comment, selectionEnd, 0);
+			posStartCommentBefore[iSelEnd] = searchStartComment(selectionEnd, 0);
 			(posStartCommentBefore[iSelEnd] == -1 ? blnStartCommentBefore[iSelEnd] = false : blnStartCommentBefore[iSelEnd] = true);
-			posEndCommentBefore[iSelEnd] = _pEditView->searchInTarget(end_comment, selectionEnd, 0);
+			posEndCommentBefore[iSelEnd] = searchEndComment(selectionEnd, 0);
 			(posEndCommentBefore[iSelEnd] == -1 ? blnEndCommentBefore[iSelEnd] = false : blnEndCommentBefore[iSelEnd] = true);
 			//-- Direction DIR_DOWN ---
-			posStartCommentAfter[iSelEnd] = _pEditView->searchInTarget(start_comment, selectionEnd, docLength);
+			posStartCommentAfter[iSelEnd] = searchStartComment(selectionEnd, docLength);
 			(posStartCommentAfter[iSelEnd] == -1 ? blnStartCommentAfter[iSelEnd] = false : blnStartCommentAfter[iSelEnd] = true);
-			posEndCommentAfter[iSelEnd] = _pEditView->searchInTarget(end_comment, selectionEnd, docLength);
+			posEndCommentAfter[iSelEnd] = searchEndComment(selectionEnd, docLength);
 			(posEndCommentAfter[iSelEnd] == -1 ? blnEndCommentAfter[iSelEnd] = false : blnEndCommentAfter[iSelEnd] = true);
 
 			if ((blnStartCommentBefore[iSelEnd] && blnEndCommentAfter[iSelEnd])
@@ -9148,7 +9232,15 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 			{
 				//-- If there are more than one stream-comment within the selection, take the first one after selectionStart!!
 				posStartComment = posStartCommentAfter[iSelStart];
-				posEndComment = posEndCommentAfter[iSelStart];
+				//-- Its end-comment is the first one after the start-comment within the selection, not the first one after selectionStart:
+				//   in 'a-->b<!-- c -->' that one precedes the start-comment.
+				const intptr_t posAfterStartComment = posStartComment + static_cast<intptr_t>(start_comment_length);
+				posEndComment = (posAfterStartComment <= selectionEnd) ? searchEndComment(posAfterStartComment, selectionEnd) : -1;
+				if (posEndComment == -1)
+				{
+					_pEditView->execute(SCI_ENDUNDOACTION);
+					return retVal;
+				}
 			}
 			//-- Finally, if there is no stream-comment, return
 			else

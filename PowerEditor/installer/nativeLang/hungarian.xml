@@ -1041,6 +1041,7 @@
 					<Item id="6245" name="S&amp;orvégi virtuális szóközök engedélyezése"/>
 					<Item id="6214" name="Ki&amp;jelölés nélküli sormásolás és -kivágás engedélyezése"/>
 					<Item id="6266" name="A kijel&amp;ölt szöveg „fogd és vidd” műveletének letiltása"/>
+					<Item id="6280" name="Szöveg&amp;tördelés engedélyezése alapértelmezetten minden dokumentumnál"/>
 					<Item id="6225" name="Eg&amp;yéni szín a kijelölt szöveg előteréhez"/>
 					<Item id="6651" name="Aktuálissor-jelölés"/>
 					<Item id="6652" name="&amp;Nincs"/>
@@ -1648,6 +1649,7 @@ Biztonsági okokból, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. 
 			<SymlinkLoadingWarning title="Figyelem: a szimbolikus linkek betöltése a Notepad++ lefagyásához vezethet" message="A szimbolikus linkek betöltésének engedélyezése a „Mappa munkaterületként” panelen azt eredményezheti, hogy a Notepad++ végtelen ciklusba kerül és lefagy.
 Ez akkor fordulhat elő, ha a könyvtár szimbolikus linkjei a szülőmappákra mutatnak, vagy körkörös hivatkozásokat képeznek.
 Csak akkor folytassa, ha tisztában van a kockázatokkal."/>
+			<UnPin2Sort title="Laprendezési kérdés" message="A kitűzött fájlok nem rendezhetők. Feloldja előbb az összes fájl kitűzését?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Vágólap-előzmények"/>

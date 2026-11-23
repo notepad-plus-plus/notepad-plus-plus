@@ -1648,6 +1648,7 @@ Var god granska den öppnade filen shortcuts.xml av säkerhetsskäl. Använd &qu
 			<SymlinkLoadingWarning title="Varning: Programmet kan fastna om symboliska länkar läses in" message="Om inläsning av symboliska länkar aktiveras i &quot;Mapp som arbetsyta&quot; kan det få Notepad++ att hamna i en oändlig loop och fastna.
 Detta kan hända när symboliska länkar för mappar pekar på överordnade mappar eller skapar cirkulära referenser.
 Fortsätt endast om du förstår riskerna."/>
+		<UnPin2Sort title="Fråga om fliksortering" message="Kan inte sortera fästa filer. Vill du frigöra alla fästa filer först?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>

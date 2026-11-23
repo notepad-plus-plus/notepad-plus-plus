@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
-			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+), Oct. 20th (v8.9.8.1+)
+			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+), Oct. 20th (v8.9.8.1+), Nov. 23rd (v8.9.9.1+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -38,7 +38,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.8.1">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.9.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -484,7 +484,7 @@ Additionnal information about Corsican localization:
 				<Item CMDID="41014" name="Ricaricà"/>
 				<Item CMDID="41010" name="Stampà…"/>
 				<Item CMDID="42028" name="Lettura sola in Notepad++"/>
-				<Item CMDID="42033" name="Attributu di lettura sola in Windows"/>		  
+				<Item CMDID="42033" name="Attributu di lettura sola in Windows"/>
 				<Item CMDID="2" name="Cupià in u preme’papei"/>
 				<Item CMDID="42029" name="Cupià u chjassu cumpletu di schedariu"/>
 				<Item CMDID="42030" name="Cupià u nome di schedariu"/>
@@ -1652,12 +1652,12 @@ U modu d’arregistramentu tutale in lettura sola di Notepad++ hà impeditu d’
 			<NotEnoughRoom4Saving title="Fiascu di l’arregistramentu" message="Fiascu à l’arregistramentu di u schedariu.
 Pare ch’ella ùn ci sia abbastanza piazza nant’à u discu per arregistrà u schedariu. U vostru schedariu ùn hè micca arregistratu."/>
 			<FileInaccessibleUserSession title="Schedariu inaccessibile" message="Certi schedarii di a vostra sessione arregistrata manualmente « $STR_REPLACE$ » sò inaccessibile. Ponu esse aperti cum’è ducumenti vioti è in lettura sola tale spazii riservati.
-			
+
 Vulete creà sti spazii riservati per elli ?
 
 NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli dopu, a vostra sessione arregistrata manualmente ùn serà MICCA mudificata à l’esce."/>
 			<FileInaccessibleDefaultSessionXml title="Schedariu inaccessibile" message="Certi schedarii di a vostra sessione anziana sò inaccessibile. Ponu esse aperti cum’è ducumenti vioti è in lettura sola tale spazii riservati.
-			
+
 Vulete creà sti spazii riservati per elli ?
 
 NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli dopu, u vostru schedariu di sessione serà mudificatu à l’esce. Vi ricumandemu di fà subitu una salvaguardia di u vostru schedariu di sessione « session.xml »."/>
@@ -1665,7 +1665,7 @@ NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli 
 			<FileMemoryAllocationFailed title="Sbagliu : fiascu d’attribuzione di memoria" message="Forse ùn ci hè abbastanza memoria quanciana libera per chì u schedariu sia caricatu da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Ricerca RegEx à l’arritrosa disattivata" message="Di regula, a ricerca RegEx à l’arritrosa hè disattivata per via di risultati imprevisti pussibule. Per effettuà una ricerca à l’arritrosa, aprite a finestra di dialogu di ricerca è selezziunate, sia u modu di ricerca nurmale, sia u modu espertu, invece chì l’espressione regulare.
 Appughjate nant’à u buttone Vai per apre a finestra di dialogu di ricerca o piazzateci u puntu fucale.
-			
+
 S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjite l’istruzzioni per attivalla in u manuale di l’utilizatore."/>
 			<PrintError title="0" message="Ùn si pò lancià u ducumentu di stampetta."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Avertimentu di ricerca" message="U statu di l’ozzione « In a selezzione » hè statu mudificatu autumaticamente.
@@ -1684,6 +1684,7 @@ Per raghjoni di sicurità, ci vole à esaminà u schedariu shortcuts.xml chì h�
 			<SymlinkLoadingWarning title="Avertimentu : u caricamentu di i liami simbolichi pò cagiunà un blucchime" message="L’attivazione di u caricamentu di i liami simbulichi in u cartulare cum’è spaziu di travagliu pò fà entre Notepad++ in un ciclu senza fine è si finisce da un blucchime.
 Què pò accade quandu certi liami simbolichi si facenu versu cartulari di livellu superiore o creanu referenze circulare.
 Cuntinuate solu s’è vo capite i risichi."/>
+			<UnPin2Sort title="Dumanda d’ordine di l’unghjette" message="Ùn si pò micca ordinà i schedarii spirlati. Prima dispirlà tutti i schedarii spirlati ?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1824,6 +1825,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selezziunà u cartulare per facci a ricerca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Riempie u campu Cartulare secondu à u ducumentu attivu"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="Mette in evidenza tutte e currispundenze di a ricerca attuale in u ducumentu attivu durante a stampittera"/>
 			<find-status-top-reached value="Circà : U principiu di u ducumentu hè statu toccu, prima occurrenza trova da a fine."/>
 			<find-status-end-reached value="Circà : A fine di u ducumentu hè stata tocca, prima occurrenza trova da u principiu."/>
 			<find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>

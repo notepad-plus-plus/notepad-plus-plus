@@ -1041,6 +1041,7 @@ Translation note:
 					<Item id="6245" name="Aktivera virtuellt utrymme"/>
 					<Item id="6214" name="Kopiera/klipp ut aktuell rad när ingenting är markerat"/>
 					<Item id="6266" name="Inaktivera drag-och-släpp för markerad text"/>
+					<Item id="6280" name="Aktivera radbrytning som standard för varje dokument"/>
 					<Item id="6225" name="Tillämpa anpassad förgrundsfärg på markerad text"/>
 					<Item id="6651" name="Indikator för aktuell rad"/>
 					<Item id="6652" name="Ingen"/>

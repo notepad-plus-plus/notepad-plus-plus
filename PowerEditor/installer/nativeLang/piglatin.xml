@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
-
-
 <NotepadPlus>
-	<Native-Langue name="Pig Latin" filename="piglatin.xml" version="8.9.8.1">
+	<Native-Langue name="Pig Latin" filename="piglatin.xml" version="8.9.9.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -845,6 +840,7 @@
 				<Folder title="Olderfay &amp;&amp; Efaultday">
 					<Item id="21101" name="Efaultday ylestay"/>
 					<Item id="21102" name="Ylerstay"/>
+					<Item id="21103" name="Useryay Efinedday Anguageslay onlineyay elphay"/>
 					<Item id="21105" name="Ocumentationday:"/>
 					<Item id="21104" name="Emporarytay ocday itesay:"/>
 					<Item id="21106" name="Oldfay ompa&amp;ctcay (oldfay emptyyay ineslay ootay)"/>
@@ -1145,7 +1141,7 @@
 				</DefaultDir>
 
 				<FileAssoc title="Ilefay Associationyay">
-					<Item id="4009" name="Easeplay exityay Notepad++ andyay elaunchray Notepad++ inyay Administratoryay odemay otay useyay isthay eaturefay."/>
+					<Item id="4008" name="Easeplay exityay Notepad++ andyay elaunchray Notepad++ inyay Administratoryay odemay otay useyay isthay eaturefay."/>
 					<Item id="4009" name="Upportedsay extensionsyay:"/>
 					<Item id="4010" name="Egisteredray extensionsyay:"/>
 				</FileAssoc>
@@ -1282,7 +1278,7 @@
 					<Item id="6824" name="Ignoreyay umbersnay"/>
 					<Item id="6811" name="Omfray"/>
 					<Item id="6813" name="th aracterchay"/>
-					<Item id="6814" name="Alidvay aluevay : 1 - 9"/>
+					<Item id="6872" name="Akemay autoyay-ompletioncay istlay iefbray"/>
 					<Item id="6815" name="Unctionfay arameterspay inthay onyay inputyay"/>
 					<Item id="6851" name="Autoyay-Insertyay"/>
 					<Item id="6857" name=" html/xml oseclay agtay"/>
@@ -1648,6 +1644,7 @@ Orfay ecuritysay easonsray, easeplay eviewray ethay openedyay shortcuts.lxmay. I
 			<SymlinkLoadingWarning title="Arningway: Ymlinksay Oadinglay Aymay Ausecay Eezefray" message="Enablingyay ymlinksay oadinglay inyay Olderfay asyay Orkspaceway aymay ausecay Notepad++ otay enteryay anyay infiniteyay ooplay andyay eezefray.
 Isthay ancay appenhay enwhay irectoryday ymlinkssay esolveray otay arentpay oldersfay oryay ormfay ircularcay eferencesray.
 Oceedpray onlyyay ifyay youyay understandyay ethay isksray."/>
+			<UnPin2Sort title="Ortsay abstay uestionqay" message="Annotcay ortsay innedpay ilesfay. Unpinyay allyay innedpay ilesfay irstlyfay?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Ipboardclay Istoryhay"/>
@@ -1737,6 +1734,7 @@ Oceedpray onlyyay ifyay youyay understandyay ethay isksray."/>
 					<Item id="3118" name="Ovemay Upyay"/>
 					<Item id="3119" name="Ovemay Ownday"/>
 				</ProjectMenu>
+				<FolderMenu>
 					<Item id="3111" name="Enameray"/>
 					<Item id="3112" name="Addyay Olderfay"/>
 					<Item id="3113" name="Addyay Ilesfay..."/>
@@ -1744,7 +1742,6 @@ Oceedpray onlyyay ifyay youyay understandyay ethay isksray."/>
 					<Item id="3114" name="Emoveray"/>
 					<Item id="3118" name="Ovemay Upyay"/>
 					<Item id="3119" name="Ovemay Ownday"/>
-				<FolderMenu>
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="Enameray"/>
@@ -1788,6 +1785,7 @@ Indfay inyay allyay ilesfay utbay excludeyay allyay oldersfay log oryay logs ecu
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Fill Directory field based on active document"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="Ighlighthay allyay atchesmay ofyay ethay urrentcay earchsay inyay ethay activeyay ocumentday ilewhay ypingtay"/>
 			<find-status-top-reached value="Indfay: Oundfay ethay 1st occurrenceyay omfray ethay ottombay. Ethay eginningbay ofyay ethay ocumentday ashay eenbay eachedray."/>
 			<find-status-end-reached value="Indfay: Oundfay ethay 1st occurrenceyay omfray ethay optay. Ethay endyay ofyay ethay ocumentday ashay eenbay eachedray."/>
 			<find-status-replaceinfiles-1-replaced value="Eplaceray inyay Ilesfay: 1 occurrenceyay asway eplacedray"/>
@@ -1826,6 +1824,7 @@ Ethay exttay astedpay intoyay isthay ieldfay includesyay invisibleyay (aybemay i
 			<finder-collapse-all value="Ollapsecay allyay"/>
 			<finder-uncollapse-all value="Uncollapseyay allyay"/>
 			<finder-copy value="Opycay"/>
+			<finder-copy-selected-paths value="Opycay Electedsay Athname(s)pay"/>
 			<finder-select-all value="Electsay allyay"/>
 			<finder-clear-all value="Earclay allyay"/>
 			<finder-open-selected-paths value="Openyay Electedsay Athname(s)pay"/>

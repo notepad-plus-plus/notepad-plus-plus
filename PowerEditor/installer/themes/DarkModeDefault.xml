@@ -4,7 +4,7 @@ Dark mode default style for Notepad++.
 This file is based on Zenburn them (zenburn.xml)
 License:             GPL2
 -->
-<NotepadPlus modelDate="20261117" modelFileLastModifiedDate="20261118">
+<NotepadPlus modelDate="20261125" modelFileLastModifiedDate="20261118">
     <LexerStyles>
         <LexerType name="actionscript" desc="ActionScript" ext="">
             <WordsStyle name="DEFAULT" styleID="11" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />

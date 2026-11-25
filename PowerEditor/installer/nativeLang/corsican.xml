@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
-			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+), Oct. 20th (v8.9.8.1+), Nov. 23rd (v8.9.9.1+)
+			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+), Oct. 20th (v8.9.8.1+), Nov. 25th (v8.9.9.1+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -1073,6 +1073,7 @@ Additionnal information about Corsican localization:
 					<Item id="6245" name="Attivà u spaziu virtuale"/>
 					<Item id="6214" name="Attivà a copia o a tagliatura di linea senza selezzione"/>
 					<Item id="6266" name="Disattivà u sguillà è depone di u testu selezziunatu"/>
+					<Item id="6280" name="Attivà u ritornu autumaticu à a linea cum’è predefinizione per ogni ducumentu"/>
 					<Item id="6225" name="Appiecà u culore persunalizatu à u primu pianu di u testu selezziunatu"/>
 					<Item id="6651" name="Indicadore di linea currente"/>
 					<Item id="6652" name="Nisunu"/>

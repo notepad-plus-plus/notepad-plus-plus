@@ -128,7 +128,16 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 
 	if (cmdLineParams->isPointValid())
 	{
-		::MoveWindow(_hSelf, cmdLineParams->_point.x, cmdLineParams->_point.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
+		// Keep the window icon on the screen, so that the window can still be reached
+		POINT pt = cmdLineParams->_point;
+		MONITORINFO mi{ sizeof(mi) };
+		::GetMonitorInfo(::MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST), &mi);
+		const UINT dpi = DPIManagerV2::getDpiForWindow(_hSelf);
+		const LONG border = DPIManagerV2::getSystemMetricsForDpi(SM_CXSIZEFRAME, dpi) + DPIManagerV2::getSystemMetricsForDpi(SM_CXPADDEDBORDER, dpi);
+		const LONG iconArea = border + DPIManagerV2::getSystemMetricsForDpi(SM_CYCAPTION, dpi);
+		pt.x = std::max(mi.rcWork.left - border, std::min(pt.x, mi.rcWork.right - iconArea));
+		pt.y = std::max(mi.rcWork.top, std::min(pt.y, mi.rcWork.bottom - iconArea));
+		::MoveWindow(_hSelf, pt.x, pt.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 	}
 	else
 	{

@@ -726,9 +726,8 @@ void FunctionListPanel::setTVImageList()
 	};
 
 	const auto imgIds = _treeView.getImageIds(stdIds, darkIds, lightIds);
-	const int imgSize = _dpiManager.scale(g_treeviewIcoSize);
-	_treeView.setImageList(imgIds, imgSize);
-	_treeViewSearchResult.setImageList(imgIds, imgSize);
+	_treeView.setImageList(imgIds);
+	_treeViewSearchResult.setImageList(imgIds);
 }
 
 intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

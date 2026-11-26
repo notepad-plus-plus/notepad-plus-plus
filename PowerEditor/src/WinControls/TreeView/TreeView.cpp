@@ -323,7 +323,7 @@ bool TreeView::setImageList(std::span<const int> imageIds, int imgSize)
 		imgSize = g_treeviewIcoSize;
 
 	// Creation of image list
-	int dpiImgSize = DPIManagerV2::scale(imgSize, _hParent);
+	const int dpiImgSize = DPIManagerV2::scale(imgSize, _hParent);
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	const bool useStdIcons = nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD;

@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 
+#include "NppDarkMode.h"
 #include "Window.h"
 
 struct columnInfo {
@@ -33,11 +34,42 @@ struct columnInfo {
 	columnInfo(const std::wstring& label, size_t width) : _width(width), _label(label) {}
 };
 
-class ListView : public Window
+class ListViewBase : public Window
+{
+public:
+	ListViewBase() = default;
+	~ListViewBase() override = default;
+
+	virtual void init(HINSTANCE hInst, HWND hParent, UINT_PTR listViewID,
+		DWORD style = LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER,
+		DWORD exStyle = LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER);
+
+	void destroy() override;
+
+	void setDarkTheme() {
+		NppDarkMode::setDarkListView(_hSelf);
+		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::listview);
+	}
+
+	static void subclassParentNotifyListViewCustomDraw(HWND hParent, UINT_PTR listViewID);
+
+protected:
+	using Window::init;
+
+private:
+	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) noexcept;
+	static LRESULT CALLBACK ListViewParentNotifyCustomDrawSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData) noexcept;
+};
+
+class ListView : public ListViewBase
 {
 public:
 	ListView() = default;
 	~ListView() override = default;
+
+	void init(HINSTANCE hInst, HWND parent, UINT_PTR listViewID,
+		DWORD style = LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER,
+		DWORD exStyle = LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER) override;
 
 	enum SortDirection {
 		sortEncrease = 0,
@@ -55,14 +87,9 @@ public:
 		ListView_SetColumn(_hSelf, i, &lvColumn);
 	}
 
-	// setStyleOption() should be called before init()
-	void setStyleOption(DWORD extraStyle) {
-		_extraStyle = extraStyle;
-	}
-
 	size_t findAlphabeticalOrderPos(const std::wstring& string2Cmp, SortDirection sortDir);
 
-	void addLine(const std::vector<std::wstring> & values2Add, LPARAM lParam = 0, int pos2insert = -1);
+	void addLine(std::vector<std::wstring>& values2Add, LPARAM lParam = 0, int pos2insert = -1);
 	
 	size_t nbItem() const {
 		return ListView_GetItemCount(_hSelf);
@@ -89,10 +116,6 @@ public:
 
 	std::vector<size_t> getCheckedIndexes() const;
 
-	void init(HINSTANCE hInst, HWND parent) override;
-	void destroy() override;
-
 protected:
-	DWORD _extraStyle = 0;
 	std::vector<columnInfo> _columnInfos;
 };

@@ -23,7 +23,7 @@ constexpr unsigned char IndexFromChar(char ch) {
 
 }
 
-CaseFolderTable::CaseFolderTable() noexcept : mapping{}  {
+CaseFolderTable::CaseFolderTable() noexcept {
 	StandardASCII();
 }
 
@@ -55,7 +55,6 @@ size_t CaseFolderUnicode::Fold(char *folded, size_t sizeFolded, const char *mixe
 	if ((lenMixed == 1) && (sizeFolded > 0)) {
 		folded[0] = mapping[IndexFromChar(mixed[0])];
 		return 1;
-	} else {
-		return converter->CaseConvertString(folded, sizeFolded, mixed, lenMixed);
 	}
+	return converter->CaseConvertString(folded, sizeFolded, mixed, lenMixed);
 }

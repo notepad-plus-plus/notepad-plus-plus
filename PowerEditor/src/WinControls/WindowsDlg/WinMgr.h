@@ -13,13 +13,14 @@
 
 #pragma once
 
-#include <algorithm>
-#include <assert.h>
 #include <windows.h>
 
+#include <algorithm>
+#include <cassert>
+#include <climits>
 
-const SIZE SIZEZERO = {0, 0};
-const SIZE SIZEMAX = {SHRT_MAX, SHRT_MAX};
+inline constexpr SIZE SIZEZERO = { 0, 0 };
+inline constexpr SIZE SIZEMAX = { SHRT_MAX, SHRT_MAX };
 
 inline SIZE GetSize(LONG w, LONG h) { 
 	SIZE sz = {w, h}; return sz; 
@@ -225,14 +226,14 @@ struct NMWINMGR : public NMHDR {
 //
 class CWinMgr /*: public CObject*/ {
 public:
-	explicit CWinMgr(WINRECT* map);
+	explicit CWinMgr(WINRECT* pWinMap);
 	virtual ~CWinMgr();
 
 	virtual void GetWindowPositions(HWND hWnd); // load map from window posns
 	virtual void SetWindowPositions(HWND hWnd); // set window posns from map
 
 	// get min/max/desired size of a rectangle
-	virtual void OnGetSizeInfo(SIZEINFO& szi, WINRECT* pwrc, HWND hWnd=NULL);
+	virtual void OnGetSizeInfo(SIZEINFO& szi, WINRECT* wrc, HWND hWnd = nullptr);
 
 	// calc layout using client area as total area
 	void CalcLayout(HWND hWnd) {
@@ -282,8 +283,8 @@ protected:
 	BOOL SendGetSizeInfo(SIZEINFO& szi, HWND hWnd, UINT nID);
 
 	// you can override to do wierd stuff or fix bugs
-	virtual void CalcGroup(WINRECT* group, HWND hWnd);
-	virtual void AdjustSize(WINRECT* pEntry, BOOL bRow,
+	virtual void CalcGroup(WINRECT* pGroup, HWND hWnd);
+	virtual void AdjustSize(WINRECT* wrc, BOOL bRow,
 		int& hwRemaining, HWND hWnd);
 	virtual void PositionRects(WINRECT* pGroup,
 		const RECT& rcTotal,BOOL bRow);

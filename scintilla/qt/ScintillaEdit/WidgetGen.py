@@ -237,7 +237,7 @@ def readInterface(cleanGenerated):
 	if not cleanGenerated:
 		# pickUpPixels lets Face apply the '## ... pixels ...' annotations so the
 		# pixel slots come back typed as "pixels"; the int + _f twins follow.
-		f.ReadFromFile("../../include/Scintilla.iface", pickUpPixels=True)
+		f.ReadFromFile("../../include/Scintilla.iface")
 	return f
 
 def main(argv):

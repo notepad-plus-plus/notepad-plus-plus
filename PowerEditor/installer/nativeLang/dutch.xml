@@ -9,7 +9,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2026-07-11 by BdR76.
+Last modified on 2026-10-12 by BdR76.
 -->
 <NotepadPlus>
 	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.9.6.4">
@@ -982,6 +982,9 @@ Last modified on 2026-07-11 by BdR76.
 					<Item id="6132" name="Snelkoppelingen ＋ ▼ ✕ rechts verbergen"/>
 					<Item id="6133" name="Statusbalk"/>
 					<Item id="6134" name="Verbergen"/>
+					<Item id="7165" name="Dialoogvenster-lettertype (vereist opnieuw opstarten Notepad++)"/>
+					<Item id="7166" name="&amp;Grootte:"/>
+					<Item id="7168" name="Naam:"/>
 				</Global>
 
 				<Toolbar title="Werkbalk">
@@ -1816,6 +1819,7 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-status-replace-readonly value="Vervangen: kan tekst niet vervangen. Huidig document is alleen-lezen"/>
 			<find-status-cannot-find value="Zoeken: kan tekst &quot;$STR_REPLACE$&quot; niet vinden"/>
 			<find-status-cannot-find-pebkac-maybe value="De opgegeven treffer kan niet worden gevonden. Misschien bent u vergeten om &quot;Documenteinde negeren&quot; aan, &quot;Hoofdlettergevoelig&quot; uit, of &quot;Alleen volledige woorden&quot; uit te vinken."/>
+			<find-status-regex-find-empty-string value="De opgegeven reguliere expressie komt overeen met lege tekenreeksen."/>
 			<find-status-scope-selection value="in geselecteerde tekst"/>
 			<find-status-scope-all value="in volledig bestand"/>
 			<find-status-scope-backward value="vanaf begin van bestand tot cursor"/>
@@ -1954,6 +1958,9 @@ Als u de geavanceerde modus selecteert maar geen bestanden in de bovengenoemde t
 			<max-len-on-save-tip value="Uw invoer is mogelijk te lang om opgeslagen te worden voor de volgende sessie."/>
 			<goto-setting-tip value="Zoek hier uw instelling"/>
 			<tabbar-tabcompactlabellen-tip value="Beperkt de zichtbare lengte van lange tabbladnamen. Voer een waarde van 1 tot 257 tekens in of 0 om niet af te breken."/>
+			<networkpathwarning-serverwhitelist-tip value="Voegt de server van het huidige bestand toe aan serverWhiteList.xml van Notepad++.
+
+Voor meer informatie, klik op deze knop om naar het relevante gedeelte van de gebruikershandleiding te gaan."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

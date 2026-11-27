@@ -29,10 +29,12 @@
 #include <string>
 #include <vector>
 
+#include "AboutDlg.h"
 #include "Common.h"
 #include "CustomFileDialog.h"
 #include "DockingDlgInterface.h"
 #include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "NppXml.h"
 #include "Parameters.h"
@@ -42,7 +44,6 @@
 #include "localization.h"
 #include "menuCmdID.h"
 #include "resource.h"
-#include "AboutDlg.h"
 
 enum TvIndex : int
 {
@@ -56,6 +57,33 @@ enum TvIndex : int
 };
 
 using namespace std;
+
+void ProjectPanel::setTVImageList()
+{
+	static constexpr std::array stdIds{
+		IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY,
+		IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN,
+		IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE,
+		IDI_PROJECT_FILEINVALID
+	};
+
+	static constexpr std::array darkIds{
+		IDI_PROJECT_WORKSPACE_DM, IDI_PROJECT_WORKSPACEDIRTY_DM,
+		IDI_PROJECT_PROJECT_DM, IDI_PROJECT_FOLDEROPEN_DM,
+		IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM,
+		IDI_PROJECT_FILEINVALID_DM
+	};
+
+	static constexpr std::array lightIds{
+		IDI_PROJECT_WORKSPACE2, IDI_PROJECT_WORKSPACEDIRTY2,
+		IDI_PROJECT_PROJECT2, IDI_PROJECT_FOLDEROPEN2,
+		IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2,
+		IDI_PROJECT_FILEINVALID2
+	};
+
+	const auto imgIds = _treeView.getImageIds(stdIds, darkIds, lightIds);
+	_treeView.setImageList(imgIds);
+}
 
 intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -94,14 +122,8 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
-			std::vector<int> imgIds = _treeView.getImageIds(
-				{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID }
-				, { IDI_PROJECT_WORKSPACE_DM, IDI_PROJECT_WORKSPACEDIRTY_DM, IDI_PROJECT_PROJECT_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM, IDI_PROJECT_FILEINVALID_DM }
-				, { IDI_PROJECT_WORKSPACE2, IDI_PROJECT_WORKSPACEDIRTY2, IDI_PROJECT_PROJECT2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2, IDI_PROJECT_FILEINVALID2 }
-			);
-
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
-			_treeView.setImageList(imgIds);
+			setTVImageList();
 
 			_treeView.addCanNotDropInList(INDEX_LEAF);
 			_treeView.addCanNotDropInList(INDEX_LEAF_INVALID);
@@ -131,13 +153,7 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			}
 
-			std::vector<int> imgIds = _treeView.getImageIds(
-				{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID }
-				, { IDI_PROJECT_WORKSPACE_DM, IDI_PROJECT_WORKSPACEDIRTY_DM, IDI_PROJECT_PROJECT_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM, IDI_PROJECT_FILEINVALID_DM }
-				, { IDI_PROJECT_WORKSPACE2, IDI_PROJECT_WORKSPACEDIRTY2, IDI_PROJECT_PROJECT2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2, IDI_PROJECT_FILEINVALID2 }
-			);
-
-			_treeView.setImageList(imgIds);
+			setTVImageList();
 
 			return TRUE;
 		}
@@ -378,7 +394,7 @@ bool ProjectPanel::openWorkSpace(const wchar_t* projectFileName, bool force)
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Project"))
 	{
-		const char* itemName = NppXml::attribute(childNode, "name");
+		const char* itemName = NppXml::attribute(childNode, "name", "");
 		HTREEITEM projectItem = _treeView.addItem(string2wstring(itemName).c_str(), rootItem, INDEX_PROJECT);
 		buildTreeFrom(childNode, projectItem);
 	}
@@ -554,7 +570,7 @@ bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM h
 		const char* nodeName = NppXml::getName(childNode);
 		if (std::strcmp(nodeName, "Folder") == 0)
 		{
-			const char* itemName = NppXml::attribute(childNode, "name");
+			const char* itemName = NppXml::attribute(childNode, "name", "");
 			HTREEITEM addedItem = _treeView.addItem(string2wstring(itemName).c_str(), hParentItem, INDEX_CLOSED_NODE);
 			if (NppXml::firstChild(childNode))
 			{
@@ -565,7 +581,7 @@ bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM h
 		}
 		else if (std::strcmp(nodeName, "File") == 0)
 		{
-			const std::wstring strValue = string2wstring(NppXml::attribute(childNode, "name"));
+			const std::wstring strValue = string2wstring(NppXml::attribute(childNode, "name", ""));
 			const std::wstring fullPath = getAbsoluteFilePath(strValue.c_str());
 
 			if (isUncPath(fullPath))

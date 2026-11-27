@@ -71,6 +71,11 @@
 {66}// Inactive
 {9}#endif
 {0}
+{2}// Test incomplete macro invocation
+{9}#if MULTIPLY(
+{66}// Inactive
+{9}#endif
+{0}
 {5}int{0} {11}main{10}(){0} {10}{{0}
 {9}#region array declarations
 {0}	{11}double{0} {11}x{10}[]{0} {10}={0} {10}{{4}3.14159{10},{4}6.02e23{10},{4}1.6e-19{10},{4}1.0{10}+{4}1{10}};{0}

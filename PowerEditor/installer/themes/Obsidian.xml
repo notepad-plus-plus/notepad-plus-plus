@@ -190,6 +190,7 @@ Notepad++ Custom Style
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="6C788C" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="6C788C" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="6C788C" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="USERLITERAL" styleID="25" fgColor="F7D253" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
             <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
             <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
@@ -2009,7 +2010,7 @@ Notepad++ Custom Style
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="A6AA00"></WidgetStyle>
         <WidgetStyle name="Mark Style 4" styleID="22" bgColor="8A0B0B"></WidgetStyle>
         <WidgetStyle name="Mark Style 5" styleID="21" bgColor="44116F"></WidgetStyle>
-        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="0080FF"></WidgetStyle>
+        <WidgetStyle name="Find matches highlight all" styleID="28" bgColor="0080FF"></WidgetStyle>
         <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="4D5C62"></WidgetStyle>
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="93975E"></WidgetStyle>
         <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="FAAA3C"></WidgetStyle>

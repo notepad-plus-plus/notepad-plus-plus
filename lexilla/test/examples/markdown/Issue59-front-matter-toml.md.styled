@@ -1,0 +1,10 @@
+{22}+++
+{24}title{23} = "My Article Title"
+{24}date{23} = 2024-01-15
+{24}author{23} = "John Doe"
+{24}tags{23} = ["markdown", "tutorial", "web"]
+{22}+++
+{1}
+{6}#{0} Article Content Starts Here{1}
+
+{0}Your regular Markdown content follows...{1}

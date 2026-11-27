@@ -327,7 +327,9 @@ void SCI_METHOD LexerDMIS::Fold(Sci_PositionU startPos, Sci_Position lengthDoc, 
 
 		if (foldWordPossible) {
 			if (setDMISFoldWord.Contains(ch)) {
-				tmpStr[strPos++] = ch;
+				if (strPos < MAX_STR_LEN-1) {
+					tmpStr[strPos++] = ch;
+				}
 			} else {
 				tmpStr = this->UpperCase(tmpStr);
 				if (this->m_codeFoldingStart.InList(tmpStr) && (!noFoldPos)) {
@@ -342,7 +344,9 @@ void SCI_METHOD LexerDMIS::Fold(Sci_PositionU startPos, Sci_Position lengthDoc, 
 			};
 		} else {
 			if (setDMISFoldWord.Contains(ch)) {
-				tmpStr[strPos++] = ch;
+				if (strPos < MAX_STR_LEN-1) {
+					tmpStr[strPos++] = ch;
+				}
 				foldWordPossible = true;
 			};
 		};

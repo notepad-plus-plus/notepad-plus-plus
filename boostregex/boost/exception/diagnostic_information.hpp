@@ -205,6 +205,65 @@ boost
 #endif
         return w;
         }
+
+    namespace
+    exception_detail
+        {
+        template <class Encoder>
+        void
+        serialize_diagnostic_information_to_impl_( boost::exception const * be, std::exception const * se, Encoder & e )
+            {
+            if( !be && !se )
+                return;
+#ifndef BOOST_NO_RTTI
+            if( !be )
+                be=dynamic_cast<boost::exception const *>(se);
+            if( !se )
+                se=dynamic_cast<std::exception const *>(be);
+#endif
+            if( be )
+                {
+                if( char const * const * f=get_error_info<throw_file>(*be) )
+                    output_at(e, *f, "throw_file");
+                if( int const * l=get_error_info<throw_line>(*be) )
+                    output_at(e, *l, "throw_line");
+                if( char const * const * fn=get_error_info<throw_function>(*be) )
+                    output_at(e, *fn, "throw_function");
+                }
+#ifndef BOOST_NO_RTTI
+            if( be || se )
+                output_at(e, core::demangle((be?(BOOST_EXCEPTION_DYNAMIC_TYPEID(*be)):(BOOST_EXCEPTION_DYNAMIC_TYPEID(*se))).type_->name()).c_str(), "dynamic_exception_type");
+#endif
+            if( se )
+                if( char const * wh = se->what() )
+                    output_at(e, wh, "std::exception::what");
+            if( be )
+                if( error_info_container * c = be->data_.get() )
+                    {
+                    encoder_adaptor<Encoder> ea(e);
+                    c->serialize_to(ea);
+                    }
+            }
+        }
+
+    template <class T, class Encoder>
+    void
+    serialize_diagnostic_information_to( T const & e, Encoder & enc )
+        {
+        exception_detail::serialize_diagnostic_information_to_impl_(exception_detail::get_boost_exception(&e),exception_detail::get_std_exception(&e),enc);
+        }
+
+#ifndef BOOST_NO_EXCEPTIONS
+    template <class Encoder>
+    void
+    serialize_current_exception_diagnostic_information_to( Encoder & e )
+        {
+        boost::exception const * be=current_exception_cast<boost::exception const>();
+        std::exception const * se=current_exception_cast<std::exception const>();
+        if( be || se )
+            exception_detail::serialize_diagnostic_information_to_impl_(be,se,e);
+        }
+#endif
     }
 
 #if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)

@@ -9,7 +9,7 @@ from ctypes import c_int, c_char_p, c_long, c_ssize_t
 def IsEnumeration(t):
 	return t[:1].isupper()
 
-basicTypes = ["bool", "int", "position", "line", "pointer", "colour", "colouralpha"]
+basicTypes = ["bool", "int", "position", "line", "pixels", "pointer", "colour", "colouralpha"]
 
 def BasicTypeOrEnumeration(t):
 	return t in basicTypes or IsEnumeration(t)

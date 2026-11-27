@@ -52,6 +52,8 @@ inline constexpr int NPP_CP_BIG5 = 950;
 #define NPP_UAC_MOVEFILE_SIGN L"#UAC-MOVEFILE#"
 #define NPP_UAC_CREATEEMPTYFILE_SIGN L"#UAC-CREATEEMPTYFILE#"
 
+#define NPP_MAPPING_PREFIX L"Local\\NotepadPlusPlus_Mapping_"
+
 enum class SubclassID : unsigned int
 {
 	darkMode = 42,
@@ -403,6 +405,12 @@ inline constexpr const wchar_t FINDDLG_STAUSREACHED_COLOR[] = L"Find status: Sea
 inline constexpr const wchar_t g_npcStyleName[] = L"Non-printing characters custom color";
 
 // Style names
+
+// TreeView
+
+inline constexpr int g_treeviewIcoSize = 16;
+
+// TreeView
 
 
 inline constexpr const char SHORTCUT_XML_CONTENT[] = "\

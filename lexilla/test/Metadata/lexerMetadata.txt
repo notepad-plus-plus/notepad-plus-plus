@@ -516,6 +516,8 @@ Lexer cpp
                Set how to highlighting back-quoted strings. 0 (the default) no highlighting. 1 highlighted as Go raw string. 2 highlighted as JavaScript template literal.
         bool   lexer.cpp.escape.sequence
                Set to 1 to enable highlighting of escape sequences in strings
+        bool   lexer.cpp.continuation.only.in.strings
+               Set to 1 to only handle line continuation inside string literals
         bool   fold
         bool   fold.cpp.syntax.based
                Set this property to 0 to disable syntax based folding.
@@ -631,6 +633,8 @@ Lexer cppnocase
                Set how to highlighting back-quoted strings. 0 (the default) no highlighting. 1 highlighted as Go raw string. 2 highlighted as JavaScript template literal.
         bool   lexer.cpp.escape.sequence
                Set to 1 to enable highlighting of escape sequences in strings
+        bool   lexer.cpp.continuation.only.in.strings
+               Set to 1 to only handle line continuation inside string literals
         bool   fold
         bool   fold.cpp.syntax.based
                Set this property to 0 to disable syntax based folding.
@@ -1333,7 +1337,7 @@ Lexer hypertext
          13 SCE_H_XMLEND [identifier] XML identifier end '?>'
          14 SCE_H_SCRIPT [error] Internal state which should never be visible
          15 SCE_H_ASP [preprocessor] ASP <% ... %>
-         16 SCE_H_ASPAT [preprocessor] ASP <% ... %>
+         16 SCE_H_ASPAT [preprocessor] ASP <%@ ... %>
          17 SCE_H_CDATA [literal] CDATA
          18 SCE_H_QUESTION [preprocessor] PHP
          19 SCE_H_VALUE [literal string] Unquoted values
@@ -1621,6 +1625,35 @@ Lexer makefile
           9 SCE_MAKE_IDEOL [error identifier] Incomplete identifier reference
 
 Lexer markdown
+    Properties:
+        bool   lexer.markdown.header.eolfill
+               Set to 1 to highlight all ATX header text.
+    Styles:
+          0 SCE_MARKDOWN_DEFAULT [default] Regular text
+          1 SCE_MARKDOWN_LINE_BEGIN [default] Special
+          2 SCE_MARKDOWN_STRONG1 [default] Strong emphasis (bold)
+          3 SCE_MARKDOWN_STRONG2 [default] Strong emphasis (bold)
+          4 SCE_MARKDOWN_EM1 [default] Emphasis (italic)
+          5 SCE_MARKDOWN_EM2 [default] Emphasis (italic)
+          6 SCE_MARKDOWN_HEADER1 [default] Level-one header
+          7 SCE_MARKDOWN_HEADER2 [default] Level-two header
+          8 SCE_MARKDOWN_HEADER3 [default] Level-three header
+          9 SCE_MARKDOWN_HEADER4 [default] Level-four header
+         10 SCE_MARKDOWN_HEADER5 [default] Level-five header
+         11 SCE_MARKDOWN_HEADER6 [default] Level-six header
+         12 SCE_MARKDOWN_PRECHAR [default] Prechar (up to three indent spaces)
+         13 SCE_MARKDOWN_ULIST_ITEM [default] Unordered list item
+         14 SCE_MARKDOWN_OLIST_ITEM [default] Ordered list item
+         15 SCE_MARKDOWN_BLOCKQUOTE [default] Block quote
+         16 SCE_MARKDOWN_STRIKEOUT [default] Strikeout
+         17 SCE_MARKDOWN_HRULE [default] Horizontal rule
+         18 SCE_MARKDOWN_LINK [default] Link or image
+         19 SCE_MARKDOWN_CODE [default] Inline code
+         20 SCE_MARKDOWN_CODE2 [default] Inline code (quotes code containing a single backtick)
+         21 SCE_MARKDOWN_CODEBK [default] Code block
+         22 SCE_MARKDOWN_FRONT_MARK [default] Front matter marker
+         23 SCE_MARKDOWN_FRONT [default] Front matter
+         24 SCE_MARKDOWN_FRONT_KEY [default] Front matter key
 
 Lexer matlab
     Word Lists:
@@ -1942,7 +1975,7 @@ Lexer phpscript
          13 SCE_H_XMLEND [identifier] XML identifier end '?>'
          14 SCE_H_SCRIPT [error] Internal state which should never be visible
          15 SCE_H_ASP [preprocessor] ASP <% ... %>
-         16 SCE_H_ASPAT [preprocessor] ASP <% ... %>
+         16 SCE_H_ASPAT [preprocessor] ASP <%@ ... %>
          17 SCE_H_CDATA [literal] CDATA
          18 SCE_H_QUESTION [preprocessor] PHP
          19 SCE_H_VALUE [literal string] Unquoted values

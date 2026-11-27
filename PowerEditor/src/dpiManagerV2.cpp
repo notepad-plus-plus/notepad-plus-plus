@@ -309,6 +309,12 @@ int DPIManagerV2::getFontAvgAlphaWidth(HWND hWnd, HFONT hFont) noexcept
 	return getFontAvgWidth(hWnd, hFont, alpha);
 }
 
+int DPIManagerV2::getFontAvgAlphaWidth(HWND hWnd) noexcept
+{
+	const auto hFont = reinterpret_cast<HFONT>(::SendMessage(hWnd, WM_GETFONT, 0, 0));
+	return getFontAvgAlphaWidth(hWnd, hFont);
+}
+
 int DPIManagerV2::getFontDigitWidth(HWND hWnd, HFONT hFont) noexcept
 {
 	static constexpr std::wstring_view digit = L"1234567890";

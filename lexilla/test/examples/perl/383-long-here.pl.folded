@@ -1,0 +1,8 @@
+ 0 400 400   # encoding: UTF-8
+ 1 400 400   
+ 2 400 401 + # For issue #383.
+ 0 401 400 | # Demonstrate long here-doc delimiter with multi-byte character near limit.
+ 1 400 400   
+ 0 400 400   <<"abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabc文
+ 0 400 400   # End
+ 0 400   0   

@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 17.09.2026 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 30.10.2026 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -898,12 +898,15 @@ $STR_REPLACE$
 				<Item id="6001" name="Затваряне"/>
 				<!-- Основни -->
 				<Global title="Основни">
-					<Item id="6123" name="Език на интерфейса"/>
+					<Item id="6123" name="&amp;Език на интерфейса"/>
 					<Item id="6131" name="Меню"/>
-					<Item id="6122" name="Скриване (Alt или F10 за показване)"/>
-					<Item id="6132" name="Скриване на бутоните ＋ ▼ ✕"/>
+					<Item id="6122" name="&amp;Скриване (Alt или F10 за показване)"/>
+					<Item id="6132" name="Скриване на &amp;бутоните ＋ ▼ ✕"/>
 					<Item id="6133" name="Лента на състоянието"/>
-					<Item id="6134" name="Скриване"/>
+					<Item id="6134" name="С&amp;криване"/>
+					<Item id="7165" name="Шрифт на диалозите (изисква рестартиране)"/>
+					<Item id="7166" name="&amp;Размер:"/>
+					<Item id="7168" name="Име:"/>
 				</Global>
 				<!-- Лента с инструменти -->
 				<Toolbar title="Лента с инструменти">
@@ -1175,8 +1178,6 @@ $STR_REPLACE$
 					<Item id="6909" name="Избиране на думата под курсора, когато не е избрано нищо"/>
 					<Item id="6902" name="Равноширок шрифт в диалога за търсене (изисква се рестартиране на Notepad++)"/>
 					<Item id="6903" name="Диалога за търсене остава отворен, след като резултатите бъдат изведени в прозореца"/>
-					<Item id="6904" name="Потвърждение при &quot;Замяна на всичко във всички отворени&quot; документи"/>
-					<Item id="6905" name="Без преместване към следващото повторение при замяна"/>
 					<Item id="6906" name="Прозорец с резултати от търсене: показване само на един запис на намерен ред, ако е възможно"/>
 					<Item id="6917" name="Търсене във файлове: Използване съдържанието на файла от диска вместо в отворените буфери"/>
 				</Searching>
@@ -1295,7 +1296,7 @@ $STR_REPLACE$
 				<MISC title="Разни">
 					<Item id="6312" name="Авто-проверка за състоянието на файла"/>
 					<ComboBox id="6347">
-						<Element name="Включено за текущия файл"/>
+						<Element name="Включено за текущите файлове"/>
 						<Element name="Включено за всички раздели"/>
 						<Element name="Изключено"/>
 					</ComboBox>
@@ -1709,6 +1710,8 @@ $STR_REPLACE$
 			<file-save-assign-type value="&amp;Добавяне на разширение"/>
 			<!-- Меню "Търсене" -->
 			<!-- "Търсене", "Замяна", "Търсене във файлове", "Търсене в проекти", "Маркиране" -->
+			<confirm-replace-in-all-open-docs-tip value="Потвърждаване на действието за &quot;Замяна на всичко във всички отворени&quot; документи"/>
+			<replace-and-stop-tip value="Без преминаване към следващото повторение при замяна"/>
 			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter"/>
 			<two-find-buttons-tip value="Режим за търсене с два бутона"/>
 			<find-status-top-reached value="Търсене: Достигнато е началото на документа, намерено е първото повторение от края."/>
@@ -1717,6 +1720,7 @@ $STR_REPLACE$
 			<find-status-search-failed value="Търсене: Търсенето е неуспешно"/>
 			<find-status-cannot-find value="Търсене: Текстът &quot;$STR_REPLACE$&quot; не може да бъде намерен"/>
 			<find-status-cannot-find-pebkac-maybe value="Даденото повторение не може да бъде намерено. Може да сте забравили да проверите &quot;Кръгово търсене&quot; (Вкл.), &quot;Главни / малки букви&quot; (Изкл.), или &quot;Само цели думи&quot; (Изкл.)."/>
+			<find-status-regex-find-empty-string value="Даденият регулярен израз съвпада с празни низове"/>
 			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: Заменено е 1 повторение"/>
 			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: Заменени са $INT_REPLACE$ повторения"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: Заменено е 1 повторение"/>

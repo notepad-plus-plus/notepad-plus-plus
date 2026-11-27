@@ -1,0 +1,18 @@
+ 2 400   0 + <!-- Issue 375. Add more server side starts for JSP and ASP.
+ 0 401   0 | For <%! %>, <%# %>, <%$ %>, and <%: %>, the character following
+ 0 401   0 | the server side sequence should be included in SCE_H_ASP.
+ 0 401   0 | The above examples are JSP declaration, ASP data-binding, ASP expression builder, ASP encoded expression.
+ 0 401   0 | -->
+ 1 400   0   
+ 0 400   0   <%@language=javascript%>
+ 0 400   0   <%! int i = 0; %>
+ 0 400   0   About to increment i...
+ 0 400   0   <% i++; %>
+ 0 400   0   <%= (new java.util.Date()).toLocaleString() %>
+ 1 400   0    
+ 0 400   0   <%@language=vbscript%>
+ 0 400   0   <%=DateTime.Now.ToString() %>
+ 0 400   0   <asp:Label ID="lblHello" runat="server" Text="<%# SayHello%>"></asp:Label>
+ 0 400   0   <asp:Literal ID="Literal1" runat="server" Text="<%$ AppSettings: copyright %>"></asp:Literal>
+ 0 400   0   <%:DateTime.Now.ToString() %>
+ 0 400   0   

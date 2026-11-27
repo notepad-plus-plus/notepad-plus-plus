@@ -18,15 +18,26 @@
 
 
 #include "RunMacroDlg.h"
-#include "ScintillaEditView.h"
+
+#include <windows.h>
+
+#include <algorithm>
+#include <vector>
+
+#include "Common.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "shortcut.h"
 #include "Notepad_plus_msgs.h"
+#include "resource.h"
+#include "RunMacroDlg_rc.h"
 
 void RunMacroDlg::initMacroList()
 {
 	if (!isCreated()) return;
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	std::vector<MacroShortcut> & macroList = nppParam.getMacroList();
+	const std::vector<MacroShortcut>& macroList = nppParam.getMacroList();
 
 	::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_RESETCONTENT, 0, 0);
 
@@ -159,7 +170,7 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				{
 					if (HIWORD(wParam) == CBN_SELCHANGE)
 					{
-						_macroIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCURSEL, 0, 0));
+						_macroIndex = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCURSEL, 0, 0));
 						return TRUE;
 					}
 					return FALSE;

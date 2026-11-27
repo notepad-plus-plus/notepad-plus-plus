@@ -450,6 +450,10 @@ public :
 	std::wstring setSearchText();
 	std::wstring setSearchTextWithSettings();
 
+	void updateMatchHighlighting();
+	void updateMatchHighlightingLater() const;
+	void clearMatchHighlighting();
+
 protected :
 	void resizeDialogElements();
 	void setMinHeightAndBordersMetrics() noexcept;
@@ -473,8 +477,9 @@ private:
 	DIALOG_TYPE _currentStatus = DIALOG_TYPE::FIND_DLG;
 
 	ScintillaEditView** _ppEditView = nullptr;
+	ScintillaEditView* _pMatchHighlightView = nullptr; // view of the last updateMatchHighlighting()
 	Finder  *_pFinder = nullptr;
-	std::wstring _findResTitle;
+	wchar_t _findResTitle[MAX_PATH] = { '\0' };
 
 	std::vector<Finder*> _findersOfFinder{};
 
@@ -484,6 +489,7 @@ private:
 	HWND _replaceAndStopTip = nullptr;
 	HWND _filterTip = nullptr;
 	HWND _dirFromActiveDocTip = nullptr;
+	HWND _hiliteModeTip = nullptr;
 
 	bool _isRTL = false;
 
@@ -530,7 +536,7 @@ private:
 
 	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
 	void showFindDlgItem(int dlgItemID, bool isShow = true);
-
+	void layoutFindWhatAndHighlight();
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable, bool projectPanels);
 	void enableFindInFilesFunc();
@@ -626,6 +632,7 @@ private :
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
+	bool isCurrentBufSearchChanged();
 };
 
 

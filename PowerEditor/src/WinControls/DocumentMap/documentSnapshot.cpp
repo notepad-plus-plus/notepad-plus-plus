@@ -17,10 +17,21 @@
 
 #include "documentSnapshot.h"
 
+#include <windows.h>
+
+#include <vector>
+
+#include <Scintilla.h>
+
+#include "Buffer.h"
+#include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
+#include "Parameters.h"
 #include "ScintillaEditView.h"
 #include "documentSnapshot_rc.h"
+#include "resource.h"
 
-intptr_t CALLBACK DocumentPeeker::run_dlgProc(UINT message, WPARAM /*wParam*/, LPARAM /*lParam*/)
+intptr_t CALLBACK DocumentPeeker::run_dlgProc(UINT message, [[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam)
 {
 	switch (message)
 	{

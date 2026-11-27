@@ -20,6 +20,10 @@ protected:
 	WordList *keyWordLists[numWordLists+1]{};
 public:
 	LexerBase(const LexicalClass *lexClasses_=nullptr, size_t nClasses_=0);
+	LexerBase(const LexerBase &) = delete;
+	LexerBase(LexerBase &&) = delete;
+	LexerBase &operator=(const LexerBase &) = delete;
+	LexerBase &operator=(LexerBase &&) = delete;
 	virtual ~LexerBase();
 	void SCI_METHOD Release() override;
 	int SCI_METHOD Version() const override;

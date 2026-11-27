@@ -1,0 +1,4 @@
+ 0 400 400   % For issue #380.
+ 0 400 400   % Nest constructs until a stack overflows.
+ 0 400 400   [|{|[|/*/*[|{|[|[|{|[|[|{|[|{|/**/
+ 1 400 400   

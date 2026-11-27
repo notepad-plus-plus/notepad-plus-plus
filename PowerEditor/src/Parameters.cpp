@@ -3244,7 +3244,7 @@ bool NppParameters::isServerAllowed(const char* path2check, bool bCaseSensitive)
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "ServerAllowed"))
 	{
-		const std::string allowedItem = NppXml::attribute(childNode, "name");
+		const std::string allowedItem = NppXml::attribute(childNode, "name", "");
 		if (allowedItem.empty())
 			continue;
 
@@ -3353,7 +3353,7 @@ bool NppParameters::addServerToWhiteList(const char* netpath, bool bCaseSensitiv
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "ServerAllowed"))
 	{
-		std::string allowedItem = NppXml::attribute(childNode, "name");
+		std::string allowedItem = NppXml::attribute(childNode, "name", "");
 		if (bCaseSensitive)
 		{
 			if (netpathServerName == allowedItem)
@@ -3633,6 +3633,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 					sfi._individualTabColour = NppXml::intAttribute(childNode, "tabColourId", -1);
 					sfi._isRTL = getBoolAttribute(childNode, "RTL");
+					sfi._isWordWrap = getBoolAttribute(childNode, "wordWrap", _svp._doWrapByDefault);
 
 					for (NppXml::Element markNode = NppXml::firstChildElement(childNode, "Mark");
 						markNode;
@@ -4031,12 +4032,14 @@ void NppParameters::feedFindHistoryParameters(const NppXml::Element& element)
 	_findHistory._dotMatchesNewline = getBoolAttribute(findHistoryRoot, "dotMatchesNewline");
 	_findHistory._isSearch2ButtonsMode = getBoolAttribute(findHistoryRoot, "isSearch2ButtonsMode");
 	_findHistory._regexBackward4PowerUser = getBoolAttribute(findHistoryRoot, "regexBackward4PowerUser");
+	_findHistory._findDlgHighlightMatches = getBoolAttribute(findHistoryRoot, "findDlgHighlightMatches");
 	_findHistory._isBookmarkLine = getBoolAttribute(findHistoryRoot, "bookmarkLine");
 	_findHistory._isPurge = getBoolAttribute(findHistoryRoot, "purge");
 
 	_findHistory._isIncrementalMatchCase = getBoolAttribute(findHistoryRoot, "incrementalMatchCase", _findHistory._isIncrementalMatchCase);
 	_findHistory._isIncrementalHighlightAll = getBoolAttribute(findHistoryRoot, "incrementalHighlightAll", _findHistory._isIncrementalHighlightAll);
 	_findHistory._isIncrementalCount = getBoolAttribute(findHistoryRoot, "incrementalCount", _findHistory._isIncrementalCount);
+	_findHistory._incrementalSearchBarAtTop = getBoolAttribute(findHistoryRoot, "incrementalSearchBarAtTop", _findHistory._incrementalSearchBarAtTop);
 }
 
 void NppParameters::feedShortcut(const NppXml::Element& element)
@@ -4907,6 +4910,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestampHigh", vsFile._originalFileLastModifTimestamp.dwHighDateTime);
 				NppXml::setAttribute(fileNameNode, "tabColourId", vsFile._individualTabColour);
 				setBoolAttribute(fileNameNode, "RTL", vsFile._isRTL);
+				setBoolAttribute(fileNameNode, "wordWrap", vsFile._isWordWrap);
 				setBoolAttribute(fileNameNode, "tabPinned", vsFile._isPinned);
 
 				// Save this info only when it's an untitled entry
@@ -5874,6 +5878,8 @@ std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationC
 		return L"kurdish.xml";
 	if (localizationCode == L"ky")
 		return L"kyrgyz.xml";
+	if (localizationCode == L"lo" || localizationCode == L"lo-la")
+		return L"lao.xml";
 	if (localizationCode == L"lv")
 		return L"latvian.xml";
 	if (localizationCode == L"lt")
@@ -5884,6 +5890,8 @@ std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationC
 		return L"macedonian.xml";
 	if (localizationCode == L"ms")
 		return L"malay.xml";
+	if (localizationCode == L"ml")
+        return L"malayalam.xml";
 	if (localizationCode == L"mr")
 		return L"marathi.xml";
 	if (localizationCode == L"mn")
@@ -6042,8 +6050,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 		childNode = NppXml::nextSiblingElement(childNode, "GUIConfig"))
 	{
 		const char* nm = NppXml::attribute(childNode, "name");
-		if (!nm)
-			continue;
+		if (!nm) continue;
 
 		// <GUIConfig name="ColorPickerCustomColors" color0="..." ... color15="..." />
 		if (std::strcmp(nm, "ColorPickerCustomColors") == 0)
@@ -6872,16 +6879,19 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._openSaveDir = getRangeDefaultAttribute(childNode, "value", dir_followCurrent, dir_userDef, _nppGUI._openSaveDir);
 
 			const std::wstring path = string2wstring(NppXml::attribute(childNode, "defaultDirPath", ""));
+
 			if (!path.empty())
 			{
-				std::wcsncpy(_nppGUI._defaultDir, path.c_str(), MAX_PATH);
-				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
+				::wcsncpy_s(_nppGUI._defaultDir, MAX_PATH, path.c_str(), _TRUNCATE);
+				DWORD n = ::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
+				if (n == 0 || n > MAX_PATH)
+					_nppGUI._defaultDirExp[0] = L'\0';
 			}
 
 			const std::wstring lastPath = string2wstring(NppXml::attribute(childNode, "lastUsedDirPath", ""));
 			if (!lastPath.empty())
 			{
-				std::wcsncpy(_nppGUI._lastUsedDir, lastPath.c_str(), MAX_PATH);
+				::wcsncpy_s(_nppGUI._lastUsedDir, MAX_PATH, lastPath.c_str(), _TRUNCATE);
 			}
 		}
 		// <GUIConfig name="titleBar" short="no" />
@@ -6992,7 +7002,9 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._fillFindWhatThreshold = getRangeDefaultAttribute(childNode, "fillFindWhatThreshold", 1, FINDREPLACE_MAXLENGTH - 1, _nppGUI._fillFindWhatThreshold);
 
 			_nppGUI._fillDirFieldFromActiveDoc = getBoolAttribute(childNode, "fillDirFieldFromActiveDoc");
-			_nppGUI._incrementalSearchBarAtTop = getBoolAttribute(childNode, "incrementalSearchBarAtTop");
+
+			// Compatibility for v8.9.9 - should be removed in the future release
+			_findHistory._incrementalSearchBarAtTop = getBoolAttribute(childNode, "incrementalSearchBarAtTop", _findHistory._incrementalSearchBarAtTop);
 		}
 		// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" fileSwitcherExtWidth="50" fileSwitcherWithoutPathColumn="no" fileSwitcherPathWidth="50"
 		// fileSwitcherNoGroups="no" backSlashIsEscapeCharacterForSql="yes" writeTechnologyEngine="1" isFolderDroppedOpenFiles="no" docPeekOnTab="no"
@@ -7286,7 +7298,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	_svp._wrapSymbolShow = getBoolAttribute(element, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
 
 	// Do Wrap
-	_svp._doWrap = getBoolAttribute(element, "Wrap");
+	_svp._doWrapByDefault = getBoolAttribute(element, "Wrap");
 
 	// Do Edge
 	_svp._isEdgeBgMode = getBoolAttribute(element, "isEdgeBgMode");
@@ -7581,7 +7593,7 @@ bool NppParameters::writeScintillaParams()
 	setBoolAttribute(scintNode, "selectedTextForegroundSingleColor", _svp._selectedTextForegroundSingleColor);
 	setBoolAttribute(scintNode, "disableAdvancedScrolling", _svp._disableAdvancedScrolling);
 	setBoolAttribute(scintNode, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
-	setBoolAttribute(scintNode, "Wrap", _svp._doWrap);
+	setBoolAttribute(scintNode, "Wrap", _svp._doWrapByDefault);
 	setBoolAttribute(scintNode, "borderEdge", _svp._showBorderEdge);
 
 	std::string edgeColumnPosStr;
@@ -7638,8 +7650,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 			childNode = NppXml::nextSiblingElement(childNode, "GUIConfig"))
 		{
 			const char* nm = NppXml::attribute(childNode, "name");
-			if (!nm)
-				continue;
+			if (!nm) continue;
 
 			if (std::strcmp(nm, "DockingManager") == 0)
 			{
@@ -8174,7 +8185,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::setAttribute(GUIConfigElement, "inSelectionAutocheckThreshold", _nppGUI._inSelectionAutocheckThreshold);
 		NppXml::setAttribute(GUIConfigElement, "fillFindWhatThreshold", _nppGUI._fillFindWhatThreshold);
 		setBoolAttribute(GUIConfigElement, "fillDirFieldFromActiveDoc", _nppGUI._fillDirFieldFromActiveDoc);
-		setBoolAttribute(GUIConfigElement, "incrementalSearchBarAtTop", _nppGUI._incrementalSearchBarAtTop);
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />
@@ -8344,6 +8354,7 @@ bool NppParameters::writeFindHistory()
 	setBoolAttribute(findHistoryRoot, "dotMatchesNewline", _findHistory._dotMatchesNewline);
 	setBoolAttribute(findHistoryRoot, "isSearch2ButtonsMode", _findHistory._isSearch2ButtonsMode);
 	setBoolAttribute(findHistoryRoot, "regexBackward4PowerUser", _findHistory._regexBackward4PowerUser);
+	setBoolAttribute(findHistoryRoot, "findDlgHighlightMatches", _findHistory._findDlgHighlightMatches);
 
 	setBoolAttribute(findHistoryRoot, "bookmarkLine", _findHistory._isBookmarkLine);
 	setBoolAttribute(findHistoryRoot, "purge", _findHistory._isPurge);
@@ -8351,6 +8362,7 @@ bool NppParameters::writeFindHistory()
 	setBoolAttribute(findHistoryRoot, "incrementalMatchCase", _findHistory._isIncrementalMatchCase);
 	setBoolAttribute(findHistoryRoot, "incrementalHighlightAll", _findHistory._isIncrementalHighlightAll);
 	setBoolAttribute(findHistoryRoot, "incrementalCount", _findHistory._isIncrementalCount);
+	setBoolAttribute(findHistoryRoot, "incrementalSearchBarAtTop", _findHistory._incrementalSearchBarAtTop);
 
 	for (const auto& path : _findHistory._findHistoryPaths)
 	{

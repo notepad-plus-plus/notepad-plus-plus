@@ -106,7 +106,6 @@ EditModel::EditModel() : braces{} {
 	bidirectional = Bidirectional::Disabled;
 	foldFlags = FoldFlag::None;
 	foldDisplayTextStyle = FoldDisplayTextStyle::Hidden;
-	hotspot = Range(Sci::invalidPosition);
 	hotspotSingleLine = true;
 	hoverIndicatorPos = Sci::invalidPosition;
 	wrapWidth = LineLayout::wrapWidthInfinite;

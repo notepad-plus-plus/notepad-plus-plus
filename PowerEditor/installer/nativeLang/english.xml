@@ -1041,6 +1041,7 @@ Translation note:
 					<Item id="6245" name="Enable virtual space"/>
 					<Item id="6214" name="Enable Copy/Cut Line without selection"/>
 					<Item id="6266" name="Disable selected text drag-and-drop"/>
+					<Item id="6280" name="Enable word wrap by default for each document"/>
 					<Item id="6225" name="Apply custom color to selected text foreground"/>
 					<Item id="6651" name="Current Line Indicator"/>
 					<Item id="6652" name="None"/>
@@ -1648,6 +1649,7 @@ For security reasons, please review the opened shortcuts.xml. If the file conten
 			<SymlinkLoadingWarning title="Warning: Symlink Loading May Cause Freeze" message="Enabling symlink loading in Folder as Workspace may cause Notepad++ to enter an infinite loop and freeze.
 This can happen when directory symlinks resolve to parent folders or form circular references.
 Proceed only if you understand the risks."/>
+			<UnPin2Sort title="Sort tabs question" message="Cannot sort pinned files. Unpin all pinned files firstly?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>
@@ -1788,6 +1790,7 @@ Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Fill Directory field based on active document"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="Highlight all matches of the current search in the active document while typing"/>
 			<find-status-top-reached value="Find: Reached document beginning, first occurrence from the bottom found."/>
 			<find-status-end-reached value="Find: Reached document end, first occurrence from the top found."/>
 			<find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>

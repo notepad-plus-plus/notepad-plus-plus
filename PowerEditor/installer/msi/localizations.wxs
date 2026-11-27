@@ -151,6 +151,9 @@
 			<Component Id="kyrgyz_LANG">
 				<File Source="..\..\installer\nativeLang\kyrgyz.xml" />
 			</Component>
+			<Component Id="lao_LANG">
+				<File Source="..\..\installer\nativeLang\lao.xml" />
+			</Component>
 			<Component Id="latvian_LANG">
 				<File Source="..\..\installer\nativeLang\latvian.xml" />
 			</Component>
@@ -169,6 +172,9 @@
 			<Component Id="malay_LANG">
 				<File Source="..\..\installer\nativeLang\malay.xml" />
 			</Component>
+			<Component Id="malayalam_LANG">
+               <File Source="..\..\installer\nativeLang\malayalam.xml" />
+            </Component>
 			<Component Id="marathi_LANG">
 				<File Source="..\..\installer\nativeLang\marathi.xml" />
 			</Component>

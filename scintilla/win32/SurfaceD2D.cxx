@@ -180,17 +180,23 @@ struct FontDirectWrite : public FontWin {
 		const std::wstring wsLocale = WStringFromUTF8(fp.localeName);
 		const FLOAT fHeight = static_cast<FLOAT>(fp.size);
 		const DWRITE_FONT_STYLE style = fp.italic ? DWRITE_FONT_STYLE_ITALIC : DWRITE_FONT_STYLE_NORMAL;
+		constexpr DWRITE_FONT_WEIGHT minWeight = static_cast<DWRITE_FONT_WEIGHT>(1);
+		constexpr DWRITE_FONT_WEIGHT maxWeight = static_cast<DWRITE_FONT_WEIGHT>(999);
+		const DWRITE_FONT_WEIGHT weight = std::clamp(
+			static_cast<DWRITE_FONT_WEIGHT>(fp.weight), minWeight, maxWeight);
+		const DWRITE_FONT_STRETCH stretch = std::clamp(
+			static_cast<DWRITE_FONT_STRETCH>(fp.stretch), DWRITE_FONT_STRETCH_ULTRA_CONDENSED, DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
 		HRESULT hr = pIDWriteFactory->CreateTextFormat(wsFace.c_str(), nullptr,
-			static_cast<DWRITE_FONT_WEIGHT>(fp.weight),
+			weight,
 			style,
-			static_cast<DWRITE_FONT_STRETCH>(fp.stretch),
-				fHeight, wsLocale.c_str(), pTextFormat.GetAddressOf());
+			stretch,
+			fHeight, wsLocale.c_str(), pTextFormat.GetAddressOf());
 		if (hr == E_INVALIDARG) {
 			// Possibly a bad locale name like "/" so try "en-us".
 			hr = pIDWriteFactory->CreateTextFormat(wsFace.c_str(), nullptr,
-				static_cast<DWRITE_FONT_WEIGHT>(fp.weight),
+				weight,
 				style,
-				static_cast<DWRITE_FONT_STRETCH>(fp.stretch),
+				stretch,
 				fHeight, L"en-us", pTextFormat.ReleaseAndGetAddressOf());
 		}
 		if (SUCCEEDED(hr)) {
@@ -230,6 +236,9 @@ struct FontDirectWrite : public FontWin {
 	FontDirectWrite &operator=(FontDirectWrite &&) = delete;
 	~FontDirectWrite() noexcept override = default;
 	[[nodiscard]] HFONT HFont() const noexcept override {
+		if (!pTextFormat) {
+			return {};
+		}
 		LOGFONTW lf = {};
 		const HRESULT hr = pTextFormat->GetFontFamilyName(lf.lfFaceName, LF_FACESIZE);
 		if (!SUCCEEDED(hr)) {

@@ -11,13 +11,20 @@
 
 #include "WinMgr.h"
 
+#include <windows.h>
+
+#include <algorithm>
+#include <cassert>
+#include <climits>
+#include <cstdlib>
+
 // Theo - Style Helpers
 inline static DWORD GetStyle(HWND hWnd) {
-	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
+	return static_cast<DWORD>(::GetWindowLongPtr(hWnd, GWL_STYLE));
 }
 
 inline static DWORD GetExStyle(HWND hWnd) {
-	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+	return static_cast<DWORD>(::GetWindowLongPtr(hWnd, GWL_EXSTYLE));
 }
 
 const UINT WM_WINMGR = RegisterWindowMessage(L"WM_WINMGR");

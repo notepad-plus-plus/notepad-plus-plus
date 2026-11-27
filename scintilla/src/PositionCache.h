@@ -44,16 +44,49 @@ public:
 	void Resize(size_t maxLineLength_);
 };
 
+using XWidth = float;
+
+// A protocol for providing tab stops without exposing all of EditView.
+struct TabStopProvider {
+	[[nodiscard]] virtual XYPOSITION NextTabstopPos(Sci::Line line, XYPOSITION x, XYPOSITION tabWidth) const noexcept = 0;
+};
+
+class XPositions {
+	// This struct has two phases with different meanings for the positions.
+	// During measuring, it holds the width of each byte.
+	// Then each is converted into positions offset from the expected value for its index
+	// assuming consistent character widths.
+	// This allows using 32-bit values over huge lines without overflowing precision.
+	// Expects reasonably consistent text throughout the line - a line with many text
+	// characters at one end and many representations at the other could have inadequate
+	// precision in middle, for example.
+	std::unique_ptr<XWidth[]> positions;
+	XYPOSITION characterWidthMean = 0.0;
+protected:
+	void SetSize(size_t size);
+	void Clear(size_t size);
+	void SetWidthMean(XYPOSITION characterWidthMean_) noexcept;
+	[[nodiscard]] XWidth GetValue(Sci::Position index) const noexcept;
+	void SetPosition(int index, XYPOSITION position) noexcept;
+public:
+	void SetValue(int index, XWidth width) const noexcept;	// Not logically const but required for use by BreakFinder
+	[[nodiscard]] XWidth *PositionsFor(int index) const noexcept;
+	[[nodiscard]] XYPOSITION GetPosition(Sci::Position index) const noexcept;
+	[[nodiscard]] XYPOSITION GetWidth(Sci::Position end, Sci::Position start) const noexcept;
+	[[nodiscard]] Interval Span(int start, int end) const noexcept;
+	[[nodiscard]] Interval SpanByte(int index) const noexcept;
+};
+
 /**
  */
-class LineLayout {
+class LineLayout : public XPositions {
 private:
 	std::unique_ptr<int []>lineStarts;
 	int lenLineStarts = 0;
 	/// Drawing is only performed for @a maxLineLength characters on each line.
 	Sci::Line lineNumber;
 public:
-	enum { wrapWidthInfinite = 0x7ffffff };
+	static constexpr int wrapWidthInfinite = 0x7ffffff;
 
 	int maxLineLength = -1;
 	int numCharsInLine = 0;
@@ -67,7 +100,6 @@ public:
 	int edgeColumn = 0;
 	std::unique_ptr<char[]> chars;
 	std::unique_ptr<unsigned char[]> styles;
-	std::unique_ptr<XYPOSITION[]> positions;
 
 	std::unique_ptr<BidiData> bidiData;
 
@@ -92,18 +124,17 @@ public:
 	bool InLine(int offset, int line) const noexcept;
 	int SubLineFromPosition(int posInLine, PointEnd pe) const noexcept;
 	void AddLineStart(Sci::Position start);
-	void SetBracesHighlight(Range rangeLine, const Sci::Position braces[],
+	void SetBracesHighlight(ForwardRange rangeLine, const Sci::Position braces[],
 		char bracesMatchStyle, int xHighlight, bool ignoreStyle);
-	void RestoreBracesHighlight(Range rangeLine, const Sci::Position braces[], bool ignoreStyle);
+	void RestoreBracesHighlight(ForwardRange rangeLine, const Sci::Position braces[], bool ignoreStyle);
 	int FindBefore(XYPOSITION x, Range range) const noexcept;
 	int FindPositionFromX(XYPOSITION x, Range range, bool charPosition) const noexcept;
 	Point PointFromPosition(int posInLine, int lineHeight, PointEnd pe) const noexcept;
 	XYPOSITION XInLine(Sci::Position index) const noexcept;
-	Interval Span(int start, int end) const noexcept;
-	Interval SpanByte(int index) const noexcept;
 	int EndLineStyle() const noexcept;
 	[[nodiscard]] int LastStyle() const noexcept;
 	void WrapLine(const Document *pdoc, Sci::Position posLineStart, Wrap wrapState, XYPOSITION wrapWidth);
+	void CalculatePositions(Sci::Line line, const TabStopProvider &tsp, const ViewStyle &vstyle) noexcept;
 };
 
 struct ScreenLine : public IScreenLine {
@@ -182,14 +213,16 @@ public:
 	}
 };
 
-typedef std::map<unsigned int, Representation> MapRepresentation;
+constexpr size_t byteValues = 0x100;
+
+using MapRepresentation = std::map<unsigned int, Representation>;
 
 const char *ControlCharacterString(unsigned char ch) noexcept;
 void Hexits(char *hexits, int ch) noexcept;
 
 class SpecialRepresentations {
 	MapRepresentation mapReprs;
-	unsigned short startByteHasReprs[0x100] {};
+	unsigned short startByteHasReprs[byteValues] {};
 	unsigned int maxKey = 0;
 	bool crlf = false;
 public:
@@ -213,18 +246,24 @@ struct TextSegment {
 	int start;
 	int length;
 	const Representation *representation;
-	TextSegment(int start_=0, int length_=0, const Representation *representation_=nullptr) noexcept :
+	explicit TextSegment(int start_=0, int length_=0, const Representation *representation_=nullptr) noexcept :
 		start(start_), length(length_), representation(representation_) {
 	}
-	int end() const noexcept {
+	[[nodiscard]] int end() const noexcept {
 		return start + length;
 	}
 };
 
+using SingleByteWidths = XWidth[byteValues];
+
+// If a whole run is longer than lengthStartSubdivision then subdivide
+// into smaller runs at spaces or punctuation.
+constexpr int lengthStartSubdivision = 300;
+
 // Class to break a line of text into shorter runs at sensible places.
 class BreakFinder {
 	const LineLayout *ll;
-	const Range lineRange;
+	const ForwardRange lineRange;
 	int nextBreak;
 	std::vector<int> selAndEdge;
 	unsigned int saeCurrentPos;
@@ -235,18 +274,15 @@ class BreakFinder {
 	const SpecialRepresentations *preprs;
 	void Insert(Sci::Position val);
 public:
-	// If a whole run is longer than lengthStartSubdivision then subdivide
-	// into smaller runs at spaces or punctuation.
-	enum { lengthStartSubdivision = 300 };
 	// Try to make each subdivided run lengthEachSubdivision or shorter.
-	enum { lengthEachSubdivision = 100 };
+	static constexpr int lengthEachSubdivision = 100;
 	enum class BreakFor {
 		Text = 0,
 		Selection = 1,
 		Foreground = 2,
 		ForegroundAndSelection = 3,
 	};
-	BreakFinder(const LineLayout *ll_, const Selection *psel, Range lineRange_, Sci::Position posLineStart,
+	BreakFinder(const LineLayout *ll_, const Selection *psel, ForwardRange lineRange_, Sci::Position posLineStart,
 		XYPOSITION xStart, BreakFor breakFor, const Document *pdoc_, const SpecialRepresentations *preprs_, const ViewStyle *pvsDraw);
 	// Deleted so BreakFinder objects can not be copied.
 	BreakFinder(const BreakFinder &) = delete;
@@ -256,6 +292,7 @@ public:
 	~BreakFinder() noexcept;
 	TextSegment Next();
 	bool More() const noexcept;
+	bool SetNextSingleByteWidth(const SingleByteWidths &singles) noexcept;
 };
 
 constexpr size_t positionCacheDefaultSize = 0x400;

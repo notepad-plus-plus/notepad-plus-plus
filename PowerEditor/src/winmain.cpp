@@ -237,6 +237,9 @@ bool getParamVal(wchar_t c, ParamVector & params, std::wstring & value)
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) //dash, and enough chars
 		{
 			value = (token+2);
+			if (value.empty())
+				return false;
+
 			params.erase(params.begin() + i);
 			return true;
 		}
@@ -257,6 +260,9 @@ bool getParamValFromString(const wchar_t *str, ParamVector & params, std::wstrin
 		if (pos != std::wstring::npos && pos == 0)
 		{
 			value = (token + lstrlen(str));
+			if (value.empty())
+				return false;
+
 			params.erase(params.begin() + i);
 			return true;
 		}
@@ -290,7 +296,25 @@ intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParam
 		return -1;
 	}
 	isParamePresent = true;
-	return static_cast<intptr_t>(std::stoll(numStr));
+
+	long long res = -1;
+	try {
+		res = std::stoll(numStr);
+	}
+	catch (const std::invalid_argument&) // not a number
+	{
+		return -1;
+	}
+	catch (const std::out_of_range&) // number is too large
+	{
+		return -1;
+	}
+	catch (...)
+	{
+		return -1;
+	}
+
+	return static_cast<intptr_t>(res);
 }
 
 std::wstring getEasterEggNameFromParam(ParamVector & params, unsigned char & type)
@@ -427,21 +451,48 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 	return true;
 }
 
-DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFilePath2Save)
-{
-	if ((lstrlenW(wszTempFilePath) == 0) || (lstrlenW(wszProtectedFilePath2Save) == 0)) // safe check (lstrlen returns 0 for possible nullptr)
-		return ERROR_INVALID_PARAMETER;
-	if (!doesFileExist(wszTempFilePath))
-		return ERROR_FILE_NOT_FOUND;
 
-	DWORD dwRetCode = ERROR_SUCCESS;
+DWORD nppUacSave(const wchar_t* protectedFilePath2Save, size_t size, const wchar_t* wszOnetimeGuid)
+{
+	if ( (lstrlenW(protectedFilePath2Save) == 0) || (lstrlenW(wszOnetimeGuid) == 0)) // safe check (lstrlen returns 0 for possible nullptr)
+		return ERROR_INVALID_PARAMETER;
+
+	std::wstring uniqueMappingName = NPP_MAPPING_PREFIX;
+	uniqueMappingName += wszOnetimeGuid;
+	HANDLE hMapping = ::OpenFileMappingW(FILE_MAP_READ, FALSE, uniqueMappingName.c_str());
+	if (!hMapping)
+		return ::GetLastError();
+
+	DWORD dwRetCode = NO_ERROR;
+
+	// copy the content out of the section, then release it
+	std::string content;
+	void* p = ::MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, size);
+	if (!p)
+	{
+		dwRetCode = ::GetLastError();
+	}
+	else
+	{
+		try {
+			content.assign(static_cast<const char*>(p), size);
+		}
+		catch (const std::exception&) { dwRetCode = ERROR_NOT_ENOUGH_MEMORY; }
+		::UnmapViewOfFile(p);
+		p = nullptr;
+	}
+	::CloseHandle(hMapping);
+	hMapping = NULL;
+
+	if (dwRetCode != NO_ERROR)
+		return dwRetCode;
 
 	bool isOutputReadOnly = false;
 	bool isOutputHidden = false;
 	bool isOutputSystem = false;
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
-	if (getFileAttributesExWithTimeout(wszProtectedFilePath2Save, &attributes))
+	if (getFileAttributesExWithTimeout(protectedFilePath2Save, &attributes))
 	{
 		if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 		{
@@ -452,21 +503,11 @@ DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFile
 			if (isOutputHidden) attributes.dwFileAttributes &= ~FILE_ATTRIBUTE_HIDDEN;
 			if (isOutputSystem) attributes.dwFileAttributes &= ~FILE_ATTRIBUTE_SYSTEM;
 			if (isOutputReadOnly || isOutputHidden || isOutputSystem)
-				::SetFileAttributes(wszProtectedFilePath2Save, attributes.dwFileAttributes); // temporarily remove the problematic ones
+				::SetFileAttributes(protectedFilePath2Save, attributes.dwFileAttributes); // temporarily remove the problematic ones
 		}
 	}
 
-	// cannot use simple MoveFile here as it retains the tempfile permissions when on the same volume...
-	if (!::CopyFileW(wszTempFilePath, wszProtectedFilePath2Save, FALSE))
-	{
-		// fails if the destination file exists and has the R/O and/or Hidden attribute set
-		dwRetCode = ::GetLastError();
-	}
-	else
-	{
-		// ok, now dispose of the tempfile used
-		::DeleteFileW(wszTempFilePath);
-	}
+	dwRetCode = writeFileContentEx(protectedFilePath2Save, content.data(), content.size());
 
 	// set back the possible original file attributes
 	if (isOutputReadOnly || isOutputHidden || isOutputSystem)
@@ -474,7 +515,7 @@ DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFile
 		if (isOutputReadOnly) attributes.dwFileAttributes |= FILE_ATTRIBUTE_READONLY;
 		if (isOutputHidden) attributes.dwFileAttributes |= FILE_ATTRIBUTE_HIDDEN;
 		if (isOutputSystem) attributes.dwFileAttributes |= FILE_ATTRIBUTE_SYSTEM;
-		::SetFileAttributes(wszProtectedFilePath2Save, attributes.dwFileAttributes);
+		::SetFileAttributes(protectedFilePath2Save, attributes.dwFileAttributes);
 	}
 
 	return dwRetCode;
@@ -522,9 +563,8 @@ DWORD nppUacCreateEmptyFile(const wchar_t* wszNewEmptyFilePath)
 	return ERROR_SUCCESS;
 }
 
-// Returns true only if this process's immediate parent is an unelevated
-// notepad++.exe located at the same path as the currently running binary.
-bool isParentProcessThisNotepadPlusPlus()
+// Checks the parent process if it is the same notepad++.exe module.
+bool isParentProcessThisNotepadPlusPlusModule()
 {
 	DWORD currentPid = ::GetCurrentProcessId();
 	DWORD parentPid = 0;
@@ -556,22 +596,35 @@ bool isParentProcessThisNotepadPlusPlus()
 
 	HANDLE hParent = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, parentPid);
 	if (hParent == nullptr)
-		return false; // parent gone or inaccessible — fail closed
+		return false; // parent gone or inaccessible
 
-	wchar_t parentPath[MAX_PATH] = {};
+	wchar_t parentPath[MAX_PATH] {};
 	DWORD parentPathLen = MAX_PATH;
 	bool gotPath = ::QueryFullProcessImageNameW(hParent, 0, parentPath, &parentPathLen) != 0;
-	::CloseHandle(hParent);
-
 	if (!gotPath)
+	{
+		::CloseHandle(hParent);
 		return false;
+	}
 
 	wchar_t selfImagePath[MAX_PATH] = {};
 	DWORD dwSizeSelf = MAX_PATH;
 	if (!::QueryFullProcessImageNameW(::GetCurrentProcess(), 0, selfImagePath, &dwSizeSelf))
+	{
+		::CloseHandle(hParent);
 		return false;
+	}
 
-	return (_wcsicmp(parentPath, selfImagePath) == 0);
+	::CloseHandle(hParent);
+
+	if (_wcsicmp(parentPath, selfImagePath) == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false; // parent is not this notepad++.exe module
+	}
 }
 
 
@@ -580,6 +633,32 @@ bool isParentProcessThisNotepadPlusPlus()
 
 std::chrono::steady_clock::time_point g_nppStartTimePoint{};
 
+static std::vector<NppDigest> g_pendingIpcDigests;
+static LRESULT CALLBACK IpcSenderProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+	if (msg == WM_COPYDATA)
+	{
+		const auto* c = reinterpret_cast<const COPYDATASTRUCT*>(lp);
+
+		// Check if the message is a confirmation of a previously sent IPC message
+		if (c && c->lpData && c->dwData == NPP_COPYDATA_CONFIRM && c->cbData == sizeof(NppDigest))
+		{
+			// Find the digest matches any of the pending IPC digests
+			for (auto it = g_pendingIpcDigests.begin(); it != g_pendingIpcDigests.end(); ++it)
+			{
+				// If the digest matches, remove it from the pending list and return a confirmation code
+				if (memcmp(it->data(), c->lpData, sizeof(NppDigest)) == 0)
+				{
+					g_pendingIpcDigests.erase(it);     // one-shot: a confirmation can't be replayed
+					return NPP_CONFIRM_MAGIC;
+				}
+			}
+		}
+
+		return 0;
+	}
+	return ::DefWindowProcW(hwnd, msg, wp, lp);
+}
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ PWSTR pCmdLine, _In_ int /*nShowCmd*/)
 {
@@ -592,16 +671,25 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		if (nppUacOpSign.starts_with(NPP_UAC_OP_PREFIX))
 		{
 			// Check the parent caller to ensure it is Notepad++ and not some other process
-			if (!isParentProcessThisNotepadPlusPlus())
+			if (!isParentProcessThisNotepadPlusPlusModule())
 			{
 				::MessageBox(Notepad_plus_Window::gNppHWND, L"The parent process is not Notepad++. Aborting the operation for security reasons.", L"Notepad++ UAC OPS Warning", MB_OK | MB_ICONERROR);
 				return static_cast<int>(ERROR_ACCESS_DENIED);
 			}
 
-			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SAVE_SIGN))
+			if ((__argc == 5) && (nppUacOpSign == NPP_UAC_SAVE_SIGN))
 			{
-				// __wargv[x]: 2 ... tempFilePath, 3  ...  protectedFilePath2Save
-				return static_cast<int>(nppUacSave(__wargv[2], __wargv[3]));
+				// __wargv[x]: 2 ... protectedFilePath2Save, 3 ... content size in bytes, 4 ... one-time GUID
+				DWORD dwError = NO_ERROR;
+				try {
+					const size_t contentSize = static_cast<size_t>(std::stoull(std::wstring(__wargv[3])));
+					dwError = nppUacSave(__wargv[2], contentSize, __wargv[4]);
+				}
+				catch ([[maybe_unused]] const std::exception& e)
+				{
+					dwError = ERROR_INVALID_PARAMETER; // conversion error (check e.what() for details)
+				}
+				return static_cast<int>(dwError);
 			}
 
 			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SETFILEATTRIBUTES_SIGN))
@@ -627,6 +715,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 				// __wargv[x]: 2 ... newEmptyFilePath
 				return static_cast<int>(nppUacCreateEmptyFile(__wargv[2]));
 			}
+
+			return static_cast<int>(ERROR_INVALID_PARAMETER);
 		}
 	} // Notepad++ UAC OPS////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -779,7 +869,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			cmdLineParams._isNoSession = true;
 	}
 
-	std::wstring quotFileName = L"";
+	std::wstring quotFileNames = L"";
     // tell the running instance the FULL path to the new files to load
 	size_t nbFilesToOpen = params.size();
 
@@ -790,15 +880,16 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		{
 			//check if relative or full path. Relative paths don't have a colon for driveletter
 
-			quotFileName += L"\"";
-			quotFileName += relativeFilePathToFullFilePath(currentFile);
-			quotFileName += L"\" ";
+			quotFileNames += L"\"";
+			quotFileNames += relativeFilePathToFullFilePath(currentFile);
+			quotFileNames += L"\" ";
 		}
 	}
 
 	//Only after loading all the file paths set the working directory
 	::SetCurrentDirectory(NppParameters::getInstance().getNppPath().c_str());	//force working directory to path of module, preventing lock
 
+	// While using Explorer context menu "Edit with Notepad++" to open files into an existing Notepad++ instance
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
@@ -835,13 +926,14 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			{
 				static const wchar_t* className = L"NppIpcSenderWnd";
 				WNDCLASSW wc{};
-				wc.lpfnWndProc = DefWindowProcW;
+				wc.lpfnWndProc = IpcSenderProc;
 				wc.hInstance = hInstance;
 				wc.lpszClassName = className;
 				RegisterClassW(&wc);
 
 				// HWND_MESSAGE: message-only window, never visible, no taskbar entry
 				HWND hIpcSender = CreateWindowExW(0, className, L"", 0, 0, 0, 0, 0,	HWND_MESSAGE, NULL, hInstance, NULL);
+				::ChangeWindowMessageFilterEx(hIpcSender, WM_COPYDATA, MSGFLT_ALLOW, nullptr);
 
 				CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
 
@@ -849,20 +941,31 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 				paramData.dwData = COPYDATA_PARAMS;
 				paramData.lpData = &dto;
 				paramData.cbData = sizeof(dto);
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&paramData));
 
 				COPYDATASTRUCT cmdLineData{};
 				cmdLineData.dwData = COPYDATA_FULL_CMDLINE;
 				cmdLineData.lpData = (void*)cmdLineString.c_str();
 				cmdLineData.cbData = static_cast<DWORD>((cmdLineString.length() + 1) * sizeof(wchar_t));
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&cmdLineData));
 
 				COPYDATASTRUCT fileNamesData{};
 				fileNamesData.dwData = COPYDATA_FILENAMESW;
-				fileNamesData.lpData = (void *)quotFileName.c_str();
-				fileNamesData.cbData = static_cast<DWORD>((quotFileName.length() + 1) * sizeof(wchar_t));
+				fileNamesData.lpData = (void *)quotFileNames.c_str();
+				fileNamesData.cbData = static_cast<DWORD>((quotFileNames.length() + 1) * sizeof(wchar_t));
+
+				// store the digests of the data to be sent, so that we can verify the confirmation messages
+				g_pendingIpcDigests.clear();
+				for (const COPYDATASTRUCT* c : { &paramData, &cmdLineData, &fileNamesData })
+				{
+					NppDigest d;
+					if (nppCopyDataDigest(c->dwData, c->lpData, c->cbData, d))
+						g_pendingIpcDigests.push_back(d);
+				}
+
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&paramData));
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&cmdLineData));
 				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&fileNamesData));
 
+				g_pendingIpcDigests.clear();
 				::DestroyWindow(hIpcSender);
 			}
 			return 0;
@@ -897,7 +1000,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	MiniDumper mdump;	//for debugging purposes.
 	bool isException = false;
 	try {
-		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
+		notepad_plus_plus.init(hInstance, NULL, quotFileNames.c_str(), &cmdLineParams);
 		allowForbidPrivilegeMessages(notepad_plus_plus, ver);
 		bool going = true;
 		while (going)

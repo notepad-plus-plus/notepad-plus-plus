@@ -597,9 +597,78 @@
 	<td>Stephan T. Lavavej</td>
 	<td>RealMalWare</td>
 	<td>Schreiner</td>
+	<td>Masayuki HINO</td>
+      </tr><tr>
+	<td>Micha Wiedenmann</td>
     </tr>
     </table>
     <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla569.zip">Release 5.6.9</a>
+    </h3>
+    <ul>
+	<li>
+	Released 2 November 2026.
+	</li>
+	<li>
+	Restore colour of XPM images which stopped working in 5.6.8.
+	</li>
+    </ul>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla568.zip">Release 5.6.8</a>
+    </h3>
+    <ul>
+	<li>
+	Released 31 October 2026.
+	</li>
+	<li>
+	Improve speed by avoiding line layout when determining positions at line starts.
+	Increase maximum size of cached lexemes from 30 to 40 as many identifiers, column names, and
+	common values are larger than 30 bytes.
+	</li>
+	<li>
+	Update case conversion and character categories to Unicode 17.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1569/">Feature #1569</a>.
+	</li>
+	<li>
+	Fix crash with change history undo caused by optimizing bulk deletion in version 5.3.8.
+	</li>
+	<li>
+	On Win32 fix crash and invisible text for invalid weight and stretch font settings with DirectWrite.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2520/">Bug #2520</a>.
+	</li>
+	<li>
+	On Win32 when building with nmake -f scintilla.mak, move PDB file to DIR_O directory
+	so that it is removed by nmake -f scintilla.mak clean.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2521/">Bug #2521</a>.
+	</li>
+    </ul>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla567.zip">Release 5.6.7</a>
+    </h3>
+    <ul>
+	<li>
+	Released 28 September 2026.
+	</li>
+	<li>
+	Reduce memory used by line layouts by storing positions as 32-bit floats instead of 64-bit.
+	</li>
+	<li>
+	Reduce temporary memory use during layout of wide lines with many control characters.
+	</li>
+	<li>
+	Fix style ending inside character after deleting last character of document.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2471/">Bug #2471</a>.
+	</li>
+	<li>
+	Fix SCI_VERTICALCENTRECARET to not scroll past end.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2518/">Bug #2518</a>.
+	</li>
+	<li>
+	For SCI_GETCOLUMN and SCI_FINDCOLUMN treat Unicode line ends similar to ASCII line ends.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2516/">Bug #2516</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla566.zip">Release 5.6.6</a>
     </h3>

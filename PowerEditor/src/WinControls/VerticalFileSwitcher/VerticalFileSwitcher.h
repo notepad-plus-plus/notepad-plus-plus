@@ -17,16 +17,33 @@
 
 #pragma once
 
+#include <windows.h>
+
+#include <shlwapi.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "Buffer.h"
 #include "DockingDlgInterface.h"
+#include "TaskListDlg.h"
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 
 #define FS_PROJECTPANELTITLE		L"Document List"
 
+enum class SortDirection
+{
+	NONE = -1,
+	UP,
+	DOWN
+};
+
 struct sortCompareData {
   HWND hListView = nullptr;
   int columnIndex = 0;
-  int sortDirection = 0;
+  SortDirection sortDirection = SortDirection::UP;
 };
 
 class VerticalFileSwitcher : public DockingDlgInterface {
@@ -45,9 +62,9 @@ public:
 	}
 
 	//Activate document in scintilla by using the internal index
-	void activateDoc(TaskLstFnStatus *tlfs) const;
+	void activateDoc(OpenedDocInfo *odi) const;
 
-	void closeDoc(TaskLstFnStatus *tlfs) const;
+	void closeDoc(OpenedDocInfo *odi) const;
 
 	int newItem(BufferID bufferID, int iView) {
 		return _fileListView.newItem(bufferID, iView);
@@ -73,7 +90,7 @@ public:
 		return _fileListView.getFullFilePath(i);
 	}
 
-	int setHeaderOrder(int columnIndex);
+	SortDirection setHeaderOrder(int columnIndex);
 	void updateHeaderArrow();
 
 	int nbSelectedFiles() const {
@@ -92,7 +109,7 @@ public:
 	}
 
 	void updateTabOrder(){
-		if (_lastSortingDirection == SORT_DIRECTION_NONE) {
+		if (_lastSortingDirection == SortDirection::NONE) {
 			_fileListView.reload();
 		}
 	}
@@ -104,12 +121,12 @@ public:
 		auto g = GetGValue(bgColour);
 		auto b = GetBValue(bgColour);
 
-		constexpr int luminenceIncrementBy = 333; // 33.3 %
+		static constexpr int luminenceIncrementBy = 333; // 33.3 %
 
 		// main color is blue
 		// but difference must be high
 		// can have similar blue color as header
-		constexpr int difference = 12;
+		static constexpr int difference = 12;
 		const auto bAdjusted = static_cast<BYTE>(std::max<int>(0, static_cast<int>(b) - difference));
 		if (bAdjusted > r && bAdjusted > g)
 		{
@@ -131,20 +148,26 @@ public:
 		_fileListView.setForegroundColor(fgColour);
 	}
 protected:
-	HMENU _hGlobalMenu = NULL;
+	HMENU _hGlobalMenu = nullptr;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void initPopupMenus();
 	void popupMenuCmd(int cmdID);
 
 private:
 	bool colHeaderRClick = false;
-	int _lastSortingColumn = 0;
-	int _lastSortingDirection = SORT_DIRECTION_NONE;
+	int _lastSortingColumn = -1;
+	SortDirection _lastSortingDirection = SortDirection::NONE;
 	VerticalFileSwitcherListView _fileListView;
 	HIMAGELIST _hImaLst = nullptr;
 
+	using DockingDlgInterface::init;
+
 	static COLORREF _bgColor;
-	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, const VerticalFileSwitcherListView& flv);
 	static LRESULT CALLBACK FileSwitcherNotifySubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 	static LRESULT CALLBACK ListViewParentNotifyProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+
+	void onDpiChanged([[maybe_unused]] UINT prevDpi) override {
+		setFontForChild(_fileListView.getHSelf());
+	}
 };

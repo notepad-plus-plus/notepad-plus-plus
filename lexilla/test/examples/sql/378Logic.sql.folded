@@ -1,0 +1,21 @@
+ 0 400 400   -- Issue 378 
+ 0 400 400   -- Demonstrate PL/SQL logic folding and multi-line q string literal.
+ 0 400 400   DECLARE
+ 0 400 400     a NUMBER := 10; 
+ 0 400 400     b NUMBER := 0;
+ 0 400 400     c NUMBER;
+ 0 400 400     t VARCHAR2 := q'[Single line test]';
+ 0 400 400     v VARCHAR2 := q'[
+ 0 400 400   a
+ 0 400 400   b
+ 0 400 400   ]' + q'(1)'; -- Test whether stale value ')' leaks back to line start.
+ 2 400 401 + BEGIN 
+ 0 401 401 |   c := a / b; 
+ 0 401 401 | -- Division by zero  DBMS_OUTPUT.PUT_LINE('Result: ' || c);
+ 0 401 401 | EXCEPTION  
+ 0 401 401 |   WHEN ZERO_DIVIDE THEN
+ 2 401 402 +     DBMS_OUTPUT.PUT_LINE(q'(Error:
+ 0 402 401 | Division by zero is not allowed.)');
+ 0 401 401 |     DBMS_OUTPUT.PUT_LINE(q'!Not a complemented quote.!');
+ 0 401 400 | END;
+ 0 400   0   

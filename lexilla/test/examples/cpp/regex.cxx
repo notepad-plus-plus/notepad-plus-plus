@@ -16,6 +16,13 @@ x = /\w+[+-*/]/
 // Empty -> Line comment
 //
 
+function t1() {return 1
+/2/3;}
+function t2() {return Math.PI
+/2/3;}
+function t3() {return
+/a/;}
+
 // Line end before terminating / so operator not regex.
 x = /a
 /

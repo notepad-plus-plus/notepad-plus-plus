@@ -175,6 +175,7 @@ boost
         {
         class error_info_base;
         struct type_info_;
+        class encoder;
 
         struct
         error_info_container
@@ -185,6 +186,7 @@ boost
             virtual void add_ref() const = 0;
             virtual bool release() const = 0;
             virtual refcount_ptr<exception_detail::error_info_container> clone() const = 0;
+            virtual void serialize_to( encoder & ) const { }
 
             protected:
 
@@ -226,6 +228,9 @@ boost
         char const * get_diagnostic_information( exception const &, char const * );
 
         void copy_boost_exception( exception *, exception const * );
+
+        template <class Encoder>
+        void serialize_diagnostic_information_to_impl_( exception const *, std::exception const *, Encoder & );
 
         template <class E,class Tag,class T>
         E const & set_info( E const &, error_info<Tag,T> const & );
@@ -321,6 +326,7 @@ boost
         friend struct exception_detail::set_info_rv<throw_line>;
         friend struct exception_detail::set_info_rv<throw_column>;
         friend void exception_detail::copy_boost_exception( exception *, exception const * );
+        template <class Encoder> friend void exception_detail::serialize_diagnostic_information_to_impl_( exception const *, std::exception const *, Encoder & );
 #endif
         mutable exception_detail::refcount_ptr<exception_detail::error_info_container> data_;
         mutable char const * throw_function_;

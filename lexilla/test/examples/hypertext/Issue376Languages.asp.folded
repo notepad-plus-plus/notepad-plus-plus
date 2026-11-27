@@ -1,0 +1,72 @@
+ 0 400   0   <%@language=java%>
+ 2 400   0 + <% 
+ 0 401   0 | rem VB comment
+ 0 401   0 | // JavaScript comment
+ 0 401   0 | # Python comment
+ 0 401   0 | %>
+ 1 400   0   
+ 0 400   0   <%@language=vbscript%>
+ 2 400   0 + <% 
+ 0 401   0 | rem VB comment
+ 0 401   0 | // JavaScript comment
+ 0 401   0 | # Python comment
+ 0 401   0 | %>
+ 1 400   0   
+ 0 400   0   <%@language=c#%>
+ 2 400   0 + <% 
+ 0 401   0 | rem VB comment
+ 0 401   0 | // JavaScript comment
+ 0 401   0 | # Python comment
+ 0 401   0 | $foo
+ 0 401   0 | %>
+ 1 400   0   
+ 0 400   0   <%@language=vb%>
+ 2 400   0 + <% 
+ 0 401   0 | rem VB comment
+ 0 401   0 | // JavaScript comment
+ 0 401   0 | # Python comment
+ 0 401   0 | $foo
+ 0 401   0 | %>
+ 1 400   0   
+ 2 400   0 + <script language="vbs">
+ 0 401   0 | rem VB comment
+ 0 401   0 | // JavaScript comment
+ 0 401   0 | # Python comment
+ 0 401   0 | </script>
+ 1 400   0   
+ 2 400   0 + <script runat="server">
+ 0 401   0 | rem VB comment
+ 0 401   0 | // JavaScript comment
+ 0 401   0 | # Python comment
+ 0 401   0 | $foo
+ 0 401   0 | </script>
+ 1 400   0   
+ 0 400   0   <%@language=php%>
+ 2 400   0 + <% 
+ 0 401   0 | rem VB comment
+ 0 401   0 | // JavaScript comment
+ 0 401   0 | # Python comment
+ 0 401   0 | $foo
+ 0 401   0 | %>
+ 1 400   0   
+ 2 400   0 + <script language="javascript">
+ 0 401   0 | rem VB comment
+ 0 401   0 | // JavaScript comment
+ 0 401   0 | # Python comment
+ 0 401   0 | </script>
+ 1 400   0   
+ 0 400   0   <script language="python">
+ 0 400   0   rem VB comment
+ 0 400   0   // JavaScript comment
+ 0 400   0   # Python comment
+ 0 400   0   </script>
+ 1 3ff   0   
+ 0 3ff   0   <!-- Folding for Python is incorrect. See #235. -->
+ 0 3ff   0   <%@language=python%>
+ 2 3ff   0 + <% 
+ 0 400   0   rem VB comment
+ 0 400   0   // JavaScript comment
+ 0 400   0   # Python comment
+ 0 400   0   $foo
+ 0 400   0   %>
+ 0 3ff   0   

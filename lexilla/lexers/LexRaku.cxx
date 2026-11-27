@@ -1010,8 +1010,8 @@ bool LexerRaku::ProcessValidRegQlangStart(StyleContext &sc, Sci_Position length,
 Sci_Position LexerRaku::LengthToNonWordChar(StyleContext &sc, Sci_Position length,
 		char *s, const int size, Sci_Position offset) {
 	Sci_Position len = 0;
-	Sci_Position max_length = size < length ? size : length;
-	while (len <= max_length) {
+	Sci_Position max_length = (size - 1) < length ? (size - 1) : length;
+	while (len < max_length) {
 		const int ch = sc.GetRelativeCharacter(len + offset);
 		if (!IsWordChar(ch)) {
 			s[len] = '\0';
@@ -1020,7 +1020,7 @@ Sci_Position LexerRaku::LengthToNonWordChar(StyleContext &sc, Sci_Position lengt
 		s[len] = ch;
 		len++;
 	}
-	s[len + 1] = '\0';
+	s[len] = '\0';
 	return len;
 }
 

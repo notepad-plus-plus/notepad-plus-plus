@@ -16,12 +16,12 @@ class MarginStyle {
 public:
 	Scintilla::MarginType style;
 	ColourRGBA back;
-	int width;
-	int mask;
-	bool sensitive;
-	Scintilla::CursorShape cursor;
-	MarginStyle(Scintilla::MarginType style_= Scintilla::MarginType::Symbol, int width_=0, int mask_=0) noexcept;
-	bool ShowsFolding() const noexcept;
+	int width = 0;
+	int mask = 0;
+	bool sensitive = false;
+	Scintilla::CursorShape cursor = Scintilla::CursorShape::ReverseArrow;
+	explicit MarginStyle(Scintilla::MarginType style_= Scintilla::MarginType::Symbol, int width_=0, int mask_=0) noexcept;
+	[[nodiscard]] bool ShowsFolding() const noexcept;
 };
 
 /**
@@ -35,16 +35,15 @@ public:
 	void Realise(Surface &surface, int zoomLevel, Scintilla::Technology technology, const FontSpecification &fs, const char *localeName);
 };
 
-typedef std::map<FontSpecification, std::unique_ptr<FontRealised>> FontMap;
+using FontMap = std::map<FontSpecification, std::unique_ptr<FontRealised>>;
 
 using ColourOptional = std::optional<ColourRGBA>;
 
 inline ColourOptional OptionalColour(Scintilla::uptr_t wParam, Scintilla::sptr_t lParam) noexcept {
 	if (wParam) {
 		return ColourRGBA::FromIpRGB(lParam);
-	} else {
-		return {};
 	}
+	return {};
 }
 
 struct SelectionAppearance {
@@ -90,7 +89,8 @@ struct WrapAppearance {
 struct EdgeProperties {
 	int column = 0;
 	ColourRGBA colour;
-	constexpr EdgeProperties(int column_ = 0, ColourRGBA colour_ = ColourRGBA::FromRGB(0)) noexcept :
+	EdgeProperties() noexcept = default;
+	EdgeProperties(int column_, ColourRGBA colour_) noexcept :
 		column(column_), colour(colour_) {
 	}
 };
@@ -190,7 +190,10 @@ public:
 
 	std::string localeName;
 
-	ViewStyle(size_t stylesSize_=256);
+	// One style per possible byte value
+	static constexpr size_t basicStyleSize = 256;
+
+	explicit ViewStyle(size_t stylesSize_=basicStyleSize);
 	ViewStyle(const ViewStyle &source);
 	ViewStyle(ViewStyle &&) = delete;
 	// Can only be copied through copy constructor which ensures font names initialised correctly
@@ -206,30 +209,30 @@ public:
 	void ClearStyles();
 	void SetStyleFontName(int styleIndex, const char *name);
 	void SetFontLocaleName(const char *name);
-	bool ProtectionActive() const noexcept;
-	int ExternalMarginWidth() const noexcept;
-	int MarginFromLocation(Point pt) const noexcept;
-	bool ValidStyle(size_t styleIndex) const noexcept;
+	[[nodiscard]] bool ProtectionActive() const noexcept;
+	[[nodiscard]] int ExternalMarginWidth() const noexcept;
+	[[nodiscard]] int MarginFromLocation(Point pt) const noexcept;
+	[[nodiscard]] bool ValidStyle(size_t styleIndex) const noexcept;
 	void CalcLargestMarkerHeight() noexcept;
-	int GetFrameWidth() const noexcept;
-	bool IsLineFrameOpaque(bool caretActive, bool lineContainsCaret) const;
-	ColourOptional Background(int marksOfLine, bool caretActive, bool lineContainsCaret) const;
-	bool SelectionBackgroundDrawn() const noexcept;
-	bool SelectionTextDrawn() const;
-	bool WhitespaceBackgroundDrawn() const;
-	ColourRGBA WrapColour() const;
+	[[nodiscard]] int GetFrameWidth() const noexcept;
+	[[nodiscard]] bool IsLineFrameOpaque(bool caretActive, bool lineContainsCaret) const;
+	[[nodiscard]] ColourOptional Background(int marksOfLine, bool caretActive, bool lineContainsCaret) const;
+	[[nodiscard]] bool SelectionBackgroundDrawn() const noexcept;
+	[[nodiscard]] bool SelectionTextDrawn() const;
+	[[nodiscard]] bool WhitespaceBackgroundDrawn() const;
+	[[nodiscard]] ColourRGBA WrapColour() const;
 
 	void AddMultiEdge(int column, ColourRGBA colour);
 
-	ColourOptional ElementColour(Scintilla::Element element) const;
-	ColourRGBA ElementColourForced(Scintilla::Element element) const;
-	bool ElementAllowsTranslucent(Scintilla::Element element) const;
+	[[nodiscard]] ColourOptional ElementColour(Scintilla::Element element) const;
+	[[nodiscard]] ColourRGBA ElementColourForced(Scintilla::Element element) const;
+	[[nodiscard]] bool ElementAllowsTranslucent(Scintilla::Element element) const;
 	bool ResetElement(Scintilla::Element element);
 	bool SetElementColour(Scintilla::Element element, ColourRGBA colour);
 	bool SetElementColourOptional(Scintilla::Element element, Scintilla::uptr_t wParam, Scintilla::sptr_t lParam);
 	void SetElementRGB(Scintilla::Element element, int rgb);
 	void SetElementAlpha(Scintilla::Element element, int alpha);
-	bool ElementIsSet(Scintilla::Element element) const;
+	[[nodiscard]] bool ElementIsSet(Scintilla::Element element) const;
 	bool SetElementBase(Scintilla::Element element, ColourRGBA colour);
 
 	bool SetWrapState(Scintilla::Wrap wrapState_) noexcept;
@@ -238,13 +241,13 @@ public:
 	bool SetWrapVisualStartIndent(int wrapVisualStartIndent_) noexcept;
 	bool SetWrapIndentMode(Scintilla::WrapIndentMode wrapIndentMode_) noexcept;
 
-	bool WhiteSpaceVisible(bool inIndent) const noexcept;
+	[[nodiscard]] bool WhiteSpaceVisible(bool inIndent) const noexcept;
 
 	enum class CaretShape { invisible, line, block, bar };
-	bool IsBlockCaretStyle() const noexcept;
-	bool IsCaretVisible(bool isMainSelection) const noexcept;
-	bool DrawCaretInsideSelection(bool inOverstrike, bool imeCaretBlockOverride) const noexcept;
-	CaretShape CaretShapeForMode(bool inOverstrike, bool isMainSelection) const noexcept;
+	[[nodiscard]] bool IsBlockCaretStyle() const noexcept;
+	[[nodiscard]] bool IsCaretVisible(bool isMainSelection) const noexcept;
+	[[nodiscard]] bool DrawCaretInsideSelection(bool inOverstrike, bool imeCaretBlockOverride) const noexcept;
+	[[nodiscard]] CaretShape CaretShapeForMode(bool inOverstrike, bool isMainSelection) const noexcept;
 
 private:
 	void AllocStyles(size_t sizeNew);

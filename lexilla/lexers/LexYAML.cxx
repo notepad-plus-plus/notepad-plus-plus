@@ -52,12 +52,16 @@ unsigned int SpaceCount(const char* lineBuffer) noexcept {
 	if (lineBuffer == nullptr)
 		return 0;
 
-	const char* headBuffer = lineBuffer;
+	unsigned int spaces = 0;
+	while (lineBuffer[spaces] == ' ') {
+		spaces++;
+	}
 
-	while (*headBuffer == ' ')
-		headBuffer++;
+	return spaces;
+}
 
-	return static_cast<unsigned int>(headBuffer - lineBuffer);
+constexpr bool EmptyLine(std::string_view line) noexcept {
+	return line.find_first_not_of("\n\r") == std::string_view::npos;
 }
 
 bool KeywordAtChar(const char* lineBuffer, const char* startComment, const WordList &keywords) noexcept {
@@ -66,13 +70,14 @@ bool KeywordAtChar(const char* lineBuffer, const char* startComment, const WordL
 	const char* endValue = startComment - 1;
 	while (endValue >= lineBuffer && *endValue == ' ')
 		endValue--;
-	Sci_PositionU len = static_cast<Sci_PositionU>(endValue - lineBuffer) + 1;
-	char s[100];
-	if (len > (sizeof(s) / sizeof(s[0]) - 1))
+	const Sci_PositionU len = endValue - lineBuffer + 1;
+	constexpr size_t keywordLength = 100;
+	char s[keywordLength];
+	if (len > (keywordLength - 1))
 		return false;
 	strncpy(s, lineBuffer, len);
 	s[len] = '\0';
-	return (keywords.InList(s));
+	return keywords.InList(s);
 }
 
 #define YAML_STATE_BITSIZE		16
@@ -101,7 +106,7 @@ void ColouriseYAMLLine(
 
 		if ((parentLineState&YAML_STATE_MASK) == YAML_STATE_TEXT || (parentLineState&YAML_STATE_MASK) == YAML_STATE_TEXT_PARENT) {
 			const unsigned int parentIndentAmount = parentLineState&(~YAML_STATE_MASK);
-			if (indentAmount > parentIndentAmount) {
+			if ((indentAmount > parentIndentAmount) || EmptyLine(lineBuffer)) {
 				styler.SetLineState(currentLine, YAML_STATE_TEXT | parentIndentAmount);
 				styler.ColourTo(endPos, SCE_YAML_TEXT);
 				return;
@@ -241,9 +246,7 @@ void ColouriseYAMLDoc(Sci_PositionU startPos, Sci_Position length, int, WordList
 
 bool IsCommentLine(Sci_Position line, Accessor &styler) {
 	const Sci_Position pos = styler.LineStart(line);
-	if (styler[pos] == '#')
-		return true;
-	return false;
+	return styler[pos] == '#';
 }
 
 void FoldYAMLDoc(Sci_PositionU startPos, Sci_Position length, int /*initStyle - unused*/,
@@ -273,7 +276,7 @@ void FoldYAMLDoc(Sci_PositionU startPos, Sci_Position length, int /*initStyle - 
 	int indentCurrentLevel = indentCurrent & SC_FOLDLEVELNUMBERMASK;
 
 	// Set up initial loop state
-	int prevComment = 0;
+	bool prevComment = false;
 	if (lineCurrent >= 1)
 		prevComment = foldComment && IsCommentLine(lineCurrent - 1, styler);
 
@@ -290,10 +293,10 @@ void FoldYAMLDoc(Sci_PositionU startPos, Sci_Position length, int /*initStyle - 
 			// Information about next line is only available if not at end of document
 			indentNext = styler.IndentAmount(lineNext, &spaceFlags, nullptr);
 		}
-		const int comment = foldComment && IsCommentLine(lineCurrent, styler);
-		const int comment_start = (comment && !prevComment && (lineNext <= docLines) &&
+		const bool comment = foldComment && IsCommentLine(lineCurrent, styler);
+		const bool comment_start = (comment && !prevComment && (lineNext <= docLines) &&
 		                           IsCommentLine(lineNext, styler) && (lev > SC_FOLDLEVELBASE));
-		const int comment_continue = (comment && prevComment);
+		const bool comment_continue = comment && prevComment;
 		if (!comment)
 			indentCurrentLevel = indentCurrent & SC_FOLDLEVELNUMBERMASK;
 		if (indentNext & SC_FOLDLEVELWHITEFLAG)

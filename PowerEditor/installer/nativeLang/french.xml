@@ -1192,6 +1192,7 @@ Translation note:
 
 				<Print title="Impression">
 					<Item id="6601" name="Imprimer les numéros de lignes"/>
+					<Item id="6616" name="Imprimer les sauts de page"/>
 					<Item id="6602" name="Couleur"/>
 					<Item id="6603" name="Impression telle qu’à l’écran"/>
 					<Item id="6604" name="Inverser"/>
@@ -1650,6 +1651,7 @@ Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le men
 			<SymlinkLoadingWarning title="Avertissement : le chargement des liens symboliques peut provoquer un blocage" message="Activer le chargement des liens symboliques dans « Dossier en tant qu’espace de travail » peut entraîner une boucle infinie et provoquer le blocage de Notepad++.
 Ce problème peut survenir lorsque des liens symboliques de répertoires se résolvent vers des dossiers parents ou créent des références circulaires.
 N’avancez que si vous comprenez les risques."/>
+			<UnPin2Sort title="Question de tri des onglets" message="Impossible de trier les fichiers épinglés. Désépingler d'abord tous les fichiers épinglés ?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>
@@ -1790,6 +1792,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Sélectionner un dossier pour rechercher à l’intérieur"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Remplir le champ Répertoire en se basant sur la document actif"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-highlight-mode-tip value="Mettre en surbrillance toutes les occurrences de la recherche en cours dans le document actif pendant la saisie."/>
 			<find-status-top-reached value="Rechercher : Début du document atteint, 1ère occurrence trouvée depuis le bas."/>
 			<find-status-end-reached value="Rechercher : Fin du document atteinte, 1ère occurrence trouvée depuis le haut."/>
 			<find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>
@@ -1836,6 +1839,7 @@ Le texte collé dans ce champ contient des caractères invisibles (peut-être de
 			<common-ok value="OK"/>
 			<common-cancel value="Annuler"/>
 			<common-name value="Nom"/>
+			<common-error value="Erreur"/>
 			<tabrename-title value="Renommer onglet actuel"/>
 			<tabrename-newname value="Nouveau nom"/>
 			<splitter-rotate-left value="Tourner vers la gauche"/>
@@ -1857,6 +1861,7 @@ Le texte collé dans ce champ contient des caractères invisibles (peut-être de
 			<progress-hits-title value="Résultats :"/>
 			<progress-cancel-info value="Annulation de l’opération, veuillez patienter..."/>
 			<find-in-files-progress-title value="Rechercher dans les fichiers en cours..."/>
+			<discover-file-candidates-title value="Découverte des fichiers candidats..."/>
 			<replace-in-files-confirm-title value="Confirmation"/>
 			<replace-in-files-confirm-directory value="Voulez-vous remplacer toutes les occurrences dans :"/>
 			<replace-in-files-confirm-filetype value="Pour le(s) type(s) de fichier :"/>

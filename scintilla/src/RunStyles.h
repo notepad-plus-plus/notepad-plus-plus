@@ -27,28 +27,28 @@ class RunStyles {
 private:
 	Partitioning<DISTANCE> starts;
 	SplitVector<STYLE> styles;
-	DISTANCE RunFromPosition(DISTANCE position) const noexcept;
-	DISTANCE SplitRun(DISTANCE position);
+	[[nodiscard]] DISTANCE RunFromPosition(DISTANCE position) const noexcept;
+	[[nodiscard]] DISTANCE SplitRun(DISTANCE pos);
 	void RemoveRun(DISTANCE run);
 	void RemoveRunIfEmpty(DISTANCE run);
 	void RemoveRunIfSameAsPrevious(DISTANCE run);
 public:
 	RunStyles();
-	DISTANCE Length() const noexcept;
-	STYLE ValueAt(DISTANCE position) const noexcept;
-	DISTANCE FindNextChange(DISTANCE position, DISTANCE end) const noexcept;
-	DISTANCE StartRun(DISTANCE position) const noexcept;
-	DISTANCE EndRun(DISTANCE position) const noexcept;
+	[[nodiscard]] DISTANCE Length() const noexcept;
+	[[nodiscard]] STYLE ValueAt(DISTANCE position) const noexcept;
+	[[nodiscard]] DISTANCE FindNextChange(DISTANCE position, DISTANCE end) const noexcept;
+	[[nodiscard]] DISTANCE StartRun(DISTANCE position) const noexcept;
+	[[nodiscard]] DISTANCE EndRun(DISTANCE position) const noexcept;
 	// Returns changed=true if some values may have changed
 	FillResult<DISTANCE> FillRange(DISTANCE position, STYLE value, DISTANCE fillLength);
 	void SetValueAt(DISTANCE position, STYLE value);
 	void InsertSpace(DISTANCE position, DISTANCE insertLength);
 	void DeleteAll();
 	void DeleteRange(DISTANCE position, DISTANCE deleteLength);
-	DISTANCE Runs() const noexcept;
-	bool AllSame() const noexcept;
-	bool AllSameAs(STYLE value) const noexcept;
-	DISTANCE Find(STYLE value, DISTANCE start) const noexcept;
+	[[nodiscard]] DISTANCE Runs() const noexcept;
+	[[nodiscard]] bool AllSame() const noexcept;
+	[[nodiscard]] bool AllSameAs(STYLE value) const noexcept;
+	[[nodiscard]] DISTANCE Find(STYLE value, DISTANCE start) const noexcept;
 
 	void Check() const;
 };

@@ -140,6 +140,7 @@ struct sessionFileInfo : public Position
 	bool _isMonitoring = false;
 	int _individualTabColour = -1;
 	bool _isRTL = false;
+	bool _isWordWrap = false;
 	bool _isPinned = false;
 	bool _isUntitledTabRenamed = false;
 	std::wstring _backupFilePath;
@@ -252,8 +253,8 @@ struct CmdLineParamsDTO
 		dto._pos2go = params._pos2go;
 
 		dto._langType = params._langType;
-		wcsncpy(dto._udlName, params._udlName.c_str(), MAX_PATH);
-		wcsncpy(dto._pluginMessage, params._pluginMessage.c_str(), 2048);
+		::wcsncpy_s(dto._udlName, MAX_PATH, params._udlName.c_str(), _TRUNCATE);
+		::wcsncpy_s(dto._pluginMessage, 2048, params._pluginMessage.c_str(), _TRUNCATE);
 		return dto;
 	}
 };
@@ -793,7 +794,6 @@ struct NppGUI final
 	int _inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
 	int _fillFindWhatThreshold = FILL_FINDWHAT_THRESHOLD_DEFAULT;
 	bool _fillDirFieldFromActiveDoc = false;
-	bool _incrementalSearchBarAtTop = false;
 	bool _muteSounds = false;
 	bool _enableFoldCmdToggable = false;
 	bool _hideMenuRightShortcuts = false;
@@ -917,7 +917,7 @@ struct ScintillaViewParams
 	lineHiliteMode _currentLineHiliteMode = LINEHILITE_HILITE;
 	unsigned char _currentLineFrameWidth = 1; // 1-6 pixel
 	bool _wrapSymbolShow = false;
-	bool _doWrap = false;
+	bool _doWrapByDefault = false;
 	bool _isEdgeBgMode = false;
 
 	std::vector<size_t> _edgeMultiColumnPos;
@@ -1190,12 +1190,18 @@ struct FindHistory final
 	bool _isBookmarkLine = false;
 	bool _isPurge = false;
 
+	bool _findDlgHighlightMatches = false;
+	// Allow regExpr backward search: this option is not present in UI, only to modify in config.xml
+	bool _regexBackward4PowerUser = false;
+
+	//----------------------------
+	// Incremental Search settings
+	//----------------------------
 	bool _isIncrementalMatchCase = false;
 	bool _isIncrementalHighlightAll = false;
 	bool _isIncrementalCount = true;
 
-	// Allow regExpr backward search: this option is not present in UI, only to modify in config.xml
-	bool _regexBackward4PowerUser = false;
+	bool _incrementalSearchBarAtTop = false;
 };
 
 struct ColumnEditorParam final

@@ -1,0 +1,203 @@
+{2}# Enumerate all valid styles: 0-7 10-15 17-18 20-31 40-44 54-55 57 61-62 64-66 
+# Holes at 8-9,16,19,32-39,45-53,56,58-60,63
+{0}
+{2}# 2=SCE_PL_COMMENTLINE comment
+# comment=2
+{0}
+{2}# 0=SCE_PL_DEFAULT white space
+{0}	{2}# w
+{0}
+{2}# 1=SCE_PL_ERROR error
+{1}019{0}
+{2}# Bad digit in octal number
+{0}
+{2}# 3=SCE_PL_POD pod: = at beginning of line
+{3}=pod start
+=cut{0}
+
+{2}# 4=SCE_PL_NUMBER number
+{4}67.89{0}
+
+{2}# 5=SCE_PL_WORD keyword
+{5}wait{0}
+
+{2}# 6=SCE_PL_STRING double quoted string
+{6}"String double quoted"{0}
+
+{2}# 7=SCE_PL_CHARACTER single quoted string
+{7}'String single quoted'{0}
+
+{2}# 8=SCE_PL_PUNCTUATION symbols / punctuation. currently not used
+# Not present
+{0}
+{2}# 9=SCE_PL_PREPROCESSOR preprocessor. currently not used
+# Not present
+{0}
+{2}# 10=SCE_PL_OPERATOR operators
+{11}a{0} {10}={0} {4}1{0}
+{10}+{0} {4}4{10};{0}
+
+{2}# 11=SCE_PL_IDENTIFIER identifiers (functions, etc.)
+{11}identifier{0}
+
+{2}# 12=SCE_PL_SCALAR scalars: $var
+{12}$scalar{0}
+
+{2}# 13=SCE_PL_ARRAY array: @var
+{13}@array{10};{0}
+
+{2}# 14=SCE_PL_HASH hash: %var
+{14}%hash{10};{0}
+
+{2}# 15=SCE_PL_SYMBOLTABLE symbol table: *var
+{15}*symboltable{0}
+
+{2}# 16=SCE_PL_VARIABLE_INDEXER sce_pl_variable_indexer allocated but unused
+{0}
+{2}# 17=SCE_PL_REGEX regex: /re/ or m{re}
+{17}m{re}{0}
+
+{2}# 18=SCE_PL_REGSUBST substitution: s/re/ore/
+{18}s/re/ore/{0}
+
+{2}# 19=SCE_PL_LONGQUOTE obsolete: replaced by qq, qx, qr, qw
+{0}
+{2}# 20=SCE_PL_BACKTICKS back ticks
+{20}`interpolated string`{0}
+
+{2}# 21 is at file end as __DATA__ affects everything after
+{0}
+{2}# 22=SCE_PL_HERE_DELIM here-doc (delimiter)
+{10}<<{0}
+
+{2}# 23=SCE_PL_HERE_Q here-doc (single quoted, q)
+{22}<<'EOF'{23}
+a
+EOF{0}
+
+{2}# 24=SCE_PL_HERE_QQ here-doc (double quoted, qq)
+{22}<<"EOF"{24}
+a
+EOF{0}
+
+{2}# 25=SCE_PL_HERE_QX here-doc (back ticks, qx)
+{22}<<`EOF`{25}
+a
+EOF{0}
+
+{2}# 26=SCE_PL_STRING_Q single quoted string, generic
+{26}q(a){0}
+
+{2}# 27=SCE_PL_STRING_QQ qq = double quoted string
+{27}qq(abc){0}
+
+{2}# 28=SCE_PL_STRING_QX qx = back ticks
+{28}qx(abc){0}
+
+{2}# 29=SCE_PL_STRING_QR qr = regex
+{29}qr(a){0}
+
+{2}# 30=SCE_PL_STRING_QW qw = array
+{30}qw(a b c){0}
+
+{2}# 31=SCE_PL_POD_VERB pod: verbatim paragraphs
+{3}=pod
+
+{31}  Verbatim
+  explanation of verbatims.
+{3}
+=cut{0}
+
+{2}# 32 predefined
+# 33 predefined
+# 34 predefined
+# 35 predefined
+# 36 predefined
+# 37 predefined
+# 38 predefined
+# 39 predefined
+{0}
+{2}# 40=SCE_PL_SUB_PROTOTYPE subroutine prototype
+{5}sub{0} {11}f{40}($){0}
+{10}{{0} {4}1{10};{0} {10}}{0}
+
+{2}# 41=SCE_PL_FORMAT_IDENT format identifier
+{5}format{0} {41}IDENT ={42}
+.{0}
+
+{2}# 42=SCE_PL_FORMAT format body
+{5}format{0} {41}DATA ={0} {42}
+@<<<<<<<<<<<<<<<@<<<<<<<<<<<<<<<@<<<<<<<<<<<<<<<@<<<<<<<<<<<<<<<
+$First_Name[$k] $Last_Name[$k]  $ID[$k]         $Phone_Number[$k]
+ 
+.{0}
+
+{2}# 43=SCE_PL_STRING_VAR double quoted string (interpolated variable)
+{6}"
+{43}$var{6}
+"{0}
+
+{2}# 44=SCE_PL_XLAT translation: tr{}{} y{}{}
+{44}tr{}{}{0}
+
+{2}# 45 unused
+# 46 unused
+# 47 unused
+# 48 unused
+# 49 unused
+# 50 unused
+# 51 unused
+# 52 unused
+# 53 unused
+{0}
+{2}# 54=SCE_PL_REGEX_VAR regex: /re/ or m{re} (interpolated variable)
+{17}m{re
+{54}$var{17}
+}{0}
+
+{2}# 55=SCE_PL_REGSUBST_VAR substitution: s/re/ore/ (interpolated variable)
+{18}s/re/
+{55}$var{18}
+/{0}
+
+{2}# 56 unused
+{0}
+{2}# 57=SCE_PL_BACKTICKS_VAR back ticks (interpolated variable)
+{20}`
+{57}$var{20}
+`{0}
+
+{2}# 58 unused
+# 59 unused
+# 60 unused
+{0}
+{2}# 61=SCE_PL_HERE_QQ_VAR here-doc (double quoted, qq) (interpolated variable)
+{11}a{0} {10}={0} {22}<<"EOF"{24}
+{61}$var{24}
+EOF{0}
+
+{2}# 62=SCE_PL_HERE_QX_VAR here-doc (back ticks, qx) (interpolated variable)
+{22}<<`EOF`{25}
+{62}$var{25}
+EOF{0}
+
+{2}# 63 unused
+{0}
+{2}# 64=SCE_PL_STRING_QQ_VAR qq = double quoted string (interpolated variable)
+{27}qq(
+{64}$var{27}
+){0}
+
+{2}# 65=SCE_PL_STRING_QX_VAR qx = back ticks (interpolated variable)
+{28}qx(
+{65}$var{28}
+){0}
+
+{2}# 66=SCE_PL_STRING_QR_VAR qr = regex (interpolated variable)
+{29}qr(
+{66}$var{29}
+){0}
+
+{2}# 21=SCE_PL_DATASECTION data section: __data__ or __end__ at beginning of line
+{21}__DATA__
+Data Section

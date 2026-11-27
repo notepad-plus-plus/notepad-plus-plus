@@ -401,7 +401,7 @@ int ClassifyWordRb(Sci_PositionU end, char ch, char chNext, const WordList &keyw
 
 //XXX Identical to Perl, put in common area
 bool isMatch(Accessor &styler, Sci_Position lengthDoc, Sci_Position pos, const char *val) {
-    if ((pos + static_cast<int>(strlen(val))) >= lengthDoc) {
+    if ((pos < 0) || ((pos + static_cast<int>(strlen(val))) >= lengthDoc)) {
         return false;
     }
     while (*val) {
@@ -1784,6 +1784,7 @@ std::string getPrevWord(Sci_Position pos, Accessor &styler, int word_state) {
             break;
         }
     }
+    i = std::max<Sci_Position>(i, 0);
     std::string prevWord;
     for (; i <= pos; i++) {
         prevWord.push_back(styler[i]);

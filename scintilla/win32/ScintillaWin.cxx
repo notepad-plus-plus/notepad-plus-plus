@@ -2320,12 +2320,10 @@ sptr_t ScintillaWin::SciMessage(Message iMessage, uptr_t wParam, sptr_t lParam) 
 
 	case Message::SetBidirectional:
 		if (technology == Technology::Default) {
-			bidirectional = Bidirectional::Disabled;
+			SetAppearance(bidirectional, Bidirectional::Disabled);
 		} else if (static_cast<Bidirectional>(wParam) <= Bidirectional::R2L) {
-			bidirectional = static_cast<Bidirectional>(wParam);
+			SetAppearance(bidirectional, static_cast<Bidirectional>(wParam));
 		}
-		// Invalidate all cached information including layout.
-		InvalidateStyleRedraw();
 		break;
 
 	case Message::TargetAsUTF8:

@@ -32,6 +32,8 @@ constexpr void AnyOf([[maybe_unused]] const T *t, [[maybe_unused]] Args... args)
  */
 constexpr int charTab = 0x09;
 constexpr int charCarriageReturn = 0x0D;
+constexpr int charUS = 0x1F;
+constexpr int charDel = 0x7F;
 
 constexpr bool IsASpace(int ch) noexcept {
     return (ch == ' ') || ((ch >= charTab) && (ch <= charCarriageReturn));
@@ -42,7 +44,7 @@ constexpr bool IsSpaceOrTab(int ch) noexcept {
 }
 
 constexpr bool IsControl(int ch) noexcept {
-	return ((ch >= 0) && (ch <= 0x1F)) || (ch == 0x7F);
+	return ((ch >= 0) && (ch <= charUS)) || (ch == charDel);
 }
 
 constexpr bool IsEOLCharacter(int ch) noexcept {

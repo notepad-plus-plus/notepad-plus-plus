@@ -391,8 +391,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 
-	_mainEditView.wrap(svp._doWrap);
-	_subEditView.wrap(svp._doWrap);
+	_mainEditView.wrap(svp._doWrapByDefault);
+	_subEditView.wrap(svp._doWrapByDefault);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 
@@ -804,7 +804,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_findReplaceDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_findInFinderDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_incrementFindDlg.init(_pPublicInterface->getHinst(), hwnd, &_findReplaceDlg, _nativeLangSpeaker.isRTL());
-	_incrementFindDlg.addToRebar(nppGUI._incrementalSearchBarAtTop ? &_rebarTop : &_rebarBottom);
+	_incrementFindDlg.addToRebar(nppParam.getFindHistory()._incrementalSearchBarAtTop ? &_rebarTop : &_rebarBottom);
 	_goToLineDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_findCharsInRangeDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_colEditorDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
@@ -1734,6 +1734,7 @@ void Notepad_plus::doTrim(trimOp whichPart)
 	auto mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	bool isEntireDoc = (mainSelAnchor == mainSelCaretPos);
 	auto docLength = _pEditView->execute(SCI_GETLENGTH);
+	auto firstVisibleLine = _pEditView->execute(SCI_GETFIRSTVISIBLELINE);
 
 	// block selection is not supported
 	if ((_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN))
@@ -1757,6 +1758,7 @@ void Notepad_plus::doTrim(trimOp whichPart)
 		_pEditView->execute(SCI_SETSEL, startPos, endPos);
 	}
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	_pEditView->execute(SCI_SETFIRSTVISIBLELINE, firstVisibleLine); // keep the view, replacing in a selection scrolls to it
 
 	// restore original selection if nothing has changed
 	if (!isEntireDoc && (docLength == _pEditView->execute(SCI_GETLENGTH)))
@@ -5008,10 +5010,10 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 				// After closing a file choose the file to activate based on MRU list and not just last file in the list.
 				TaskListInfo taskListInfo;
 				::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), 0);
-				size_t i, n = taskListInfo._tlfsLst.size();
+				size_t i, n = taskListInfo._openedDocInfoList.size();
 				for (i = 0; i < n; i++)
 				{
-					const TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
+					const OpenedDocInfo& tfs = taskListInfo._openedDocInfoList[i];
 					if (tfs._iView != whichOne || tfs._bufID == id)
 						continue;
 					toActivate = tfs._docIndex >= active ? tfs._docIndex - 1 : tfs._docIndex;
@@ -6015,7 +6017,7 @@ bool Notepad_plus::switchToFile(BufferID id)
 	return false;
 }
 
-void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
+void Notepad_plus::getTaskListInfo(TaskListInfo* tli)
 {
 	int currentNbDoc = static_cast<int32_t>(_pDocTab->nbItem());
 	int nonCurrentNbDoc = static_cast<int32_t>(_pNonDocTab->nbItem());
@@ -6030,14 +6032,15 @@ void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 		BufferID bufID = _pDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager.getBufferByID(bufID);
 		int status = b->isMonitoringOn()?tb_monitored:(b->getFileReadOnly()?tb_rosys:b->getUserReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved));
-		tli->_tlfsLst.push_back(TaskLstFnStatus(currentView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
+		tli->_openedDocInfoList.push_back(OpenedDocInfo(currentView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
 	}
+
 	for (int i = 0 ; i < nonCurrentNbDoc ; ++i)
 	{
 		BufferID bufID = _pNonDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager.getBufferByID(bufID);
 		int status = b->isMonitoringOn()?tb_monitored:(b->getFileReadOnly()?tb_rosys:b->getUserReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved));
-		tli->_tlfsLst.push_back(TaskLstFnStatus(otherView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
+		tli->_openedDocInfoList.push_back(OpenedDocInfo(otherView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
 	}
 }
 
@@ -6641,6 +6644,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 			sfi._isMonitoring = buf->isMonitoringOn();
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
 			sfi._isRTL = buf->isRTL();
+			sfi._isWordWrap = buf->isWordWrap();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 
@@ -7073,6 +7077,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		_pDocMap->setSyntaxHiliting();
 	}
 
+	// the menu and the toolbar follow the word wrap of the current document
+	checkMenuItem(IDM_VIEW_WRAP, _pEditView->isWrap());
+	_toolBar.setCheck(IDM_VIEW_WRAP, _pEditView->isWrap());
+
 	if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 	{
 		_pFuncList->reload();
@@ -7093,6 +7101,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	// check if possible IncrementalSearch does not need reset
 	if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())
 		_incrementFindDlg.reInitCount();
+
+	// the highlighting of the matches of the Find dialog follows the current document
+	if (_findReplaceDlg.isCreated())
+		_findReplaceDlg.updateMatchHighlighting();
 }
 
 std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * commandLine, const CmdLineParamsDTO * pCmdParams)
@@ -7461,6 +7473,9 @@ bool Notepad_plus::reloadLang()
 	updateCommandShortcuts();
 
 	_accelerator.updateFullMenu();
+
+	// The menu updates above clear the Encoding marks: set them again
+	checkUnicodeMenuItems();
 
 	_scintaccelerator.updateKeys();
 
@@ -8714,6 +8729,24 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		NppParameters& nppParams = NppParameters::getInstance();
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, nppParams.getSVP()._showBorderEdge);
+
+		// Re-pick the UDL for already-open documents: a User Defined Language with
+		// separate dark/light mode variants is otherwise only re-selected when the
+		// file is closed and reopened, not when the mode is switched (issue #18388).
+		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
+		{
+			Buffer* buf = MainFileManager.getBufferByIndex(i);
+			if (buf->getLangType() == L_USER)
+			{
+				const wchar_t* ext = PathFindExtension(buf->getFullPathName());
+				if (*ext == L'.')
+				{
+					const wchar_t* langName = nppParams.getUserDefinedLangNameFromExt(ext + 1, buf->getFileName());
+					if (langName && wcscmp(langName, buf->getUserDefineLangName()) != 0)
+						buf->setLangType(L_USER, langName);
+				}
+			}
+		}
 
 		::SendMessage(_subEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 		::SendMessage(_mainEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);

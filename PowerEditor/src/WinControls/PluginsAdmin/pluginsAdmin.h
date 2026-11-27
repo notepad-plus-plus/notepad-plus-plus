@@ -110,10 +110,13 @@ public:
 	std::vector<PluginUpdateInfo*> fromUiIndexesToPluginInfos(const std::vector<size_t>& ) const;
 	long getSelectedIndex() const { return _ui.getSelectedIndex(); }
 	void setSelection(int index) const { _ui.setSelection(index); }
-	void initView(HINSTANCE hInst, HWND parent) { _ui.init(hInst, parent); }
+	void initView(HINSTANCE hInst, HWND parent) {
+		_ui.init(hInst, parent, IDC_PLUGINADM_LISTVIEW,
+			LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER,
+			LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER | LVS_EX_CHECKBOXES);
+	}
 	void addColumn(const columnInfo& column2Add) { _ui.addColumn(column2Add); }
 	void reSizeView(RECT & rc) { _ui.reSizeToWH(rc); }
-	void setViewStyleOption(int extraStyle) { _ui.setStyleOption(extraStyle); }
 	size_t nbItem() const { return _ui.nbItem(); }
 	PluginUpdateInfo* getPluginInfoFromUiIndex(size_t index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(static_cast<int>(index))); }
 	PluginUpdateInfo* findPluginInfoFromFolderName(const std::wstring& folderName, int& index) const;
@@ -142,7 +145,7 @@ class PluginsAdminDlg final : public StaticDialog
 public :
 	PluginsAdminDlg();
 
-	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 0) override;
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 0, const std::wstring& fontFace = L"") override;
 
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())

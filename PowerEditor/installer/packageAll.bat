@@ -393,6 +393,14 @@ If ErrorLevel 1 goto End
 If ErrorLevel 1 goto End
 
 
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.pdb.7z ..\bin\notepadPlus.pdb
+If ErrorLevel 1 goto End
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.pdb.x64.7z ..\bin64\notepadPlus.pdb
+If ErrorLevel 1 goto End
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.pdb.arm64.7z ..\binarm64\notepadPlus.pdb
+If ErrorLevel 1 goto End
+
+
 "C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.portable.zip .\zipped.package.release\*
 If ErrorLevel 1 goto End
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.7z .\zipped.package.release\*
@@ -471,6 +479,15 @@ ren npp.portable.minimalist.x64.7z npp.%VERSION%.portable.minimalist.x64.7z
 If ErrorLevel 1 goto End
 
 ren npp.portable.minimalist.arm64.7z npp.%VERSION%.portable.minimalist.arm64.7z
+If ErrorLevel 1 goto End
+
+ren npp.pdb.7z npp.%VERSION%.pdb.7z
+If ErrorLevel 1 goto End
+
+ren npp.pdb.x64.7z npp.%VERSION%.pdb.x64.7z
+If ErrorLevel 1 goto End
+
+ren npp.pdb.arm64.7z npp.%VERSION%.pdb.arm64.7z
 If ErrorLevel 1 goto End
 
 ren npp.Installer.x64.msi npp.%VERSION%.Installer.x64.msi

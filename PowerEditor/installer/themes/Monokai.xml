@@ -90,6 +90,7 @@ Credits:
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="USERLITERAL" styleID="25" fgColor="C19FFC" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="" keywordClass="substyle1" />
             <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="" keywordClass="substyle2" />
             <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="" keywordClass="substyle3" />
@@ -2044,7 +2045,7 @@ Credits:
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="FFFF00"></WidgetStyle>
         <WidgetStyle name="Mark Style 4" styleID="22" bgColor="8000FF"></WidgetStyle>
         <WidgetStyle name="Mark Style 5" styleID="21" bgColor="008000"></WidgetStyle>
-        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="0080FF"></WidgetStyle>
+        <WidgetStyle name="Find matches highlight all" styleID="28" bgColor="0080FF"></WidgetStyle>
         <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="8000FF"></WidgetStyle>
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="FFFF00"></WidgetStyle>
         <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="FAAA3C"></WidgetStyle>

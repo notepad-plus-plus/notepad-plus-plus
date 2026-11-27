@@ -1,0 +1,19 @@
+:: A demonstration of tcmd styles 0-4 6-10
+:: 5 (SCE_TCMD_COMMAND) is not currently used.
+@SETLOCAL
+
+iff %# eq 0 then
+  echo Need an argument
+  goto :end
+endiff
+
+set file=%1
+
+iff %file then
+  grep "local" %file
+else
+  echo No file !file!.
+endiff
+
+:end
+ENDLOCAL

@@ -321,7 +321,10 @@ public:
     }
 
     void enter(kind k) {
-        kindStack = kindStack << 2 | k;
+        // Two bits per level in an int: more than 15 levels would set the sign bit and make stateKind2() recurse forever.
+        if (kindStack < (1 << 28)) {
+            kindStack = kindStack << 2 | k;
+        }
     }
 
     void leave(kind k) {

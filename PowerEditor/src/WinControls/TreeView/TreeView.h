@@ -14,12 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
 #include <windows.h>
+
 #include <commctrl.h>
+
+#include <span>
+#include <string>
+#include <vector>
+
 #include "Window.h"
-#include "Common.h"
 #include "NppDarkMode.h"
 
 struct TreeStateNode {
@@ -36,7 +42,7 @@ public:
 	TreeView() = default;
 	~TreeView() override = default;
 
-	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
+	virtual void init(HINSTANCE hInst, HWND parent, UINT_PTR treeViewID);
 	void destroy() override;
 	HTREEITEM addItem(const wchar_t *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam = 0);
 	bool setItemParam(HTREEITEM Item2Set, LPARAM param);
@@ -78,7 +84,7 @@ public:
 		TreeView_Expand(_hSelf, hItem, TVE_COLLAPSE);
 	}
 
-	void foldExpandRecursively(HTREEITEM hItem, bool isFold) const;
+	void foldExpandRecursively(HTREEITEM hParentItem, bool isFold) const;
 	void foldExpandAll(bool isFold) const;
 	
 	void foldAll() const {
@@ -112,13 +118,13 @@ public:
 	bool moveDown(HTREEITEM itemToMove);
 	bool moveUp(HTREEITEM itemToMove);
 	bool swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp);
-	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
+	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode) const;
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
 	bool searchLeafAndBuildTree(const TreeView & tree2Build, const std::wstring & text2Search, int index2Search);
 	void sort(HTREEITEM hTreeItem, bool isRecusive);
 	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive);
-	bool setImageList(const std::vector<int>& imageIds, int imgSize = 0);
-	std::vector<int> getImageIds(std::vector<int> stdIds, std::vector<int>darkIds, std::vector<int> lightIds);
+	bool setImageList(std::span<const int> imageIds, int imgSize = 0);
+	std::span<const int> getImageIds(std::span<const int> stdIds, std::span<const int> darkIds, std::span<const int> lightIds);
 
 protected:
 	HIMAGELIST _hImaLst = nullptr;
@@ -138,8 +144,11 @@ protected:
 	std::vector<int> _canNotDropInList;
 	bool canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem);
 	void moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem);
-	bool isParent(HTREEITEM targetItem, HTREEITEM draggedItem);
+	bool isParent(HTREEITEM targetItem, HTREEITEM draggedItem) const;
 	bool isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem);
 	bool canDragOut(HTREEITEM targetItem);
 	bool canDropIn(HTREEITEM targetItem);
+
+private:
+	using Window::init;
 };

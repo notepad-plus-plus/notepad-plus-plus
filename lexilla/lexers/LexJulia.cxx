@@ -631,7 +631,7 @@ void resumeCharacter(StyleContext &sc, bool lexerror) {
         if (lexerror) {
             if (sc.ch != '\'') {
                 error = true;
-                while (sc.ch != '\'' &&
+                while (sc.More() && sc.ch != '\'' &&
                        sc.ch != '\r' &&
                        sc.ch != '\n') {
                     sc.Forward();
@@ -652,7 +652,7 @@ void resumeCharacter(StyleContext &sc, bool lexerror) {
 
             if (sc.ch != '\'') {
                 error = true;
-                while (sc.ch != '\'' &&
+                while (sc.More() && sc.ch != '\'' &&
                        sc.ch != '\r' &&
                        sc.ch != '\n') {
                     sc.Forward();

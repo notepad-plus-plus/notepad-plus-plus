@@ -249,8 +249,7 @@ void ScintillaBase::AutoCompleteInsert(Sci::Position startPos, Sci::Position rem
 		// MultiAutoComplete::Each
 		for (size_t r=0; r<sel.Count(); r++) {
 			if (!RangeContainsProtected(sel.Range(r))) {
-				Sci::Position positionInsert = sel.Range(r).Start().Position();
-				positionInsert = RealizeVirtualSpace(positionInsert, sel.Range(r).caret.VirtualSpace());
+				Sci::Position positionInsert = RealizeVirtualSpace(sel.Range(r).Start()).Position();
 				if (positionInsert - removeLen >= 0) {
 					positionInsert -= removeLen;
 					pdoc->DeleteChars(positionInsert, removeLen);

@@ -25,42 +25,181 @@
 #include <string>
 #include <vector>
 
+#include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "Window.h"
 
-void ListView::init(HINSTANCE hInst, HWND parent)
+void ListViewBase::init(HINSTANCE hInst, HWND hParent, UINT_PTR listViewID, DWORD style, DWORD exStyle)
 {
-	Window::init(hInst, parent);
+	Window::init(hInst, hParent);
+
 	INITCOMMONCONTROLSEX icex{};
-
-	// Ensure that the common control DLL is loaded.
 	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-	icex.dwICC  = ICC_LISTVIEW_CLASSES;
-	InitCommonControlsEx(&icex);
+	icex.dwICC = ICC_LISTVIEW_CLASSES;
+	::InitCommonControlsEx(&icex);
 
-	// Create the list-view window in report view with label editing enabled.
-	static constexpr DWORD listViewStyles = LVS_REPORT | LVS_NOSORTHEADER
-						| LVS_SINGLESEL | LVS_AUTOARRANGE
-						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
+	_hSelf = ::CreateWindowExW(
+		0,
+		WC_LISTVIEW,
+		L"",
+		WS_CHILD | WS_BORDER | style,
+		0, 0, 0, 0,
+		_hParent,
+		listViewID == 0 ? nullptr : reinterpret_cast<HMENU>(listViewID),
+		hInst,
+		nullptr);
 
-	_hSelf = ::CreateWindow(WC_LISTVIEW,
-                                L"",
-								WS_CHILD | WS_BORDER | listViewStyles,
-                                0,
-                                0,
-                                0,
-                                0,
-                                _hParent,
-                                nullptr,
-                                hInst,
-                                nullptr);
 	if (!_hSelf)
 	{
 		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
 	}
 
-	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
-	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER | _extraStyle;
-	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
+	NppDarkMode::subclassListViewControl(_hSelf);
+
+	subclassParentNotifyListViewCustomDraw(_hParent, listViewID);
+
+	const DWORD lvExStyle = ListView_GetExtendedListViewStyle(_hSelf) | exStyle;
+	ListView_SetExtendedListViewStyle(_hSelf, lvExStyle);
+
+	setDarkTheme();
+}
+
+void ListViewBase::destroy()
+{
+	if (_hSelf != nullptr)
+	{
+		::DestroyWindow(_hSelf);
+		_hSelf = nullptr;
+	}
+}
+
+void ListViewBase::subclassParentNotifyListViewCustomDraw(HWND hParent, UINT_PTR listViewID)
+{
+	if (::GetWindowSubclass(hParent, ListViewBase::ListViewParentNotifyCustomDrawSubclass, static_cast<UINT_PTR>(SubclassID::first), nullptr) == FALSE)
+	{
+		::SetWindowSubclass(hParent, ListViewBase::ListViewParentNotifyCustomDrawSubclass, static_cast<UINT_PTR>(SubclassID::first), static_cast<DWORD_PTR>(listViewID));
+	}
+}
+
+LRESULT ListViewBase::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) noexcept
+{
+	const auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
+
+	switch (lplvcd->nmcd.dwDrawStage)
+	{
+		case CDDS_PREPAINT:
+		{
+			return CDRF_NOTIFYITEMDRAW;
+		}
+
+		case CDDS_ITEMPREPAINT:
+		{
+			const HWND hList = lplvcd->nmcd.hdr.hwndFrom;
+			const RECT& rcRow = lplvcd->nmcd.rc;
+
+			const bool isThemeDark = NppDarkMode::isThemeDark();
+			const bool isSelected = ListView_GetItemState(hList, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
+			const bool isHot = (lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT;
+
+			const auto style = ::GetWindowLongPtrW(hList, GWL_STYLE);
+			const bool hasHeader = ((style & LVS_REPORT) != 0) && ((style & LVS_NOCOLUMNHEADER) == 0);
+
+			if (isThemeDark && (isSelected || isHot))
+			{
+				const COLORREF bgColor = isSelected ? NppDarkMode::getCtrlBackgroundColor() : NppDarkMode::getHotBackgroundColor();
+
+				lplvcd->clrText = NppDarkMode::getTextColor();
+				lplvcd->clrTextBk = bgColor;
+
+				const auto oldClr = ::SetDCBrushColor(lplvcd->nmcd.hdc, bgColor);
+				const auto hBrush = static_cast<HBRUSH>(::GetStockObject(DC_BRUSH));
+
+				if (!hasHeader)
+				{
+					::FillRect(lplvcd->nmcd.hdc, &rcRow, hBrush);
+				}
+				else
+				{
+					const auto hHeader = ListView_GetHeader(hList);
+					const auto nCol = Header_GetItemCount(hHeader);
+
+					static constexpr LONG paddingLeft = 1;
+					static constexpr LONG paddingRight = 2;
+
+					const auto lvii = LVITEMINDEX{ .iItem= static_cast<int>(lplvcd->nmcd.dwItemSpec), .iGroup = -1 };
+					RECT rcSubitem{
+						rcRow.left
+						, rcRow.top
+						, rcRow.left + ListView_GetColumnWidth(hList, 0) - paddingRight
+						, rcRow.bottom
+					};
+					::FillRect(lplvcd->nmcd.hdc, &rcSubitem, hBrush);
+
+					for (int i = 1; i < nCol; ++i)
+					{
+						ListView_GetItemIndexRect(hList, &lvii, i, LVIR_BOUNDS, &rcSubitem);
+						rcSubitem.left -= paddingLeft;
+						rcSubitem.right -= paddingRight;
+						::FillRect(lplvcd->nmcd.hdc, &rcSubitem, hBrush);
+					}
+				}
+
+				::SetDCBrushColor(lplvcd->nmcd.hdc, oldClr);
+			}
+
+			if (isSelected)
+			{
+				::DrawFocusRect(lplvcd->nmcd.hdc, &rcRow);
+			}
+			else if (isHot)
+			{
+				::FrameRect(lplvcd->nmcd.hdc, &rcRow, isThemeDark ? NppDarkMode::getHotEdgeBrush() : ::GetSysColorBrush(COLOR_WINDOWTEXT));
+			}
+
+			return CDRF_DODEFAULT;
+		}
+
+		default:
+		{
+			break;
+		}
+	}
+	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
+LRESULT CALLBACK ListViewBase::ListViewParentNotifyCustomDrawSubclass(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+) noexcept
+{
+	switch (uMsg)
+	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hWnd, ListViewBase::ListViewParentNotifyCustomDrawSubclass, uIdSubclass);
+			break;
+		}
+
+		case WM_NOTIFY:
+		{
+			const auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
+			if (nmhdr->idFrom == static_cast<UINT_PTR>(dwRefData) && nmhdr->code == NM_CUSTOMDRAW)
+			{
+				return ListViewBase::listViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam);
+			}
+			break;
+		}
+	}
+	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
+void ListView::init(HINSTANCE hInst, HWND parent, UINT_PTR listViewID, DWORD style, DWORD exStyle)
+{
+	ListViewBase::init(hInst, parent, listViewID, style, exStyle);
 
 	if (!_columnInfos.empty())
 	{
@@ -77,13 +216,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	}
 }
 
-void ListView::destroy()
-{
-	::DestroyWindow(_hSelf);
-	_hSelf = NULL;
-}
-
-void ListView::addLine(const std::vector<std::wstring>& values2Add, LPARAM lParam, int pos2insert)
+void ListView::addLine(std::vector<std::wstring>& values2Add, LPARAM lParam, int pos2insert)
 {
 	if (!values2Add.size())
 		return;
@@ -96,7 +229,7 @@ void ListView::addLine(const std::vector<std::wstring>& values2Add, LPARAM lPara
 	LVITEM item{};
 	item.mask = LVIF_TEXT | LVIF_PARAM;
 
-	item.pszText = const_cast<wchar_t *>(it->c_str());
+	item.pszText = it->data();
 	item.iItem = pos2insert;
 	item.iSubItem = 0;
 	item.lParam = lParam;
@@ -106,7 +239,7 @@ void ListView::addLine(const std::vector<std::wstring>& values2Add, LPARAM lPara
 	int j = 0;
 	for (; it != values2Add.end(); ++it)
 	{
-		ListView_SetItemText(_hSelf, pos2insert, ++j, const_cast<wchar_t *>(it->c_str()));
+		ListView_SetItemText(_hSelf, pos2insert, ++j, it->data());
 	}
 }
 

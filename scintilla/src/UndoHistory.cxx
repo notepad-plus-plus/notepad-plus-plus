@@ -67,11 +67,11 @@ size_t ScaledVector::Size() const noexcept {
 }
 
 size_t ScaledVector::ValueAt(size_t index) const noexcept {
-	return ReadValue(bytes.data() + index * element.size, element.size);
+	return ReadValue(bytes.data() + (index * element.size), element.size);
 }
 
 intptr_t ScaledVector::SignedValueAt(size_t index) const noexcept {
-	return ReadValue(bytes.data() + index * element.size, element.size);
+	return ReadValue(bytes.data() + (index * element.size), element.size);
 }
 
 constexpr SizeMax ElementForValue(size_t value) noexcept {
@@ -92,19 +92,19 @@ void ScaledVector::SetValueAt(size_t index, size_t value) {
 		const size_t length = bytes.size() / element.size;
 		std::vector<uint8_t> bytesNew(elementForValue.size * length);
 		for (size_t i = 0; i < length; i++) {
-			const uint8_t *source = bytes.data() + i * element.size;
-			uint8_t *destination = bytesNew.data() + (i+1) * elementForValue.size - element.size;
+			const uint8_t *source = bytes.data() + (i * element.size);
+			uint8_t *destination = bytesNew.data() + ((i+1) * elementForValue.size) - element.size;
 			memcpy(destination, source, element.size);
 		}
 		std::swap(bytes, bytesNew);
 		element = elementForValue;
 	}
-	WriteValue(bytes.data() + index * element.size, element.size, value);
+	WriteValue(bytes.data() + (index * element.size), element.size, value);
 }
 
 void ScaledVector::ClearValueAt(size_t index) noexcept {
 	// 0 fits in any size element so no expansion needed so no exceptions
-	WriteValue(bytes.data() + index * element.size, element.size, 0);
+	WriteValue(bytes.data() + (index * element.size), element.size, 0);
 }
 
 void ScaledVector::Clear() noexcept {

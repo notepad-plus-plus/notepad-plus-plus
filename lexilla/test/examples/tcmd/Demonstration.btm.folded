@@ -1,0 +1,20 @@
+ 0 400   0   :: A demonstration of tcmd styles 0-4 6-10
+ 0 400   0   :: 5 (SCE_TCMD_COMMAND) is not currently used.
+ 0 400   0   @SETLOCAL
+ 0 400   0   
+ 0 400   0   iff %# eq 0 then
+ 0 400   0     echo Need an argument
+ 0 400   0     goto :end
+ 0 400   0   endiff
+ 0 400   0   
+ 0 400   0   set file=%1
+ 0 400   0   
+ 0 400   0   iff %file then
+ 0 400   0     grep "local" %file
+ 0 400   0   else
+ 0 400   0     echo No file !file!.
+ 0 400   0   endiff
+ 0 400   0   
+ 0 400   0   :end
+ 0 400   0   ENDLOCAL
+ 0 400   0   

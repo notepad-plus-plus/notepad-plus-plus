@@ -1,0 +1,20 @@
+{2}-- Issue 378 
+-- Demonstrate PL/SQL logic folding and multi-line q string literal.
+{5}DECLARE{0}
+  {11}a{0} {5}NUMBER{0} {10}:={0} {4}10{10};{0} 
+  {11}b{0} {5}NUMBER{0} {10}:={0} {4}0{10};{0}
+  {11}c{0} {5}NUMBER{10};{0}
+  {11}t{0} {5}VARCHAR2{0} {10}:={0} {24}q'[Single line test]'{10};{0}
+  {11}v{0} {5}VARCHAR2{0} {10}:={0} {24}q'[
+a
+b
+]'{0} {10}+{0} {24}q'(1)'{10};{0} {2}-- Test whether stale value ')' leaks back to line start.
+{5}BEGIN{0} 
+  {11}c{0} {10}:={0} {11}a{0} {10}/{0} {11}b{10};{0} 
+{2}-- Division by zero  DBMS_OUTPUT.PUT_LINE('Result: ' || c);
+{5}EXCEPTION{0}  
+  {5}WHEN{0} {11}ZERO_DIVIDE{0} {5}THEN{0}
+    {11}DBMS_OUTPUT.PUT_LINE{10}({24}q'(Error:
+Division by zero is not allowed.)'{10});{0}
+    {11}DBMS_OUTPUT.PUT_LINE{10}({24}q'!Not a complemented quote.!'{10});{0}
+{5}END{10};{0}

@@ -64,6 +64,16 @@ bool IsANumberChar(int ch, int chPrev) noexcept {
 	        ch == '.' || ((ch == '-' || ch == '+') && chPrev < 0x80 && toupper(chPrev) == 'E'));
 }
 
+constexpr int GetQuoteComplement(int ch) noexcept {
+	switch (ch) {
+	case '<': return '>';
+	case '(': return ')';
+	case '{': return '}';
+	case '[': return ']';
+	default: return ch;
+	}
+}
+
 typedef unsigned int sql_state_t;
 
 class SQLStates {
@@ -397,6 +407,7 @@ private:
 	OptionsSQL options;
 	OptionSetSQL osSQL;
 	SQLStates sqlStates;
+	SparseState<int> qComplements;
 
 	WordList keywords1;
 	WordList keywords2;
@@ -448,6 +459,8 @@ void SCI_METHOD LexerSQL::Lex(Sci_PositionU startPos, Sci_Position length, int i
 	LexAccessor styler(pAccess);
 	StyleContext sc(startPos, length, initStyle, styler);
 	int styleBeforeDCKeyword = SCE_SQL_DEFAULT;
+
+	int qComplement = qComplements.StartAt(sc.currentLine);
 
 	for (; sc.More(); sc.Forward()) {
 		// Determine if the current state should terminate.
@@ -562,33 +575,10 @@ void SCI_METHOD LexerSQL::Lex(Sci_PositionU startPos, Sci_Position length, int i
 			}
 			break;
 		case SCE_SQL_QOPERATOR:
-			// Locate the unique Q operator character
-			sc.Complete();
-			char qOperator = 0x00;
-			for (Sci_Position styleStartPos = sc.currentPos; styleStartPos > 0; --styleStartPos) {
-				if (styler.StyleAt(styleStartPos - 1) != SCE_SQL_QOPERATOR) {
-					qOperator = styler.SafeGetCharAt(styleStartPos + 2);
-					break;
-				}
-			}
-
-			char qComplement = 0x00;
-
-			if (qOperator == '<') {
-				qComplement = '>';
-			} else if (qOperator == '(') {
-				qComplement = ')';
-			} else if (qOperator == '{') {
-				qComplement = '}';
-			} else if (qOperator == '[') {
-				qComplement = ']';
-			} else {
-				qComplement = qOperator;
-			}
-
 			if (sc.Match(qComplement, '\'')) {
 				sc.Forward();
 				sc.ForwardSetState(SCE_SQL_DEFAULT);
+				qComplements.Delete(sc.currentLine);
 			}
 			break;
 		}
@@ -598,6 +588,8 @@ void SCI_METHOD LexerSQL::Lex(Sci_PositionU startPos, Sci_Position length, int i
 			if (sc.Match('q', '\'') || sc.Match('Q', '\'')) {
 				sc.SetState(SCE_SQL_QOPERATOR);
 				sc.Forward();
+				qComplement = GetQuoteComplement(sc.chNext);
+				qComplements.Set(sc.currentLine, qComplement);
 			} else if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext)) ||
 			          ((sc.ch == '-' || sc.ch == '+') && IsADigit(sc.chNext) && !IsADigit(sc.chPrev))) {
 				sc.SetState(SCE_SQL_NUMBER);

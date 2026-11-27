@@ -16,10 +16,29 @@
 
 
 #include "ansiCharPanel.h"
+
+#include <windows.h>
+
+#include <cstdlib>
+#include <string>
+#include <string.h>
+
+#include <Scintilla.h>
+
+#include "DockingDlgInterface.h"
+#include "ListView.h"
+#include "Parameters.h"
 #include "ScintillaEditView.h"
+#include "ansiCharPanel_rc.h"
+#include "dockingResource.h"
+#include "dpiManagerV2.h"
 #include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
 using namespace std;
+
+static constexpr std::array kDefaultColBaseWidths{ 6, 6, 10, 13, 14, 17 };
 
 void AnsiCharPanel::switchEncoding()
 {
@@ -42,29 +61,28 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			wstring htmlNumberStr = pNativeSpeaker->getAttrNameStr(L"HTML Decimal", "AsciiInsertion", "ColumnHtmlNumber");
 			wstring htmlHexNbStr = pNativeSpeaker->getAttrNameStr(L"HTML Hexadecimal", "AsciiInsertion", "ColumnHtmlHexNb");
 
-			StaticDialog::setDpi();
+			const auto avgWidth = DPIManagerV2::getFontAvgAlphaWidth(_hSelf);
 
-			_listView.addColumn(columnInfo(valStr, _dpiManager.scale(45)));
-			_listView.addColumn(columnInfo(hexStr, _dpiManager.scale(45)));
-			_listView.addColumn(columnInfo(charStr, _dpiManager.scale(70)));
-			_listView.addColumn(columnInfo(htmlNameStr, _dpiManager.scale(90)));
-			_listView.addColumn(columnInfo(htmlNumberStr, _dpiManager.scale(100)));
-			_listView.addColumn(columnInfo(htmlHexNbStr, _dpiManager.scale(120)));
+			_listView.addColumn(columnInfo(valStr, avgWidth * kDefaultColBaseWidths[0]));
+			_listView.addColumn(columnInfo(hexStr, avgWidth * kDefaultColBaseWidths[1]));
+			_listView.addColumn(columnInfo(charStr, avgWidth * kDefaultColBaseWidths[2]));
+			_listView.addColumn(columnInfo(htmlNameStr, avgWidth * kDefaultColBaseWidths[3]));
+			_listView.addColumn(columnInfo(htmlNumberStr, avgWidth * kDefaultColBaseWidths[4]));
+			_listView.addColumn(columnInfo(htmlHexNbStr, avgWidth * kDefaultColBaseWidths[5]));
 
-			_listView.init(_hInst, _hSelf);
+			_listView.init(_hInst, _hSelf, IDC_LIST_ANSICHAR);
+			setFontForChild(_listView.getHSelf());
+
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 			_listView.setValues(codepage==-1?0:codepage);
 			_listView.display();
-
-			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::autoThemeChildControls(_hSelf);
+			_listView.setDarkTheme();
 			return TRUE;
 		}
 
@@ -81,7 +99,7 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case NM_DBLCLK:
 				{
-					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					const auto lpnmitem = reinterpret_cast<LPNMITEMACTIVATE>(lParam);
 					LVHITTESTINFO pInfo{};
 					pInfo.pt = lpnmitem->ptAction;
 					ListView_SubItemHitTest(_listView.getHSelf(), &pInfo);
@@ -90,7 +108,7 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					int j = pInfo.iSubItem;
 					wchar_t buffer[10]{};
 					LVITEM item{};
-					item.mask = LVIF_TEXT | LVIF_PARAM;
+					item.mask = LVIF_TEXT;
 					item.iItem = i;
 					item.iSubItem = j;
 					item.cchTextMax = 10;
@@ -110,7 +128,7 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case LVN_KEYDOWN:
 				{
-					switch (((LPNMLVKEYDOWN)lParam)->wVKey)
+					switch (reinterpret_cast<LPNMLVKEYDOWN>(lParam)->wVKey)
 					{
 						case VK_RETURN:
 						{
@@ -146,6 +164,21 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+}
+
+void AnsiCharPanel::onDpiChanged(UINT prevDpi)
+{
+	HWND hList = _listView.getHSelf();
+
+	setFontForChild(hList);
+
+	const auto nCol = static_cast<int>(kDefaultColBaseWidths.size());
+	for (int i = 0; i < nCol; ++i)
+	{
+		const int width = ListView_GetColumnWidth(hList, i);
+		const UINT widthDpi = _dpiManager.scale(width, _dpiManager.getDpi(), prevDpi);
+		ListView_SetColumnWidth(hList, i, widthDpi);
+	}
 }
 
 void AnsiCharPanel::insertChar(unsigned char char2insert) const

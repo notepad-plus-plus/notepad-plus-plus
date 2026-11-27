@@ -17,9 +17,17 @@
 
 #pragma once
 
-#include "DockingDlgInterface.h"
-#include "clipboardHistoryPanel_rc.h"
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <string>
 #include <vector>
+
+#include "DockingDlgInterface.h"
+#include "ListView.h"
+#include "Window.h"
+#include "clipboardHistoryPanel_rc.h"
 
 #define CH_PROJECTPANELTITLE		L"Clipboard History"
 
@@ -30,30 +38,25 @@ struct ClipboardDataInfo {
 	bool _isBinaryContained = false;
 };
 
-class ByteArray {
+class CBHListView : public ListViewBase
+{
 public:
-	ByteArray() = default;
-	explicit ByteArray(const ClipboardDataInfo& cd);
-	
-	~ByteArray() {
-		if (_pBytes)
-			delete [] _pBytes;
-	}
-	const unsigned char* getPointer() const { return _pBytes; }
-	size_t getLength() const { return _length; }
-protected:
-	unsigned char *_pBytes = nullptr;
-	size_t _length = 0;
-};
+	CBHListView() = default;
+	~CBHListView() override = default;
 
-class StringArray : public ByteArray {
-public:
-	StringArray(const ClipboardDataInfo& cd, size_t maxLen);
+	void init(HINSTANCE hInst, HWND hParent) override;
+	void reSizeToWH(int width, int height);
+
+private:
+	using ListViewBase::init;
+	using Window::reSizeToWH;
 };
 
 class ClipboardHistoryPanel : public DockingDlgInterface {
 public:
-	ClipboardHistoryPanel(): DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL), _ppEditView(nullptr), _hwndNextCbViewer(nullptr), _lbBgColor(-1), _lbFgColor(-1) {}
+	ClipboardHistoryPanel()
+		: DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL), _ppEditView(nullptr), _hwndNextCbViewer(nullptr)
+	{}
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
@@ -65,17 +68,20 @@ public:
 	}
 
 	ClipboardDataInfo getClipboadData();
-	void addToClipboadHistory(ClipboardDataInfo cbd);
-	int getClipboardDataIndex(const ClipboardDataInfo& cbd);
+
+	[[nodiscard]] std::wstring getDisplayStr(const ClipboardDataInfo& cbd);
+	void addToClipboadHistory(const ClipboardDataInfo& cbd);
+	int getClipboardDataIndex(const ClipboardDataInfo& cbd) const;
 
 	void setBackgroundColor(COLORREF bgColour) override {
-		_lbBgColor = bgColour;
+		ListView_SetBkColor(_listView.getHSelf(), bgColour);
+		ListView_SetTextBkColor(_listView.getHSelf(), bgColour);
+		::RedrawWindow(_listView.getHSelf(), nullptr, nullptr, RDW_INVALIDATE);
 	}
 	void setForegroundColor(COLORREF fgColour) override {
-		_lbFgColor = fgColour;
+		ListView_SetTextColor(_listView.getHSelf(), fgColour);
+		::RedrawWindow(_listView.getHSelf(), nullptr, nullptr, RDW_INVALIDATE);
 	}
-
-	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 
 	bool trackClipboardOps(bool bTrack) {
 		bool bPreviousState = _isTrackingClipboardOps;
@@ -90,7 +96,14 @@ private:
 	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<ClipboardDataInfo> _clipboardDataInfos;
 	HWND _hwndNextCbViewer = nullptr;
-	int _lbBgColor = -1;
-	int _lbFgColor= -1;
+	CBHListView _listView;
 	bool _isTrackingClipboardOps = true; // false when we do not want to track & show some Clipboard operations
+
+	using DockingDlgInterface::init;
+
+	void onDoubleClick(HWND hList);
+
+	void onDpiChanged([[maybe_unused]] UINT prevDpi) override {
+		setFontForChild(_listView.getHSelf());
+	}
 };

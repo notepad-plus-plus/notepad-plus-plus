@@ -450,6 +450,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT3, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT4, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT5, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETSTYLE, FINDDLG_HIGHLIGHT_INDIC, INDIC_ROUNDBOX);
 
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_SMART, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE, 100);
@@ -461,6 +462,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT3, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT4, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT5, 100);
+	execute(SCI_INDICSETALPHA, FINDDLG_HIGHLIGHT_INDIC, 100);
 
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_SMART, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE, true);
@@ -472,6 +474,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT3, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT4, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT5, true);
+	execute(SCI_INDICSETUNDER, FINDDLG_HIGHLIGHT_INDIC, true);
 
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI& nppGui = nppParams.getNppGUI();
@@ -1776,6 +1779,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	defaultIndicatorStyle._bgColor = blue;
 	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
 	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
+	execute(SCI_INDICSETFORE, FINDDLG_HIGHLIGHT_INDIC, (pStyle ? *pStyle : defaultIndicatorStyle)._bgColor); // same colour
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_TAGMATCH;
 	defaultIndicatorStyle._bgColor = RGB(0x80, 0x00, 0xFF);
@@ -2319,8 +2323,13 @@ void ScintillaEditView::restyleBuffer()
 
 void ScintillaEditView::styleChange()
 {
+	// SCI_CLEARDOCUMENTSTYLE resets wrapped line heights: keep the same document line on top
+	const intptr_t firstVisibleDocLine = execute(SCI_DOCLINEFROMVISIBLE, execute(SCI_GETFIRSTVISIBLELINE));
+
 	defineDocType(_currentBuffer->getLangType());
 	restyleBuffer();
+
+	execute(SCI_SETFIRSTVISIBLELINE, execute(SCI_VISIBLEFROMDOCLINE, firstVisibleDocLine));
 }
 
 bool ScintillaEditView::setLexerFromLangID(int langID) const // Internal lexer only
@@ -2375,6 +2384,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	// restore the collapsed info
 	const std::vector<size_t> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);
+
+	// the word wrap of the document has to be set before the position is restored
+	wrap(newBuf->isWordWrap());
 
 	restoreCurrentPosPreStep();
 	restoreHiddenLines();
@@ -3373,6 +3385,18 @@ void ScintillaEditView::performGlobalStyles()
 		npcCustomColor = pStyle->_fgColor;
 	}
 	setNpcAndCcUniEOL(npcCustomColor);
+}
+
+void ScintillaEditView::setWhitespaceSize() const
+{
+	if (isShownSpaceAndTab())
+	{
+		const auto zoom = static_cast<int>(execute(SCI_GETZOOM)) / 2;
+		const auto zoomSize = std::max<int>(3, DPIManagerV2::scale(2, _hParent) + zoom);
+		const auto whitespaceSize = std::max<int>(2, (zoomSize + 1) / 2);
+
+		execute(SCI_SETWHITESPACESIZE, whitespaceSize, 0);
+	}
 }
 
 void ScintillaEditView::showNpc(bool willBeShown, bool isSearchResult)

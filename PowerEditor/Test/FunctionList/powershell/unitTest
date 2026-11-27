@@ -181,6 +181,11 @@ function prompt {
     "PM>"
 }
 
+Function Sauve+Confirm {
+    Write-host "`r`n" $Dossier dans "Sauve+Confirm"
+}
+
+
 # SIG # Begin signature block
 # MIIavQYJKoZIhvcNAQcCoIIarjCCGqoCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR

@@ -157,6 +157,14 @@ TEST_CASE("CellBuffer") {
 			REQUIRE(sLength2 == cb.LineEnd(1));
 			cb.DeleteChars(0, sLength2, startSequence);
 		}
+		{
+			// Return -1 before start
+			constexpr std::string_view sText2 = "Two\nLines";
+			constexpr Sci::Position sLength2 = sText2.length();
+			cb.InsertString(0, sText2.data(), sLength2, startSequence);
+			REQUIRE(cb.LineEnd(-1) < 0);
+			cb.DeleteChars(0, sLength2, startSequence);
+		}
 		cb.SetLineEndTypes(LineEndType::Default);
 	}
 
@@ -273,7 +281,7 @@ bool EqualContainerAction(const Action &a, Sci::Position token) noexcept {
 void TentativeUndo(UndoHistory &uh) noexcept {
 	const int steps = uh.TentativeSteps();
 	for (int step = 0; step < steps; step++) {
-		/* const Action &actionStep = */ uh.GetUndoStep();
+		[[maybe_unused]] const Action actionStep = uh.GetUndoStep();
 		uh.CompletedUndoStep();
 	}
 	uh.TentativeCommit();
@@ -413,10 +421,10 @@ TEST_CASE("UndoHistory") {
 		// Undoing
 		const int steps = uh.StartUndo();
 		REQUIRE(steps == 2);
-		uh.GetUndoStep();
+		[[maybe_unused]] const Action actionStep = uh.GetUndoStep();
 		uh.CompletedUndoStep();
 		REQUIRE(uh.Actions() == 2);	// Not truncated until forward action
-		uh.GetUndoStep();
+		[[maybe_unused]] const Action actionStep2 = uh.GetUndoStep();
 		uh.CompletedUndoStep();
 		REQUIRE(uh.Actions() == 2);
 
@@ -1194,6 +1202,57 @@ TEST_CASE("ChangeHistory") {
 		for (size_t j = 0; j < rounds; j++) {
 			il.UndoDeleteStep(2, 1, false);
 		}
+
+		// Restored to original
+		REQUIRE(il.Length() == length);
+		REQUIRE(il.DeletionCount(0, length) == 0);
+	}
+
+	SECTION("Delete Complex") {
+		// Bug in (e81228bd8092) causes some deletion patterns to fail when they combine poorly
+		// From buggy example "1\n\n#a\n#b\n#c\n", empty each line that starts with a # then replace every double \n with a single \n
+		constexpr size_t length = 12;
+		il.Insert(0, length, false, true);
+		il.SetSavePoint();
+
+		// Perform deletes then replaces in a pattern that overlaps
+
+		// These steps provide history that needs to be saved in the 2 replace operations
+		il.DeleteRangeSavingHistory(3,2, false, false);	// "1\n\n\n#b\n#c\n"
+		il.DeleteRangeSavingHistory(4,2, false, false);	// "1\n\n\n\n#c\n"
+		il.DeleteRangeSavingHistory(5,2, false, false);	// "1\n\n\n\n\n"
+
+		REQUIRE(il.Length() == 6);
+		REQUIRE(il.DeletionCount(0, 6) == 3);
+
+		il.DeleteRangeSavingHistory(1,2, false, false);	// "1\n\n\n"
+		il.Insert(1,1, true, false);					// "1\n\n\n\n"
+
+		il.DeleteRangeSavingHistory(2,2, false, false);	// "1\n\n"
+		il.Insert(2,1, true, false);					// "1\n\n\n"
+
+		// Finished forward changes so check state
+
+		REQUIRE(il.Length() == 4);
+		REQUIRE(il.DeletionCount(0, 4) == 5);
+
+		// Undo each action in reverse order
+
+		// At this point, the ChangeStack looks like:
+		// steps [0, 0, 0, 1, 2]
+		// changes [ {start:3, count:2}, {start:4, count:1} ]
+		// So, a total of 3 modifications but steps grouped differently to changes.
+		// The bug assumes they are grouped similarly.
+
+		il.DeleteRange(2, 1, false);
+		il.UndoDeleteStep(2, 2, false);	// Assertion fails here
+
+		il.DeleteRange(1, 1, false);
+		il.UndoDeleteStep(1, 2, false);	// Assertions turned off, vector::back() fails here
+
+		il.UndoDeleteStep(5, 2, false);
+		il.UndoDeleteStep(4, 2, false);
+		il.UndoDeleteStep(3, 2, false);
 
 		// Restored to original
 		REQUIRE(il.Length() == length);

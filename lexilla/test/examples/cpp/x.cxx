@@ -71,6 +71,11 @@ b
 // Inactive
 #endif
 
+// Test incomplete macro invocation
+#if MULTIPLY(
+// Inactive
+#endif
+
 int main() {
 #region array declarations
 	double x[] = {3.14159,6.02e23,1.6e-19,1.0+1};

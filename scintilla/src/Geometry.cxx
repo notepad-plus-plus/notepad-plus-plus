@@ -15,7 +15,7 @@
 namespace {
 
 constexpr unsigned int Mixed(unsigned char a, unsigned char b, double proportion) noexcept {
-	return static_cast<unsigned int>(a + proportion * (b - a));
+	return static_cast<unsigned int>(a + (proportion * (b - a)));
 }
 
 }

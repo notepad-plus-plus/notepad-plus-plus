@@ -22,6 +22,11 @@ class TestSimple(unittest.TestCase):
 		self.ed.ClearAll()
 		self.ed.EmptyUndoBuffer()
 
+	def setUnicodeLineEnds(self):
+		self.xite.ChooseLexer(b"cpp")
+		self.ed.SetCodePage(65001)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
+
 	def testStatus(self):
 		self.assertEqual(self.ed.GetStatus(), 0)
 		self.ed.SetStatus(1)
@@ -298,6 +303,79 @@ class TestSimple(unittest.TestCase):
 		self.assertEqual(self.ed.GetColumn(1), 1)
 		self.assertEqual(self.ed.GetColumn(2), 4)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
+	def testGetColumnUnicodeLineEnd(self):
+		self.setUnicodeLineEnds()
+		# LS=\xe2\x80\xa8 gamma=\xCE\x93
+		self.ed.SetContents(b"ab\tc\xCE\x93\r\nd\xe2\x80\xa8z")
+
+		# Outside document
+		self.assertEqual( 0, self.ed.GetColumn(-1))
+		self.assertEqual( 1, self.ed.GetColumn(1000))
+
+		# Each line
+		self.assertEqual( 0, self.ed.GetColumn( 0))	# a
+		self.assertEqual( 1, self.ed.GetColumn( 1))	# b
+		self.assertEqual( 2, self.ed.GetColumn( 2))	# \t
+		self.assertEqual( 8, self.ed.GetColumn( 3))	# c
+		self.assertEqual( 9, self.ed.GetColumn( 4))	# gamma[0]
+		self.assertEqual( 9, self.ed.GetColumn( 5))	# gamma[1]
+		self.assertEqual(10, self.ed.GetColumn( 6))	# \r
+		self.assertEqual(10, self.ed.GetColumn( 7))	# \n
+
+		self.assertEqual( 0, self.ed.GetColumn( 8))	# d
+		self.assertEqual( 1, self.ed.GetColumn( 9))	# LS[0]
+		self.assertEqual( 1, self.ed.GetColumn(10))	# LS[1]
+		self.assertEqual( 1, self.ed.GetColumn(11))	# LS[2]
+
+		self.assertEqual( 0, self.ed.GetColumn(12))	# z
+		self.assertEqual( 1, self.ed.GetColumn(13))	# end of document
+
+		self.assertEqual( 1, self.ed.GetColumn(14))	# 1 after end of document
+
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
+	def testFindColumnUnicodeLineEnd(self):
+		self.setUnicodeLineEnds()
+		# LS=\xe2\x80\xa8 gamma=\xCE\x93
+		self.ed.SetContents(b"ab\tc\xCE\x93\r\nd\xe2\x80\xa8z\na")
+
+		# Outside document
+		self.assertEqual( 0, self.ed.FindColumn(0, -1))
+		self.assertEqual( 6, self.ed.FindColumn(0, 1000))
+
+		# Each line
+		self.assertEqual( 0, self.ed.FindColumn(0, 0))	# a
+		self.assertEqual( 1, self.ed.FindColumn(0, 1))	# b
+		self.assertEqual( 2, self.ed.FindColumn(0, 2))	# \t
+		self.assertEqual( 2, self.ed.FindColumn(0, 3))	# \t
+		self.assertEqual( 2, self.ed.FindColumn(0, 4))	# \t
+		self.assertEqual( 2, self.ed.FindColumn(0, 5))	# \t
+		self.assertEqual( 2, self.ed.FindColumn(0, 6))	# \t
+		self.assertEqual( 2, self.ed.FindColumn(0, 7))	# \t
+		self.assertEqual( 3, self.ed.FindColumn(0, 8))	# c
+		self.assertEqual( 4, self.ed.FindColumn(0, 9))	# gamma[1], gamma[2]
+		self.assertEqual( 6, self.ed.FindColumn(0, 10))	# \r
+		self.assertEqual( 6, self.ed.FindColumn(0, 11))	# \n
+		self.assertEqual( 6, self.ed.FindColumn(0, 12))	# ...
+
+		self.assertEqual( 8, self.ed.FindColumn(1, 0))	# d
+		self.assertEqual( 9, self.ed.FindColumn(1, 1))	# LS[0]
+		self.assertEqual( 9, self.ed.FindColumn(1, 2))	# LS[1]
+		self.assertEqual( 9, self.ed.FindColumn(1, 3))	# LS[2]
+		self.assertEqual( 9, self.ed.FindColumn(1, 4))	# ...
+
+		self.assertEqual(12, self.ed.FindColumn(2, 0))	# z
+		self.assertEqual(13, self.ed.FindColumn(2, 1))	# \n
+		self.assertEqual(13, self.ed.FindColumn(2, 2))	# ...
+
+		self.assertEqual(14, self.ed.FindColumn(3, 0))	# a
+		self.assertEqual(15, self.ed.FindColumn(3, 1))	# end of document
+		self.assertEqual(15, self.ed.FindColumn(3, 2))	# ...
+
+		# Line beyond end
+		self.assertEqual(15, self.ed.FindColumn(4, 0))
+		self.assertEqual(15, self.ed.FindColumn(4, 1))
+
 	def testIndent(self):
 		self.assertEqual(self.ed.Indent, 0)
 		self.assertEqual(self.ed.UseTabs, 1)
@@ -385,7 +463,7 @@ class TestSimple(unittest.TestCase):
 		# Then remove U+2028 and should be just 1 lines
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
-		self.ed.SetLineEndTypesAllowed(1)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
 		self.ed.AddText(5, b"x\xe2\x80\xa8y")
 		self.assertEqual(self.ed.LineCount, 2)
 		self.assertEqual(self.ed.GetLineEndPosition(0), 1)
@@ -417,7 +495,7 @@ class TestSimple(unittest.TestCase):
 		# Into UTF-8 mode - should now be interpreting as two lines
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
-		self.ed.SetLineEndTypesAllowed(1)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
 		self.assertEqual(self.ed.LineCount, 2)
 		# Back to code page 0 and 1 line
 		self.ed.SetCodePage(0)
@@ -450,7 +528,7 @@ class TestSimple(unittest.TestCase):
 		# Add end of UTF-8 line end then insert start
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
-		self.ed.SetLineEndTypesAllowed(1)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
 		self.assertEqual(self.ed.LineCount, 1)
 		self.ed.AddText(4, b"x\x80\xa8y")
 		self.assertEqual(self.ed.LineCount, 1)
@@ -464,7 +542,7 @@ class TestSimple(unittest.TestCase):
 		# only one line after each removal of any byte in line end and 2 lines after reinsertion
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
-		self.ed.SetLineEndTypesAllowed(1)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
 		text = b"x\xe2\x80\xa9y"
 		self.ed.AddText(5, text)
 		self.assertEqual(self.ed.LineCount, 2)
@@ -489,7 +567,7 @@ class TestSimple(unittest.TestCase):
 		# Add UTF-8 line end then delete each byte causing line end to disappear
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
-		self.ed.SetLineEndTypesAllowed(1)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
 		for i in range(3):
 			self.ed.ClearAll()
 			self.ed.AddText(5, b"x\xe2\x80\xa8y")
@@ -507,7 +585,7 @@ class TestSimple(unittest.TestCase):
 		# Then remove U+0085 and should be just 1 lines
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
-		self.ed.SetLineEndTypesAllowed(1)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
 		self.ed.AddText(4, b"x\xc2\x85y")
 		self.assertEqual(self.ed.LineCount, 2)
 		self.assertEqual(self.ed.GetLineEndPosition(0), 1)
@@ -537,7 +615,7 @@ class TestSimple(unittest.TestCase):
 		# Add end of UTF-8 NEL then insert start
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
-		self.ed.SetLineEndTypesAllowed(1)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
 		self.assertEqual(self.ed.LineCount, 1)
 		self.ed.AddText(4, b"x\x85y")
 		self.assertEqual(self.ed.LineCount, 1)
@@ -551,7 +629,7 @@ class TestSimple(unittest.TestCase):
 		# only one line after each removal of any byte in line end and 2 lines after reinsertion
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
-		self.ed.SetLineEndTypesAllowed(1)
+		self.ed.SetLineEndTypesAllowed(self.ed.SC_LINE_END_TYPE_UNICODE)
 		text = b"x\xc2\x85y"
 		self.ed.AddText(4, text)
 		self.assertEqual(self.ed.LineCount, 2)
@@ -1559,7 +1637,8 @@ class TestScrolling(unittest.TestCase):
 		self.ed.ClearAll()
 		self.ed.EmptyUndoBuffer()
 		# 150 should be enough lines
-		self.ed.InsertText(0, b"a" * 150 + b"\n" * 150)
+		self.lineCount = 150
+		self.ed.InsertText(0, b"a" * self.lineCount + b"\n" * self.lineCount)
 
 	def testTop(self):
 		self.ed.GotoLine(0)
@@ -1581,6 +1660,27 @@ class TestScrolling(unittest.TestCase):
 	def testVisibleLine(self):
 		self.ed.FirstVisibleLine = 7
 		self.assertEqual(self.ed.FirstVisibleLine, 7)
+
+	def testVerticalCentre(self):
+		self.assertEqual(self.ed.LineCount, self.lineCount + 1)
+		onScreen = self.ed.LinesOnScreen()
+		self.assertTrue(onScreen > 0)
+
+		# With caret 1/3 was down document
+		self.ed.FirstVisibleLine = 7
+		lineSelect = self.lineCount // 3
+		offset = self.lineCount + lineSelect
+		self.ed.SetSelection(offset, offset)
+		self.ed.VerticalCentreCaret()
+		expectedScroll = lineSelect - onScreen / 2
+		self.assertEqual(self.ed.FirstVisibleLine, expectedScroll)
+
+		# With caret at end
+		offset = self.ed.Length
+		self.ed.SetSelection(offset, offset)
+		self.ed.VerticalCentreCaret()
+		expectedScroll = self.ed.LineCount - self.ed.LinesOnScreen()
+		self.assertEqual(self.ed.FirstVisibleLine, expectedScroll)
 
 class TestSearch(unittest.TestCase):
 
@@ -2105,6 +2205,26 @@ class TestMultiSelection(unittest.TestCase):
 		self.assertEqual(self.ed.GetSelectionNCaretVirtualSpace(0), 3)
 		self.assertEqual(self.ed.GetSelectionNStartVirtualSpace(0), 0)
 		self.assertEqual(self.ed.GetSelectionNEndVirtualSpace(0), 3)
+
+	def testDelCharVirtualSpace(self):
+		# Feature 1589 Empty virtual selection
+		self.ed.SetSelection(3, 3)
+		self.ed.SetSelectionNCaretVirtualSpace(0, 2)
+		self.ed.SetSelectionNAnchorVirtualSpace(0, 2)
+		self.assertEqual(self.ed.GetSelectionSerialized(), b'3v2')
+		self.ed.DeleteBack()
+		self.assertEqual(self.ed.GetSelectionSerialized(), b'3v1')
+
+	def testClearVirtualSpace(self):
+		# Feature 1589 Empty virtual selection
+		self.ed.SetSelection(3, 3)
+		self.ed.SetSelectionNCaretVirtualSpace(0, 2)
+		self.ed.SetSelectionNAnchorVirtualSpace(0, 2)
+		self.assertEqual(self.ed.GetSelectionSerialized(), b'3v2')
+		self.ed.Clear()
+		# Realizes the 2 virtual spaces then deletes the line end, selection now at 3+2 = 5
+		self.assertEqual(self.ed.GetSelectionSerialized(), b'5')
+		self.assertEqual(self.ed.Contents(), b"xxx  xxx\nxxx")
 
 	def testRectangularVirtualSpace(self):
 		self.ed.VirtualSpaceOptions=1

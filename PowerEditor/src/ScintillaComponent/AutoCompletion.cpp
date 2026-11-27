@@ -326,6 +326,15 @@ bool AutoCompletion::showAutoComplete(AutocompleteType autocType, bool autoInser
 	{
 		if (len >= _keyWordMaxLen)
 			return false;
+
+		// Don't let Scintilla process the whole list if no entry can match
+		std::string beginChars(len + 1, '\0');
+		_pEditView->getGenericText(beginChars.data(), len + 1, startPos, curPos);
+		const auto isMatch = [&](const std::string& kw) {
+			return _ignoreCase ? ::_strnicmp(kw.c_str(), beginChars.c_str(), len) == 0 : kw.compare(0, len, beginChars.c_str()) == 0;
+		};
+		if (std::none_of(_keyWordArray.begin(), _keyWordArray.end(), isMatch))
+			return false;
 	}
 	else
 	{

@@ -1039,6 +1039,7 @@ Translation note:
 					<Item id="6245" name="启用行尾虚拟空格"/>
 					<Item id="6214" name="启用在未选择内容时复制/剪切整行"/>
 					<Item id="6266" name="禁用选定文本拖放"/>
+					<Item id="6280" name="启用所有文档默认自动换行"/>
 					<Item id="6225" name="将自定义颜色应用于所选文本的前景色"/>
 					<Item id="6651" name="当前行指示器"/>
 					<Item id="6652" name="无"/>

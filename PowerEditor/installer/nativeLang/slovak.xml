@@ -1038,6 +1038,7 @@
 					<Item id="6245" name="Povoliť virtuálny priestor"/>
 					<Item id="6214" name="Povoliť Kopírovať/Vystrihnúť riadok bez označenia"/>
 					<Item id="6266" name="Zakázať presúvanie vybraného textu"/>
+					<Item id="6280" name="Povoliť zalamovanie riadkov predvolene pre každý dokument"/>
 					<Item id="6225" name="Použiť na vybraný text vlastnú farbu popredia"/>
 					<Item id="6651" name="Indikátor aktuálneho riadku"/>
 					<Item id="6652" name="Žiadny"/>
@@ -1645,6 +1646,7 @@ Z bezpečnostných dôvodov skontrolujte otvorený súbor shortcuts.xml. Ak je o
 			<SymlinkLoadingWarning title="Upozornenie: Načítavanie symbolických odkazov môže spôsobiť zamrznutie systému" message="Povolenie načítavania symbolických odkazov v režime Priečinok ako pracovný priestor môže spôsobiť, že sa Notepad++zacyklí a zamrzne.
 K tomu môže dôjsť, ak sa symbolické odkazy na priečinky smerujú do nadradených priečinkov alebo vytvárajú cyklické odkazy.
 Pokračujte len vtedy, ak rozumiete rizikám."/>
+			<UnPin2Sort title="Otázka na zoradenie kariet" message="Pripnuté súbory nie je možné zoradiť. Najprv odopnúť všetky pripnuté súbory?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

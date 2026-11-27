@@ -1,0 +1,36 @@
+// A curly brace inside a string literal, a char literal or a comment
+// must not hide the class and its methods from the function list.
+
+class StringLiteral
+{
+	String s = "{";
+
+	public StringLiteral()
+	{
+		s = "";
+	}
+}
+
+class CharLiteral
+{
+	char c = '{';
+
+	public CharLiteral()
+	{
+		c = 'a';
+	}
+}
+
+class Comments
+{
+	// a single { in a line comment
+	void first()
+	{
+	}
+
+	/* a single } in a block comment */
+	void second()
+	{
+		String t = "}";
+	}
+}

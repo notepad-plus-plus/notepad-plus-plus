@@ -134,9 +134,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		::GetMonitorInfo(::MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST), &mi);
 		const UINT dpi = DPIManagerV2::getDpiForWindow(_hSelf);
 		const LONG border = DPIManagerV2::getSystemMetricsForDpi(SM_CXSIZEFRAME, dpi) + DPIManagerV2::getSystemMetricsForDpi(SM_CXPADDEDBORDER, dpi);
-		const LONG iconArea = border + DPIManagerV2::getSystemMetricsForDpi(SM_CYCAPTION, dpi);
-		pt.x = std::max(mi.rcWork.left - border, std::min(pt.x, mi.rcWork.right - iconArea));
-		pt.y = std::max(mi.rcWork.top, std::min(pt.y, mi.rcWork.bottom - iconArea));
+		const LONG caption = DPIManagerV2::getSystemMetricsForDpi(SM_CYCAPTION, dpi);
+		// The icon is on the left of the title bar, or on the right with RTL layout
+		const LONG iconLeft = _notepad_plus_plus_core._nativeLangSpeaker.isRTL() ? nppGUI._appPos.right - border - caption : border;
+		pt.x = std::max(mi.rcWork.left - iconLeft, std::min(pt.x, mi.rcWork.right - iconLeft - caption));
+		pt.y = std::max(mi.rcWork.top, std::min(pt.y, mi.rcWork.bottom - border - caption));
 		::MoveWindow(_hSelf, pt.x, pt.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 	}
 	else

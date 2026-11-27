@@ -5132,20 +5132,12 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	cmdLine += L"\"";
 	cmdLine += L" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession";
 
-	if (x)
+	if (x || y) // x or y can be 0 at the screen edge
 	{
-		wchar_t pX[10]{};
-		_itow(x, pX, 10);
 		cmdLine += L" -x";
-		cmdLine += pX;
-	}
-
-	if (y)
-	{
-		wchar_t pY[10]{};
-		_itow(y, pY, 10);
+		cmdLine += to_wstring(x);
 		cmdLine += L" -y";
-		cmdLine += pY;
+		cmdLine += to_wstring(y);
 	}
 
 	LangType lt = buf->getLangType();

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 08.11.2026, basiert auf english.xml 8.9.8 vom 07.11.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 27.11.2026, basiert auf english.xml 8.9.8 vom 24.11.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1050,6 +1050,7 @@ Translation note:
 					<Item id="6245" name="Virtuellen Raum aktivieren"/>
 					<Item id="6214" name="Zeile Kopieren/Ausschneiden ohne Auswahl aktivieren"/>
 					<Item id="6266" name="Ausgewählten Text nicht per Drag &amp;&amp; Drop verschieben"/>
+					<Item id="6280" name="Zeilenumbruch standardmäßig für jedes Dokument aktivieren"/>
 					<Item id="6225" name="Benutzerdefinierte Farbe auf den gewählten Text im Vordergrund anwenden"/>
 					<Item id="6651" name="Anzeige der aktuellen Zeile"/>
 					<Item id="6652" name="Keine"/>
@@ -1657,6 +1658,7 @@ Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' durchsehen. W
 			<SymlinkLoadingWarning title="Warnung: Laden von symbolischen Links kann zum Einfrieren führen" message="Das Aktivieren des Ladens symbolischer Links in 'Ordner als Arbeitsbereich' kann dazu führen, dass Notepad++ in eine Endlosschleife gerät und einfriert.
 Dies kann geschehen, wenn symbolische Links von Verzeichnissen auf übergeordnete Ordner verweisen oder zirkuläre Verweise bilden.
 Nur fortfahren, wenn man sich dieser Risiken bewusst ist."/>
+			<UnPin2Sort title="Frage zur Tab-Sortierung" message="Angeheftete Dateien können nicht sortiert werden. Sollen zuerst alle Dateien gelöst werden?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

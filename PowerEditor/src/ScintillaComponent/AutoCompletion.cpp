@@ -671,7 +671,9 @@ void AutoCompletion::showPathCompletion()
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, static_cast<WPARAM>('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, true);
 	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, true);
-	_pEditView->showAutoCompletion(rawPath.length(), wstring2string(autoCompleteEntries, CP_UTF8));
+	_pEditView->execute(SCI_AUTOCSETORDER, SC_ORDER_CUSTOM); // the file list is not sorted the way Scintilla compares
+	_pEditView->showAutoCompletion(wstring2string(rawPath, CP_UTF8).length(), wstring2string(autoCompleteEntries, CP_UTF8));
+	_pEditView->execute(SCI_AUTOCSETORDER, SC_ORDER_PRESORTED);
 	return;
 }
 

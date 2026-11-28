@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.9.7
+    Italian translation for Notepad++ 8.9.8
     Last modified Mon, Aug 24th, 2026.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.9.7">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -980,6 +980,9 @@ Translation note:
 					<Item id="6132" name="Nascondi ＋ ▼ ✕"/>
 					<Item id="6133" name="Barra di stato"/>
 					<Item id="6134" name="Nascondi"/>
+					<Item id="7165" name="Carattere finestre di dialogo (riavvia Notepad++)"/>
+					<Item id="7166" name="&amp;Dimensione:"/>
+					<Item id="7168" name="Nome:"/>
 				</Global>
 
 				<Toolbar title="Toolbar">
@@ -1235,8 +1238,6 @@ Translation note:
 				<Searching title="Ricerca">
 					<Item id="6902" name="Usa carattere a spaziatura fissa nella finestra di ricerca (richiede il riavvio di Notepad++)"/>
 					<Item id="6903" name="La finestra di ricerca rimane aperta dopo ricerche inviate alla finestra dei risultati"/>
-					<Item id="6904" name="Chiedi conferma prima di sostituire tutto in tutti i documenti"/>
-					<Item id="6905" name="Sostituisci: senza spostamento alla corrispondenza successiva"/>
 					<Item id="6906" name="Finestra dei risultati di ricerca: mostra solo una voce per la stessa riga trovata, quando è possibile"/>
 					<Item id="6907" name="Quando viene richiamata la finestra di dialogo Trova"/>
 					<Item id="6908" name="Compila il campo di ricerca con il testo selezionato"/>
@@ -1342,7 +1343,7 @@ Translation note:
 					<Item id="7152" name="Rimuovi gli avvisi quando vengono aperti file ≥2GB"/>
 				</Performance>
 
-+				<Cloud title="Cloud e link">
+				<Cloud title="Cloud e link">
 					<Item id="6262" name="Impostazioni sul Cloud"/>
 					<Item id="6263" name="Nessun servizio Cloud"/>
 					<Item id="6267" name="Percorso della tua cartella Cloud:"/>
@@ -1406,6 +1407,7 @@ Translation note:
 					<Item id="6346" name="Anteprima sulla mappa documento"/>
 					<Item id="6360" name="Disattiva suoni"/>
 					<Item id="6361" name="Visualizza messaggio di conferma per Salva Tutto"/>
+					<Item id="6366" name="Consenti caricamento collegamenti simbolici in Cartella come Area di Lavoro"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Esegui macro più volte">
@@ -1481,6 +1483,7 @@ $STR_REPLACE$
 Il caricamento farà sì che Windows si autentichi automaticamente a quel server, esponendo potenzialmente le tue informazioni di accesso a Windows.
 Caricare comunque?"/>
 				<Item id="2" name="&amp;Salta"/>
+				<Item id="6" name="Carica sempre da questo &amp;server"/>
 				<Item id="7" name="&amp;Ignora sempre il percorso di rete"/>
 				<Item id="4" name="Carica sempre il percorso di r&amp;ete"/>
 			</NetworkPathWarning>
@@ -1594,11 +1597,11 @@ usarne un altro."/>
 			<UDLRemoveCurrentLang title="Rimuovere il linguaggio corrente" message="Rimuovere il linguaggio corrente?"/>
 			<UDL_importSuccessful title="Linguaggio definito dall'utente" message="Importazione riuscita."/>
 			<UDL_importFails title="Linguaggio definito dall'utente" message="Importazione non andata a buon fine."/>
-			<UDL_saveBeforeImport title="Linguaggio definito dall'utente" message="Prima dell'esportazione, salva la tua definizione del linguaggio cliccando su &quot;Salva con nome...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_saveBeforeImport title="Linguaggio definito dall'utente" message="Prima dell'esportazione, salva la tua definizione del linguaggio cliccando su &quot;Salva con nome...&quot;."/><!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="Linguaggio definito dall'utente" message="Esportazione riuscita."/>
 			<UDL_exportFails title="Linguaggio definito dall'utente" message="Esportazione non andata a buon fine."/>
 			<SCMapperDoDeleteOrNot title="Eliminazione scorciatoia" message="Eliminare questa scorciatoia?"/>
-			<FindCharRangeValueError title="Intervallo di valori errato" message="Inserire un valore tra 0 e 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
+			<FindCharRangeValueError title="Intervallo di valori errato" message="Inserire un valore tra 0 e 255."/><!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
 Avviare Notepad++ come amministratore?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
@@ -1636,7 +1639,7 @@ Premere il pulsante Conferma per aprire o attivare la finestra di dialogo Trova.
 Nel caso fosse necessaria la funzione di ricerca Espressione regolare a ritroso, consultare il manuale dell'utente per istruzioni su come abilitarla."/>
 			<PrintError title="0" message="Impossibile avviare la stampa del documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Avviso di ricerca" message="Il valore della casella di controllo &quot;Nella selezione&quot; è stato modificato automaticamente.
-Verificare le condizioni di ricerca prima di eseguire l'azione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+Verificare le condizioni di ricerca prima di eseguire l'azione."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Riavvio Notepad++" message="Per visualizzare le scorciatoie del menu di destra, Notepad++ deve essere riavviato."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Modifica dell'attributo di sola lettura non riuscita" message="Eseguire Notepad++ come amministratore per modificare gli attributi del file."/>
 			<ReadOnlyFileCannotBeSaved title="Salvataggio non riuscito - File di sola lettura" message="&quot;$STR_REPLACE$&quot;
@@ -1647,8 +1650,13 @@ Rimuovere la sola lettura e salvare nuovamente il file."/>
 Per motivi di sicurezza, l'integrità di shortcuts.xml verrà verificata. Per eseguire il comando personalizzato, esaminare il file shortcuts.xml aperto. Se il contenuto del file è corretto, usare &quot;Convalida shortcuts.xml&quot; dal menu per confermarlo."/>
 			<ShortcutsXmlTampered title="Avviso di sicurezza" message="Il file shortcuts.xml sembra essere stato modificato manualmente.
 
-Per motivi di sicurezza, esaminare il file shortcuts.xml aperto. Se il contenuto del file è corretto, usare &quot;Convalida shortcuts.xml&quot; dal menu per confermarlo."/>
+Per motivi di sicurezza, esaminare il file shortcuts.xml aperto. Se il contenuto del file è corretto, usare &quot;Convalida shortcuts.xml&quot; dal menu &quot;Esegui&quot; per confermarlo."/>
+
+			<SymlinkLoadingWarning title="Avviso: il caricamento dei collegamenti simbolici può causare blocchi" message="Abilitare il caricamento dei collegamenti simbolici (symlink) in Cartella come Area di Lavoro può mandare Notepad++ in un loop infinito e bloccarlo.
+Ciò può accadere quando i collegamenti simbolici delle cartelle puntano a cartelle principali o creano riferimenti circolari.
+Procedi solo se comprendi i rischi."/>
 		</MessageBox>
+
 		<ClipboardHistory>
 			<PanelTitle name="Cronologia Appunti"/>
 		</ClipboardHistory>
@@ -1948,6 +1956,9 @@ Se viene selezionata la modalità avanzata, ma non vengono modificati i file nei
 			<max-len-on-save-tip value="La lunghezza del testo inserito è molto elevata e potrebbe non essere salvata per la prossima sessione."/>
 			<goto-setting-tip value="Trova la tua impostazione qui"/>
 			<tabbar-tabcompactlabellen-tip value="Limita la lunghezza visibile dei nomi lunghi delle schede. Premi Invio per applicare il valore inserito. Intervallo di valori: 1-257 caratteri (0 disabilita il troncamento)."/>
+			<networkpathwarning-serverwhitelist-tip value="Inserisce il server del file corrente nel file serverWhiteList.xml di Notepad++.
+
+Per maggiori informazioni, fai clic su questo pulsante per aprire la sezione pertinente del Manuale Utente sul sito web."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -128,7 +128,18 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 
 	if (cmdLineParams->isPointValid())
 	{
-		::MoveWindow(_hSelf, cmdLineParams->_point.x, cmdLineParams->_point.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
+		// Keep the window icon on the screen, so that the window can still be reached
+		POINT pt = cmdLineParams->_point;
+		MONITORINFO mi{ sizeof(mi) };
+		::GetMonitorInfo(::MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST), &mi);
+		const UINT dpi = DPIManagerV2::getDpiForWindow(_hSelf);
+		const LONG border = DPIManagerV2::getSystemMetricsForDpi(SM_CXSIZEFRAME, dpi) + DPIManagerV2::getSystemMetricsForDpi(SM_CXPADDEDBORDER, dpi);
+		const LONG caption = DPIManagerV2::getSystemMetricsForDpi(SM_CYCAPTION, dpi);
+		// The icon is on the left of the title bar, or on the right with RTL layout
+		const LONG iconLeft = _notepad_plus_plus_core._nativeLangSpeaker.isRTL() ? nppGUI._appPos.right - border - caption : border;
+		pt.x = std::max(mi.rcWork.left - iconLeft, std::min(pt.x, mi.rcWork.right - iconLeft - caption));
+		pt.y = std::max(mi.rcWork.top, std::min(pt.y, mi.rcWork.bottom - border - caption));
+		::MoveWindow(_hSelf, pt.x, pt.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 	}
 	else
 	{
